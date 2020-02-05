@@ -111,6 +111,8 @@ class Dep_distance():
         """
         std_prop_adj_dep = [np.std(prop_adj) for prop_adj in self.sent_prop_adjacent_relation]
 
+        return std_prop_adj_dep
+
 
 #texts = ["Her er et par sætninger på dansk. Der er bare to. Måske er der tre, men de er ret korte",
 #        "Endnu en lille hyggesætning her, der dog er noget længere og med en lang referent. Det må jeg nok sige, sikke dog en lang sætning."]
