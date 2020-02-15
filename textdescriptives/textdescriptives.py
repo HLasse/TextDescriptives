@@ -9,8 +9,8 @@ class Textdescriptives():
         """
         texts: str/list/pd.Series containing text
         lang: str with the language code
-        category: which categories to calculate. Options are ['all', 'readability', 'basic', ..., None]
-        measures: if you only want to calculate specific measures.
+        category: which categories to calculate. Options are ['all', 'basic', 'readability', 'etymology', 'dep_distance']
+        measures: if you only want to calculate specific measures (don't use atm)
         """
 
         if not isinstance(texts, (str, list, pd.Series)):
@@ -23,9 +23,17 @@ class Textdescriptives():
         self.snlp_path = snlp_path
 
 
-        valid_categories = ['all', 'basic', 'readability', 'entropy', 'sentiment', 'etymology']
+        # Category check
+        valid_categories = ['all', 'basic', 'readability', 'entropy', 'sentiment', 'etymology', 'dep_distance']
 
-        # lav category check
+        if isinstance(category, str):
+            if category not in valid_categories:
+                print((f"{category} is not a valid category.\nValid categories are: ['all', 'basic', 'readability', 'etymology', 'dep_distance']"))
+        else:
+            for cat in category:
+                if cat not in valid_categories:
+                    print(f"{cat} is not a valid category.\nValid categories are: ['all', 'basic', 'readability', 'etymology', 'dep_distance']")
+    
 
         if category == 'all':
             self.basic()
@@ -67,7 +75,7 @@ class Textdescriptives():
     
         else:
             for measure in measures:
-                self.df[measure] = [valid_measures[measure](text) for text in self.df['Text']]          
+                self.df[measure] = [valid_measures[measure](text) for text in self.df['Text']]      
 
     def readability(self, measures = 'all'):
         """
@@ -121,7 +129,7 @@ class Textdescriptives():
         MDD is calculated on sentence level, ie. MDD is the mean of the average dependency distance pr sentence.
         Mean and standard deviation of the proportion of adjacent dependency relations pr sentence is further calculated
         """
-        dep = Dep_distance(self.texts, self.lang, self.snlp_path)
+        dep = Dep_distance(self.df['Text'], self.lang, self.snlp_path)
 
         self.df['mean_dependency_distance'] = dep.mean_dep_dist()
         self.df['std_dependency_distance'] = dep.std_dep_dist()
@@ -137,30 +145,3 @@ class Textdescriptives():
 
     def get_df(self):
         return self.df
-
-
-
-dr_test = """
-Familiemedlemmer til de sigtede var mødt op i retten, og den ene af de sigtede fik også lov til at hilse på dem og give dem knus. Samtalen skulle dog foregå på dansk, fik han at vide.
-
-De tre sigtede er alle tilknyttet bestyrelsen i den danske gren af organisationen ASMLA, der repræsenterer et iransk-arabisk mindretal i den iranske provins Khuzestan.
-
-Organisationen arbejder for, at provinsen kan blive en selvstændig arabisk stat.
-
-I retten havde de to af de tre sigtede brug for en tolk, der hjalp dem med at oversætte den danske sigtelse.
-"""
-
-
-
-test = ['Det her er en lang dansk test. Gad vide om den virker efter hensigten',
-        'Også lige en til her, ja tak ja tak. Vi tester bare lige om funktionen virker efter hensigten',
-        "Meget formelt sprogbrug, information processering computer, hvorfor finder den ikke nogen ord"]
-
-snlp_path = '/home/au554730/Desktop/CHCAA/DeepAnon/stanfordnlp_resources'
-
-t = Textdescriptives(test, 'da', 'basic', ['avg_word_length'])
-Textdescriptives(test, 'en', 'etymology').df
-t.basic('all')
-t.basic(['avg_word_length', 'median_word_length', 'fisse'])
-t.readability(['gunning_fog'])
-t.df

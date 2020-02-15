@@ -7,7 +7,7 @@ class Dep_distance():
         self.text = text
         self.lang = lang
         if snlp_path is None:
-            self.snlp_path = os.getcwd() + 'snlp_resources'
+            self.snlp_path = os.getcwd() + '/snlp_resources'
         else:
             self.snlp_path = snlp_path
 
@@ -25,7 +25,7 @@ class Dep_distance():
         dl_langs = [folder[:2] for folder in os.listdir(self.snlp_path)]
 
         if self.lang not in dl_langs:
-            stanfordnlp.download(self.lang, resource_dir=self.snlp_path, force = True)
+            stanfordnlp.download(self.lang, resource_dir=self.snlp_path)
 
     def dep_dist(self):
         """
