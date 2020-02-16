@@ -2,7 +2,7 @@
 # 5) The FORCAST formula
 # 6) Readability and newspaper readership
 
-from calculators import Calculators
+from .calculators import Calculators
 
 class Readability(Calculators):
 

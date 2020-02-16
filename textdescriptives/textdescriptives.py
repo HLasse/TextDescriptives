@@ -1,6 +1,7 @@
-from calculators import Calculators
-from readability import Readability
-from dependency_distance import Dep_distance
+from .calculators import Calculators
+from .readability import Readability
+from .dependency_distance import Dep_distance
+from .macroetym.etym import etym
 import pandas as pd
 
 
@@ -104,7 +105,6 @@ class Textdescriptives():
         Calculates emymological origins of the text using the macroetym package
         Further calculates ratio of words with Germanic to Latinate origins
         """
-        from macroetym.etym import etym
         from iso639 import languages
 
         # Macroetym uses 3 letter language codes, have to map them to iso-639
