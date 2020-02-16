@@ -2,6 +2,10 @@
 
 A Python package for calculating a large variety of statistics from text(s).
 
+## Installation
+Clone the Github directory, navigate to it in a terminal, and call
+`pip install .`
+
  ## Usage
  When instantiating the class you should specify which categories of measures you want to calculate.
  The categories to choose from are \['all', 'basic', 'readability', 'etymology', 'dep_distance']. Default is 'all'.
