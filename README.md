@@ -38,7 +38,8 @@ Currently covers:
  
  
  When instantiating the class you should specify which categories of measures you want to calculate.
- The categories to choose from are \['all', 'basic', 'readability', 'etymology', 'dep_distance']. Default is all.
+ The categories to choose from are \['all', 'basic', 'readability', 'etymology', 'dep_distance']. Default is 'all'.
+ Text input can be both a string, list of strings or Pandas series of type string. Output comes in the format of a pandas dataframe with a row for each text and a column for each measure. 
 
 ```
  from textdescriptives import Textdescriptives
@@ -61,8 +62,22 @@ If you only want a subset of the basic statistics they can be specified in the '
 Textdescriptives(test_text, language = 'en', category = 'basic', measures = ['avg_word_length', 'n_chars']).get_df()
 ```
 
-print(tabulate(t.df, tablefmt="pipe", headers="keys"))...
 |    | Text                                                                                                                                                        |   avg_word_length |   n_chars |
 |---:|:------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------:|----------:|
 |  0 | The world is changed.(...) |           3.28571 |       121 |
 
+
+### Readability
+
+The readability measures are largely derived from the [textstat][https://github.com/shivam5992/textstat] library and are more thoroughly defined there.
+
+### Etymology
+
+The etymology measures are calculated using [macroetym][https://github.com/JonathanReeve/macro-etym] only slightly rewritten to be called from a script. They are calculated since in English, a greater frequency of words with a Latinate origin tends to indicate a more formal language register. 
+
+### Dependency Distance
+
+Mean dependency distance can be used as a way of measuring the average syntactic complexity of a text.
+```
+
+```
