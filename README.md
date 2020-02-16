@@ -8,10 +8,10 @@ A Python package for calculating a large variety of statistics from text(s).
  Text input can be both a string, list of strings or Pandas series of type string. Output comes in the format of a pandas dataframe with a row for each text and a column for each measure. 
 
 ```
- from textdescriptives import Textdescriptives
+from textdescriptives import Textdescriptives
 
-#The module takes input in the following form:
-Textdescriptives(text, language, category, measures, snlp_path)
+# The module takes input in the following form:
+# Textdescriptives(text, language, category, measures, snlp_path)
 
 test_text = ['The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was                     is lost, for none now live who remember it.', 
             'He felt that his whole life was some kind of dream and he sometimes wondered whose it was and whether they were enjoying it.'] 
@@ -48,8 +48,8 @@ The etymology measures are calculated using [macroetym](https://github.com/Jonat
 Mean dependency distance can be used as a way of measuring the average syntactic complexity of a text. Requres the `snlp` library.
 
 ```
-If you have already downloaded snlp language resources you can specify the path.
-Otherwise, they will be downloaded
+# If you have already downloaded snlp language resources you can specify the path.
+# Otherwise, they will be downloaded
 
 snlp_path = path/to/snlp_resources
 
@@ -96,4 +96,3 @@ Measures currently implemented:
  4. Dependency distance meaures:
   * Mean dependency distance, sentence level (mean, standard deviation)
   * Mean proportion adjacent dependency relations, sentence level (mean, standard devaiation)
-  
