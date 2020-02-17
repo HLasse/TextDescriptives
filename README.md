@@ -62,7 +62,7 @@ Textdescriptives(test_text, 'en', 'dep_distance', snlp_path = snlp_path).get_df(
 
 ## Dependencies
 Depending on which measures you want to calculate, the dependencies differ.
- * Basic and readability: numpy, pandas, pyphen
+ * Basic and readability: numpy, pandas, pyphen, pycountry
  * Etymology: nltk and the following models 
 `python3 -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('averaged_perceptron_tagger'); nltk.download('wordnet')"`
  * Depedency distance: snlp
