@@ -2,16 +2,20 @@
 
 A Python package for calculating a large variety of statistics from text(s).
 
+## Installation
+Clone the Github directory, navigate to it in a terminal, and call
+`pip install .`
+
  ## Usage
  When instantiating the class you should specify which categories of measures you want to calculate.
  The categories to choose from are \['all', 'basic', 'readability', 'etymology', 'dep_distance']. Default is 'all'.
  Text input can be both a string, list of strings or Pandas series of type string. Output comes in the format of a pandas dataframe with a row for each text and a column for each measure. 
 
 ```
- from textdescriptives import Textdescriptives
+from textdescriptives import Textdescriptives
 
-#The module takes input in the following form:
-Textdescriptives(text, language, category, measures, snlp_path)
+# The module takes input in the following form:
+# Textdescriptives(text, language, category, measures, snlp_path)
 
 test_text = ['The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was                     is lost, for none now live who remember it.', 
             'He felt that his whole life was some kind of dream and he sometimes wondered whose it was and whether they were enjoying it.'] 
@@ -48,8 +52,8 @@ The etymology measures are calculated using [macroetym](https://github.com/Jonat
 Mean dependency distance can be used as a way of measuring the average syntactic complexity of a text. Requres the `snlp` library.
 
 ```
-If you have already downloaded snlp language resources you can specify the path.
-Otherwise, they will be downloaded
+# If you have already downloaded snlp language resources you can specify the path.
+# Otherwise, they will be downloaded
 
 snlp_path = path/to/snlp_resources
 
@@ -58,7 +62,7 @@ Textdescriptives(test_text, 'en', 'dep_distance', snlp_path = snlp_path).get_df(
 
 ## Dependencies
 Depending on which measures you want to calculate, the dependencies differ.
- * Basic and readability: numpy, pandas, pyphen
+ * Basic and readability: numpy, pandas, pyphen, pycountry
  * Etymology: nltk and the following models 
 `python3 -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('averaged_perceptron_tagger'); nltk.download('wordnet')"`
  * Depedency distance: snlp
@@ -96,4 +100,3 @@ Measures currently implemented:
  4. Dependency distance meaures:
   * Mean dependency distance, sentence level (mean, standard deviation)
   * Mean proportion adjacent dependency relations, sentence level (mean, standard devaiation)
-  
