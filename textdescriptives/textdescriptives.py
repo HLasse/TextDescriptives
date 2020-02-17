@@ -1,7 +1,7 @@
 from .calculators import Calculators
 from .readability import Readability
 from .dependency_distance import Dep_distance
-from .macroetym.etym import etym
+from .macroetym.etym import Etym
 import pandas as pd
 
 
@@ -110,7 +110,7 @@ class Textdescriptives():
         # Macroetym uses 3 letter language codes, have to map them to iso-639
         lan = languages.get(part1 = self.lang).part3
 
-        etym_df = etym(self.df['Text'], lang = lan).T
+        etym_df = Etym(self.df['Text'], lang = lan).T
         etym_df = etym_df.reset_index().rename({'index' : 'Text'}, axis = 1)
         
         self.etym_df = etym_df

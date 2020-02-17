@@ -9,9 +9,9 @@ from pycountry import languages            # to look up ISO language codes
 from nltk.corpus import stopwords          # to remove unnecessary words
 from nltk.corpus import wordnet
 import pandas as pd                        # for pretty charts
-import matplotlib                          # also for pretty charts
+#import matplotlib                          # also for pretty charts
 #matplotlib.style.use('ggplot')             # make the charts look nicer
-import click                               # make it a command-line program
+#import click                               # make it a command-line program
 import codecs
 import logging                             # to log messages
 from pkg_resources import resource_filename
@@ -349,45 +349,22 @@ class Text():
         print(df.to_csv())
 
 
-def etym(filenames, allstats = False, lang = 'eng', showfamilies = False, affixes = False,
-        current = False, csv = False, chart = False, verbose = False):
+def Etym(filenames, allstats = False, lang = 'eng'):
     """
     Analyzes a text(s) for the etymologies of its words, and tallies the words
     by origin language, and origin language family.
     """
     single = len(filenames) == 1
-    ignoreAffixes = not affixes
-    ignoreCurrent = not current
+    ignoreCurrent = True
+    ignoreAffixes = True
     cumulativeStats = {}
     cumulativeAllStats = {}
 
-    if verbose:
-        logging.basicConfig(level=logging.DEBUG)
-
+    
     for filename in filenames:
-        if filename.endswith('.txt'):
-            with codecs.open(filename, "r",encoding='utf-8', errors='ignore') as fdata:
-                text = fdata.read()
-        else:
-            text = filename
+        text = filename
 
         t = Text(text, lang, ignoreAffixes, ignoreCurrent)
-
-        if single and allstats and csv:
-            t.printCSVStats(filename)
-        elif single and allstats:
-            t.printPrettyStats(filename)
-
-        if chart and single:
-            s = pd.Series(t.familyStats())
-            if showfamilies:
-                famlist = showfamilies.split(',')
-                s = s.loc[famlist]
-            ax = s.plot(kind='pie', figsize=(6,6))
-            ax.set_ylabel('') # Don't write the series name "None" on the left.
-            fig = ax.get_figure()
-            fig.savefig('chart.png')
-            print('Chart saved as chart.png.')
 
         cumulativeStats[filename] = t.familyStats(pad=single)
         cumulativeAllStats[filename] = t.prettyStats
@@ -398,25 +375,8 @@ def etym(filenames, allstats = False, lang = 'eng', showfamilies = False, affixe
     dfAll = pd.DataFrame(cumulativeAllStats)
     dfAll = dfAll.fillna(0)
 
-    if chart and not single:
-        ax = df.plot(kind='bar', figsize=(6,6))
-        fig = ax.get_figure()
-        fig.tight_layout()
-        fig.savefig('chart.png')
-        print('Chart saved as chart.png.')
-
-    if showfamilies:
-        famlist = showfamilies.split(',')
-        df = df.loc[famlist]
-
     if not allstats:
-        if csv:
-            print(df.to_csv())
-        else:
-            return df
+        return df
     else:
-        if csv:
-            print(dfAll.to_csv())
-        else:
-            return dfAll
+        return dfAll
 

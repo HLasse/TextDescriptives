@@ -9,5 +9,6 @@ setup(name='textdescriptives',
       license='MIT',
       packages=['textdescriptives'],
       install_requires=['pandas','numpy'],
-      zip_safe=False)
+      zip_safe=False,
+      include_package_data=True)
 
