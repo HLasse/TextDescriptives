@@ -1,39 +1,34 @@
 """
-Tests/how to use
+How to use
+TODO tests
 """
-from textdescriptives import Textdescriptives
 import pandas as pd
 
-# Create a test input
+import textdescriptives
 
-# Can be either a string, list of strings, or pandas Series 
-en_test = ['Taylor, why did you tackle me there? You utter muppet',
-           'The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.']
+# Input can be either a string, list of strings, or pandas Series 
+en_test = ['The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.',
+            'He felt that his whole life was some kind of dream and he sometimes wondered whose it was and whether they were enjoying it.']
 
-# At moment, the package supports these categories:
-# ['all', 'basic', 'readability', 'etymology', 'dep_distance']
+# If you want to calculate all measures at once
+textdescriptives.all_metrics(en_test, lang = 'en', snlp_path = snlp_path)
 
-# If you want to get measures of dependency distance, you will need snlp
-# you can set your path to stanford nlp resources, otherwise the function will download it to your
-# working directory/stanfordnlp_resources
+# Otherwise, the following calculates one category at a time
+textdescriptives.basic_stats(en_test, lang = 'en')
+textdescriptives.readability(en_test, lang = 'en')
+textdescriptives.etymology(en_test, lang = 'en')
+# Dependency distance uses stanfordnlp, and thus requires snlp language resources
+# If you already have them downloaded, you can specify the folder path
+# Otherwise, they will be downloaded
 snlp_path = '/path/to/stanfordnlp_resources'    
-snlp_path = '/home/au554730/Desktop/CHCAA/DeepAnon/stanfordnlp_resources'
+textdescriptives.dependency_distance(en_test, lang = 'en', snlp_path = snlp_path)
 
-# Simply instantiate the class with the categories you want to calculate measures for
-t = Textdescriptives(en_test, 'en', 'all', snlp_path = snlp_path)
-t = Textdescriptives(en_test, 'en', 'basic')
-t = Textdescriptives(en_test, 'en', 'etymology')
-t = Textdescriptives(en_test, 'en', 'readability')
-t = Textdescriptives(en_test, 'en', 'dep_distance', snlp_path=snlp_path)
-# .. and so on
+# Textdescriptives works for most languages. Simply change the country code     
+da_test = pd.Series(['Da jeg var atten, tog jeg patent på ild. Det skulle senere vise sig at blive en meget indbringende forretning',
+            "Spis skovsneglen, Mulle. Du vil jo gerne være med i hulen, ikk'?"])
 
-# Get dataframe
-t.get_df()
+textdescriptives.all_metrics(da_test, 'da', snlp_path=snlp_path)
 
-# Works for most languages. Simply change the country code     
-da_test = pd.Series(['Jeg ville gerne skrive noget dybt, men jeg er tom for ideer',
-            'Forestil dig, det her er er utrolig klogt og velformuleret. Det er svært, jeg ved det'])
 
-t = Textdescriptives(da_test, 'da', 'basic')
-t = Textdescriptives(da_test, 'da', 'dep_distance', snlp_path=snlp_path)
-t.get_df()
+# If you want to calculate a subset of the basic statistics they can be specified in the measures paratmer
+textdescriptives.basic_stats(en_test, lang = 'en', metrics=['avg_word_length', 'avg_sentence_length'])

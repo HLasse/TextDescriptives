@@ -1,1 +1,1 @@
-from .textdescriptives import Textdescriptives
+from .textdescriptives import all_measures, basic_stats, readability, etymology, dependency_distance

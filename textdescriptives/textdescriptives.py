@@ -4,7 +4,6 @@ from .dependency_distance import Dep_distance
 from .macroetym.etym import Etym
 import pandas as pd
 
-
 class Textdescriptives():
     def __init__(self, texts, lang = 'da', category = 'all', measures = 'all', snlp_path = None):
         """
@@ -145,3 +144,48 @@ class Textdescriptives():
 
     def get_df(self):
         return self.df
+
+
+def all_metrics(texts, lang = 'en', snlp_path = None):
+    """
+    Calculates all implemented statistical metrics
+    text: str/list/pd.Series of strings
+    lang: two character language code, e.g. 'en', 'da'
+    snlp_path: string, path to stanfordnlp_resources
+    """
+    return Textdescriptives(texts, lang, 'all', snlp_path = snlp_path).df
+
+def basic_stats(texts, lang = 'en', metrics = 'all'):
+    """
+    Calculates standard descriptive statistics
+    text: str/list/pd.Series of strings
+    lang: string, two character language code
+    measures: string/list of strings, which measures to calculate
+    """
+    return Textdescriptives(texts, lang, 'basic', measures = metrics).df
+
+def readability(texts, lang = 'en', measures = 'all'):
+    """
+    Calculates readability metrics
+    texts: str/list/pd.Series of strings
+    lang: string, two character language code
+    measures: string/list of strings, which measures to calculate
+    """
+    return Textdescriptives(texts, lang, 'readability', measures = measures).df
+
+def etymology(texts, lang = 'en'):
+    """
+    Calculates measures related to etymology
+    texts: str/list/pd.Series of strings
+    lang: string, two character language code
+    """
+    return Textdescriptives(texts, lang, 'etymology').df
+
+def dependency_distance(texts, lang = 'en', snlp_path = None):
+    """
+    Calculates measures related to etymology
+    texts: str/list/pd.Series of strings
+    lang: string, two character language code
+    snlp_path: string, path to stanfordnlp_resources
+    """
+    return Textdescriptives(texts, lang, 'dep_distance', snlp_path = snlp_path).df
