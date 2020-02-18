@@ -26,10 +26,10 @@ textdescriptives.all_metrics(en_test, lang = 'en', snlp_path = snlp_path)
 
 To calculate one category at a time:
 ```
-textdescriptives.basic_stats(en_test, lang = 'en')
-textdescriptives.readability(en_test, lang = 'en')
-textdescriptives.etymology(en_test, lang = 'en')
-textdescriptives.dependency_distance(en_test, lang = 'en', snlp_path = snlp_path)
+textdescriptives.basic_stats(texts, lang = 'en', metrics = 'all')
+textdescriptives.readability(texts, lang = 'en')
+textdescriptives.etymology(texts, lang = 'en')
+textdescriptives.dependency_distance(texsts, lang = 'en', snlp_path = None)
 ```
 Textdescriptives works for most languages, simply change the country code:
 ```
@@ -43,7 +43,6 @@ If you only want a subset of the basic statistics
 ```
 textdescriptives.basic_stats(en_test, lang = 'en', metrics=['avg_word_length', 'n_chars'])
 ```
-
 |    | Text                                                                                                                                                        |   avg_word_length |   n_chars |
 |---:|:------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------:|----------:|
 |  0 | The world is changed.(...) |           3.28571 |       121 |
@@ -54,11 +53,9 @@ textdescriptives.basic_stats(en_test, lang = 'en', metrics=['avg_word_length', '
 The readability measures are largely derived from the [textstat](https://github.com/shivam5992/textstat) library and are thoroughly defined there.
 
 ### Etymology
-
 The etymology measures are calculated using [macroetym](https://github.com/JonathanReeve/macro-etym) only slightly rewritten to be called from a script. They are calculated since in English, a greater frequency of words with a Latinate origin tends to indicate a more formal language register. 
 
 ### Dependency Distance
-
 Mean dependency distance can be used as a way of measuring the average syntactic complexity of a text. Requres the `snlp` library. 
 The dependency distance function requires stanfordnlp, and their language models. If you have already downloaded these models, the path to the folder can be specified in the snlp_path paramter. Otherwise, the models will be downloaded to your working directory + /snlp_resources.
 
@@ -103,3 +100,6 @@ Metrics currently implemented:
  4. Dependency distance metrics:
   * Mean dependency distance, sentence level (mean, standard deviation)
   * Mean proportion adjacent dependency relations, sentence level (mean, standard devaiation)
+  
+  
+  Developed by Lasse Hansen at the [Center for Humanities Computing Aarhus](chcaa.io)
