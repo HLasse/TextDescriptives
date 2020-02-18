@@ -26,7 +26,6 @@ textdescriptives.all_metrics(en_test, lang = 'en', snlp_path = snlp_path)
 
 To calculate one category at a time:
 ```
-# Otherwise, the following calculates one category at a time
 textdescriptives.basic_stats(en_test, lang = 'en')
 textdescriptives.readability(en_test, lang = 'en')
 textdescriptives.etymology(en_test, lang = 'en')
@@ -34,8 +33,6 @@ textdescriptives.dependency_distance(en_test, lang = 'en', snlp_path = snlp_path
 ```
 Textdescriptives works for most languages, simply change the country code:
 ```
-
-# Textdescriptives works for most languages. Simply change the country code     
 da_test = pd.Series(['Da jeg var atten, tog jeg patent på ild. Det skulle senere vise sig at blive en meget indbringende forretning',
             "Spis skovsneglen, Mulle. Du vil jo gerne være med i hulen, ikk'?"])
 
@@ -44,7 +41,6 @@ textdescriptives.all_metrics(da_test, lang = 'da', snlp_path=snlp_path)
 
 If you only want a subset of the basic statistics
 ```
-# If you want to calculate a subset of the basic statistics they can be specified in the measures parameter
 textdescriptives.basic_stats(en_test, lang = 'en', metrics=['avg_word_length', 'n_chars'])
 ```
 
