@@ -9,7 +9,7 @@ Clone the Github directory, navigate to it in a terminal, and call
  ## Usage
  
 To calculate all possible metrics:
-```
+```py
 import textdescriptives
 
 # Input can be either a string, list of strings, or pandas Series 
