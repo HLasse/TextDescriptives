@@ -57,17 +57,29 @@ class Textdescriptives():
         """
         basic_calc = Calculators(lang = self.lang)
 
-        valid_measures = {'avg_word_length' : basic_calc.avg_word_length, 'median_word_length' : basic_calc.median_word_length,
-                          'std_word_length' : basic_calc.std_word_length, 'avg_sentence_length' : basic_calc.avg_sentence_length, 
+        valid_measures = {'mean_word_length' : basic_calc.avg_word_length, 'median_word_length' : basic_calc.median_word_length,
+                          'std_word_length' : basic_calc.std_word_length, 'mean_sentence_length' : basic_calc.avg_sentence_length, 
                           'median_sentence_length' : basic_calc.median_sentence_length, 'std_sentence_length' : basic_calc.std_sentence_length,
-                          'avg_syl_per_word' : basic_calc.avg_syl_per_word, 'median_syl_per_word' : basic_calc.median_syl_per_word, 
+                          'mean_syl_per_word' : basic_calc.avg_syl_per_word, 'median_syl_per_word' : basic_calc.median_syl_per_word, 
                           'std_syl_per_word' : basic_calc.std_syl_per_word, 'type_token_ratio' : basic_calc.type_token_ratio, 
-                          'lix' : basic_calc.lix, 'rix' : basic_calc.rix, 'n_types' : basic_calc.n_types,
-                          'n_sentences' : basic_calc.n_sentences, 'n_tokens' : basic_calc.n_tokens, 'n_chars' : basic_calc.n_chars
+                          'n_chars' : basic_calc.n_chars, 'n_sentences' : basic_calc.n_sentences, 
+                          'n_types' : basic_calc.n_types,  'n_tokens' : basic_calc.n_tokens
                           }
         
+
+        only_mean = {'mean_word_length' : basic_calc.avg_word_length, 'mean_sentence_length' : basic_calc.avg_sentence_length, 
+                          'mean_syl_per_word' : basic_calc.avg_syl_per_word, 'type_token_ratio' : basic_calc.type_token_ratio, 
+                          'n_chars' : basic_calc.n_chars, 'n_sentences' : basic_calc.n_sentences, 
+                          'n_types' : basic_calc.n_types,  'n_tokens' : basic_calc.n_tokens
+                          }
+
+
         if measures == 'all':
             for measure, func in valid_measures.items():
+                self.df[measure] = [func(text) for text in self.df['Text']]
+
+        elif measures == 'only_mean':
+            for measure, func in only_mean.items():
                 self.df[measure] = [func(text) for text in self.df['Text']]
 
         elif not (set(measures).issubset(set(valid_measures.keys()))):
@@ -82,10 +94,12 @@ class Textdescriptives():
         Calculates readability scores
         """
         read = Readability(lang = self.lang)
+        basic_calc = Calculators(lang = self.lang)
 
         valid_measures = {'gunning_fog' : read.gunning_fog, 'smog' : read.smog,
                           'flesch_reading_ease' : read.flesch_reading_ease, 'flesch_kincaid_grade' : read.flesch_kincaid_grade,
                           'automated_readability_index' : read.automated_readability_index, 'coleman_liau_index' : read.coleman_liau_index,
+                          'lix' : basic_calc.lix, 'rix' : basic_calc.rix
                           }
 
         if measures == 'all':
@@ -164,14 +178,14 @@ def basic_stats(texts, lang = 'en', metrics = 'all'):
     """
     return Textdescriptives(texts, lang, 'basic', measures = metrics).df
 
-def readability(texts, lang = 'en', measures = 'all'):
+def readability(texts, lang = 'en', metrics = 'all'):
     """
     Calculates readability metrics
     texts: str/list/pd.Series of strings
     lang: string, two character language code
     measures: string/list of strings, which measures to calculate
     """
-    return Textdescriptives(texts, lang, 'readability', measures = measures).df
+    return Textdescriptives(texts, lang, 'readability', measures = metrics).df
 
 def etymology(texts, lang = 'en'):
     """
