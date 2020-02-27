@@ -65,7 +65,7 @@ Depending on which measures you want to calculate, the dependencies differ.
  * Basic and readability: numpy, pandas, pyphen, pycountry
  * Etymology: nltk and the following models 
 `python3 -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('averaged_perceptron_tagger'); nltk.download('wordnet')"`
- * Depedency distance: snlp
+ * Dependency distance: snlp
 
 
 ## Metrics
