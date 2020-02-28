@@ -16,6 +16,8 @@ import textdescriptives
 en_test = ['The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.',
             'He felt that his whole life was some kind of dream and he sometimes wondered whose it was and whether they were enjoying it.']
 
+snlp_path = path/to/snlp_resources
+
 textdescriptives.all_metrics(en_test, lang = 'en', snlp_path = snlp_path)
 ```
 |    | Text                                                                                                                                                        |   avg_word_length |   median_word_length |   std_word_length |   avg_sentence_length |   median_sentence_length |   std_sentence_length |   avg_syl_per_word |   median_syl_per_word |   std_syl_per_word |   type_token_ratio |     lix |   rix |   n_types |   n_sentences |   n_tokens |   n_chars |   gunning_fog |    smog |   flesch_reading_ease |   flesch_kincaid_grade |   automated_readability_index |   coleman_liau_index |   Germanic |   Latinate |   Latinate/Germanic |   mean_dependency_distance |   std_dependency_distance |   mean_prop_adjacent_dependency_relation |   std_prop_adjacent_dependency_relation |
