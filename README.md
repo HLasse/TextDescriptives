@@ -3,8 +3,7 @@
 A Python package for calculating a large variety of statistics from text(s).
 
 ## Installation
-Clone the Github directory, navigate to it in a terminal, and call
-`pip install .`
+`pip install textdescriptives`
 
  ## Usage
  
