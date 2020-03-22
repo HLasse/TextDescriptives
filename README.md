@@ -105,4 +105,4 @@ Metrics currently implemented:
   
   Developed by Lasse Hansen at the [Center for Humanities Computing Aarhus](chcaa.io)
   Collaborators:
-  *  Ludvig Renbo Olsen (@ludvigolsen)
+  *  Ludvig Renbo Olsen ([@ludvigolsen]( https://github.com/ludvigolsen ), [ludvigolsen.dk]( http://ludvigolsen.dk ))
