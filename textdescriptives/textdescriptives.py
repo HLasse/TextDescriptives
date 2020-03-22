@@ -5,20 +5,35 @@ from .macroetym.etym import Etym
 import pandas as pd
 
 class TextDescriptives():
-    def __init__(self, texts, lang = 'da', category = 'all', measures = 'all', snlp_path = None):
+    def __init__(self, texts, token_dfs = None, lang = 'da', category = 'all', measures = 'all', snlp_path = None):
         """
         texts: str/list/pd.Series containing text
+        token_dfs: list of pd.DataFrame objects. (optional)
+          Each data frame must contain these columns:
+            "sentence_id" : The index of the sentence in the text.
+            "token_position" : The position of the token in the sentence.
+            "token" : The token.
+            "pos" : The POS tag of the token.
+            "governor": The governor from dependency parsing. (Only required when running 'dep_distance' category).
+            "dep_rel": Dependency relation from dependency parsing. (Only required when running 'dep_distance' category).
         lang: str with the language code
         category: which categories to calculate. Options are ['all', 'basic', 'readability', 'etymology', 'dep_distance']
         measures: if you only want to calculate specific measures (don't use atm)
         """
 
         if not isinstance(texts, (str, list, pd.Series)):
-            raise TypeError(f"'texts' should be string, list, or pandas.Series, not {type(texts)}")
+            raise TypeError(f"'texts' should be string, list, or pandas.Series, not {type(texts)}.")
+
+        if token_dfs is not None:
+            if not isinstance(token_dfs, list): 
+                raise TypeError(f"'token_dfs' should be list of pandas.DataFrame objects, not {type(token_dfs)}.")
+            if not isinstance(token_dfs[0], pd.DataFrame):
+                raise TypeError(f"'token_dfs' should be list of pandas.DataFrame objects, not list of {type(token_dfs[0])}.")
 
         if isinstance(texts, str):
             texts = [texts]
         self.df = pd.DataFrame(texts, columns = ['Text'])
+        self.token_dfs = token_dfs
         self.lang = lang
         self.snlp_path = snlp_path
 
@@ -52,49 +67,8 @@ class TextDescriptives():
         Calculates simple descriptive statistics
         """
         basic_calc = Calculators(lang = self.lang)
-
-        valid_measures = {
-            'mean_word_length' : basic_calc.avg_word_length, 
-            'median_word_length' : basic_calc.median_word_length,
-            'std_word_length' : basic_calc.std_word_length, 
-            'mean_sentence_length' : basic_calc.avg_sentence_length, 
-            'median_sentence_length' : basic_calc.median_sentence_length, 
-            'std_sentence_length' : basic_calc.std_sentence_length,
-            'mean_syl_per_word' : basic_calc.avg_syl_per_word, 
-            'median_syl_per_word' : basic_calc.median_syl_per_word, 
-            'std_syl_per_word' : basic_calc.std_syl_per_word, 
-            'type_token_ratio' : basic_calc.type_token_ratio, 
-            'n_chars' : basic_calc.n_chars, 
-            'n_sentences' : basic_calc.n_sentences, 
-            'n_types' : basic_calc.n_types,  
-            'n_tokens' : basic_calc.n_tokens
-        }
-        
-        only_mean = {
-            'mean_word_length' : basic_calc.avg_word_length, 
-            'mean_sentence_length' : basic_calc.avg_sentence_length, 
-            'mean_syl_per_word' : basic_calc.avg_syl_per_word, 
-            'type_token_ratio' : basic_calc.type_token_ratio, 
-            'n_chars' : basic_calc.n_chars,
-            'n_sentences' : basic_calc.n_sentences, 
-            'n_types' : basic_calc.n_types,
-            'n_tokens' : basic_calc.n_tokens
-        }
-
-        if measures == 'all':
-            for measure, func in valid_measures.items():
-                self.df[measure] = [func(text) for text in self.df['Text']]
-
-        elif measures == 'only_mean':
-            for measure, func in only_mean.items():
-                self.df[measure] = [func(text) for text in self.df['Text']]
-
-        elif not (set(measures).issubset(set(valid_measures.keys()))):
-            raise ValueError("Invalid measures provided to self.basic")
-    
-        else:
-            for measure in measures:
-                self.df[measure] = [valid_measures[measure](text) for text in self.df['Text']]      
+        calculated_metrics = basic_calc.calculate_metrics(texts = self.df['Text'], metrics = measures)
+        self.df = pd.concat([self.df, calculated_metrics], axis = 1)
 
     def readability(self, measures = 'all'):
         """
@@ -173,7 +147,7 @@ def all_metrics(texts, lang = 'en', snlp_path = None):
     lang: two character language code, e.g. 'en', 'da'
     snlp_path: string, path to stanfordnlp_resources
     """
-    return TextDescriptives(texts, lang, 'all', snlp_path = snlp_path).df
+    return TextDescriptives(texts, lang = lang, category = 'all', snlp_path = snlp_path).df
 
 def basic_stats(texts, lang = 'en', metrics = 'all'):
     """
@@ -182,7 +156,7 @@ def basic_stats(texts, lang = 'en', metrics = 'all'):
     lang: string, two character language code
     measures: string/list of strings, which measures to calculate
     """
-    return TextDescriptives(texts, lang, 'basic', measures = metrics).df
+    return TextDescriptives(texts, lang = lang, category = 'basic', measures = metrics).df
 
 def readability(texts, lang = 'en', metrics = 'all'):
     """
@@ -191,7 +165,7 @@ def readability(texts, lang = 'en', metrics = 'all'):
     lang: string, two character language code
     measures: string/list of strings, which measures to calculate
     """
-    return TextDescriptives(texts, lang, 'readability', measures = metrics).df
+    return TextDescriptives(texts, lang = lang, category = 'readability', measures = metrics).df
 
 def etymology(texts, lang = 'en'):
     """
@@ -199,7 +173,7 @@ def etymology(texts, lang = 'en'):
     texts: str/list/pd.Series of strings
     lang: string, two character language code
     """
-    return TextDescriptives(texts, lang, 'etymology').df
+    return TextDescriptives(texts, lang = lang, category = 'etymology').df
 
 def dependency_distance(texts, lang = 'en', snlp_path = None):
     """
@@ -208,4 +182,4 @@ def dependency_distance(texts, lang = 'en', snlp_path = None):
     lang: string, two character language code
     snlp_path: string, path to stanfordnlp_resources
     """
-    return TextDescriptives(texts, lang, 'dep_distance', snlp_path = snlp_path).df
+    return TextDescriptives(texts, lang = lang, category = 'dep_distance', snlp_path = snlp_path).df
