@@ -143,7 +143,7 @@ class TextDescriptives():
         Mean and standard deviation of the proportion of adjacent dependency relations pr sentence is further calculated
         """
         dep = DepDistance(self.df['Text'], self.lang, self.snlp_path)
-        self.df = pd.concat([self.df, dep.text_distances], axis = 1)
+        self.df = pd.concat([self.df, dep.get_text_distances()], axis = 1)
     
     def entropy(self):
         pass

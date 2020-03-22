@@ -15,6 +15,12 @@ class DepDistance():
         self.__dep_dist()
         self.__describe_distances()
 
+    def get_sentence_distances(self):
+        return self.__sentence_distances
+
+    def get_text_distances(self):
+        return self.__text_distances
+
     def __dl_missing_langs_snlp(self):
         """
         Downloads any missing languages from Stanford NLP resources
@@ -75,9 +81,11 @@ class DepDistance():
             res["text_id"] = txt_id
             return res
 
-        self.sentence_distances = pd.concat([calc_for_text(txt, txt_id) for txt_id, txt in enumerate(self.text)])
+        self.__sentence_distances = pd.concat(
+            [calc_for_text(txt, txt_id) \
+                for txt_id, txt in enumerate(self.text)]
+            )
         
-
     def __describe_distances(self):
         """
         Calculates: 
@@ -99,8 +107,11 @@ class DepDistance():
                 "std_prop_adjacent_dependency_relation" : std_prop_adj_dep
             }, index=[0])
 
-        self.text_distances = self.sentence_distances.groupby("text_id").apply(
+        self.__text_distances = self.__sentence_distances.groupby("text_id").apply(
             summarizer).reset_index(drop=True)
+
+
+
 
 #texts = ["Her er et par sætninger på dansk. Der er bare to. Måske er der tre, men de er ret korte",
 #        "Endnu en lille hyggesætning her, der dog er noget længere og med en lang referent. Det må jeg nok sige, sikke dog en lang sætning."]
