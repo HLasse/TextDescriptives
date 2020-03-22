@@ -11,5 +11,7 @@ stanfordnlp_resources/*
 stanfordnlp_resources
 snlp_resources/*
 snlp_resources
+stanza_resources/*
+stanza_resources
 
 test_textdescriptives.py
