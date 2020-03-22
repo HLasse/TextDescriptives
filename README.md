@@ -82,8 +82,6 @@ Metrics currently implemented:
   * Number of types (unique words)
   * Number of tokens (total words)
   * Type/toḱen ratio
-  * Lix
-  * Rix
 
 2. Readability metrics:
   * Gunning-Fog
@@ -92,6 +90,8 @@ Metrics currently implemented:
   * Flesch-Kincaid grade
   * Automated readability index
   * Coleman-Liau index
+  * Lix
+  * Rix
   
  3. Etymology-related metrics:
   * Percentage words with Germanic origin
@@ -104,3 +104,5 @@ Metrics currently implemented:
   
   
   Developed by Lasse Hansen at the [Center for Humanities Computing Aarhus](chcaa.io)
+  Collaborators:
+  *  Ludvig Renbo Olsen (@ludvigolsen)
