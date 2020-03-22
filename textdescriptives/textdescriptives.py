@@ -16,7 +16,7 @@ class TextDescriptives():
         if not isinstance(texts, (str, list, pd.Series)):
             raise TypeError(f"'texts' should be string, list, or pandas.Series, not {type(texts)}.")
 
-        # """
+        # """ TODO Consider adding token dfs
         # token_dfs: list of pd.DataFrame objects. (optional)
         #   Each data frame must contain these columns:
         #     "sentence_id" : The index of the sentence in the text.
