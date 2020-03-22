@@ -102,7 +102,10 @@ Metrics currently implemented:
   * Mean dependency distance, sentence level (mean, standard deviation)
   * Mean proportion adjacent dependency relations, sentence level (mean, standard devaiation)
   
-  
+  ## Authors
+
   Developed by Lasse Hansen at the [Center for Humanities Computing Aarhus](chcaa.io)
+
   Collaborators:
+
   *  Ludvig Renbo Olsen ([@ludvigolsen]( https://github.com/ludvigolsen ), [ludvigolsen.dk]( http://ludvigolsen.dk ))
