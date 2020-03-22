@@ -1,21 +1,13 @@
-from .calculators import Calculators
+from .calculator import Calculator
 from .readability import Readability
 from .dependency_distance import DepDistance
 from .macroetym.etym import Etym
 import pandas as pd
 
 class TextDescriptives():
-    def __init__(self, texts, token_dfs = None, lang = 'da', category = 'all', measures = 'all', snlp_path = None):
+    def __init__(self, texts, lang = 'da', category = 'all', measures = 'all', snlp_path = None):
         """
         texts: str/list/pd.Series containing text
-        token_dfs: list of pd.DataFrame objects. (optional)
-          Each data frame must contain these columns:
-            "sentence_id" : The index of the sentence in the text.
-            "token_position" : The position of the token in the sentence.
-            "token" : The token.
-            "pos" : The POS tag of the token.
-            "governor": The governor from dependency parsing. (Only required when running 'dep_distance' category).
-            "dep_rel": Dependency relation from dependency parsing. (Only required when running 'dep_distance' category).
         lang: str with the language code
         category: which categories to calculate. Options are ['all', 'basic', 'readability', 'etymology', 'dep_distance']
         measures: if you only want to calculate specific measures (don't use atm)
@@ -24,16 +16,26 @@ class TextDescriptives():
         if not isinstance(texts, (str, list, pd.Series)):
             raise TypeError(f"'texts' should be string, list, or pandas.Series, not {type(texts)}.")
 
-        if token_dfs is not None:
-            if not isinstance(token_dfs, list): 
-                raise TypeError(f"'token_dfs' should be list of pandas.DataFrame objects, not {type(token_dfs)}.")
-            if not isinstance(token_dfs[0], pd.DataFrame):
-                raise TypeError(f"'token_dfs' should be list of pandas.DataFrame objects, not list of {type(token_dfs[0])}.")
+        # """
+        # token_dfs: list of pd.DataFrame objects. (optional)
+        #   Each data frame must contain these columns:
+        #     "sentence_id" : The index of the sentence in the text.
+        #     "token_position" : The position of the token in the sentence.
+        #     "token" : The token.
+        #     "pos" : The POS tag of the token.
+        #     "governor": The governor from dependency parsing. (Only required when running 'dep_distance' category).
+        #     "dep_rel": Dependency relation from dependency parsing. (Only required when running 'dep_distance' category).
+        # """
+        # if token_dfs is not None:
+        #     if not isinstance(token_dfs, list): 
+        #         raise TypeError(f"'token_dfs' should be list of pandas.DataFrame objects, not {type(token_dfs)}.")
+        #     if not isinstance(token_dfs[0], pd.DataFrame):
+        #         raise TypeError(f"'token_dfs' should be list of pandas.DataFrame objects, not list of {type(token_dfs[0])}.")
 
         if isinstance(texts, str):
             texts = [texts]
         self.df = pd.DataFrame(texts, columns = ['Text'])
-        self.token_dfs = token_dfs
+        # self.token_dfs = token_dfs
         self.lang = lang
         self.snlp_path = snlp_path
 
@@ -66,7 +68,7 @@ class TextDescriptives():
         """
         Calculates simple descriptive statistics
         """
-        basic_calc = Calculators(lang = self.lang)
+        basic_calc = Calculator(lang = self.lang)
         calculated_metrics = basic_calc.calculate_metrics(texts = self.df['Text'], metrics = measures)
         self.df = pd.concat([self.df, calculated_metrics], axis = 1)
 
@@ -75,28 +77,8 @@ class TextDescriptives():
         Calculates readability scores
         """
         read = Readability(lang = self.lang)
-        basic_calc = Calculators(lang = self.lang)
-
-        valid_measures = {
-            'gunning_fog' : read.gunning_fog, 
-            'smog' : read.smog,
-            'flesch_reading_ease' : read.flesch_reading_ease, 
-            'flesch_kincaid_grade' : read.flesch_kincaid_grade,
-            'automated_readability_index' : read.automated_readability_index, 
-            'coleman_liau_index' : read.coleman_liau_index,
-            'lix' : basic_calc.lix, 'rix' : basic_calc.rix
-        }
-
-        if measures == 'all':
-            for measure, func in valid_measures.items():
-                self.df[measure] = [func(text) for text in self.df['Text']]
-
-        elif not (set(measures).issubset(set(valid_measures.keys()))):
-            raise ValueError(f"Invalid measures provided to self.readability {measures}")
-    
-        else:
-            for measure in measures:
-                self.df[measure] = [valid_measures[measure](text) for text in self.df['Text']]
+        calculated_metrics = read.calculate_metrics(texts = self.df['Text'], metrics = measures)
+        self.df = pd.concat([self.df, calculated_metrics], axis = 1)
 
     def etymology(self, remove_empty = True):
         """
