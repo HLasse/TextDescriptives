@@ -61,8 +61,6 @@ class DepDistance():
             dep_dist = 0
             adj_rel = 0
             if dep_relation != 'root':
-                # TODO Does head take into account that it is 1-based?
-                # https://stanfordnlp.github.io/stanza/data_objects.html#word
                 dep_dist = abs(head - int(idx))
                 if dep_dist == 1:
                     adj_rel = 1
