@@ -5,7 +5,7 @@ from .macroetym.etym import Etym
 import pandas as pd
 
 class TextDescriptives():
-    def __init__(self, texts, lang = 'da', category = 'all', measures = 'all', snlp_path = None):
+    def __init__(self, texts, lang = 'da', category = 'all', measures = 'all', stanza_path = None):
         """
         texts: str/list/pd.Series containing text
         lang: str with the language code
@@ -37,7 +37,7 @@ class TextDescriptives():
         self.df = pd.DataFrame(texts, columns = ['Text'])
         # self.token_dfs = token_dfs
         self.lang = lang
-        self.snlp_path = snlp_path
+        self.stanza_path = stanza_path
 
         # Category check
         valid_categories = set(['all', 'basic', 'readability', 'entropy', 'sentiment', 'etymology', 'dep_distance'])
@@ -109,7 +109,7 @@ class TextDescriptives():
         MDD is calculated on sentence level, ie. MDD is the mean of the average dependency distance pr sentence.
         Mean and standard deviation of the proportion of adjacent dependency relations pr sentence is further calculated
         """
-        dep = DepDistance(self.df['Text'], self.lang, self.snlp_path)
+        dep = DepDistance(self.df['Text'], self.lang, self.stanza_path)
         self.df = pd.concat([self.df, dep.get_text_distances()], axis = 1)
     
     def entropy(self):
@@ -122,14 +122,14 @@ class TextDescriptives():
         return self.df
 
 
-def all_metrics(texts, lang = 'en', snlp_path = None):
+def all_metrics(texts, lang = 'en', stanza_path = None):
     """
     Calculates all implemented statistical metrics
     text: str/list/pd.Series of strings
     lang: two character language code, e.g. 'en', 'da'
-    snlp_path: string, path to stanfordnlp_resources
+    stanza_path: string, path to stanza resources
     """
-    return TextDescriptives(texts, lang = lang, category = 'all', snlp_path = snlp_path).df
+    return TextDescriptives(texts, lang = lang, category = 'all', stanza_path = stanza_path).df
 
 def basic_stats(texts, lang = 'en', metrics = 'all'):
     """
@@ -157,11 +157,11 @@ def etymology(texts, lang = 'en'):
     """
     return TextDescriptives(texts, lang = lang, category = 'etymology').df
 
-def dependency_distance(texts, lang = 'en', snlp_path = None):
+def dependency_distance(texts, lang = 'en', stanza_path = None):
     """
     Calculates measures related to etymology
     texts: str/list/pd.Series of strings
     lang: string, two character language code
-    snlp_path: string, path to stanfordnlp_resources
+    stanza_path: string, path to stanza resources
     """
-    return TextDescriptives(texts, lang = lang, category = 'dep_distance', snlp_path = snlp_path).df
+    return TextDescriptives(texts, lang = lang, category = 'dep_distance', stanza_path = stanza_path).df
