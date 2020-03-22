@@ -6,3 +6,10 @@
 
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
+
+stanfordnlp_resources/*
+stanfordnlp_resources
+snlp_resources/*
+snlp_resources
+
+test_textdescriptives.py
