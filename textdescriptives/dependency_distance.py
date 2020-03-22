@@ -57,20 +57,20 @@ class DepDistance():
             s_nlp = stanza.Pipeline(lang = self.lang, dir = self.stanza_path, 
                 processors = "tokenize,lemma,pos,depparse")
         
-        def score_token(dep_relation, governor, idx):
+        def score_token(dep_relation, head, idx):
             dep_dist = 0
             adj_rel = 0
             if dep_relation != 'root':
-                # TODO Does governor take into account that it is 1-based?
+                # TODO Does head take into account that it is 1-based?
                 # https://stanfordnlp.github.io/stanza/data_objects.html#word
-                dep_dist = abs(governor - int(idx))
+                dep_dist = abs(head - int(idx))
                 if dep_dist == 1:
                     adj_rel = 1
             return pd.Series([dep_dist, adj_rel])
         
         def score_sentence(df):
             res = df.apply(
-                lambda r: score_token(r["dep_rel"], r["governor"], r["token_id"]), 
+                lambda r: score_token(r["dep_rel"], r["head"], r["token_id"]), 
                 axis = 1)  
             token_dep_dists = res[0]
             token_adj_rels = res[1]
@@ -82,7 +82,7 @@ class DepDistance():
             doc = s_nlp(txt)
             parsed = [(sent_n, word.id, word.head, word.deprel) \
                 for sent_n, sent in enumerate(doc.sentences) for word in sent.words]
-            parsed = pd.DataFrame(parsed, columns = ["sent_id", "token_id", "governor", "dep_rel"])
+            parsed = pd.DataFrame(parsed, columns = ["sent_id", "token_id", "head", "dep_rel"])
             res = parsed.groupby("sent_id").apply(score_sentence).reset_index()
             res.columns = ["sent_id", "dep_dist", "prop_adjacent"]
             res["text_id"] = txt_id
