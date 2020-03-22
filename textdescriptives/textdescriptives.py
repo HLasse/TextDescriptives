@@ -144,7 +144,6 @@ class TextDescriptives():
         """
         dep = DepDistance(self.df['Text'], self.lang, self.snlp_path)
         self.df = pd.concat([self.df, dep.text_distances], axis = 1)
-        print(self.df)
     
     def entropy(self):
         pass
