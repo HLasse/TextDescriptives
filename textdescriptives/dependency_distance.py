@@ -63,7 +63,7 @@ class DepDistance():
         
         def score_sentence(df):
             res = df.apply(
-                lambda r: score_token(r["dep_rel"], r["governor"], r["word_id"]), 
+                lambda r: score_token(r["dep_rel"], r["governor"], r["token_id"]), 
                 axis = 1)  
             token_dep_dists = res[0]
             token_adj_rels = res[1]
@@ -75,7 +75,7 @@ class DepDistance():
             doc = s_nlp(txt)
             parsed = [(sent_n, word.index, word.governor, word.dependency_relation) \
                 for sent_n, sent in enumerate(doc.sentences) for word in sent.words]
-            parsed = pd.DataFrame(parsed, columns = ["sent_id", "word_id", "governor", "dep_rel"])
+            parsed = pd.DataFrame(parsed, columns = ["sent_id", "token_id", "governor", "dep_rel"])
             res = parsed.groupby("sent_id").apply(score_sentence).reset_index()
             res.columns = ["sent_id", "dep_dist", "prop_adjacent"]
             res["text_id"] = txt_id
