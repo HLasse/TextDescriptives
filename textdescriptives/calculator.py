@@ -8,7 +8,7 @@ import pandas as pd
 
 from .text import Text
 
-class Calculators():
+class Calculator():
     #__lang == "set a value"
     def __init__(self, lang = 'da'):
         self.__lang = lang
@@ -62,12 +62,6 @@ class Calculators():
         calculated_metrics = pd.concat(calculated_metrics, axis = 1)
         calculated_metrics.columns = metrics
         return calculated_metrics
-
-    # TODO Not used?
-    # def newline_to_period(self, text):
-    #     text = re.sub(r"\n", '.', text)
-    #     text = re.sub(r"\.\.+", '. ', text)
-    #     return text
 
     ## Word length -----------------
 
@@ -147,28 +141,6 @@ class Calculators():
         types = set(tokens)
         ratio = len(types) / len(tokens)
         return ratio
-
-    def lix(self, text):
-        text = Text.to_text(text)
-        words = text.tokens_without_punctuation
-        words_len = text.num_tokens_without_punctuation
-        if words_len == 0:
-            return 0
-        long_words = len([wrd for wrd in words if len(wrd) > 6])
-        per_long_words = (float(long_words) * 100) / words_len
-        asl = self.avg_sentence_length(text)
-        lix = asl + per_long_words
-        return lix
-
-    def rix(self, text):
-        """
-        n_long words / n sentences
-        """
-        text = Text.to_text(text)
-        if text.num_sentences == 0:
-            return 0.0
-        n_long_words = len([token for token in text.tokens_without_punctuation if len(token) > 6])
-        return float(n_long_words) / float(text.num_sentences)
 
     def n_types(self, text): 
         # TODO Why is this called n_types?
