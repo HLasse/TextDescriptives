@@ -14,7 +14,7 @@ class TextDescriptives():
         """
 
         if not isinstance(texts, (str, list, pd.Series)):
-            raise ValueError(f"Input should be string, list, or pandas series, not {type(texts)}")
+            raise TypeError(f"'texts' should be string, list, or pandas.Series, not {type(texts)}")
 
         if isinstance(texts, str):
             texts = [texts]
@@ -22,34 +22,30 @@ class TextDescriptives():
         self.lang = lang
         self.snlp_path = snlp_path
 
-
         # Category check
-        valid_categories = ['all', 'basic', 'readability', 'entropy', 'sentiment', 'etymology', 'dep_distance']
+        valid_categories = set(['all', 'basic', 'readability', 'entropy', 'sentiment', 'etymology', 'dep_distance'])
 
+        if not isinstance(category, (str, list)):
+            raise TypeError(f"'category' should be string or list of strings, not {type(category)}")
         if isinstance(category, str):
-            if category not in valid_categories:
-                print((f"{category} is not a valid category.\nValid categories are: ['all', 'basic', 'readability', 'etymology', 'dep_distance']"))
-        else:
-            for cat in category:
-                if cat not in valid_categories:
-                    print(f"{cat} is not a valid category.\nValid categories are: ['all', 'basic', 'readability', 'etymology', 'dep_distance']")
-    
-
-        if category == 'all':
+            category = [category]
+        if not set(category).issubset(valid_categories):
+            raise ValueError(f"'category' contained invalid category.\nValid categories are: ['all', 'basic', 'readability', 'etymology', 'dep_distance']")
+        
+        if 'all' in category:
             self.basic()
             self.readability()
             self.etymology()
             self.dependency_distance()
-
-        if 'basic' in category:
-            self.basic(measures = measures)
-        if 'readability' in category:
-            self.readability(measures = measures)
-        if 'etymology' in category:
-            self.etymology()
-        if 'dep_distance' in category:
-            self.dependency_distance()
-
+        else:
+            if 'basic' in category:
+                self.basic(measures = measures)
+            if 'readability' in category:
+                self.readability(measures = measures)
+            if 'etymology' in category:
+                self.etymology()
+            if 'dep_distance' in category:
+                self.dependency_distance()
 
     def basic(self, measures = 'all'):
         """
@@ -57,22 +53,33 @@ class TextDescriptives():
         """
         basic_calc = Calculators(lang = self.lang)
 
-        valid_measures = {'mean_word_length' : basic_calc.avg_word_length, 'median_word_length' : basic_calc.median_word_length,
-                          'std_word_length' : basic_calc.std_word_length, 'mean_sentence_length' : basic_calc.avg_sentence_length, 
-                          'median_sentence_length' : basic_calc.median_sentence_length, 'std_sentence_length' : basic_calc.std_sentence_length,
-                          'mean_syl_per_word' : basic_calc.avg_syl_per_word, 'median_syl_per_word' : basic_calc.median_syl_per_word, 
-                          'std_syl_per_word' : basic_calc.std_syl_per_word, 'type_token_ratio' : basic_calc.type_token_ratio, 
-                          'n_chars' : basic_calc.n_chars, 'n_sentences' : basic_calc.n_sentences, 
-                          'n_types' : basic_calc.n_types,  'n_tokens' : basic_calc.n_tokens
-                          }
+        valid_measures = {
+            'mean_word_length' : basic_calc.avg_word_length, 
+            'median_word_length' : basic_calc.median_word_length,
+            'std_word_length' : basic_calc.std_word_length, 
+            'mean_sentence_length' : basic_calc.avg_sentence_length, 
+            'median_sentence_length' : basic_calc.median_sentence_length, 
+            'std_sentence_length' : basic_calc.std_sentence_length,
+            'mean_syl_per_word' : basic_calc.avg_syl_per_word, 
+            'median_syl_per_word' : basic_calc.median_syl_per_word, 
+            'std_syl_per_word' : basic_calc.std_syl_per_word, 
+            'type_token_ratio' : basic_calc.type_token_ratio, 
+            'n_chars' : basic_calc.n_chars, 
+            'n_sentences' : basic_calc.n_sentences, 
+            'n_types' : basic_calc.n_types,  
+            'n_tokens' : basic_calc.n_tokens
+        }
         
-
-        only_mean = {'mean_word_length' : basic_calc.avg_word_length, 'mean_sentence_length' : basic_calc.avg_sentence_length, 
-                          'mean_syl_per_word' : basic_calc.avg_syl_per_word, 'type_token_ratio' : basic_calc.type_token_ratio, 
-                          'n_chars' : basic_calc.n_chars, 'n_sentences' : basic_calc.n_sentences, 
-                          'n_types' : basic_calc.n_types,  'n_tokens' : basic_calc.n_tokens
-                          }
-
+        only_mean = {
+            'mean_word_length' : basic_calc.avg_word_length, 
+            'mean_sentence_length' : basic_calc.avg_sentence_length, 
+            'mean_syl_per_word' : basic_calc.avg_syl_per_word, 
+            'type_token_ratio' : basic_calc.type_token_ratio, 
+            'n_chars' : basic_calc.n_chars,
+            'n_sentences' : basic_calc.n_sentences, 
+            'n_types' : basic_calc.n_types,
+            'n_tokens' : basic_calc.n_tokens
+        }
 
         if measures == 'all':
             for measure, func in valid_measures.items():
@@ -96,11 +103,15 @@ class TextDescriptives():
         read = Readability(lang = self.lang)
         basic_calc = Calculators(lang = self.lang)
 
-        valid_measures = {'gunning_fog' : read.gunning_fog, 'smog' : read.smog,
-                          'flesch_reading_ease' : read.flesch_reading_ease, 'flesch_kincaid_grade' : read.flesch_kincaid_grade,
-                          'automated_readability_index' : read.automated_readability_index, 'coleman_liau_index' : read.coleman_liau_index,
-                          'lix' : basic_calc.lix, 'rix' : basic_calc.rix
-                          }
+        valid_measures = {
+            'gunning_fog' : read.gunning_fog, 
+            'smog' : read.smog,
+            'flesch_reading_ease' : read.flesch_reading_ease, 
+            'flesch_kincaid_grade' : read.flesch_kincaid_grade,
+            'automated_readability_index' : read.automated_readability_index, 
+            'coleman_liau_index' : read.coleman_liau_index,
+            'lix' : basic_calc.lix, 'rix' : basic_calc.rix
+        }
 
         if measures == 'all':
             for measure, func in valid_measures.items():
