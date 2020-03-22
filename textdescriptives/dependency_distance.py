@@ -1,16 +1,16 @@
 import os
-import stanfordnlp
+import stanza
 import numpy as np
 import pandas as pd
 
 class DepDistance():
-    def __init__(self, text, lang, snlp_path):
+    def __init__(self, text, lang, stanza_path = None):
         self.text = text
         self.lang = lang
-        if snlp_path is None:
-            self.snlp_path = os.getcwd() + '/snlp_resources'
+        if stanza_path is None:
+            self.stanza_path = os.getcwd() + '/stanza_resources'
         else:
-            self.snlp_path = snlp_path
+            self.stanza_path = stanza_path
 
         self.__dep_dist()
         self.__describe_distances()
@@ -21,19 +21,24 @@ class DepDistance():
     def get_text_distances(self):
         return self.__text_distances
 
-    def __dl_missing_langs_snlp(self):
+    def __dl_missing_langs_stanza(self):
         """
-        Downloads any missing languages from Stanford NLP resources
-        """
-        import stanfordnlp
-        
-        if not os.path.exists(self.snlp_path):
-            os.makedirs(self.snlp_path)
+        downloads any missing languages from stanza
 
-        dl_langs = [folder[:2] for folder in os.listdir(self.snlp_path)]
+        Examples:
+        >>> dl_missing_langs(langs = "da", stanza_path = os.path.join(str(Path.home()), 'stanza_resources'))
+        """
+        
+        if not os.path.exists(self.stanza_path):
+            os.makedirs(self.stanza_path)
+
+        dl_langs = [folder[:2] for folder in os.listdir(self.stanza_path)]
 
         if self.lang not in dl_langs:
-            stanfordnlp.download(self.lang, resource_dir=self.snlp_path)
+            try:
+                stanza.download(self.lang, dir = self.stanza_path)
+            except ValueError:
+                raise ValueError(f"Language: '{self.lang}' does not exist in stanza. Try specifying another language")
 
     def __dep_dist(self):
         """
@@ -42,28 +47,28 @@ class DepDistance():
         """
         #Check if snlp language resources are installed, otherwise download them
         try: 
-            self.__dl_missing_langs_snlp()
+            self.__dl_missing_langs_stanza()
             # If the specified language is not in SNLP, throw error and stop the function
         except ValueError:
-            ValueError(f"Language '{self.lang}' does not exist in stanford NLP. Try specifying another language")
+            ValueError(f"Language '{self.lang}' does not exist in stanza. Try specifying another language")
                 
         if 's_nlp' not in globals():
             global s_nlp
-            s_nlp = stanfordnlp.Pipeline(lang = self.lang, models_dir = self.snlp_path, 
-                    processors="tokenize,pos,depparse")
+            s_nlp = stanza.Pipeline(lang = self.lang, dir = self.stanza_path, 
+                processors = "tokenize,lemma,pos,depparse")
         
-        def score_token(dep_relation, governor, idx):
+        def score_token(dep_relation, head, idx):
             dep_dist = 0
             adj_rel = 0
             if dep_relation != 'root':
-                dep_dist = abs(governor - int(idx))
+                dep_dist = abs(head - int(idx))
                 if dep_dist == 1:
                     adj_rel = 1
             return pd.Series([dep_dist, adj_rel])
         
         def score_sentence(df):
             res = df.apply(
-                lambda r: score_token(r["dep_rel"], r["governor"], r["token_id"]), 
+                lambda r: score_token(r["dep_rel"], r["head"], r["token_id"]), 
                 axis = 1)  
             token_dep_dists = res[0]
             token_adj_rels = res[1]
@@ -73,9 +78,9 @@ class DepDistance():
 
         def score_text(txt, txt_id):
             doc = s_nlp(txt)
-            parsed = [(sent_n, word.index, word.governor, word.dependency_relation) \
+            parsed = [(sent_n, word.id, word.head, word.deprel) \
                 for sent_n, sent in enumerate(doc.sentences) for word in sent.words]
-            parsed = pd.DataFrame(parsed, columns = ["sent_id", "token_id", "governor", "dep_rel"])
+            parsed = pd.DataFrame(parsed, columns = ["sent_id", "token_id", "head", "dep_rel"])
             res = parsed.groupby("sent_id").apply(score_sentence).reset_index()
             res.columns = ["sent_id", "dep_dist", "prop_adjacent"]
             res["text_id"] = txt_id
@@ -118,4 +123,4 @@ class DepDistance():
 
 #text = ["Bare en enkelt sætning for lige at teste"]
 
-#dep = DepDistance(texts, 'da', snlp_path)
+#dep = DepDistance(texts, 'da', stanza_path)
