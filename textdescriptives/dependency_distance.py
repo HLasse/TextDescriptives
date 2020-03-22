@@ -71,7 +71,7 @@ class DepDistance():
             prop_adjacent = np.mean(token_adj_rels)
             return pd.Series([dep_dist, prop_adjacent])
 
-        def calc_for_text(txt, txt_id):
+        def score_text(txt, txt_id):
             doc = s_nlp(txt)
             parsed = [(sent_n, word.index, word.governor, word.dependency_relation) \
                 for sent_n, sent in enumerate(doc.sentences) for word in sent.words]
@@ -82,7 +82,7 @@ class DepDistance():
             return res
 
         self.__sentence_distances = pd.concat(
-            [calc_for_text(txt, txt_id) \
+            [score_text(txt, txt_id) \
                 for txt_id, txt in enumerate(self.text)]
             )
         
