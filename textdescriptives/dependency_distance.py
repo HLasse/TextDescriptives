@@ -4,9 +4,10 @@ import numpy as np
 import pandas as pd
 
 class DepDistance():
-    def __init__(self, text, lang, stanza_path = None):
+    def __init__(self, text, lang, stanza_path = None, globalize_stanza = True):
         self.text = text
         self.lang = lang
+        self.__globalize_stanza = globalize_stanza
         if stanza_path is None:
             self.stanza_path = os.getcwd() + '/stanza_resources'
         else:
@@ -52,10 +53,7 @@ class DepDistance():
         except ValueError:
             ValueError(f"Language '{self.lang}' does not exist in stanza. Try specifying another language")
                 
-        if 's_nlp' not in globals():
-            global s_nlp
-            s_nlp = stanza.Pipeline(lang = self.lang, dir = self.stanza_path, 
-                processors = "tokenize,lemma,pos,depparse")
+        pipeline = self.__load_pipeline()
         
         def score_token(dep_relation, head, idx):
             dep_dist = 0
@@ -77,7 +75,7 @@ class DepDistance():
             return pd.Series([dep_dist, prop_adjacent])
 
         def score_text(txt, txt_id):
-            doc = s_nlp(txt)
+            doc = pipeline(txt)
             parsed = [(sent_n, word.id, word.head, word.deprel) \
                 for sent_n, sent in enumerate(doc.sentences) for word in sent.words]
             parsed = pd.DataFrame(parsed, columns = ["sent_id", "token_id", "head", "dep_rel"])
@@ -113,8 +111,38 @@ class DepDistance():
             }, index=[0])
 
         self.__text_distances = self.__sentence_distances.groupby("text_id").apply(
-            summarizer).reset_index(drop=True)
+            summarizer).reset_index(drop = True)
 
+
+    def __load_pipeline(self):
+        Globals = globals()
+        Globals_keys = set(Globals.keys())
+        pipeline_vars = set(['s_nlp','s_nlp_lang','s_nlp_path','s_nlp_processors'])
+
+        is_loaded = pipeline_vars.issubset(Globals_keys) and Globals['s_nlp'] is not None
+        if is_loaded:
+            same_lang = Globals['s_nlp_lang'] == self.lang
+            same_path = Globals['s_nlp_path'] == self.stanza_path
+            same_processors = Globals['s_nlp_processors'] == "tokenize,lemma,pos,depparse"
+            same_setup = same_lang and same_path and same_processors
+        else:
+            same_setup = False
+        
+        if not is_loaded or not same_setup:
+            if self.__globalize_stanza:
+                global s_nlp
+                global s_nlp_lang
+                global s_nlp_path
+                global s_nlp_processors
+            s_nlp_lang = self.lang
+            s_nlp_path = self.stanza_path
+            s_nlp_processors = "tokenize,lemma,pos,depparse"
+            s_nlp = stanza.Pipeline(
+                lang = s_nlp_lang, dir = s_nlp_path,
+                processors = s_nlp_processors)
+        
+        return s_nlp 
+            
 
 
 
