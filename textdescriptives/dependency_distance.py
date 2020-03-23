@@ -117,14 +117,15 @@ class DepDistance():
     def __load_pipeline(self):
         Globals = globals()
         Globals_keys = set(Globals.keys())
-        pipeline_vars = set(['s_nlp','s_nlp_lang','s_nlp_path','s_nlp_processors'])
+        pipeline_vars = set(['s_nlp','s_nlp_lang','s_nlp_path'])
 
         is_loaded = pipeline_vars.issubset(Globals_keys) and Globals['s_nlp'] is not None
         if is_loaded:
+            same_processors = set(Globals['s_nlp'].processors.keys()) == set(['tokenize', 'depparse', 'pos', 'lemma'])
+            same_gpu_use = not Globals['s_nlp'].use_gpu 
             same_lang = Globals['s_nlp_lang'] == self.lang
             same_path = Globals['s_nlp_path'] == self.stanza_path
-            same_processors = Globals['s_nlp_processors'] == "tokenize,lemma,pos,depparse"
-            same_setup = same_lang and same_path and same_processors
+            same_setup = same_lang and same_path and same_processors and same_gpu_use
         else:
             same_setup = False
         
@@ -133,18 +134,14 @@ class DepDistance():
                 global s_nlp
                 global s_nlp_lang
                 global s_nlp_path
-                global s_nlp_processors
             s_nlp_lang = self.lang
             s_nlp_path = self.stanza_path
-            s_nlp_processors = "tokenize,lemma,pos,depparse"
             s_nlp = stanza.Pipeline(
                 lang = s_nlp_lang, dir = s_nlp_path,
-                processors = s_nlp_processors)
+                processors = "tokenize,lemma,pos,depparse")
         
         return s_nlp 
             
-
-
 
 #texts = ["Her er et par sætninger på dansk. Der er bare to. Måske er der tre, men de er ret korte",
 #        "Endnu en lille hyggesætning her, der dog er noget længere og med en lang referent. Det må jeg nok sige, sikke dog en lang sætning."]
