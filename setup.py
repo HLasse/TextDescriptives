@@ -16,7 +16,7 @@ setup(name='textdescriptives',
             "Operating System :: OS Independent",
             "Topic :: Text Processing",
             "Topic :: NLP"
-      ]
+      ],
       install_requires=['pandas','numpy', 'pyphen', 'pycountry'],
       python_requires='>=3.6'
       zip_safe=False,
