@@ -37,7 +37,7 @@ class DepDistance():
 
         if self.lang not in dl_langs:
             try:
-                stanza.download(self.lang, dir = self.stanza_path)
+                stanza.download(self.lang, model_dir = self.stanza_path)
             except ValueError:
                 raise ValueError(f"Language: '{self.lang}' does not exist in stanza. Try specifying another language")
 
