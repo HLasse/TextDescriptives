@@ -3,7 +3,7 @@
 A Python package for calculating a large variety of statistics from text(s).
 
 ## Installation
-`pip install textdescriptives`
+`pip install git+https://github.com/HLasse/TextDescriptives.git`
 
 ## News
 
