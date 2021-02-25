@@ -108,7 +108,7 @@ Metrics currently implemented:
   
   ## Authors
 
-  Developed by Lasse Hansen at the [Center for Humanities Computing Aarhus](chcaa.io)
+  Developed by Lasse Hansen at the [Center for Humanities Computing Aarhus](https://chcaa.io)
 
   Collaborators:
 
