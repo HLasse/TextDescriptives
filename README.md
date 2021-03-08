@@ -1,3 +1,11 @@
+<-- 
+[![PyPI version](https://badge.fury.io/py/tomsup.svg)](https://pypi.org/project/tomsup/)
+-->
+[![Code style: flake8](https://img.shields.io/badge/Code%20Style-flake8-blue)](https://pypi.org/project/flake8/)
+[![pip downloads](https://img.shields.io/pypi/dm/tomsup.svg)](https://crate.io/packages/tomsup)
+[![python versions](https://img.shields.io/pypi/pyversions/tomsup?colorB=blue)](https://pypi.org/project/tomsup/)
+
+
 # TextDescriptives
 
 A Python package for calculating a large variety of statistics from text(s).
