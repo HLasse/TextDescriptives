@@ -1,10 +1,11 @@
 <!-- 
 [![PyPI version](https://badge.fury.io/py/tomsup.svg)](https://pypi.org/project/tomsup/)
 [![Code style: flake8](https://img.shields.io/badge/Code%20Style-flake8-blue)](https://pypi.org/project/flake8/)
--->
-
 [![pip downloads](https://img.shields.io/pypi/dm/textdescriptives.svg)](https://crate.io/packages/textdescriptives)
 [![python versions](https://img.shields.io/pypi/pyversions/textdescriptives?colorB=blue)](https://pypi.org/project/textdescriptives/)
+-->
+
+
 
 
 # TextDescriptives
