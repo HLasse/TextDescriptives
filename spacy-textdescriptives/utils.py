@@ -12,22 +12,22 @@ def create_utils_component(nlp: Language, name: str):
 class Utils:
     def __init__(self, nlp: Language):
         """Initialise components
-        Only calculate n_sentences, n_words, n_syllabes when needed using getters"""
-        if not Doc.has_extension("n_sentences"):
-            Doc.set_extension("n_sentences", getter=self.n_sentences)
+        Only calculate n_sentences, n_words, n_syllables when needed using getters"""
+        if not Doc.has_extension("_n_sentences"):
+            Doc.set_extension("_n_sentences", getter=self.n_sentences)
 
-        if not Doc.has_extension("n_words"):
-            Doc.set_extension("n_words", getter=self.n_words)
+        if not Doc.has_extension("_n_tokens"):
+            Doc.set_extension("_n_tokens", getter=self.n_tokens)
 
-        if not Doc.has_extension("n_syllables"):
-            Doc.set_extension("n_syllables", getter=self.n_syllables)
+        if not Doc.has_extension("_n_syllables"):
+            Doc.set_extension("_n_syllables", getter=self.n_syllables)
 
-        if not Doc.has_extension("filtered_tokens"):
-            Doc.set_extension("filtered_tokens", default=[])
+        if not Doc.has_extension("_filtered_tokens"):
+            Doc.set_extension("_filtered_tokens", default=[])
 
     def __call__(self, doc):
         """Run the pipeline component"""
-        doc._.filtered_tokens = self.filtered_tokens(doc)
+        doc._._filtered_tokens = self.filtered_tokens(doc)
         return doc
 
     def filtered_tokens(self, doc: Doc):
@@ -42,9 +42,9 @@ class Utils:
         """Return number of sentences in the document"""
         return len(list(doc.sents))
 
-    def n_words(self, doc: Doc):
+    def n_tokens(self, doc: Doc):
         """Return number of words in the document."""
-        return len(doc._.filtered_tokens)
+        return len(doc._._filtered_tokens)
 
     def n_syllables(self, doc):
         """
@@ -56,7 +56,8 @@ class Utils:
             word_hyphenated = dic.inserted(token.lower_)
             return max(1, word_hyphenated.count("-") + 1)
 
-        return [count_syl(token) for token in doc._.filtered_tokens]
+        return [count_syl(token) for token in doc._._filtered_tokens]
+
 
 """
 import spacy
@@ -65,12 +66,9 @@ nlp.add_pipe("utilities", last=True)
 
 doc = nlp("Det her er en testsætning. Her er sætning nummer 2")
 
-for sent_i, sent in enumerate(doc.sents):
-    for token in sent:
-        print(sent_i, token.i, token.text)
-doc._.n_words
-doc._.filtered_tokens
-doc._.n_sentences
-doc._.n_syllables
+doc._._n_tokens
+doc._._filtered_tokens
+doc._._n_sentences
+doc._._n_syllables
 
 """
