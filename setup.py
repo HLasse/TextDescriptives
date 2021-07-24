@@ -1,6 +1,6 @@
 import setuptools
 
-with open("spacy-textdescriptives/about.py") as f:
+with open("textdescriptives/about.py") as f:
     v = f.read()
     for l in v.split("\n"):
         if l.startswith("__version__"):
@@ -13,7 +13,7 @@ with open("requirements.txt", encoding="utf-8") as f:
     requirements = f.read().split("\n")
 
 setuptools.setup(
-    name="spacy-textdescriptives",
+    name="textdescriptives",
     version=__version__,
     description="A library for calculating a variety of features from text using spaCy",
     license="Apache License 2.0",
@@ -21,7 +21,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     author="Lasse Hansen",
     author_email="lasseh0310@gmail.com",
-    url="https://github.com/HLasse/spacy-textdescriptives",
+    url="https://github.com/HLasse/textdescriptives",
     packages=["spacy-textdescriptives"],
     install_requires=requirements,
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
