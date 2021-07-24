@@ -78,25 +78,3 @@ class DescriptiveStatistics:
             "n_sentences": doc._._n_sentences,
             "n_characters": n_chars,
         }
-
-
-"""
-import spacy
-from utils import create_utils_component
-
-nlp = spacy.load('da_core_news_sm')
-nlp.add_pipe("utilities", last=True)
-nlp.add_pipe("descriptive_stats", last=True)
-
-doc = nlp("Det her er en testsætning. Her er sætning nummer 2")
-
-doc._._n_tokens
-doc._._filtered_tokens
-doc._._n_syllables
-doc._._n_sentences
-doc._.token_length
-doc._.sentence_length
-doc._.syllables
-doc._.counts
-
-"""

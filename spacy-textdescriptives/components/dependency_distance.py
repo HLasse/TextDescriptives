@@ -72,30 +72,3 @@ class DependencyDistance:
             "prop_adjacent_dependency_relation_mean": avg_prop_adj_dep,
             "prop_adjacent_dependency_relation_std": std_prop_adj_dep,
         }
-
-
-"""
-import spacy
-from utils import create_utils_component
-from descriptive_stats import create_descriptive_stats_component
-
-nlp = spacy.load('da_core_news_sm')
-nlp.add_pipe("utilities", last=True)
-nlp.add_pipe("descriptive_stats", last=True)
-nlp.add_pipe("dependency_distance", last=True)
-
-docs = nlp.pipe(["Det her er en testsætning. Her er sætning nummer 2", "Her er en kortere sætning"])
-
-for doc in docs:
-    print(doc._.dep_dist)
-
-doc._._n_tokens
-doc._._filtered_tokens
-doc._._n_syllables
-doc._._n_sentences
-doc._.token_length
-doc._.sentence_length
-doc._.syllables
-doc._.counts
-doc._.dep_dist
-"""

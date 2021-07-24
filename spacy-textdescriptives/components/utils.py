@@ -58,18 +58,3 @@ class Utils:
             return max(1, word_hyphenated.count("-") + 1)
 
         return [count_syl(token) for token in doc._._filtered_tokens]
-
-
-"""
-import spacy
-nlp = spacy.load('da_core_news_sm')
-nlp.add_pipe("utilities", last=True)
-
-doc = nlp("Det her er en testsætning. Her er sætning nummer 2")
-
-doc._._n_tokens
-doc._._filtered_tokens
-doc._._n_sentences
-doc._._n_syllables
-
-"""
