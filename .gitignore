@@ -15,3 +15,11 @@ stanza_resources/*
 stanza_resources
 
 test_textdescriptives.py
+
+# docs
+docs/_build/*
+
+
+
+# Mac
+.DS_Store
