@@ -1,0 +1,4 @@
+spacy>=3.0.3
+numpy
+pandas
+pyphen
