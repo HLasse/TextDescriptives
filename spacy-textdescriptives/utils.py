@@ -1,5 +1,6 @@
 """Utility functions for calculating various text descriptives"""
 from spacy.tokens import Doc
+from spacy.tokens import Token
 from spacy.language import Language
 from pyphen import Pyphen
 
@@ -25,7 +26,7 @@ class Utils:
         if not Doc.has_extension("_filtered_tokens"):
             Doc.set_extension("_filtered_tokens", default=[])
 
-    def __call__(self, doc):
+    def __call__(self, doc: Doc):
         """Run the pipeline component"""
         doc._._filtered_tokens = self.filtered_tokens(doc)
         return doc
@@ -46,13 +47,13 @@ class Utils:
         """Return number of words in the document."""
         return len(doc._._filtered_tokens)
 
-    def n_syllables(self, doc):
+    def n_syllables(self, doc: Doc):
         """
         Return number of syllables per token
         """
         dic = Pyphen(lang=doc.lang_)
 
-        def count_syl(token):
+        def count_syl(token: Token):
             word_hyphenated = dic.inserted(token.lower_)
             return max(1, word_hyphenated.count("-") + 1)
 

@@ -14,21 +14,21 @@ def create_dependency_distance_component(nlp: Language, name: str):
 class DependencyDistance:
     def __init__(self, nlp: Language):
         """Initialise components"""
-        if not Doc.has_extension("dep_dist"):
-            Doc.set_extension("dep_dist", getter=self.dependency_distance)
+        if not Doc.has_extension("dependency_distance"):
+            Doc.set_extension("dependency_distance", getter=self.dependency_distance)
 
-    def __call__(self, doc):
+    def __call__(self, doc: Doc):
         """Run the pipeline component"""
         return doc
 
-    def dependency_distance(self, doc):
+    def dependency_distance(self, doc: Doc):
         """Returns:
         Average sentence level dependency distance
         Standard deviation of the sentence level dependency distances
         Average proportion of adjacent dependency relations on sentence level
         Standard deviation of the proportion of adjacent dependency relations on sentence level"""
 
-        def score_token(dep_relation, head, idx):
+        def score_token(dep_relation: str, head: int, idx: int):
             dep_dist = 0
             adj_rel = 0
             if dep_relation != "ROOT":
@@ -37,7 +37,7 @@ class DependencyDistance:
                     adj_rel = 1
             return pd.Series([dep_dist, adj_rel])
 
-        def score_sentence(df):
+        def score_sentence(df: pd.DataFrame):
             res = df.apply(
                 lambda r: score_token(r["dep_rel"], r["head"], r["token_id"]), axis=1
             )
@@ -47,7 +47,7 @@ class DependencyDistance:
             prop_adjacent = np.mean(token_adj_rels)
             return pd.Series([dep_dist, prop_adjacent])
 
-        def score_text(doc):
+        def score_text(doc: Doc):
             parsed = [
                 (sent_n, word.i, word.head.i, word.dep_)
                 for sent_n, sent in enumerate(doc.sents)
@@ -67,10 +67,10 @@ class DependencyDistance:
         avg_prop_adj_dep = np.mean(prop_adjacent)
         std_prop_adj_dep = np.std(prop_adjacent)
         return {
-            "mean_dependency_distance": avg_dd,
-            "std_dependency_distance": std_dd,
-            "mean_prop_adjacent_dependency_relation": avg_prop_adj_dep,
-            "std_prop_adjacent_dependency_relation": std_prop_adj_dep,
+            "dependency_distance_mean": avg_dd,
+            "dependency_distance_std": std_dd,
+            "prop_adjacent_dependency_relation_mean": avg_prop_adj_dep,
+            "prop_adjacent_dependency_relation_std": std_prop_adj_dep,
         }
 
 
@@ -84,7 +84,10 @@ nlp.add_pipe("utilities", last=True)
 nlp.add_pipe("descriptive_stats", last=True)
 nlp.add_pipe("dependency_distance", last=True)
 
-doc = nlp("Det her er en testsætning. Her er sætning nummer 2")
+docs = nlp.pipe(["Det her er en testsætning. Her er sætning nummer 2", "Her er en kortere sætning"])
+
+for doc in docs:
+    print(doc._.dep_dist)
 
 doc._._n_tokens
 doc._._filtered_tokens
