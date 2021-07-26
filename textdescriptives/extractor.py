@@ -46,9 +46,12 @@ class Extractor:
             df_list = []
 
         if "all" in metrics:
-            df_list.append(self.__descriptive_stats(doc))
-            df_list.append(self.__readability(doc))
-            df_list.append(self.__dependency_distance(doc))
+            if doc.has_extension("counts"):
+                df_list.append(self.__descriptive_stats(doc))
+            if doc.has_extension("readability"):
+                df_list.append(self.__readability(doc))
+            if doc.has_extension("dependency_distance"):
+                df_list.append(self.__dependency_distance(doc))
         else:
             if "descriptive_stats" in metrics:
                 df_list.append(self.__descriptive_stats(doc))
@@ -98,6 +101,7 @@ def extract_df(
             rows.append(metric_df)
         return pd.concat(rows, axis=0, ignore_index=True)
     return Extractor(doc, metrics, include_text).df
+
 
 """Helpers to subset an extracted dataframe"""
 

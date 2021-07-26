@@ -43,4 +43,3 @@ class TextDescriptives:
     def __call__(self, doc: Doc):
         """Run the pipeline component"""
         return doc
-
