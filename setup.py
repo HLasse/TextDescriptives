@@ -23,7 +23,12 @@ setuptools.setup(
     author_email="lasseh0310@gmail.com",
     url="https://github.com/HLasse/textdescriptives",
     packages=["spacy-textdescriptives"],
-    install_requires=requirements,
+    install_requires=[
+        "spacy>=3.0.3",
+        "numpy>=1.20.0",
+        "pandas>=1.0.0",
+        "pyphen>=0.11.0",
+    ],
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         # How mature is this project? Common values are
