@@ -2,9 +2,16 @@
 from spacy.tokens import Doc
 from spacy.language import Language
 
+from .descriptive_stats import create_descriptive_stats_component
+
 
 @Language.factory("readability")
 def create_readability_component(nlp: Language, name: str):
+    if "descriptive_stats" not in nlp.pipe_names:
+        print(
+            "'descriptive_stats' component is required for 'readability'. Adding to pipe."
+        )
+        nlp = nlp.add_pipe("descriptive_stats")
     return Readability(nlp)
 
 
