@@ -58,10 +58,11 @@ class DescriptiveStatistics:
 
     def syllables(self, doc):
         """Return dict with measures of syllables per token"""
+        n_syllables = doc._._n_syllables
         return {
-            "syllables_per_token_mean": np.mean(doc._._n_syllables),
-            "syllables_per_token_median": np.median(doc._._n_syllables),
-            "syllables_per_token_std": np.std(doc._._n_syllables),
+            "syllables_per_token_mean": np.mean(n_syllables),
+            "syllables_per_token_median": np.median(n_syllables),
+            "syllables_per_token_std": np.std(n_syllables),
         }
 
     def counts(self, doc, ignore_whitespace=True):
