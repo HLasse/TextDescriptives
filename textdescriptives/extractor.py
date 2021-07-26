@@ -29,12 +29,12 @@ class Extractor:
         valid_metrics = set(
             ["descriptive_stats", "readability", "dependency_distance", "all"]
         )
-        if not isinstance(metrics, (str, list)):
+        if isinstance(metrics, str):
+            metrics = [metrics]
+        if not isinstance(metrics, list):
             raise TypeError(
                 f"'metrics' should be string or list of strings, not {type(metrics)}"
             )
-        if isinstance(metrics, str):
-            metrics = [metrics]
         if not set(metrics).issubset(valid_metrics):
             raise ValueError(
                 f"'metrics' contained invalid metric.\nValid metrics are: ['all', 'descriptive_stats', 'readability', 'dependency_distance']"
