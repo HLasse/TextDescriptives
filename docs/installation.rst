@@ -10,7 +10,7 @@ To get started using TextDescriptives simply install it using pip by running the
 Installing from source
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can also install DaCy directly from source using:
+You can also install TextDescriptives directly from source using:
 
 .. code-block::
 
