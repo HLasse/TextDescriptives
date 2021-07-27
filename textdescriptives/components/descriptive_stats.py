@@ -16,6 +16,10 @@ def create_descriptive_stats_component(nlp: Language, name: str):
 
 
 class DescriptiveStatistics:
+    """spaCy v.3.0 component that adds attributes with desriptive statistics to `Doc` and `Span` objects.
+    The attributes relate to token and sentence length, number of syllables, and counts of tokens and sentences.
+    """
+
     def __init__(self, nlp: Language):
         """Initialise components"""
 

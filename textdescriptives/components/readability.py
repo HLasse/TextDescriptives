@@ -19,6 +19,10 @@ def create_readability_component(nlp: Language, name: str):
 
 
 class Readability:
+    """spaCy v.3.0 component for adding readability metrics to `Doc` objects.
+    Extracts metrics and returns them as a dictionary as the ._.readability attribute.
+    """
+
     def __init__(self, nlp: Language):
         """Initialise components"""
         if not Doc.has_extension("readability"):
