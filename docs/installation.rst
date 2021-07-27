@@ -15,7 +15,7 @@ You can also install TextDescriptives directly from source using:
 .. code-block::
 
    git clone https://github.com/hlasse/textdescriptives.git
-   cd DaCy
+   cd TextDescriptives
    pip install .
 
 or
