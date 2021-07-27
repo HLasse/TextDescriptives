@@ -1,7 +1,6 @@
 import textdescriptives as td
 import spacy
 import pytest
-import ftfy
 
 
 @pytest.fixture(scope="function")
@@ -26,9 +25,21 @@ def test_extract_df_pipe(nlp):
     docs = nlp.pipe(text)
     td.extract_df(docs)
 
+
 def test_extract_df_subsetters(nlp):
     doc = nlp("This is just a cute little text. Actually, it's two sentences.")
     df = td.extract_df(doc, include_text=False)
     df[td.readability_cols]
     df[td.dependency_cols]
     df[td.descriptive_stats_cols]
+
+
+def test_extract_df_error(nlp):
+    doc = nlp("Very brief text")
+
+    with pytest.raises(Exception) as e_info:
+        td.extract_df("This is just a string")
+    with pytest.raises(Exception) as e_info:
+        td.extract_df(doc, metrics="not a metric")
+    with pytest.raises(Exception) as e_info:
+        td.extract_df(doc, metrics=True)
