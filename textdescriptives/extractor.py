@@ -135,7 +135,7 @@ descriptive_stats_cols = [
     "syllables_per_token_std",
     "n_tokens",
     "n_unique_tokens",
-    "percent_unique_tokens",
+    "proportion_unique_tokens",
     "n_sentences",
     "n_characters",
 ]

@@ -24,10 +24,11 @@ def n_tokens(doc: Union[Doc, Span]):
     return len(doc._._filtered_tokens)
 
 
-def n_syllables(doc: Union[Doc, Span]):
+def n_syllables(doc: Doc):
     """
     Return number of syllables per token
     """
+
     dic = Pyphen(lang=doc.lang_)
 
     def count_syl(token: Token):

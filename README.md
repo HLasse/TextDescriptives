@@ -103,7 +103,6 @@ The table below shows the metrics included in TextDescriptives and their attribu
 | `Doc._.readability`        | `readability` | Dict containing Flesch Reading Ease, Flesch-Kincaid Grade, SMOG, Gunning-Fog, Automated Readability Index, Coleman-Liau Index, LIX, and RIX readability metrics for the Doc. |
 | `Doc._.dependency_distance`        | `dependency_distance` | Dict containing the mean and standard deviation of the dependency distance and proportion adjacent dependency relations in the Doc.|
 `Span._.token_length`   | `descriptive_stats`                       | Dict containing mean, median, and std of token length in the span.                                |
-| `Span._.syllables`    | `descriptive_stats`                       | Dict containing mean, median, and std of number of syllables per token in the span.  |
 | `Span._.counts`        | `descriptive_stats` | Dict containing the number of tokens, number of unique tokens, proportion unique tokens, and number of characters in the span. |
 | `Span._.dependency_distance`        | `dependency_distance` | Dict containing the mean dependency distance and proportion adjacent dependency relations in the Doc.|
 | `Token._.dependency_distance`        | `dependency_distance` | Dict containing the dependency distance and whether the head word is adjacent for a Token.|

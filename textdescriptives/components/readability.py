@@ -1,6 +1,9 @@
 """Calculation of various readability metrics"""
+from textdescriptives.components.utils import n_sentences
 from spacy.tokens import Doc
 from spacy.language import Language
+
+import numpy as np
 
 from .descriptive_stats import create_descriptive_stats_component
 
@@ -47,22 +50,22 @@ class Readability:
         Higher = easier to read
         Works best for English
         """
-        score = (
-            206.835
-            - (1.015 * doc._.sentence_length["sentence_length_mean"])
-            - (84.6 * doc._.syllables["syllables_per_token_mean"])
-        )
+        avg_sentence_length = doc._.sentence_length["sentence_length_mean"]
+        avg_syl_per_word = doc._.syllables["syllables_per_token_mean"]
+        if avg_sentence_length == 0 or avg_syl_per_word == 0:
+            return np.nan
+        score = 206.835 - (1.015 * avg_sentence_length) - (84.6 * avg_syl_per_word)
         return score
 
     def _flesch_kincaid_grade(self, doc: Doc):
         """
         Score = grade required to read the text
         """
-        score = (
-            0.39 * doc._.sentence_length["sentence_length_mean"]
-            + 11.8 * doc._.syllables["syllables_per_token_mean"]
-            - 15.59
-        )
+        avg_sentence_length = doc._.sentence_length["sentence_length_mean"]
+        avg_syl_per_word = doc._.syllables["syllables_per_token_mean"]
+        if avg_sentence_length == 0 or avg_syl_per_word == 0:
+            return np.nan
+        score = 0.39 * avg_sentence_length + 11.8 * avg_syl_per_word - 15.59
         return score
 
     def _smog(self, doc: Doc, hard_words: int):
@@ -70,25 +73,31 @@ class Readability:
         grade level = 1.043( sqrt(30 * (hard words /n sentences)) + 3.1291
         Preferably need 30+ sentences. Will not work with less than 4
         """
-        if doc._._n_sentences >= 3:
-            smog = (1.043 * (30 * (hard_words / doc._._n_sentences)) ** 0.5) + 3.1291
+        n_sentences = doc._._n_sentences
+        if n_sentences >= 3:
+            smog = (1.043 * (30 * (hard_words / n_sentences)) ** 0.5) + 3.1291
             return smog
         else:
-            return 0.0
+            return np.nan
 
     def _gunning_fog(self, doc, hard_words: int):
         """
         Grade level = 0.4 * ((avg_sentence_length) + (percentage hard words))
         hard words = 3+ syllables
         """
+        n_tokens = doc._._n_tokens
+        if n_tokens == 0:
+            return np.nan
         avg_sent_len = doc._.sentence_length["sentence_length_mean"]
-        percent_hard_words = (hard_words / doc._._n_tokens) * 100
+        percent_hard_words = (hard_words / n_tokens) * 100
         return 0.4 * (avg_sent_len + percent_hard_words)
 
     def _automated_readability_index(self, doc: Doc):
         """
         Score = grade required to read the text
         """
+        if len(doc) == 0:
+            return np.nan
         score = (
             4.71 * doc._.token_length["token_length_mean"]
             + 0.5 * doc._.sentence_length["sentence_length_mean"]
@@ -102,17 +111,26 @@ class Readability:
             0.296 * avg num of sents pr 100 words -15.8
         Score = grade required to read the text
         """
+        n_tokens = doc._._n_tokens
+        if n_tokens == 0:
+            return np.nan
         l = doc._.token_length["token_length_mean"] * 100
-        s = (doc._._n_sentences / doc._.sentence_length["sentence_length_mean"]) * 100
+        s = (doc._._n_sentences / n_tokens) * 100
         return 0.0588 * l - 0.296 * s - 15.8
 
     def _lix(self, doc: Doc, long_words: int):
         """
         (n_words / n_sentences) + (n_words longer than 6 letters * 100) / n_words
         """
-        percent_long_words = long_words / doc._._n_tokens * 100
+        n_tokens = doc._._n_tokens
+        if n_tokens == 0:
+            return np.nan
+        percent_long_words = long_words / n_tokens * 100
         return doc._.sentence_length["sentence_length_mean"] + percent_long_words
 
     def _rix(self, doc: Doc, long_words: int):
         """n_long_words / n_sentences"""
-        return long_words / doc._._n_sentences
+        n_sentences = doc._._n_sentences
+        if n_sentences == 0:
+            return np.nan
+        return long_words / n_sentences

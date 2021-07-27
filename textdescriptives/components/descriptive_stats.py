@@ -9,6 +9,9 @@ from .utils import filtered_tokens, n_tokens, n_syllables, n_sentences
 
 @Language.factory("descriptive_stats")
 def create_descriptive_stats_component(nlp: Language, name: str):
+    sentencizers = set(["sentencizer", "parser"])
+    if not sentencizers.intersection(set(nlp.pipe_names)):
+        nlp.add_pipe("sentencizer")  # add a sentencizer if not one in pipe
     return DescriptiveStatistics(nlp)
 
 
@@ -35,7 +38,7 @@ class DescriptiveStatistics:
             self.counts,
         ]
         for ext, fun in zip(extensions, ext_funs):
-            if ext not in ["_n_sentences", "sentence_length"]:
+            if ext not in ["_n_sentences", "sentence_length", "syllables"]:
                 if not Span.has_extension(ext):
                     Span.set_extension(ext, getter=fun)
             if not Doc.has_extension(ext):
@@ -60,7 +63,7 @@ class DescriptiveStatistics:
             "token_length_std": np.std(token_lengths),
         }
 
-    def sentence_length(self, doc: Union[Doc, Span]):
+    def sentence_length(self, doc: Doc):
         """Return dict with measures of sentence length"""
         # get length of filtered tokens per sentence
         tokenized_sentences = [
@@ -78,7 +81,7 @@ class DescriptiveStatistics:
             "sentence_length_std": np.std(len_sentences),
         }
 
-    def syllables(self, doc: Union[Doc, Span]):
+    def syllables(self, doc: Doc):
         """Return dict with measures of syllables per token"""
         n_syllables = doc._._n_syllables
         return {
@@ -95,10 +98,14 @@ class DescriptiveStatistics:
         else:
             n_chars = len(doc.text)
 
+        if n_tokens == 0:
+            prop_unique_tokens = np.nan
+        else:
+            prop_unique_tokens = n_types / n_tokens
         out = {
             "n_tokens": n_tokens,
             "n_unique_tokens": n_types,
-            "percent_unique_tokens": n_types / n_tokens,
+            "proportion_unique_tokens": prop_unique_tokens,
             "n_characters": n_chars,
         }
         if type(doc) == Doc:

@@ -1,3 +1,3 @@
-from .readability import create_readability_component
-from .dependency_distance import create_dependency_distance_component
-from .descriptive_stats import create_descriptive_stats_component
+from .readability import Readability
+from .dependency_distance import DependencyDistance
+from .descriptive_stats import DescriptiveStatistics

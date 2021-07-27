@@ -22,7 +22,7 @@ setuptools.setup(
     author="Lasse Hansen",
     author_email="lasseh0310@gmail.com",
     url="https://github.com/HLasse/textdescriptives",
-    packages=["spacy-textdescriptives"],
+    packages=["textdescriptives"],
     install_requires=[
         "spacy>=3.0.3",
         "numpy>=1.20.0",

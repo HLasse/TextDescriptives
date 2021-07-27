@@ -1,8 +1,8 @@
 """Adds all components to a spaCy pipeline"""
-from components import (
-    create_readability_component,
-    create_dependency_distance_component,
-    create_descriptive_stats_component,
+from .components import (
+    Readability,
+    DependencyDistance,
+    DescriptiveStatistics,
 )
 
 from spacy.language import Language

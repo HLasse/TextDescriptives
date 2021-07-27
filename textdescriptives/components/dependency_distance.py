@@ -46,6 +46,13 @@ class DependencyDistance:
 
     def doc_dependency(self, doc: Doc):
         """Doc-level dependency distance aggregated on sentence level"""
+        if len(doc) == 0:
+            return {
+                "dependency_distance_mean": np.nan,
+                "dependency_distance_std": np.nan,
+                "prop_adjacent_dependency_relation_mean": np.nan,
+                "prop_adjacent_dependency_relation_std": np.nan,
+            }
         dep_dists, adj_deps = zip(
             *[sent._.dependency_distance.values() for sent in doc.sents]
         )
