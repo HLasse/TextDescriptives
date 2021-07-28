@@ -1,9 +1,9 @@
-<!-- 
-[![PyPI version](https://badge.fury.io/py/tomsup.svg)](https://pypi.org/project/tomsup/)
-[![Code style: flake8](https://img.shields.io/badge/Code%20Style-flake8-blue)](https://pypi.org/project/flake8/)
-[![pip downloads](https://img.shields.io/pypi/dm/textdescriptives.svg)](https://crate.io/packages/textdescriptives)
-[![python versions](https://img.shields.io/pypi/pyversions/textdescriptives?colorB=blue)](https://pypi.org/project/textdescriptives/)
--->
+
+[![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
+[![github actions pytest](https://github.com/hlasse/textdescriptives/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/hlasse/textdescriptives/actions)
+[![github actions docs](https://github.com/hlasse/textdescriptives/actions/workflows/documentation.yml/badge.svg)](https://hlasse.io/textdescriptives/)
+![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/hlasse/GISTID/raw/badge-textdescriptives-pytest-coverage.json)
+<!-- Needs to add gist -->
 
 
 
@@ -112,6 +112,7 @@ The table below shows the metrics included in TextDescriptives and their attribu
   ## Authors
 
   Developed by Lasse Hansen ([@HLasse](https://lassehansen.me)) at the [Center for Humanities Computing Aarhus](https://chcaa.io)
+
 
   Collaborators:
 
