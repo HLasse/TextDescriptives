@@ -27,8 +27,6 @@ Import the library and add the component to your pipeline using the string name 
 ```py
 import spacy
 import textdescriptives as td
-# or only load the component: 
-# from textdescriptives import TextDescriptives
 nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe("textdescriptives") 
 doc = nlp("The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.")
@@ -68,7 +66,6 @@ The specific components (`descriptive_stats`, `readability`, and `dependency_dis
 
 ```py
 nlp = spacy.blank("da")
-nlp.add_pipe("sentencizer") # descriptive_stats requires the sentencizer
 nlp.add_pipe("descriptive_stats")
 docs = nlp.pipe(['Da jeg var atten, tog jeg patent på ild. Det skulle senere vise sig at blive en meget indbringende forretning',
             "Spis skovsneglen, Mulle. Du vil jo gerne være med i hulen, ikk'?"])
