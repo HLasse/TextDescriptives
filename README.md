@@ -12,15 +12,15 @@
 
 A Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance. The components are implemented using getters, which means they will only be calculated when accessed.
 
-## Installation
+# 🔧 Installation
 `python -m pip install git+https://github.com/HLasse/TextDescriptives.git`
 
-## News
+# 📰 News
 
 * TextDescriptives has been completely re-implemented using spaCy v.3.0. The stanza implementation can be found in the `stanza_version` branch and will no longer be maintained. 
 
 
-## Usage
+# 👩‍💻 Usage
  
 Import the library and add the component to your pipeline using the string name of the "textdescriptives" component factory:
 
@@ -83,16 +83,8 @@ td.extract_df(docs, include_text = False)
 |  1 |                 4   |                   3.5 |            2.44949 |                      6 |                        6 |                     3 |                    1.58333 |                            1 |                  0.862007 |         12 |                12 |                    1    |             53 |             2 |
 
 
-
-### Readability
-
-The readability measures are largely derived from the [textstat](https://github.com/shivam5992/textstat) library and are thoroughly defined there.
-
-### Dependency Distance
-Mean dependency distance can be used as a way of measuring the average syntactic complexity of a text. TextDescriptives calculates the mean and standard deviation of dependency distance (on sentence level) and proportion adjacent dependency relations.
-
 ## Available attributes
-The table below shows the metrics included in TextDescriptives and their attribues on spaCy's `Doc`, `Span`, and `Token` objects.
+The table below shows the metrics included in TextDescriptives and their attribues on spaCy's `Doc`, `Span`, and `Token` objects. For more information, see the docs.
 
 | Attribute            | Component                       | Description                                                   |
 | -------------------- | -------------------------- | ------------------------------------------------------------- |
