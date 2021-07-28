@@ -7,6 +7,7 @@ import numpy as np
 
 @Language.factory("dependency_distance")
 def create_dependency_distance_component(nlp: Language, name: str):
+    """Create spaCy language factory that allows DependencyDistance attributes to be added to a pipe using nlp.add_pipe("dependency_distance")"""
     return DependencyDistance(nlp)
 
 
@@ -28,7 +29,7 @@ class DependencyDistance:
         """Run the pipeline component"""
         return doc
 
-    def token_dependency(self, token: Token):
+    def token_dependency(self, token: Token) -> dict:
         """Token-level dependency distance"""
         dep_dist = 0
         ajd_dep = False
@@ -38,7 +39,7 @@ class DependencyDistance:
                 ajd_dep = True
         return {"dependency_distance": dep_dist, "adjacent_dependency": ajd_dep}
 
-    def span_dependency(self, span: Span):
+    def span_dependency(self, span: Span) -> dict:
         """Span-level aggregated dependency distance"""
         dep_dists, adj_deps = zip(
             *[token._.dependency_distance.values() for token in span]
@@ -48,7 +49,7 @@ class DependencyDistance:
             "prop_adjacent_dependency_relation": np.mean(adj_deps),
         }
 
-    def doc_dependency(self, doc: Doc):
+    def doc_dependency(self, doc: Doc) -> dict:
         """Doc-level dependency distance aggregated on sentence level"""
         if len(doc) == 0:
             return {

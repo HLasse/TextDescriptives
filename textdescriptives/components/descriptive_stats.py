@@ -1,4 +1,4 @@
-"""Calculation of descriptive statistics"""
+"""Calculation of descriptive statistics."""
 from spacy.tokens import Doc, Span
 from spacy.language import Language
 from typing import Union
@@ -9,6 +9,8 @@ from .utils import filtered_tokens, n_tokens, n_syllables, n_sentences
 
 @Language.factory("descriptive_stats")
 def create_descriptive_stats_component(nlp: Language, name: str):
+    """Allows DescriptiveStatistics to be added to a spaCy pipe using nlp.add_pipe("descriptive_stats").
+    If the pipe does not contain a parser or sentencizer, the sentencizer component is silently added."""
     sentencizers = set(["sentencizer", "parser"])
     if not sentencizers.intersection(set(nlp.pipe_names)):
         nlp.add_pipe("sentencizer")  # add a sentencizer if not one in pipe

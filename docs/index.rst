@@ -4,12 +4,14 @@ TextDescriptives
 .. image:: https://img.shields.io/github/stars/hlasse/textdescriptives.svg?style=social&label=Star&maxAge=2592000
    :target: https://github.com/hlasse/textdescriptives
 
-TextDescriptives is a... add introduction
+TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. 
+TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance. 
+The components are implemented using getters, which means they will only be calculated when accessed.
 
 📰 News
 ---------------------------------
 
-Add new items
+* TextDescriptives has been completely re-implemented using spaCy v.3.0. The stanza implementation can be found in the `stanza_version branch <https://github.com/HLasse/TextDescriptives/tree/stanza_version>`_ and will no longer be maintained. 
 
 
 Contents
@@ -33,7 +35,9 @@ The documentation is organized in three parts:
    :maxdepth: 3
    :caption: Package References
 
+   descriptivestats
    readability
+   dependencydistance
 
 .. add more references here
 
@@ -43,7 +47,6 @@ The documentation is organized in three parts:
   GitHub Repository <https://github.com/hlasse/TextDescriptives>
 
    
-
 
 Indices and search
 ==================
