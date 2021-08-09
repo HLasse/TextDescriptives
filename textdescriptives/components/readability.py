@@ -88,8 +88,7 @@ class Readability:
         if n_sentences >= 3:
             smog = (1.043 * (30 * (hard_words / n_sentences)) ** 0.5) + 3.1291
             return smog
-        else:
-            return np.nan
+        return np.nan
 
     def _gunning_fog(self, doc, hard_words: int):
         """
@@ -143,6 +142,6 @@ class Readability:
     def _rix(self, doc: Doc, long_words: int):
         """n_long_words / n_sentences"""
         n_sentences = doc._._n_sentences
-        if n_sentences == 0:
+        if doc._._n_tokens == 0:
             return np.nan
         return long_words / n_sentences

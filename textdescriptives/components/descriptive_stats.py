@@ -114,6 +114,6 @@ class DescriptiveStatistics:
             "proportion_unique_tokens": prop_unique_tokens,
             "n_characters": n_chars,
         }
-        if type(doc) == Doc:
+        if isinstance(doc, Doc):
             out["n_sentences"] = doc._._n_sentences
         return out

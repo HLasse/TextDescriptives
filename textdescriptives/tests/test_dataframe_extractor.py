@@ -29,9 +29,9 @@ def test_extract_df_pipe(nlp):
 def test_extract_df_subsetters(nlp):
     doc = nlp("This is just a cute little text. Actually, it's two sentences.")
     df = td.extract_df(doc, include_text=False)
-    df[td.readability_cols]
-    df[td.dependency_cols]
-    df[td.descriptive_stats_cols]
+    assert df[td.readability_cols]
+    assert df[td.dependency_cols]
+    assert df[td.descriptive_stats_cols]
 
 
 def test_extract_df_error(nlp):

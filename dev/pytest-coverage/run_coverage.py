@@ -5,9 +5,6 @@ import os
 import subprocess
 from pathlib import Path
 
-
-import subprocess
-
 test_failed = False
 try:
     grepOut = subprocess.check_output(

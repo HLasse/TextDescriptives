@@ -25,11 +25,21 @@ def test_readability(nlp):
     assert doc._.readability
 
 
-@pytest.mark.parametrize("text", ["", "#"])
-def test_readability_edge(text, nlp):
+@pytest.mark.parametrize(
+    "text,expected",
+    [
+        ("", np.nan),
+        ("#", np.nan),
+    ],
+)
+def test_readability_edge(text, expected, nlp):
     doc = nlp(text)
-    for v in doc._.readability.values():
-        v is np.nan
+    if np.isnan(expected):
+        for v in doc._.readability.values():
+            assert np.isnan(v)
+    else:
+        for v in doc._.readability.values():
+            assert v == expected
 
 
 @pytest.mark.parametrize(
@@ -55,6 +65,7 @@ def test_flesch_reading_ease(text, expected, nlp):
     doc = nlp(text)
     assert pytest.approx(expected, rel=1e-2) == doc._.readability["flesch_reading_ease"]
 
+
 @pytest.mark.parametrize(
     "text,expected",
     [
@@ -76,7 +87,10 @@ def test_flesch_kincaid_grade(text, expected, nlp):
     text = ftfy.fix_text(text)
     text = " ".join(text.split())
     doc = nlp(text)
-    assert pytest.approx(expected, rel=1e-2) == doc._.readability["flesch_kincaid_grade"]
+    assert (
+        pytest.approx(expected, rel=1e-2) == doc._.readability["flesch_kincaid_grade"]
+    )
+
 
 @pytest.mark.parametrize(
     "text,expected",
@@ -92,6 +106,7 @@ def test_smog(text, expected, nlp):
     doc = nlp(text)
     assert pytest.approx(expected, rel=1e-2) == doc._.readability["smog"]
 
+
 @pytest.mark.parametrize(
     "text,expected",
     [
@@ -106,6 +121,7 @@ def test_gunning_fog(text, expected, nlp):
     doc = nlp(text)
     assert pytest.approx(expected, rel=1e-2) == doc._.readability["gunning_fog"]
 
+
 @pytest.mark.parametrize(
     "text,expected",
     [
@@ -118,7 +134,11 @@ def test_automated_readability_index(text, expected, nlp):
     text = ftfy.fix_text(text)
     text = " ".join(text.split())
     doc = nlp(text)
-    assert pytest.approx(expected, rel=1e-2) == doc._.readability["automated_readability_index"]
+    assert (
+        pytest.approx(expected, rel=1e-2)
+        == doc._.readability["automated_readability_index"]
+    )
+
 
 @pytest.mark.parametrize(
     "text,expected",
@@ -134,6 +154,7 @@ def test_coleman_liau_index(text, expected, nlp):
     doc = nlp(text)
     assert pytest.approx(expected, rel=1e-2) == doc._.readability["coleman_liau_index"]
 
+
 @pytest.mark.parametrize(
     "text,expected",
     [
@@ -147,6 +168,7 @@ def test_lix(text, expected, nlp):
     text = " ".join(text.split())
     doc = nlp(text)
     assert pytest.approx(expected, rel=1e-2) == doc._.readability["lix"]
+
 
 @pytest.mark.parametrize(
     "text,expected",
