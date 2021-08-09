@@ -2,9 +2,9 @@
 name: CI Pytest
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   pytest:
@@ -39,8 +39,8 @@ jobs:
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
         auth: ${{ secrets.PYTEST_COVERAGE_COMMENT }}
-        gistID: af8637d94475ea8bcb6b6a03c4fbcd3e
-        filename: badge-dacy-pytest-coverage.json
+        gistID: 24ee79064ca9d49616cbc410da65cee2
+        filename: badge-textdescriptives-pytest-coverage.json
         label: Coverage
         message: ${{ steps.coverage-comment.outputs.coverage }}
         color: ${{ steps.coverage-comment.outputs.color }}
