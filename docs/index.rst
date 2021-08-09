@@ -6,7 +6,6 @@ TextDescriptives
 
 TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. 
 TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance. 
-The components are implemented using getters, which means they will only be calculated when accessed.
 
 📰 News
 ---------------------------------
