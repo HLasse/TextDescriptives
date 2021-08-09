@@ -1,0 +1,387 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="generator" content="sphinx-4.1.2, furo 2021.07.31.beta41"/>
+        <title>textdescriptives.components.readability - textdescriptives 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=daa650a7760fac3eee23aa959745d2c866b74cb3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=93475b62d1c3bc01323a0eefdc14a62d77b12690" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+    }
+  }
+</style>
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../_static/pygments_dark.css"></head>
+  <body>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">textdescriptives 0.2.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../_static/icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../_static/icon_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html">Using TextDescriptives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#using-specific-components">Using specific components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#available-attributes">Available attributes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../descriptivestats.html">Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../readability.html">Readability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dependencydistance.html">Dependency Distance</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <article role="main">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <h1>Source code for textdescriptives.components.readability</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Calculation of various readability metrics."""</span>
+<span class="kn">from</span> <span class="nn">textdescriptives.components.utils</span> <span class="k">import</span> <span class="n">n_sentences</span>
+<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="k">import</span> <span class="n">Doc</span>
+<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="k">import</span> <span class="n">Language</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Dict</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.descriptive_stats</span> <span class="k">import</span> <span class="n">create_descriptive_stats_component</span>
+
+
+<div class="viewcode-block" id="create_readability_component"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.create_readability_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">"readability"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_readability_component</span><span class="p">(</span><span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">"""Allows Readability to added to a spaCy pipe using nlp.add_pipe("readability").</span>
+<span class="sd">    Readability requires attributes from DescriptiveStatistics and adds it to the</span>
+<span class="sd">    pipe if it not already loaded."""</span>
+    <span class="k">if</span> <span class="s2">"descriptive_stats"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">"'descriptive_stats' component is required for 'readability'. Adding to pipe."</span>
+        <span class="p">)</span>
+        <span class="n">nlp</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">"descriptive_stats"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Readability</span><span class="p">(</span><span class="n">nlp</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Readability"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability">[docs]</a><span class="k">class</span> <span class="nc">Readability</span><span class="p">:</span>
+    <span class="sd">"""spaCy v.3.0 component for adding readability metrics to `Doc` objects.</span>
+<span class="sd">    Extracts metrics and returns them as a dictionary as the ._.readability attribute.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>
+        <span class="sd">"""Initialise components"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"readability"</span><span class="p">):</span>
+            <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"readability"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">readability</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
+        <span class="sd">"""Run the pipeline component"""</span>
+        <span class="k">return</span> <span class="n">doc</span>
+
+<div class="viewcode-block" id="Readability.readability"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability.readability">[docs]</a>    <span class="k">def</span> <span class="nf">readability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">"""Apply readability functions and return a dict of the results."""</span>
+        <span class="n">hard_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">syllable</span> <span class="k">for</span> <span class="n">syllable</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_syllables</span> <span class="k">if</span> <span class="n">syllable</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">])</span>
+        <span class="n">long_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_filtered_tokens</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"flesch_reading_ease"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flesch_reading_ease</span><span class="p">(</span><span class="n">doc</span><span class="p">),</span>
+            <span class="s2">"flesch_kincaid_grade"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flesch_kincaid_grade</span><span class="p">(</span><span class="n">doc</span><span class="p">),</span>
+            <span class="s2">"smog"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_smog</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">hard_words</span><span class="p">),</span>
+            <span class="s2">"gunning_fog"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gunning_fog</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">hard_words</span><span class="p">),</span>
+            <span class="s2">"automated_readability_index"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_automated_readability_index</span><span class="p">(</span><span class="n">doc</span><span class="p">),</span>
+            <span class="s2">"coleman_liau_index"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coleman_liau_index</span><span class="p">(</span><span class="n">doc</span><span class="p">),</span>
+            <span class="s2">"lix"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lix</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">long_words</span><span class="p">),</span>
+            <span class="s2">"rix"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rix</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">long_words</span><span class="p">),</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="Readability._flesch_reading_ease"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._flesch_reading_ease">[docs]</a>    <span class="k">def</span> <span class="nf">_flesch_reading_ease</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        206.835 - (1.015 X avg sent len) - (84.6 * avg_syl_per_word)</span>
+<span class="sd">        </span>
+<span class="sd">        Higher = easier to read</span>
+<span class="sd">        </span>
+<span class="sd">        Works best for English</span>
+<span class="sd">        """</span>
+        <span class="n">avg_sentence_length</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">"sentence_length_mean"</span><span class="p">]</span>
+        <span class="n">avg_syl_per_word</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">syllables</span><span class="p">[</span><span class="s2">"syllables_per_token_mean"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">avg_sentence_length</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">avg_syl_per_word</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mf">206.835</span> <span class="o">-</span> <span class="p">(</span><span class="mf">1.015</span> <span class="o">*</span> <span class="n">avg_sentence_length</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mf">84.6</span> <span class="o">*</span> <span class="n">avg_syl_per_word</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">score</span></div>
+
+<div class="viewcode-block" id="Readability._flesch_kincaid_grade"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._flesch_kincaid_grade">[docs]</a>    <span class="k">def</span> <span class="nf">_flesch_kincaid_grade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Score = grade required to read the text</span>
+<span class="sd">        """</span>
+        <span class="n">avg_sentence_length</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">"sentence_length_mean"</span><span class="p">]</span>
+        <span class="n">avg_syl_per_word</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">syllables</span><span class="p">[</span><span class="s2">"syllables_per_token_mean"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">avg_sentence_length</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">avg_syl_per_word</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mf">0.39</span> <span class="o">*</span> <span class="n">avg_sentence_length</span> <span class="o">+</span> <span class="mf">11.8</span> <span class="o">*</span> <span class="n">avg_syl_per_word</span> <span class="o">-</span> <span class="mf">15.59</span>
+        <span class="k">return</span> <span class="n">score</span></div>
+
+<div class="viewcode-block" id="Readability._smog"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._smog">[docs]</a>    <span class="k">def</span> <span class="nf">_smog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        grade level = 1.043( sqrt(30 * (hard words /n sentences)) + 3.1291</span>
+<span class="sd">        </span>
+<span class="sd">        Preferably need 30+ sentences. Will not work with less than 4</span>
+<span class="sd">        """</span>
+        <span class="n">n_sentences</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_sentences</span>
+        <span class="k">if</span> <span class="n">n_sentences</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">smog</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.043</span> <span class="o">*</span> <span class="p">(</span><span class="mi">30</span> <span class="o">*</span> <span class="p">(</span><span class="n">hard_words</span> <span class="o">/</span> <span class="n">n_sentences</span><span class="p">))</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">3.1291</span>
+            <span class="k">return</span> <span class="n">smog</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span></div>
+
+<div class="viewcode-block" id="Readability._gunning_fog"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._gunning_fog">[docs]</a>    <span class="k">def</span> <span class="nf">_gunning_fog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Grade level = 0.4 * ((avg_sentence_length) + (percentage hard words))</span>
+<span class="sd">        </span>
+<span class="sd">        hard words = 3+ syllables</span>
+<span class="sd">        """</span>
+        <span class="n">n_tokens</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_tokens</span>
+        <span class="k">if</span> <span class="n">n_tokens</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">avg_sent_len</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">"sentence_length_mean"</span><span class="p">]</span>
+        <span class="n">percent_hard_words</span> <span class="o">=</span> <span class="p">(</span><span class="n">hard_words</span> <span class="o">/</span> <span class="n">n_tokens</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="k">return</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="p">(</span><span class="n">avg_sent_len</span> <span class="o">+</span> <span class="n">percent_hard_words</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Readability._automated_readability_index"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._automated_readability_index">[docs]</a>    <span class="k">def</span> <span class="nf">_automated_readability_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Score = grade required to read the text</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mf">4.71</span> <span class="o">*</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">token_length</span><span class="p">[</span><span class="s2">"token_length_mean"</span><span class="p">]</span>
+            <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">"sentence_length_mean"</span><span class="p">]</span>
+            <span class="o">-</span> <span class="mf">21.43</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">score</span></div>
+
+<div class="viewcode-block" id="Readability._coleman_liau_index"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._coleman_liau_index">[docs]</a>    <span class="k">def</span> <span class="nf">_coleman_liau_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        score = 0.0588 * avg number of chars pr 100 words - 0.296 * avg num of sents pr 100 words -15.8</span>
+<span class="sd">        </span>
+<span class="sd">        Score = grade required to read the text</span>
+<span class="sd">        """</span>
+        <span class="n">n_tokens</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_tokens</span>
+        <span class="k">if</span> <span class="n">n_tokens</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">token_length</span><span class="p">[</span><span class="s2">"token_length_mean"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_sentences</span> <span class="o">/</span> <span class="n">n_tokens</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="k">return</span> <span class="mf">0.0588</span> <span class="o">*</span> <span class="n">l</span> <span class="o">-</span> <span class="mf">0.296</span> <span class="o">*</span> <span class="n">s</span> <span class="o">-</span> <span class="mf">15.8</span></div>
+
+<div class="viewcode-block" id="Readability._lix"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._lix">[docs]</a>    <span class="k">def</span> <span class="nf">_lix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">long_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        (n_words / n_sentences) + (n_words longer than 6 letters * 100) / n_words</span>
+<span class="sd">        """</span>
+        <span class="n">n_tokens</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_tokens</span>
+        <span class="k">if</span> <span class="n">n_tokens</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">percent_long_words</span> <span class="o">=</span> <span class="n">long_words</span> <span class="o">/</span> <span class="n">n_tokens</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="k">return</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">"sentence_length_mean"</span><span class="p">]</span> <span class="o">+</span> <span class="n">percent_long_words</span></div>
+
+<div class="viewcode-block" id="Readability._rix"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._rix">[docs]</a>    <span class="k">def</span> <span class="nf">_rix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">long_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">"""n_long_words / n_sentences"""</span>
+        <span class="n">n_sentences</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_sentences</span>
+        <span class="k">if</span> <span class="n">n_sentences</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">return</span> <span class="n">long_words</span> <span class="o">/</span> <span class="n">n_sentences</span></div></div>
+</pre></div>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/main.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    </body>
+</html>
