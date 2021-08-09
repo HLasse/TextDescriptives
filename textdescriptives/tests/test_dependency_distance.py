@@ -45,8 +45,8 @@ def test_dependency_distance_edge(text, expected, nlp):
     "text,expected",
     [
         (oliver_twist, 3.19),
-        (secret_garden, 2.32),
-        (flatland, 3.42),
+        (secret_garden, 2.29),
+        (flatland, 3.33),
     ],
 )
 def test_mean_dep_distance(text, expected, nlp):
@@ -62,9 +62,9 @@ def test_mean_dep_distance(text, expected, nlp):
 @pytest.mark.parametrize(
     "text,expected",
     [
-        (oliver_twist, 1.24),
-        (secret_garden, 0.85),
-        (flatland, 1.11),
+        (oliver_twist, 1.45),
+        (secret_garden, 0.88),
+        (flatland, 1.20),
     ],
 )
 def test_std_dep_distance(text, expected, nlp):
@@ -80,9 +80,9 @@ def test_std_dep_distance(text, expected, nlp):
 @pytest.mark.parametrize(
     "text,expected",
     [
-        (oliver_twist, 0.41),
-        (secret_garden, 0.42),
-        (flatland, 0.45),
+        (oliver_twist, 0.395),
+        (secret_garden, 0.41),
+        (flatland, 0.44),
     ],
 )
 def test_mean_adj_dep(text, expected, nlp):
@@ -98,8 +98,8 @@ def test_mean_adj_dep(text, expected, nlp):
 @pytest.mark.parametrize(
     "text,expected",
     [
-        (oliver_twist, 0.068),
-        (secret_garden, 0.098),
+        (oliver_twist, 0.094),
+        (secret_garden, 0.107),
         (flatland, 0.056),
     ],
 )

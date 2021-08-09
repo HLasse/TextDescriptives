@@ -6,3 +6,5 @@ from .dataframe_extract import (
     dependency_cols,
     descriptive_stats_cols,
 )
+
+from .about import __version__, __title__

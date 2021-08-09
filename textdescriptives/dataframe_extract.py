@@ -1,7 +1,7 @@
 """Extract metrics as Pandas DataFrame"""
 from spacy.tokens import Doc
 
-from typing import Union
+from typing import Union, List
 import types
 
 import pandas as pd
@@ -11,7 +11,7 @@ class DataFrameExtractor:
     def __init__(
         self,
         doc: Doc,
-        metrics: Union[list[str], str] = "all",
+        metrics: Union[List[str], str] = "all",
         include_text: bool = True,
     ):
         """Utility class to extract specified metrics to a Pandas DataFrame
