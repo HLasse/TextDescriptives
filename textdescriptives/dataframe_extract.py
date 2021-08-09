@@ -79,7 +79,7 @@ class DataFrameExtractor:
 
 
 def extract_df(
-    doc: Doc, metrics: Union[list[str], str] = "all", include_text: bool = True
+    doc: Doc, metrics: Union[List[str], str] = "all", include_text: bool = True
 ) -> pd.DataFrame:
     """Extract calculated metrics from a spaCy Doc object or a generator of Docs from
     nlp.pipe to a Pandas DataFrame
