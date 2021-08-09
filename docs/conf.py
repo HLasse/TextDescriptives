@@ -75,9 +75,6 @@ html_context = {
     "conf_py_path": "/docs/",
 }
 
-
-html_static_path = ["_static"]
-
 html_theme_options = {
     "light_logo": "icon.png",
     "dark_logo": "icon_dark.png",
@@ -94,4 +91,4 @@ html_theme_options = {
 }
 
 # pygments_style = "monokai"
-pygments_dark_style = "monokai"
+# pygments_dark_style = "monokai"
