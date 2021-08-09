@@ -16,7 +16,7 @@ TextDescriptives can be used to calculate several descriptive statistics, readab
 Contents
 ---------------------------------
   
-The documentation is organized in three parts:
+The documentation is organized in two parts:
 
 - **Getting Started** contains the installation instructions, guides, and tutorials on how to use the package.
 - **Package References** contains the documentation of each public class and function.
