@@ -24,11 +24,21 @@ def test_dependency_distance(nlp):
     assert doc[0]._.dependency_distance
 
 
-@pytest.mark.parametrize("text", ["", "#"])
-def test_dependency_distance_edge(text, nlp):
+@pytest.mark.parametrize(
+    "text,expected",
+    [
+        ("", np.nan),
+        ("#", 0.0),
+    ],
+)
+def test_dependency_distance_edge(text, expected, nlp):
     doc = nlp(text)
     for v in doc._.dependency_distance.values():
-        assert v is np.nan
+        if expected is np.nan:
+            assert v is np.nan
+        else:
+            assert pytest.approx(expected, rel=1e-2) == v
+
 
 
 @pytest.mark.parametrize(
