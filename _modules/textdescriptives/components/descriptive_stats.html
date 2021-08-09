@@ -318,7 +318,7 @@
             <span class="s2">"proportion_unique_tokens"</span><span class="p">:</span> <span class="n">prop_unique_tokens</span><span class="p">,</span>
             <span class="s2">"n_characters"</span><span class="p">:</span> <span class="n">n_chars</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="o">==</span> <span class="n">Doc</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
             <span class="n">out</span><span class="p">[</span><span class="s2">"n_sentences"</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_sentences</span>
         <span class="k">return</span> <span class="n">out</span></div></div>
 </pre></div>

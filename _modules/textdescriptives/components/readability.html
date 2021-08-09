@@ -292,8 +292,7 @@
         <span class="k">if</span> <span class="n">n_sentences</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
             <span class="n">smog</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.043</span> <span class="o">*</span> <span class="p">(</span><span class="mi">30</span> <span class="o">*</span> <span class="p">(</span><span class="n">hard_words</span> <span class="o">/</span> <span class="n">n_sentences</span><span class="p">))</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">3.1291</span>
             <span class="k">return</span> <span class="n">smog</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span></div>
 
 <div class="viewcode-block" id="Readability._gunning_fog"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._gunning_fog">[docs]</a>    <span class="k">def</span> <span class="nf">_gunning_fog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -347,7 +346,7 @@
 <div class="viewcode-block" id="Readability._rix"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._rix">[docs]</a>    <span class="k">def</span> <span class="nf">_rix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">long_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">"""n_long_words / n_sentences"""</span>
         <span class="n">n_sentences</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_sentences</span>
-        <span class="k">if</span> <span class="n">n_sentences</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_tokens</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
         <span class="k">return</span> <span class="n">long_words</span> <span class="o">/</span> <span class="n">n_sentences</span></div></div>
 </pre></div>
