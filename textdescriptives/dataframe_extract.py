@@ -7,7 +7,7 @@ import types
 import pandas as pd
 
 
-class Extractor:
+class DataFrameExtractor:
     def __init__(
         self,
         doc: Doc,
@@ -97,10 +97,10 @@ def extract_df(
     if isinstance(doc, types.GeneratorType):
         rows = []
         for d in doc:
-            metric_df = Extractor(d, metrics, include_text).df
+            metric_df = DataFrameExtractor(d, metrics, include_text).df
             rows.append(metric_df)
         return pd.concat(rows, axis=0, ignore_index=True)
-    return Extractor(doc, metrics, include_text).df
+    return DataFrameExtractor(doc, metrics, include_text).df
 
 
 """Helpers to subset an extracted dataframe"""
