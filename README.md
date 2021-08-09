@@ -2,7 +2,7 @@
 [![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
 [![github actions pytest](https://github.com/hlasse/textdescriptives/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/hlasse/textdescriptives/actions)
 [![github actions docs](https://github.com/hlasse/textdescriptives/actions/workflows/documentation.yml/badge.svg)](https://hlasse.io/textdescriptives/)
-![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/hlasse/GISTID/raw/badge-textdescriptives-pytest-coverage.json)
+![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/hlasse/24ee79064ca9d49616cbc410da65cee2/raw/badge-textdescriptives-pytest-coverage.json)
 <!-- Needs to add gist -->
 
 
