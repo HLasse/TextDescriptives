@@ -3,8 +3,6 @@
 [![github actions pytest](https://github.com/hlasse/textdescriptives/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/hlasse/textdescriptives/actions)
 [![github actions docs](https://github.com/hlasse/textdescriptives/actions/workflows/documentation.yml/badge.svg)](https://hlasse.github.io/TextDescriptives/)
 ![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/hlasse/24ee79064ca9d49616cbc410da65cee2/raw/badge-textdescriptives-pytest-coverage.json)
-<!-- Needs to add gist -->
-
 
 
 
@@ -81,7 +79,7 @@ td.extract_df(docs, include_text = False)
 |  1 |                 4   |                   3.5 |            2.44949 |                      6 |                        6 |                     3 |                    1.58333 |                            1 |                  0.862007 |         12 |                12 |                       1    |             53 |             2 |
 
 ## Available attributes
-The table below shows the metrics included in TextDescriptives and their attribues on spaCy's `Doc`, `Span`, and `Token` objects. For more information, see the docs.
+The table below shows the metrics included in TextDescriptives and their attributes on spaCy's `Doc`, `Span`, and `Token` objects. For more information, see the [docs](https://hlasse.github.io/TextDescriptives/).
 
 | Attribute            | Component                       | Description                                                   |
 | -------------------- | -------------------------- | ------------------------------------------------------------- |
@@ -105,5 +103,5 @@ The table below shows the metrics included in TextDescriptives and their attribu
 
   Collaborators:
 
-  *  Ludvig Renbo Olsen ([@ludvigolsen]( https://github.com/ludvigolsen ), [ludvigolsen.dk]( http://ludvigolsen.dk ))
+  * Ludvig Renbo Olsen ([@ludvigolsen]( https://github.com/ludvigolsen ), [ludvigolsen.dk]( http://ludvigolsen.dk ))
   * Kenneth Enevoldsen ([@KennethEnevoldsen](https://github.com/kennethenevoldsen))
