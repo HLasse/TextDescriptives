@@ -43,3 +43,19 @@ def test_extract_df_error(nlp):
         td.extract_df(doc, metrics="not a metric")
     with pytest.raises(Exception) as e_info:
         td.extract_df(doc, metrics=True)
+
+
+def test_extract_dict_single_doc(nlp):
+    doc = nlp("This is just a cute little text. Actually, it's two sentences.")
+    td.extract_dict(doc)
+    for metric in ["descriptive_stats", "readability", "dependency_distance"]:
+        td.extract_dict(doc, metrics=metric)
+
+
+def test_extract_df_pipe(nlp):
+    text = [
+        "I wonder how well the function works on multiple documents",
+        "Very exciting to see, don't you think?",
+    ]
+    docs = nlp.pipe(text)
+    assert len(td.extract_dict(docs)["token_length_mean"]) == 2

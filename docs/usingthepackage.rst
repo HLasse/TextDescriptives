@@ -16,12 +16,13 @@ Import the library and add the component to your pipeline using the string name 
    doc._.readability
    doc._.token_length
 
-The calculated metrics can be conveniently extracted to a Pandas DataFrame using the :code:`extract_df` function.
+The calculated metrics can be conveniently extracted to a Pandas DataFrame using the :code:`extract_df` function or a dictionary using the :code:`extract_dict` function.
 
 
 .. code-block:: python
 
    td.extract_df(doc)
+   td.extract_dict(doc)
 
 You can control which measures to extract with the *metrics* argument.
 
@@ -30,9 +31,9 @@ You can control which measures to extract with the *metrics* argument.
    td.extract_df(doc, metrics = ["descriptive_stats", "readability", "dependency_distance"])
 
 .. note::
-   By default, :code:`extract_df` adds a column containing the text. You can change this behaviour by setting :code:`include_text = False`.
+   By default, the :code:`extract_X` functions adds a column containing the text. You can change this behaviour by setting :code:`include_text = False`.
 
-:code:`extract_df` also works on objects created by :code:`nlp.pipe`. The output will be formatted with 1 row for each document and a column for each metric.
+:code:`extract_df` and :code:`extract_dict` also work on objects created by :code:`nlp.pipe`. The output will be formatted with 1 row for each document and a column for each metric.
 
 .. code-block:: python
 

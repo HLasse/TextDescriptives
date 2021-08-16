@@ -1,20 +1,23 @@
 """Extract metrics as Pandas DataFrame"""
 from spacy.tokens import Doc
 
+from functools import reduce
+from collections import defaultdict
 from typing import Union, List
 import types
 
 import pandas as pd
 
 
-class DataFrameExtractor:
+class Extractor:
     def __init__(
         self,
         doc: Doc,
         metrics: Union[List[str], str] = "all",
         include_text: bool = True,
+        as_dict = False
     ):
-        """Utility class to extract specified metrics to a Pandas DataFrame
+        """Utility class to extract specified metrics to a Pandas DataFrame or dictionary
 
         Args:
             doc (Doc): a spaCy doc
@@ -40,27 +43,33 @@ class DataFrameExtractor:
                 f"'metrics' contained invalid metric.\nValid metrics are: ['all', 'descriptive_stats', 'readability', 'dependency_distance']"
             )
 
+        self.include_text = include_text
+        self.as_dict = as_dict
+
         if include_text:
-            df_list = [pd.DataFrame([doc.text], columns=["text"])]
+            extraction = self.__extract_text(doc)
         else:
-            df_list = []
+            extraction = []
 
         if "all" in metrics:
             if doc.has_extension("counts"):
-                df_list.append(self.__descriptive_stats(doc))
+                extraction.append(self.__descriptive_stats(doc))
             if doc.has_extension("readability"):
-                df_list.append(self.__readability(doc))
+                extraction.append(self.__readability(doc))
             if doc.has_extension("dependency_distance"):
-                df_list.append(self.__dependency_distance(doc))
+                extraction.append(self.__dependency_distance(doc))
         else:
             if "descriptive_stats" in metrics:
-                df_list.append(self.__descriptive_stats(doc))
+                extraction.append(self.__descriptive_stats(doc))
             if "readability" in metrics:
-                df_list.append(self.__readability(doc))
+                extraction.append(self.__readability(doc))
             if "dependency_distance" in metrics:
-                df_list.append(self.__dependency_distance(doc))
+                extraction.append(self.__dependency_distance(doc))
 
-        self.df = pd.concat(df_list, axis=1)
+        if self.as_dict:
+            self.out = reduce(lambda a, b: {**a, **b}, extraction)
+        else:
+            self.out = pd.concat(extraction, axis=1)
 
     def __descriptive_stats(self, doc: Doc) -> pd.DataFrame:
         descriptive_stats = {
@@ -69,13 +78,25 @@ class DataFrameExtractor:
             **doc._.syllables,
             **doc._.counts,
         }
+        if self.as_dict:
+            return descriptive_stats
         return pd.DataFrame.from_records([descriptive_stats])
 
     def __readability(self, doc: Doc) -> pd.DataFrame:
+        if self.as_dict:
+            return doc._.readability
         return pd.DataFrame.from_records([doc._.readability])
 
     def __dependency_distance(self, doc: Doc) -> pd.DataFrame:
+        if self.as_dict:
+            return doc._.dependency_distance
         return pd.DataFrame.from_records([doc._.dependency_distance])
+
+    def __extract_text(self, doc: Doc) -> Union[pd.DataFrame, str]:
+        if self.as_dict:
+            return [{"text" : doc.text}]
+        return [pd.DataFrame([doc.text], columns=["text"])]
+        
 
 
 def extract_df(
@@ -97,10 +118,40 @@ def extract_df(
     if isinstance(doc, types.GeneratorType):
         rows = []
         for d in doc:
-            metric_df = DataFrameExtractor(d, metrics, include_text).df
+            metric_df = Extractor(d, metrics, include_text).out
             rows.append(metric_df)
         return pd.concat(rows, axis=0, ignore_index=True)
-    return DataFrameExtractor(doc, metrics, include_text).df
+    return Extractor(doc, metrics, include_text).out
+
+
+def extract_dict(
+    doc: Doc, metrics: Union[List[str], str] = "all", include_text: bool = True
+) -> dict:
+    """Extract calculated metrics from a spaCy Doc object or a generator of Docs from
+    nlp.pipe to a dictionary
+
+    Args:
+        doc (Doc): a spaCy doc or a generator of spaCy Docs
+        metrics (Union[list[str], str], optional): Which metrics to extract.
+                One or more of ["descriptive_stats", "readability", "dependency_distance", "all"].
+                Defaults to "all".
+        include_text (bool, optional): Whether to add an entry containing the text. Defaults to True.
+
+    Returns:
+        dict: Dictionary with a key for each metric.
+    """
+    if isinstance(doc, types.GeneratorType):
+        dict_list = []
+        for d in doc:
+            metric_dict = Extractor(d, metrics, include_text, as_dict=True).out
+            dict_list.append(metric_dict)
+        # concatenate values from each dict in list
+        out = defaultdict(list)
+        for d in (dict_list): 
+            for key, value in d.items():
+                out[key].append(value)
+        return dict(out)
+    return Extractor(doc, metrics, include_text, as_dict=True).out
 
 
 """Helpers to subset an extracted dataframe"""
@@ -139,3 +190,4 @@ descriptive_stats_cols = [
     "n_sentences",
     "n_characters",
 ]
+
