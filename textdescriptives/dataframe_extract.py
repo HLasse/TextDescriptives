@@ -47,7 +47,7 @@ class Extractor:
         self.as_dict = as_dict
 
         if include_text:
-            extraction = self.__extract_text(doc)
+            extraction = [self.__extract_text(doc)]
         else:
             extraction = []
 
@@ -94,8 +94,8 @@ class Extractor:
 
     def __extract_text(self, doc: Doc) -> Union[pd.DataFrame, str]:
         if self.as_dict:
-            return [{"text" : doc.text}]
-        return [pd.DataFrame([doc.text], columns=["text"])]
+            return {"text" : doc.text}
+        return pd.DataFrame([doc.text], columns=["text"])
         
 
 
