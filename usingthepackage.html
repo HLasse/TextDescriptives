@@ -10,12 +10,12 @@
   <meta property="og:description" content="Import the library and add the component to your pipeline using the string name of the “textdescriptives” component factory: import spacy import textdescriptives as td # or only load the component:..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Descriptive Statistics" href="descriptivestats.html" /><link rel="prev" title="Installation" href="installation.html" />
 
-    <meta name="generator" content="sphinx-4.1.2, furo 2021.08.11.beta42"/>
+    <meta name="generator" content="sphinx-4.1.2, furo 2021.08.17.beta43"/>
         <title>Using TextDescriptives - textdescriptives 1.0.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=197f00461d56902ea7ca048ec6e6ba026f62c97b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=910ac4ccc9d7c023151c34010d7b500fb9777a51" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=93475b62d1c3bc01323a0eefdc14a62d77b12690" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     
     
 
@@ -222,8 +222,9 @@
 <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">token_length</span>
 </pre></div>
 </div>
-<p>The calculated metrics can be conveniently extracted to a Pandas DataFrame using the <code class="code docutils literal notranslate"><span class="pre">extract_df</span></code> function.</p>
+<p>The calculated metrics can be conveniently extracted to a Pandas DataFrame using the <code class="code docutils literal notranslate"><span class="pre">extract_df</span></code> function or a dictionary using the <code class="code docutils literal notranslate"><span class="pre">extract_dict</span></code> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="n">td</span><span class="o">.</span><span class="n">extract_dict</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can control which measures to extract with the <em>metrics</em> argument.</p>
@@ -232,9 +233,9 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>By default, <code class="code docutils literal notranslate"><span class="pre">extract_df</span></code> adds a column containing the text. You can change this behaviour by setting <code class="code docutils literal notranslate"><span class="pre">include_text</span> <span class="pre">=</span> <span class="pre">False</span></code>.</p>
+<p>By default, the <code class="code docutils literal notranslate"><span class="pre">extract_X</span></code> functions adds a column containing the text. You can change this behaviour by setting <code class="code docutils literal notranslate"><span class="pre">include_text</span> <span class="pre">=</span> <span class="pre">False</span></code>.</p>
 </div>
-<p><code class="code docutils literal notranslate"><span class="pre">extract_df</span></code> also works on objects created by <code class="code docutils literal notranslate"><span class="pre">nlp.pipe</span></code>. The output will be formatted with 1 row for each document and a column for each metric.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">extract_df</span></code> and <code class="code docutils literal notranslate"><span class="pre">extract_dict</span></code> also work on objects created by <code class="code docutils literal notranslate"><span class="pre">nlp.pipe</span></code>. The output will be formatted with 1 row for each document and a column for each metric.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docs</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">([</span><span class="s1">'The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.'</span><span class="p">,</span>
 <span class="s1">'He felt that his whole life was some kind of dream and he sometimes wondered whose it was and whether they were enjoying it.'</span><span class="p">])</span>
 <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="s2">"dependency_distance"</span><span class="p">)</span>
