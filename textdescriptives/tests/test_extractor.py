@@ -29,9 +29,9 @@ def test_extract_df_pipe(nlp):
 def test_extract_df_subsetters(nlp):
     doc = nlp("This is just a cute little text. Actually, it's two sentences.")
     df = td.extract_df(doc, include_text=False)
-    df[td.readability_cols]
-    df[td.dependency_cols]
-    df[td.descriptive_stats_cols]
+    assert "token_length_mean" not in df[td.readability_cols].columns
+    assert "token_length_mean" not in df[td.dependency_cols].columns
+    assert "lix" not in df[td.descriptive_stats_cols].columns
 
 
 def test_extract_df_error(nlp):
