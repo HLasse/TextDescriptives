@@ -35,10 +35,11 @@ doc._.readability
 doc._.token_length
 ```
 
-TextDescriptives includes a convenience function for extracting metrics to a Pandas DataFrame
+TextDescriptives includes convenience functions for extracting metrics to a Pandas DataFrame or a dictionary.
 
 ```py
 td.extract_df(doc)
+# td.extract_dict(doc)
 ```
 |    | text                                                                                                                                                        |   token_length_mean |   token_length_median |   token_length_std |   sentence_length_mean |   sentence_length_median |   sentence_length_std |   syllables_per_token_mean |   syllables_per_token_median |   syllables_per_token_std |   n_tokens |   n_unique_tokens |   proportion_unique_tokens |   n_characters |   n_sentences |   flesch_reading_ease |   flesch_kincaid_grade |    smog |   gunning_fog |   automated_readability_index |   coleman_liau_index |     lix |   rix |   dependency_distance_mean |   dependency_distance_std |   prop_adjacent_dependency_relation_mean |   prop_adjacent_dependency_relation_std |
 |---:|:------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------:|----------------------:|-------------------:|-----------------------:|-------------------------:|----------------------:|---------------------------:|-----------------------------:|--------------------------:|-----------:|------------------:|---------------------------:|---------------:|--------------:|----------------------:|-----------------------:|--------:|--------------:|------------------------------:|---------------------:|--------:|------:|---------------------------:|--------------------------:|-----------------------------------------:|----------------------------------------:|
@@ -46,7 +47,7 @@ td.extract_df(doc)
 
 Set which group(s) of metrics you want to extract using the `metrics` parameter (one or more of `readability`, `dependency_distance`, `descriptive_stats`, defaults to `all`)
 
-If `extract_df` is called on an object created using `nlp.pipe` it will format the output with 1 row for each document and a column for each metric.
+If `extract_df` is called on an object created using `nlp.pipe` it will format the output with 1 row for each document and a column for each metric. Similarly, `extract_dict` will have a key for each metric and values as a list of metrics (1 per doc).
 ```py
 docs = nlp.pipe(['The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.',
             'He felt that his whole life was some kind of dream and he sometimes wondered whose it was and whether they were enjoying it.'])
