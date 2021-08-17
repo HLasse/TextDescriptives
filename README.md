@@ -39,7 +39,7 @@ TextDescriptives includes convenience functions for extracting metrics to a Pand
 
 ```py
 td.extract_df(doc)
-# td.extract(dict(doc))
+# td.extract_dict(doc)
 ```
 |    | text                                                                                                                                                        |   token_length_mean |   token_length_median |   token_length_std |   sentence_length_mean |   sentence_length_median |   sentence_length_std |   syllables_per_token_mean |   syllables_per_token_median |   syllables_per_token_std |   n_tokens |   n_unique_tokens |   proportion_unique_tokens |   n_characters |   n_sentences |   flesch_reading_ease |   flesch_kincaid_grade |    smog |   gunning_fog |   automated_readability_index |   coleman_liau_index |     lix |   rix |   dependency_distance_mean |   dependency_distance_std |   prop_adjacent_dependency_relation_mean |   prop_adjacent_dependency_relation_std |
 |---:|:------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------:|----------------------:|-------------------:|-----------------------:|-------------------------:|----------------------:|---------------------------:|-----------------------------:|--------------------------:|-----------:|------------------:|---------------------------:|---------------:|--------------:|----------------------:|-----------------------:|--------:|--------------:|------------------------------:|---------------------:|--------:|------:|---------------------------:|--------------------------:|-----------------------------------------:|----------------------------------------:|

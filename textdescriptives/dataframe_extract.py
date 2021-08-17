@@ -190,4 +190,3 @@ descriptive_stats_cols = [
     "n_sentences",
     "n_characters",
 ]
-
