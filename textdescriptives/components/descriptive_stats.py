@@ -1,7 +1,7 @@
 """Calculation of descriptive statistics."""
 from spacy.tokens import Doc, Span
 from spacy.language import Language
-from typing import Union
+from typing import Union, Counter
 import numpy as np
 
 from .utils import filtered_tokens, n_tokens, n_syllables, n_sentences
@@ -33,6 +33,7 @@ class DescriptiveStatistics:
             "sentence_length",
             "syllables",
             "counts",
+            "pos_proportions"
         ]
         ext_funs = [
             n_sentences,
@@ -42,6 +43,7 @@ class DescriptiveStatistics:
             self.sentence_length,
             self.syllables,
             self.counts,
+            self.pos_proportions,
         ]
         for ext, fun in zip(extensions, ext_funs):
             if ext not in ["_n_sentences", "sentence_length", "syllables"]:
@@ -124,3 +126,20 @@ class DescriptiveStatistics:
         if isinstance(doc, Doc):
             out["n_sentences"] = doc._._n_sentences
         return out
+
+    def pos_proportions(self, doc: Doc) -> dict:
+        """
+            Returns:
+                Dict with proportions of part-of-speech tag in doc.
+        """
+        pos_counts = Counter()
+    
+        for token in doc:
+            pos_counts[token.tag_] += 1
+
+        pos_proportions = {}
+
+        for tag in pos_counts:
+            pos_proportions[tag] = pos_counts[tag] / sum(pos_counts.values())
+
+        return pos_proportions

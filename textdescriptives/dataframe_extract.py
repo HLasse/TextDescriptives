@@ -58,6 +58,8 @@ class Extractor:
                 extraction.append(self.__readability(doc))
             if doc.has_extension("dependency_distance"):
                 extraction.append(self.__dependency_distance(doc))
+            if doc.has_extension("pos_proportions"):
+                extraction.append(self.__pos_proportions(doc))
         else:
             if "descriptive_stats" in metrics:
                 extraction.append(self.__descriptive_stats(doc))
@@ -77,6 +79,7 @@ class Extractor:
             **doc._.sentence_length,
             **doc._.syllables,
             **doc._.counts,
+            **doc._.pos_proportions,
         }
         if self.as_dict:
             return descriptive_stats
