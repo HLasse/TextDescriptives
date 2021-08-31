@@ -4,7 +4,7 @@ POS Stats
 The *pos_stats* component adds one attribute (so far) to  Doc:
 
 * ._.proportions (:code:`Doc`) 
-    * Dict containing keys for part-of-speech tags and values with the proportion of all tokens tagged with the key. Does not create a key if no tokens in the document fit the tag. 
+    * Dict of `{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}`. Does not create a key if no tokens in the document fit the POSTAG.
 
 textdescriptives.components.pos_stats
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
