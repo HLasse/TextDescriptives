@@ -1,11 +1,11 @@
-from spacy.lang.en import English
+import spacy
 import pytest
 from textdescriptives import TextDescriptives
 
 
 @pytest.fixture(scope="function")
 def nlp():
-    nlp = English()
+    nlp = spacy.load("en_core_web_sm")
     nlp.add_pipe("textdescriptives")
     return nlp
 
