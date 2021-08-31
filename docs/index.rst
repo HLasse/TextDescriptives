@@ -37,6 +37,7 @@ The documentation is organized in two parts:
    descriptivestats
    readability
    dependencydistance
+   posstats
 
 .. add more references here
 

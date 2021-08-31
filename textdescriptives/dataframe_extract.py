@@ -101,7 +101,7 @@ class Extractor:
             return {"text" : doc.text}
         return pd.DataFrame([doc.text], columns=["text"])
     
-    def __pos_stats(self, doc: Doc) -> pd.DataFrame:
+    def __pos_proportions(self, doc: Doc) -> pd.DataFrame:
         if self.as_dict:
             return doc._.pos_proportions
         return pd.DataFrame.from_records([doc._.pos_proportions])

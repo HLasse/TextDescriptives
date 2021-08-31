@@ -33,10 +33,10 @@ class POSStatistics:
     def pos_proportions(self, doc: Doc) -> dict:
         """
             Returns:
-                Dict with proportions of part-of-speech tag in doc.
+                Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with POSTAG. Does not create a key if no tokens in the document fit the POSTAG. 
         """
         pos_counts = Counter()
         pos_counts.update([token.tag_ for token in doc])
-        pos_proportions = {tag : pos_counts[tag] / sum(pos_counts.values()) for tag in pos_counts}
+        pos_proportions = {"pos_prop_" + tag : pos_counts[tag] / sum(pos_counts.values()) for tag in pos_counts}
 
         return pos_proportions
