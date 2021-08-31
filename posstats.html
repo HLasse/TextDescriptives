@@ -4,14 +4,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta property="og:title" content="Descriptive Statistics" />
+  <meta property="og:title" content="POS Stats" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="descriptivestats.html" />
-  <meta property="og:description" content="The descriptive_stats component extracts a number of descriptive statistics. The following attributes are added:._.counts ( Doc& Span)- Number of tokens., Number of unique tokens., Proportion uniqu..." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Readability" href="readability.html" /><link rel="prev" title="Using TextDescriptives" href="usingthepackage.html" />
+  <meta property="og:url" content="posstats.html" />
+  <meta property="og:description" content="The pos_stats component adds one attribute (so far) to Doc:-._.proportions ( Doc),- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. Does not create a key if no tokens in the ..." />
+  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Dependency Distance" href="dependencydistance.html" />
 
     <meta name="generator" content="sphinx-4.1.2, furo 2021.08.17.beta43"/>
-        <title>Descriptive Statistics - textdescriptives 1.0.4 documentation</title>
+        <title>POS Stats - textdescriptives 1.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=910ac4ccc9d7c023151c34010d7b500fb9777a51" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -176,10 +176,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Package References</span></p>
 <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependencydistance.html">Dependency Distance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="posstats.html">POS Stats</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">POS Stats</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -208,83 +208,44 @@
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
-        <section id="descriptive-statistics">
-<h1>Descriptive Statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">¶</a></h1>
-<p>The <em>descriptive_stats</em> component extracts a number of descriptive statistics.
-The following attributes are added:</p>
+        <section id="pos-stats">
+<h1>POS Stats<a class="headerlink" href="#pos-stats" title="Permalink to this headline">¶</a></h1>
+<p>The <em>pos_stats</em> component adds one attribute (so far) to  Doc:</p>
 <ul class="simple">
-<li><p>._.counts (<code class="code docutils literal notranslate"><span class="pre">Doc</span></code> &amp; <code class="code docutils literal notranslate"><span class="pre">Span</span></code>)</p>
-<ul>
-<li><p>Number of tokens.</p></li>
-<li><p>Number of unique tokens.</p></li>
-<li><p>Proportion unique tokens.</p></li>
-<li><p>Number of characters.</p></li>
+<li><dl class="simple">
+<dt>._.proportions (<code class="code docutils literal notranslate"><span class="pre">Doc</span></code>)</dt><dd><ul>
+<li><p>Dict of <cite>{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}</cite>. Does not create a key if no tokens in the document fit the POSTAG.</p></li>
 </ul>
-</li>
-<li><p>._.sentence_length(<code class="code docutils literal notranslate"><span class="pre">Doc</span></code>)</p>
-<ul>
-<li><p>Mean sentence length.</p></li>
-<li><p>Median sentence length.</p></li>
-<li><p>Std of sentence length.</p></li>
-</ul>
-</li>
-<li><p>._.syllables(<code class="code docutils literal notranslate"><span class="pre">Doc</span></code>)</p>
-<ul>
-<li><p>Mean number of syllables per token.</p></li>
-<li><p>Median number of syllables per token.</p></li>
-<li><p>Std of number of syllables per token.</p></li>
-</ul>
-</li>
-<li><p>._.token_length(<code class="code docutils literal notranslate"><span class="pre">Doc</span></code> &amp; <code class="code docutils literal notranslate"><span class="pre">Span</span></code>)</p>
-<ul>
-<li><p>Mean token length.</p></li>
-<li><p>Median token length.</p></li>
-<li><p>Std of token length.</p></li>
-</ul>
+</dd>
+</dl>
 </li>
 </ul>
-<section id="module-textdescriptives.components.descriptive_stats">
-<span id="textdescriptives-components-descriptive-stats"></span><h2>textdescriptives.components.descriptive_stats<a class="headerlink" href="#module-textdescriptives.components.descriptive_stats" title="Permalink to this headline">¶</a></h2>
-<p>Calculation of descriptive statistics.</p>
+<section id="module-textdescriptives.components.pos_stats">
+<span id="textdescriptives-components-pos-stats"></span><h2>textdescriptives.components.pos_stats<a class="headerlink" href="#module-textdescriptives.components.pos_stats" title="Permalink to this headline">¶</a></h2>
+<p>Calculation of statistics that require a pos-tagger in the pipeline</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="textdescriptives.components.descriptive_stats.DescriptiveStatistics">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">textdescriptives.components.descriptive_stats.</span></span><span class="sig-name descname"><span class="pre">DescriptiveStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="textdescriptives.components.pos_stats.POSStatistics">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">textdescriptives.components.pos_stats.</span></span><span class="sig-name descname"><span class="pre">POSStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/pos_stats.html#POSStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.pos_stats.POSStatistics" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>spaCy v.3.0 component that adds attributes with desriptive statistics to <cite>Doc</cite> and <cite>Span</cite> objects.
-The attributes relate to token and sentence length, number of syllables, and counts of tokens and sentences.</p>
+<p>spaCy v.3.0 component that adds attributes for POS statistics to <cite>Doc</cite> and <cite>Span</cite> objects.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.descriptive_stats.DescriptiveStatistics.counts">
-<span class="sig-name descname"><span class="pre">counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.doc.Doc</span><span class="p"><span class="pre">,</span> </span><span class="pre">spacy.tokens.span.Span</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_whitespace</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.counts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns:
-Dict with keys:</p>
-<blockquote>
-<div><p>n_tokens,
-n_unique_tokens,
-proportion_unique_tokens,
-n_characters</p>
-</div></blockquote>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.descriptive_stats.DescriptiveStatistics.sentence_length">
-<span class="sig-name descname"><span class="pre">sentence_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.tokens.doc.Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.sentence_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.sentence_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return dict with measures of sentence length</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.descriptive_stats.DescriptiveStatistics.syllables">
-<span class="sig-name descname"><span class="pre">syllables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.tokens.doc.Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.syllables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.syllables" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return dict with measures of syllables per token</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.descriptive_stats.DescriptiveStatistics.token_length">
-<span class="sig-name descname"><span class="pre">token_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.doc.Doc</span><span class="p"><span class="pre">,</span> </span><span class="pre">spacy.tokens.span.Span</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.token_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.token_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return dict with measures of token length</p>
+<dt class="sig sig-object py" id="textdescriptives.components.pos_stats.POSStatistics.pos_proportions">
+<span class="sig-name descname"><span class="pre">pos_proportions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.tokens.doc.Doc</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/pos_stats.html#POSStatistics.pos_proportions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.pos_stats.POSStatistics.pos_proportions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>proportion of all tokens tagged with POSTAG. Does not create a key if no tokens in the document fit the POSTAG.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict containing {pos_prop_POSTAG</p>
+</dd>
+</dl>
 </dd></dl>
 </dd></dl>
 <dl class="py function">
-<dt class="sig sig-object py" id="textdescriptives.components.descriptive_stats.create_descriptive_stats_component">
-<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.descriptive_stats.</span></span><span class="sig-name descname"><span class="pre">create_descriptive_stats_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#create_descriptive_stats_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.create_descriptive_stats_component" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allows DescriptiveStatistics to be added to a spaCy pipe using nlp.add_pipe(“descriptive_stats”).
-If the pipe does not contain a parser or sentencizer, the sentencizer component is silently added.</p>
+<dt class="sig sig-object py" id="textdescriptives.components.pos_stats.create_pos_stats_component">
+<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.pos_stats.</span></span><span class="sig-name descname"><span class="pre">create_pos_stats_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.language.Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/pos_stats.html#create_pos_stats_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.pos_stats.create_pos_stats_component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows PosStats to be added to a spaCy pipe using nlp.add_pipe(“pos_stats”).
+If the pipe does not contain a tagger, it is silently added.</p>
 </dd></dl>
 </section>
 </section>
@@ -293,23 +254,15 @@ If the pipe does not contain a parser or sentencizer, the sentencizer component 
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="readability.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">Readability</div>
-              </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="usingthepackage.html">
+          
+          <a class="prev-page" href="dependencydistance.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Using TextDescriptives</div>
+                <div class="title">Dependency Distance</div>
                 
               </div>
             </a>
@@ -323,7 +276,7 @@ If the pipe does not contain a parser or sentencizer, the sentencizer component 
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
             |
-            <a class="muted-link" href="_sources/descriptivestats.rst.txt"
+            <a class="muted-link" href="_sources/posstats.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -343,8 +296,8 @@ If the pipe does not contain a parser or sentencizer, the sentencizer component 
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Descriptive Statistics</a><ul>
-<li><a class="reference internal" href="#module-textdescriptives.components.descriptive_stats">textdescriptives.components.descriptive_stats</a></li>
+<li><a class="reference internal" href="#">POS Stats</a><ul>
+<li><a class="reference internal" href="#module-textdescriptives.components.pos_stats">textdescriptives.components.pos_stats</a></li>
 </ul>
 </li>
 </ul>
