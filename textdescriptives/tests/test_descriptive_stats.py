@@ -19,7 +19,6 @@ def test_descriptive_stats(nlp):
     assert doc._.sentence_length
     assert doc._.syllables
     assert doc._.counts
-    assert doc._.pos_proportions
     assert doc[0:3]._.token_length
     assert doc[0:3]._.counts
 
@@ -75,13 +74,6 @@ def test_counts(nlp):
     assert doc[0:6]._.counts["proportion_unique_tokens"] == 1.0
     assert doc[0:6]._.counts["n_characters"] == 23
 
-def test_pos_proportions(nlp):
-    doc = nlp(
-        "Here is the first sentence. It was pretty short. Let's make another one that's slightly longer and more complex."
-    )
-
-    assert doc._.pos_proportions == {'RB': 0.125, 'VBZ': 0.08333333333333333, 'DT': 0.08333333333333333, 'JJ': 0.125, 'NN': 0.08333333333333333, '.': 0.125, 'PRP': 0.08333333333333333, 'VBD': 0.041666666666666664, 'VB': 0.08333333333333333, 'WDT': 0.041666666666666664, 'JJR': 0.041666666666666664, 'CC': 0.041666666666666664, 'RBR': 0.041666666666666664}
-
 @pytest.mark.parametrize("text", ["", "#"])
 def test_descriptive_edge(text, nlp):
     doc = nlp(text)
@@ -89,4 +81,3 @@ def test_descriptive_edge(text, nlp):
     assert doc._.sentence_length
     assert doc._.syllables
     assert doc._.counts
-    assert doc._.pos_proportions

@@ -22,7 +22,7 @@ class Extractor:
         Args:
             doc (Doc): a spaCy doc
             metrics (Union[list[str], str], optional): Which metrics to extract.
-                One or more of ["descriptive_stats", "readability", "dependency_distance", "all"].
+                One or more of ["descriptive_stats", "readability", "dependency_distance", "pos_stats", "all"].
                 Defaults to "all".
             include_text (bool, optional): Whether to add a column containing the text. Defaults to True.
         """
@@ -30,7 +30,7 @@ class Extractor:
             raise TypeError(f"doc should be a spaCy Doc object, not {type(doc)}.")
 
         valid_metrics = set(
-            ["descriptive_stats", "readability", "dependency_distance", "all"]
+            ["descriptive_stats", "readability", "dependency_distance", "pos_stats", "all"]
         )
         if isinstance(metrics, str):
             metrics = [metrics]
@@ -40,7 +40,7 @@ class Extractor:
             )
         if not set(metrics).issubset(valid_metrics):
             raise ValueError(
-                f"'metrics' contained invalid metric.\nValid metrics are: ['all', 'descriptive_stats', 'readability', 'dependency_distance']"
+                f"'metrics' contained invalid metric.\nValid metrics are: ['all', 'descriptive_stats', 'readability', 'dependency_distance', 'pos_stats']"
             )
 
         self.include_text = include_text
@@ -67,6 +67,8 @@ class Extractor:
                 extraction.append(self.__readability(doc))
             if "dependency_distance" in metrics:
                 extraction.append(self.__dependency_distance(doc))
+            if "pos_stats" in metrics:
+                extraction.append(self.__pos_proportins(doc))
 
         if self.as_dict:
             self.out = reduce(lambda a, b: {**a, **b}, extraction)
@@ -79,7 +81,6 @@ class Extractor:
             **doc._.sentence_length,
             **doc._.syllables,
             **doc._.counts,
-            **doc._.pos_proportions,
         }
         if self.as_dict:
             return descriptive_stats
@@ -99,6 +100,11 @@ class Extractor:
         if self.as_dict:
             return {"text" : doc.text}
         return pd.DataFrame([doc.text], columns=["text"])
+    
+    def __pos_stats(self, doc: Doc) -> pd.DataFrame:
+        if self.as_dict:
+            return doc._.pos_proportions
+        return pd.DataFrame.from_records([doc._.pos_proportions])
         
 
 
@@ -111,7 +117,7 @@ def extract_df(
     Args:
         doc (Doc): a spaCy doc or a generator of spaCy Docs
         metrics (Union[list[str], str], optional): Which metrics to extract.
-                One or more of ["descriptive_stats", "readability", "dependency_distance", "all"].
+                One or more of ["descriptive_stats", "readability", "dependency_distance", "pos_stats", "all"].
                 Defaults to "all".
         include_text (bool, optional): Whether to add a column containing the text. Defaults to True.
 
@@ -136,7 +142,7 @@ def extract_dict(
     Args:
         doc (Doc): a spaCy doc or a generator of spaCy Docs
         metrics (Union[list[str], str], optional): Which metrics to extract.
-                One or more of ["descriptive_stats", "readability", "dependency_distance", "all"].
+                One or more of ["descriptive_stats", "readability", "dependency_distance", "pos_stats", "all"].
                 Defaults to "all".
         include_text (bool, optional): Whether to add an entry containing the text. Defaults to True.
 
