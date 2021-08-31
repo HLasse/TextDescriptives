@@ -74,7 +74,6 @@ def test_counts(nlp):
     assert doc[0:6]._.counts["proportion_unique_tokens"] == 1.0
     assert doc[0:6]._.counts["n_characters"] == 23
 
-
 @pytest.mark.parametrize("text", ["", "#"])
 def test_descriptive_edge(text, nlp):
     doc = nlp(text)
