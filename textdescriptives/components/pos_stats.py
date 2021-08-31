@@ -9,7 +9,7 @@ from .utils import filtered_tokens
 @Language.factory("pos_stats")
 def create_pos_stats_component(nlp: Language, name: str):
     """Allows PosStats to be added to a spaCy pipe using nlp.add_pipe("pos_stats").
-    If the pipe does not contain a tagger, is is silently added."""
+    If the pipe does not contain a tagger, it is silently added."""
 
     tagger = set(["tagger"])
     if not tagger.intersection(set(nlp.pipe_names)):
@@ -36,9 +36,7 @@ class POSStatistics:
                 Dict with proportions of part-of-speech tag in doc.
         """
         pos_counts = Counter()
-    
         pos_counts.update([token.tag_ for token in doc])
-
         pos_proportions = {tag : pos_counts[tag] / sum(pos_counts.values()) for tag in pos_counts}
 
         return pos_proportions
