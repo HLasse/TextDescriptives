@@ -37,6 +37,6 @@ class POSStatistics:
         """
         pos_counts = Counter()
         pos_counts.update([token.tag_ for token in doc])
-        pos_proportions = {tag : pos_counts[tag] / sum(pos_counts.values()) for tag in pos_counts}
+        pos_proportions = {"pos_prop_" + tag : pos_counts[tag] / sum(pos_counts.values()) for tag in pos_counts}
 
         return pos_proportions

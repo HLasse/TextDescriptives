@@ -20,7 +20,7 @@ A Python library for calculating a large variety of statistics from text(s) usin
 
 
 # 👩‍💻 Usage
- 
+
 Import the library and add the component to your pipeline using the string name of the "textdescriptives" component factory:
 
 ```py
@@ -45,7 +45,7 @@ td.extract_df(doc)
 |---:|:------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------:|----------------------:|-------------------:|-----------------------:|-------------------------:|----------------------:|---------------------------:|-----------------------------:|--------------------------:|-----------:|------------------:|---------------------------:|---------------:|--------------:|----------------------:|-----------------------:|--------:|--------------:|------------------------------:|---------------------:|--------:|------:|---------------------------:|--------------------------:|-----------------------------------------:|----------------------------------------:|
 |  0 | The world (...) |             3.28571 |                     3 |            1.54127 |                      7 |                        6 |               3.09839 |                    1.08571 |                            1 |                  0.368117 |         35 |                23 |                   0.657143 |            121 |             5 |               107.879 |             -0.0485714 | 5.68392 |       3.94286 |                      -2.45429 |            -0.708571 | 12.7143 |   0.4 |                    1.69524 |                  0.422282 |                                  0.44381 |                               0.0863679 |
 
-Set which group(s) of metrics you want to extract using the `metrics` parameter (one or more of `readability`, `dependency_distance`, `descriptive_stats`, defaults to `all`)
+Set which group(s) of metrics you want to extract using the `metrics` parameter (one or more of `readability`, `dependency_distance`, `descriptive_stats`, `pos_stats`, defaults to `all`)
 
 If `extract_df` is called on an object created using `nlp.pipe` it will format the output with 1 row for each document and a column for each metric. Similarly, `extract_dict` will have a key for each metric and values as a list of metrics (1 per doc).
 ```py
@@ -62,7 +62,7 @@ td.extract_df(docs, metrics="dependency_distance")
 The `text` column can by exluded by setting `include_text` to `False`.
 
 ### Using specific components
-The specific components (`descriptive_stats`, `readability`, and `dependency_distance`) can be loaded individually. This can be helpful if you're only interested in e.g. readability metrics or descriptive statistics and don't want to run the dependency parser. 
+The specific components (`descriptive_stats`, `readability`, `dependency_distance` and `pos_stats`) can be loaded individually. This can be helpful if you're only interested in e.g. readability metrics or descriptive statistics and don't want to run the dependency parser or part-of-speech tagger. 
 
 ```py
 nlp = spacy.blank("da")
@@ -88,12 +88,13 @@ The table below shows the metrics included in TextDescriptives and their attribu
 | `Doc._.sentence_length` | `descriptive_stats`                        | Dict containing mean, median, and std of sentence length.   |
 | `Doc._.syllables`    | `descriptive_stats`                       | Dict containing mean, median, and std of number of syllables per token.  |
 | `Doc._.counts`        | `descriptive_stats` | Dict containing the number of tokens, number of unique tokens, proportion unique tokens, and number of characters in the Doc.|
-| `Doc._.readability`        | `readability` | Dict containing Flesch Reading Ease, Flesch-Kincaid Grade, SMOG, Gunning-Fog, Automated Readability Index, Coleman-Liau Index, LIX, and RIX readability metrics for the Doc. |
-| `Doc._.dependency_distance`        | `dependency_distance` | Dict containing the mean and standard deviation of the dependency distance and proportion adjacent dependency relations in the Doc.|
-`Span._.token_length`   | `descriptive_stats`                       | Dict containing mean, median, and std of token length in the span.                                |
-| `Span._.counts`        | `descriptive_stats` | Dict containing the number of tokens, number of unique tokens, proportion unique tokens, and number of characters in the span. |
-| `Span._.dependency_distance`        | `dependency_distance` | Dict containing the mean dependency distance and proportion adjacent dependency relations in the Doc.|
-| `Token._.dependency_distance`        | `dependency_distance` | Dict containing the dependency distance and whether the head word is adjacent for a Token.|
+| `Doc._.pos_proportions`       | `pos_stats`           | Dict containing keys for part-of-speech tags and values with the proportion of all tokens tagged with the key. Does not create a key if no tokens in the document fit the tag. |
+| `Doc._.readability`           | `readability`         | Dict containing Flesch Reading Ease, Flesch-Kincaid Grade, SMOG, Gunning-Fog, Automated Readability Index, Coleman-Liau Index, LIX, and RIX readability metrics for the Doc. |
+| `Doc._.dependency_distance`   | `dependency_distance` | Dict containing the mean and standard deviation of the dependency distance and proportion adjacent dependency relations in the Doc. |
+| `Span._.token_length`         | `descriptive_stats`   | Dict containing mean, median, and std of token length in the span. |
+| `Span._.counts`               | `descriptive_stats`   | Dict containing the number of tokens, number of unique tokens, proportion unique tokens, and number of characters in the span. |
+| `Span._.dependency_distance`  | `dependency_distance` | Dict containing the mean dependency distance and proportion adjacent dependency relations in the Doc. |
+| `Token._.dependency_distance` | `dependency_distance` | Dict containing the dependency distance and whether the head word is adjacent for a Token. |
 
 
 
