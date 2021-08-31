@@ -13,7 +13,7 @@ def create_pos_stats_component(nlp: Language, name: str):
 
     tagger = set(["tagger"])
     if not tagger.intersection(set(nlp.pipe_names)):
-        nlp.add_pipe("tagger")  # add a tagger if not one in pipe
+        raise ValueError("The pipeline does not contain a tagger. Please load a spaCy model which includes a 'tagger' component.")
     return POSStatistics(nlp)
 
 class POSStatistics:
