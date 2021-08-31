@@ -134,12 +134,9 @@ class DescriptiveStatistics:
         """
         pos_counts = Counter()
     
-        for token in doc:
-            pos_counts[token.tag_] += 1
+pos_counts.update([token.tag_ for token in doc])
 
-        pos_proportions = {}
+    pos_proportions = {tag : pos_counts[tag] / sum(pos_counts.values()) for tag in pos_counts}
 
-        for tag in pos_counts:
-            pos_proportions[tag] = pos_counts[tag] / sum(pos_counts.values())
 
         return pos_proportions
