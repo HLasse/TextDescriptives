@@ -93,6 +93,7 @@ The table below shows the metrics included in TextDescriptives and their attribu
 | `Doc._.dependency_distance`   | `dependency_distance` | Dict containing the mean and standard deviation of the dependency distance and proportion adjacent dependency relations in the Doc. |
 | `Span._.token_length`         | `descriptive_stats`   | Dict containing mean, median, and std of token length in the span. |
 | `Span._.counts`               | `descriptive_stats`   | Dict containing the number of tokens, number of unique tokens, proportion unique tokens, and number of characters in the span. |
+| `Span._.pos_proportions`       | `pos_stats`           | Dict of `{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}`. Does not create a key if no tokens in the span fit the POSTAG. |
 | `Span._.dependency_distance`  | `dependency_distance` | Dict containing the mean dependency distance and proportion adjacent dependency relations in the Doc. |
 | `Token._.dependency_distance` | `dependency_distance` | Dict containing the dependency distance and whether the head word is adjacent for a Token. |
 
