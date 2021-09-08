@@ -7,7 +7,7 @@
   <meta property="og:title" content="POS Stats" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="posstats.html" />
-  <meta property="og:description" content="The pos_stats component adds one attribute (so far) to Doc:-._.proportions ( Doc),- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. Does not create a key if no tokens in the ..." />
+  <meta property="og:description" content="The pos_stats component adds one attribute (so far) to Doc or Span:-._.proportions ( Doc),- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. Does not create a key if no tokens..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Dependency Distance" href="dependencydistance.html" />
 
     <meta name="generator" content="sphinx-4.1.2, furo 2021.08.31"/>
@@ -212,10 +212,17 @@
         </div>
         <section id="pos-stats">
 <h1>POS Stats<a class="headerlink" href="#pos-stats" title="Permalink to this headline">¶</a></h1>
-<p>The <em>pos_stats</em> component adds one attribute (so far) to  Doc:</p>
+<p>The <em>pos_stats</em> component adds one attribute (so far) to  Doc or Span:</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt>._.proportions (<code class="code docutils literal notranslate"><span class="pre">Doc</span></code>)</dt><dd><ul>
+<li><p>Dict of <cite>{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}</cite>. Does not create a key if no tokens in the document fit the POSTAG.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>._.proportions (<code class="code docutils literal notranslate"><span class="pre">Span</span></code>)</dt><dd><ul>
 <li><p>Dict of <cite>{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}</cite>. Does not create a key if no tokens in the document fit the POSTAG.</p></li>
 </ul>
 </dd>
@@ -232,7 +239,7 @@
 <p>spaCy v.3.0 component that adds attributes for POS statistics to <cite>Doc</cite> and <cite>Span</cite> objects.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.pos_stats.POSStatistics.pos_proportions">
-<span class="sig-name descname"><span class="pre">pos_proportions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spacy.tokens.doc.Doc</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/pos_stats.html#POSStatistics.pos_proportions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.pos_stats.POSStatistics.pos_proportions" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pos_proportions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">spacy.tokens.doc.Doc</span><span class="p"><span class="pre">,</span> </span><span class="pre">spacy.tokens.span.Span</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/pos_stats.html#POSStatistics.pos_proportions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.pos_stats.POSStatistics.pos_proportions" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>proportion of all tokens tagged with POSTAG. Does not create a key if no tokens in the document fit the POSTAG.</p>

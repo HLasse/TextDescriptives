@@ -209,7 +209,7 @@
 
 <span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="k">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="k">import</span> <span class="n">Language</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">filtered_tokens</span>
 
@@ -227,23 +227,26 @@
     <span class="sd">"""spaCy v.3.0 component that adds attributes for POS statistics to `Doc` and `Span` objects.</span>
 <span class="sd">    """</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span> <span class="c1"># Is the parameter-hint incorrect, should it be "model" instead?</span>
         <span class="sd">"""Initialise components"""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"pos_proportions"</span><span class="p">):</span>
             <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"pos_proportions"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_proportions</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"pos_proportions"</span><span class="p">):</span>
+            <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"pos_proportions"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_proportions</span><span class="p">)</span>
  
 
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
         <span class="sd">"""Run the pipeline component"""</span>
         <span class="k">return</span> <span class="n">doc</span>
 
-<div class="viewcode-block" id="POSStatistics.pos_proportions"><a class="viewcode-back" href="../../../posstats.html#textdescriptives.components.pos_stats.POSStatistics.pos_proportions">[docs]</a>    <span class="k">def</span> <span class="nf">pos_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<div class="viewcode-block" id="POSStatistics.pos_proportions"><a class="viewcode-back" href="../../../posstats.html#textdescriptives.components.pos_stats.POSStatistics.pos_proportions">[docs]</a>    <span class="k">def</span> <span class="nf">pos_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">            Returns:</span>
 <span class="sd">                Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with POSTAG. Does not create a key if no tokens in the document fit the POSTAG. </span>
 <span class="sd">        """</span>
         <span class="n">pos_counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
-        <span class="n">pos_counts</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">token</span><span class="o">.</span><span class="n">tag_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">])</span>
+        <span class="n">pos_counts</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">token</span><span class="o">.</span><span class="n">tag_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">text</span><span class="p">])</span>
         <span class="n">pos_proportions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"pos_prop_"</span> <span class="o">+</span> <span class="n">tag</span> <span class="p">:</span> <span class="n">pos_counts</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pos_counts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">pos_counts</span><span class="p">}</span>
 
         <span class="k">return</span> <span class="n">pos_proportions</span></div></div>
