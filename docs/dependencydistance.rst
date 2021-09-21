@@ -2,7 +2,9 @@ Dependency Distance
 --------------------
 
 The *dependency_distance* component adds measures of depedency distance to both :code:`Doc`, :code:`Span`, and :code:`Token` objects under the ._.dependency_distance attribute.
-Dependency distance can be used a measure of syntactics complexity (the greater the distance, the more complex). 
+Dependency distance can be used a measure of syntactics complexity, the greater the distance, the more complex (`Liu 2008 <https://pdfs.semanticscholar.org/b6b9/cf00698a76d7a1e5ba58baa92d8799366813.pdf>`__, `Oya 2011 <http://www.paaljapan.org/conference2011/ProcNewest2011/pdf/poster/P-13.pdf>`__). 
+
+
 
 For :code:`Doc` objects, the mean and standard deviation of dependency distance on the sentence level is returned along with the mean and standard deviation of the proportion adjacent dependency relations on sentence level.
 
