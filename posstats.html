@@ -4,16 +4,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta property="og:title" content="POS Stats" />
+  <meta property="og:title" content="Part-of-Speech Statistics" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="posstats.html" />
-  <meta property="og:description" content="The pos_stats component adds one attribute (so far) to Doc or Span:-._.proportions ( Doc),- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. Does not create a key if no tokens..." />
+  <meta property="og:description" content="The pos_stats component adds one attribute to a Doc or Span:-._.proportions ( Doc),- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. Does not create a key if no tokens in the..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Dependency Distance" href="dependencydistance.html" />
 
-    <meta name="generator" content="sphinx-4.1.2, furo 2021.08.31"/>
-        <title>POS Stats - textdescriptives 1.0.4 documentation</title>
+    <meta name="generator" content="sphinx-4.2.0, furo 2021.09.22"/>
+        <title>Part-of-Speech Statistics - textdescriptives 1.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=c7c65a82b42f6b978e58466c1e9ef2509836d916" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=150e365fa939648e89c22f6d7d13c72a1657915a" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     
@@ -181,7 +181,7 @@
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependencydistance.html">Dependency Distance</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">POS Stats</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Part-of-Speech Statistics</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -195,7 +195,7 @@
   </aside>
   <div class="main">
     <div class="content">
-      <article role="main">
+      <div class="article-container">
         <div class="content-icon-container">
           <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
@@ -210,20 +210,21 @@
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
-        <section id="pos-stats">
-<h1>POS Stats<a class="headerlink" href="#pos-stats" title="Permalink to this headline">¶</a></h1>
-<p>The <em>pos_stats</em> component adds one attribute (so far) to  Doc or Span:</p>
+        <article role="main">
+          <section id="part-of-speech-statistics">
+<h1>Part-of-Speech Statistics<a class="headerlink" href="#part-of-speech-statistics" title="Permalink to this headline">¶</a></h1>
+<p>The <em>pos_stats</em> component adds one attribute to a Doc or Span:</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt>._.proportions (<code class="code docutils literal notranslate"><span class="pre">Doc</span></code>)</dt><dd><ul>
-<li><p>Dict of <cite>{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}</cite>. Does not create a key if no tokens in the document fit the POSTAG.</p></li>
+<li><p>Dict of <code class="code docutils literal notranslate"><span class="pre">{pos_prop_POSTAG:</span> <span class="pre">proportion</span> <span class="pre">of</span> <span class="pre">all</span> <span class="pre">tokens</span> <span class="pre">tagged</span> <span class="pre">with</span> <span class="pre">POSTAG}</span></code>. Does not create a key if no tokens in the document fit the POSTAG.</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>._.proportions (<code class="code docutils literal notranslate"><span class="pre">Span</span></code>)</dt><dd><ul>
-<li><p>Dict of <cite>{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}</cite>. Does not create a key if no tokens in the document fit the POSTAG.</p></li>
+<li><p>Dict of <code class="code docutils literal notranslate"><span class="pre">{pos_prop_POSTAG:</span> <span class="pre">proportion</span> <span class="pre">of</span> <span class="pre">all</span> <span class="pre">tokens</span> <span class="pre">tagged</span> <span class="pre">with</span> <span class="pre">POSTAG}</span></code>. Does not create a key if no tokens in the document fit the POSTAG.</p></li>
 </ul>
 </dd>
 </dl>
@@ -259,7 +260,8 @@ If the pipe does not contain a tagger, it is silently added.</p>
 </section>
 </section>
 
-      </article>
+        </article>
+      </div>
       <footer>
         
         <div class="related-pages">
@@ -278,13 +280,11 @@ If the pipe does not contain a tagger, it is silently added.</p>
         </div>
 
         <div class="related-information">
-              Copyright &#169; 
-            |
+              Copyright &#169;  |
             Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
-              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
-            |
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
             <a class="muted-link" href="_sources/posstats.rst.txt"
                rel="nofollow">
               Show Source
@@ -305,7 +305,7 @@ If the pipe does not contain a tagger, it is silently added.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">POS Stats</a><ul>
+<li><a class="reference internal" href="#">Part-of-Speech Statistics</a><ul>
 <li><a class="reference internal" href="#module-textdescriptives.components.pos_stats">textdescriptives.components.pos_stats</a></li>
 </ul>
 </li>

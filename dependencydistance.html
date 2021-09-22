@@ -8,12 +8,12 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="dependencydistance.html" />
   <meta property="og:description" content="The dependency_distance component adds measures of depedency distance to both Doc, Span, and Token objects under the ._.dependency_distance attribute. Dependency distance can be used a measure of s..." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="POS Stats" href="posstats.html" /><link rel="prev" title="Readability" href="readability.html" />
+  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Part-of-Speech Statistics" href="posstats.html" /><link rel="prev" title="Readability" href="readability.html" />
 
-    <meta name="generator" content="sphinx-4.1.2, furo 2021.08.31"/>
+    <meta name="generator" content="sphinx-4.2.0, furo 2021.09.22"/>
         <title>Dependency Distance - textdescriptives 1.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=c7c65a82b42f6b978e58466c1e9ef2509836d916" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=150e365fa939648e89c22f6d7d13c72a1657915a" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     
@@ -181,7 +181,7 @@
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Dependency Distance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="posstats.html">POS Stats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Statistics</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -195,7 +195,7 @@
   </aside>
   <div class="main">
     <div class="content">
-      <article role="main">
+      <div class="article-container">
         <div class="content-icon-container">
           <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
@@ -210,10 +210,11 @@
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
-        <section id="dependency-distance">
+        <article role="main">
+          <section id="dependency-distance">
 <h1>Dependency Distance<a class="headerlink" href="#dependency-distance" title="Permalink to this headline">¶</a></h1>
 <p>The <em>dependency_distance</em> component adds measures of depedency distance to both <code class="code docutils literal notranslate"><span class="pre">Doc</span></code>, <code class="code docutils literal notranslate"><span class="pre">Span</span></code>, and <code class="code docutils literal notranslate"><span class="pre">Token</span></code> objects under the ._.dependency_distance attribute.
-Dependency distance can be used a measure of syntactics complexity (the greater the distance, the more complex).</p>
+Dependency distance can be used a measure of syntactics complexity, the greater the distance, the more complex (<a class="reference external" href="https://pdfs.semanticscholar.org/b6b9/cf00698a76d7a1e5ba58baa92d8799366813.pdf">Liu 2008</a>, <a class="reference external" href="http://www.paaljapan.org/conference2011/ProcNewest2011/pdf/poster/P-13.pdf">Oya 2011</a>).</p>
 <p>For <code class="code docutils literal notranslate"><span class="pre">Doc</span></code> objects, the mean and standard deviation of dependency distance on the sentence level is returned along with the mean and standard deviation of the proportion adjacent dependency relations on sentence level.</p>
 <p>For <code class="code docutils literal notranslate"><span class="pre">Span</span></code> objects, the mean dependency distance and the mean proportion adjacent dependency relations in the span are returned.</p>
 <p>For <code class="code docutils literal notranslate"><span class="pre">Token</span></code> objects, the dependency distance and whether the dependency relation is an adjacent token is returned.</p>
@@ -251,7 +252,8 @@ For <cite>Doc</cite> objects, dependency distance is calculated on the sentence 
 </section>
 </section>
 
-      </article>
+        </article>
+      </div>
       <footer>
         
         <div class="related-pages">
@@ -260,7 +262,7 @@ For <cite>Doc</cite> objects, dependency distance is calculated on the sentence 
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">POS Stats</div>
+                <div class="title">Part-of-Speech Statistics</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -278,13 +280,11 @@ For <cite>Doc</cite> objects, dependency distance is calculated on the sentence 
         </div>
 
         <div class="related-information">
-              Copyright &#169; 
-            |
+              Copyright &#169;  |
             Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
-              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
-            |
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
             <a class="muted-link" href="_sources/dependencydistance.rst.txt"
                rel="nofollow">
               Show Source
