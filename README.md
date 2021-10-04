@@ -17,6 +17,7 @@ A Python library for calculating a large variety of statistics from text(s) usin
 
 * TextDescriptives has been completely re-implemented using spaCy v.3.0. The stanza implementation can be found in the `stanza_version` branch and will no longer be maintained. 
 * Check out the brand new documentation [here](https://hlasse.github.io/TextDescriptives/)!
+See [NEWS.md](https://gibhub.com/hlasse/textdescriptives/NEWS.md) for release notes (v. 1.0.5 and onwards)
 
 
 # 👩‍💻 Usage
