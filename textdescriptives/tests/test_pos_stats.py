@@ -18,7 +18,7 @@ def test_pos_proportions_doc(nlp):
         "Here is the first sentence. It was pretty short. Let's make another one that's slightly longer and more complex."
     )
 
-    assert doc._.pos_proportions == {'pos_prop_RB': 0.125, 'pos_prop_VBZ': 0.08333333333333333, 'pos_prop_DT': 0.08333333333333333, 'pos_prop_JJ': 0.125, 'pos_prop_NN': 0.08333333333333333, 'pos_prop_.': 0.125, 'pos_prop_PRP': 0.08333333333333333, 'pos_prop_VBD': 0.041666666666666664, 'pos_prop_VB': 0.08333333333333333, 'pos_prop_WDT': 0.041666666666666664, 'pos_prop_JJR': 0.041666666666666664, 'pos_prop_CC': 0.041666666666666664, 'pos_prop_RBR': 0.041666666666666664}
+    assert doc._.pos_proportions == pytest.approx({'pos_prop_ADV': 0.1666, 'pos_prop_AUX': 0.0833, 'pos_prop_DET': 0.125, 'pos_prop_ADJ': 0.1666, 'pos_prop_NOUN': 0.0833, 'pos_prop_PUNCT': 0.125, 'pos_prop_PRON': 0.0833, 'pos_prop_VERB': 0.125, 'pos_prop_CCONJ': 0.0416}, rel=1e-2)
 
 def test_pos_proportions_span(nlp):
     doc = nlp(
@@ -27,5 +27,5 @@ def test_pos_proportions_span(nlp):
 
     span = doc[0:]
 
-    assert doc._.pos_proportions == {'pos_prop_RB': 0.125, 'pos_prop_VBZ': 0.08333333333333333, 'pos_prop_DT': 0.08333333333333333, 'pos_prop_JJ': 0.125, 'pos_prop_NN': 0.08333333333333333, 'pos_prop_.': 0.125, 'pos_prop_PRP': 0.08333333333333333, 'pos_prop_VBD': 0.041666666666666664, 'pos_prop_VB': 0.08333333333333333, 'pos_prop_WDT': 0.041666666666666664, 'pos_prop_JJR': 0.041666666666666664, 'pos_prop_CC': 0.041666666666666664, 'pos_prop_RBR': 0.041666666666666664}
+    assert doc._.pos_proportions == pytest.approx({'pos_prop_ADV': 0.1666, 'pos_prop_AUX': 0.0833, 'pos_prop_DET': 0.125, 'pos_prop_ADJ': 0.1666, 'pos_prop_NOUN': 0.0833, 'pos_prop_PUNCT': 0.125, 'pos_prop_PRON': 0.0833, 'pos_prop_VERB': 0.125, 'pos_prop_CCONJ': 0.0416}, rel=1e-2)
     
