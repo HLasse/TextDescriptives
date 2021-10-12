@@ -11,7 +11,7 @@ from .descriptive_stats import create_descriptive_stats_component
 
 @Language.factory("readability")
 def create_readability_component(nlp: Language, name: str):
-    """Allows Readability to added to a spaCy pipe using nlp.add_pipe("readability").
+    """Allows Readability to be added to a spaCy pipe using nlp.add_pipe("readability").
     Readability requires attributes from DescriptiveStatistics and adds it to the
     pipe if it not already loaded."""
     if "descriptive_stats" not in nlp.pipe_names:
