@@ -5,7 +5,7 @@ from spacy.language import Language
 from typing import Counter, Union
 
 @Language.factory("pos_stats", default_config={"use_pos": True})
-def create_pos_stats_component(nlp: Language, name: str, use_pos: bool):
+def create_pos_stats_component(nlp: Language, name: str, use_pos: bool) -> Language:
     """Allows PosStats to be added to a spaCy pipe using nlp.add_pipe("pos_stats")"""
 
     tagger = set(["tagger"])
