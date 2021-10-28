@@ -8,9 +8,9 @@ from typing import Counter, Union
 def create_pos_stats_component(nlp: Language, name: str, use_pos: bool) -> Language:
     """Allows PosStats to be added to a spaCy pipe using nlp.add_pipe("pos_stats")"""
 
-    tagger = {"tagger"}
+    tagger = {"tagger", "attribute_ruler"}
     if not tagger.intersection(set(nlp.pipe_names)):
-        raise ValueError("The pipeline does not contain a tagger. Please load a spaCy model which includes a 'tagger' component.")
+        raise ValueError("The pipeline does not contain a component for POS tagging. Please load a spaCy model which includes a 'tagger' or an 'attribute ruler' component.")
     return POSStatistics(nlp, use_pos=use_pos)
 
 class POSStatistics:
