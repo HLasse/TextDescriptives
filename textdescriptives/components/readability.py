@@ -55,9 +55,9 @@ class Readability:
     def _flesch_reading_ease(self, doc: Doc):
         """
         206.835 - (1.015 X avg sent len) - (84.6 * avg_syl_per_word)
-        
+
         Higher = easier to read
-        
+
         Works best for English
         """
         avg_sentence_length = doc._.sentence_length["sentence_length_mean"]
@@ -81,7 +81,7 @@ class Readability:
     def _smog(self, doc: Doc, hard_words: int):
         """
         grade level = 1.043( sqrt(30 * (hard words /n sentences)) + 3.1291
-        
+
         Preferably need 30+ sentences. Will not work with less than 4
         """
         n_sentences = doc._._n_sentences
@@ -93,7 +93,7 @@ class Readability:
     def _gunning_fog(self, doc, hard_words: int):
         """
         Grade level = 0.4 * ((avg_sentence_length) + (percentage hard words))
-        
+
         hard words = 3+ syllables
         """
         n_tokens = doc._._n_tokens
@@ -119,7 +119,7 @@ class Readability:
     def _coleman_liau_index(self, doc: Doc):
         """
         score = 0.0588 * avg number of chars pr 100 words - 0.296 * avg num of sents pr 100 words -15.8
-        
+
         Score = grade required to read the text
         """
         n_tokens = doc._._n_tokens

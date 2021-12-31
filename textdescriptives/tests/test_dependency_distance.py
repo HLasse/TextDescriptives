@@ -40,7 +40,6 @@ def test_dependency_distance_edge(text, expected, nlp):
             assert pytest.approx(expected, rel=1e-2) == v
 
 
-
 @pytest.mark.parametrize(
     "text,expected",
     [

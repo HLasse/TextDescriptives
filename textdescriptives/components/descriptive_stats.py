@@ -98,11 +98,11 @@ class DescriptiveStatistics:
 
     def counts(self, doc: Union[Doc, Span], ignore_whitespace: bool = True):
         """Returns:
-             Dict with keys:
-                n_tokens,
-                n_unique_tokens,
-                proportion_unique_tokens,
-                n_characters
+        Dict with keys:
+           n_tokens,
+           n_unique_tokens,
+           proportion_unique_tokens,
+           n_characters
         """
         n_tokens = doc._._n_tokens
         n_types = len(set([tok.lower_ for tok in doc._._filtered_tokens]))
