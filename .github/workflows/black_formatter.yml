@@ -1,0 +1,18 @@
+# GitHub action for checking in any files in the repo should
+# be reformatted with black.
+
+name: black
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: psf/black@stable
