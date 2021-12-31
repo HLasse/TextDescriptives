@@ -1,5 +1,8 @@
 # GitHub action for checking in any files in the repo should
 # be reformatted with black.
+# you can always run
+# black .
+# to format all scripts.
 
 name: black
 
