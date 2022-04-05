@@ -12,20 +12,61 @@ def nlp():
 
     return nlp
 
+
 @pytest.fixture(scope="function")
 def doc(nlp):
-    words = ["Here", "is", "the", "first", "sentence",".",
-            "It", "was", "pretty", "short", ".",
-            "Let", "'s", "make", "another", "one",
-            "that", "'s", "slightly", "longer", "and",
-            "more", "complex", ".",
-        ]
-    pos = ["ADV", "AUX", "DET", "ADJ", "NOUN", "PUNCT",
-            "PRON", "AUX", "ADV", "ADJ", "PUNCT",
-            "VERB", "PRON", "VERB", "DET", "NOUN",
-            "PRON", "AUX", "ADV", "ADJ", "CCONJ",
-            "ADV", "ADJ", "PUNCT",
-        ]
+    words = [
+        "Here",
+        "is",
+        "the",
+        "first",
+        "sentence",
+        ".",
+        "It",
+        "was",
+        "pretty",
+        "short",
+        ".",
+        "Let",
+        "'s",
+        "make",
+        "another",
+        "one",
+        "that",
+        "'s",
+        "slightly",
+        "longer",
+        "and",
+        "more",
+        "complex",
+        ".",
+    ]
+    pos = [
+        "ADV",
+        "AUX",
+        "DET",
+        "ADJ",
+        "NOUN",
+        "PUNCT",
+        "PRON",
+        "AUX",
+        "ADV",
+        "ADJ",
+        "PUNCT",
+        "VERB",
+        "PRON",
+        "VERB",
+        "DET",
+        "NOUN",
+        "PRON",
+        "AUX",
+        "ADV",
+        "ADJ",
+        "CCONJ",
+        "ADV",
+        "ADJ",
+        "PUNCT",
+    ]
     doc = Doc(
         nlp.vocab,
         words=words,
