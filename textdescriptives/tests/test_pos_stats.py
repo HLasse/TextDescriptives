@@ -1,4 +1,5 @@
 import spacy
+from spacy.tokens import Doc
 from spacy.lang.en import English
 import pytest
 from textdescriptives.components import POSStatistics
@@ -11,50 +12,63 @@ def nlp():
 
     return nlp
 
+@pytest.fixture(scope="function")
+def doc(nlp):
+    words = ["Here", "is", "the", "first", "sentence",".",
+            "It", "was", "pretty", "short", ".",
+            "Let", "'s", "make", "another", "one",
+            "that", "'s", "slightly", "longer", "and",
+            "more", "complex", ".",
+        ]
+    pos = ["ADV", "AUX", "DET", "ADJ", "NOUN", "PUNCT",
+            "PRON", "AUX", "ADV", "ADJ", "PUNCT",
+            "VERB", "PRON", "VERB", "DET", "NOUN",
+            "PRON", "AUX", "ADV", "ADJ", "CCONJ",
+            "ADV", "ADJ", "PUNCT",
+        ]
+    doc = Doc(
+        nlp.vocab,
+        words=words,
+        pos=pos,
+    )
+    return doc
+
 
 def test_pos_integrations(nlp):
     assert "pos_stats" == nlp.pipe_names[-1]
 
 
-def test_pos_proportions_doc(nlp):
-    doc = nlp(
-        "Here is the first sentence. It was pretty short. Let's make another one that's slightly longer and more complex."
-    )
-
+def test_pos_proportions_doc(doc):
     assert doc._.pos_proportions == pytest.approx(
         {
             "pos_prop_ADV": 0.1666,
-            "pos_prop_AUX": 0.0833,
-            "pos_prop_DET": 0.125,
+            "pos_prop_AUX": 0.125,
+            "pos_prop_DET": 0.083,
             "pos_prop_ADJ": 0.1666,
             "pos_prop_NOUN": 0.0833,
             "pos_prop_PUNCT": 0.125,
-            "pos_prop_PRON": 0.0833,
-            "pos_prop_VERB": 0.125,
+            "pos_prop_PRON": 0.125,
+            "pos_prop_VERB": 0.083,
             "pos_prop_CCONJ": 0.0416,
         },
         rel=0.05,
     )
 
 
-def test_pos_proportions_span(nlp):
-    doc = nlp(
-        "Here is the first sentence. It was pretty short. Let's make another one that's slightly longer and more complex."
-    )
+def test_pos_proportions_span(doc):
+    span = doc[:]
 
-    span = doc[0:]
-
-    assert doc._.pos_proportions == pytest.approx(
+    assert span._.pos_proportions == pytest.approx(
         {
             "pos_prop_ADV": 0.1666,
-            "pos_prop_AUX": 0.0833,
-            "pos_prop_DET": 0.125,
+            "pos_prop_AUX": 0.125,
+            "pos_prop_DET": 0.083,
             "pos_prop_ADJ": 0.1666,
             "pos_prop_NOUN": 0.0833,
             "pos_prop_PUNCT": 0.125,
-            "pos_prop_PRON": 0.0833,
-            "pos_prop_VERB": 0.125,
+            "pos_prop_PRON": 0.125,
+            "pos_prop_VERB": 0.083,
             "pos_prop_CCONJ": 0.0416,
         },
-        rel=0.05,
+        rel=0.01,
     )
