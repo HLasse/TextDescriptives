@@ -29,7 +29,6 @@ jobs:
         pip install -r requirements.txt
     - name: Run and write pytest
       run: |
-        set -o pipefail
         pytest --cov=textdescriptives --cov-report term-missing
 
   pytest-coverage:
