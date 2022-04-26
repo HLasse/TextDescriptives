@@ -269,9 +269,9 @@
 <div class="viewcode-block" id="Readability._flesch_reading_ease"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._flesch_reading_ease">[docs]</a>    <span class="k">def</span> <span class="nf">_flesch_reading_ease</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        206.835 - (1.015 X avg sent len) - (84.6 * avg_syl_per_word)</span>
-<span class="sd">        </span>
+
 <span class="sd">        Higher = easier to read</span>
-<span class="sd">        </span>
+
 <span class="sd">        Works best for English</span>
 <span class="sd">        """</span>
         <span class="n">avg_sentence_length</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">"sentence_length_mean"</span><span class="p">]</span>
@@ -295,7 +295,7 @@
 <div class="viewcode-block" id="Readability._smog"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._smog">[docs]</a>    <span class="k">def</span> <span class="nf">_smog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        grade level = 1.043( sqrt(30 * (hard words /n sentences)) + 3.1291</span>
-<span class="sd">        </span>
+
 <span class="sd">        Preferably need 30+ sentences. Will not work with less than 4</span>
 <span class="sd">        """</span>
         <span class="n">n_sentences</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_sentences</span>
@@ -307,7 +307,7 @@
 <div class="viewcode-block" id="Readability._gunning_fog"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._gunning_fog">[docs]</a>    <span class="k">def</span> <span class="nf">_gunning_fog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Grade level = 0.4 * ((avg_sentence_length) + (percentage hard words))</span>
-<span class="sd">        </span>
+
 <span class="sd">        hard words = 3+ syllables</span>
 <span class="sd">        """</span>
         <span class="n">n_tokens</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_tokens</span>
@@ -333,7 +333,7 @@
 <div class="viewcode-block" id="Readability._coleman_liau_index"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._coleman_liau_index">[docs]</a>    <span class="k">def</span> <span class="nf">_coleman_liau_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        score = 0.0588 * avg number of chars pr 100 words - 0.296 * avg num of sents pr 100 words -15.8</span>
-<span class="sd">        </span>
+
 <span class="sd">        Score = grade required to read the text</span>
 <span class="sd">        """</span>
         <span class="n">n_tokens</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_tokens</span>
