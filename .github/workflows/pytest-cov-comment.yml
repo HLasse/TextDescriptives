@@ -50,7 +50,7 @@ jobs:
         pytest --cov=textdescriptives --cov-report term-missing | tee pytest-coverage.txt
     - name: Pytest coverage comment
       id: coverage-comment
-      uses: MishaKav/pytest-coverage-comment@v1.1.24
+      uses: MishaKav/pytest-coverage-comment@v1.1.26
       with:
         pytest-coverage-path: ./pytest-coverage.txt
 
