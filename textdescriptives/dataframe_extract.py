@@ -15,7 +15,7 @@ class Extractor:
         doc: Doc,
         metrics: Union[List[str], str] = "all",
         include_text: bool = True,
-        as_dict = False
+        as_dict=False,
     ):
         """Utility class to extract specified metrics to a Pandas DataFrame or dictionary
 
@@ -30,7 +30,13 @@ class Extractor:
             raise TypeError(f"doc should be a spaCy Doc object, not {type(doc)}.")
 
         valid_metrics = set(
-            ["descriptive_stats", "readability", "dependency_distance", "pos_stats", "all"]
+            [
+                "descriptive_stats",
+                "readability",
+                "dependency_distance",
+                "pos_stats",
+                "all",
+            ]
         )
         if isinstance(metrics, str):
             metrics = [metrics]
@@ -98,14 +104,13 @@ class Extractor:
 
     def __extract_text(self, doc: Doc) -> Union[pd.DataFrame, str]:
         if self.as_dict:
-            return {"text" : doc.text}
+            return {"text": doc.text}
         return pd.DataFrame([doc.text], columns=["text"])
-    
+
     def __pos_proportions(self, doc: Doc) -> pd.DataFrame:
         if self.as_dict:
             return doc._.pos_proportions
         return pd.DataFrame.from_records([doc._.pos_proportions])
-        
 
 
 def extract_df(
@@ -156,7 +161,7 @@ def extract_dict(
             dict_list.append(metric_dict)
         # concatenate values from each dict in list
         out = defaultdict(list)
-        for d in (dict_list): 
+        for d in dict_list:
             for key, value in d.items():
                 out[key].append(value)
         return dict(out)

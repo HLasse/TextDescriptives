@@ -2,12 +2,14 @@ from spacy.lang.en import English
 import pytest
 from textdescriptives.components import DescriptiveStatistics
 
+
 @pytest.fixture(scope="function")
 def nlp():
     nlp = English()
     nlp.add_pipe("sentencizer")
     nlp.add_pipe("descriptive_stats")
     return nlp
+
 
 def test_descriptive_stats_integration(nlp):
     assert "descriptive_stats" == nlp.pipe_names[-1]
@@ -73,6 +75,7 @@ def test_counts(nlp):
     assert doc[0:6]._.counts["n_unique_tokens"] == 5
     assert doc[0:6]._.counts["proportion_unique_tokens"] == 1.0
     assert doc[0:6]._.counts["n_characters"] == 23
+
 
 @pytest.mark.parametrize("text", ["", "#"])
 def test_descriptive_edge(text, nlp):

@@ -1,5 +1,10 @@
 from .load_components import TextDescriptives
-from .components import DescriptiveStatistics, Readability, DependencyDistance, POSStatistics
+from .components import (
+    DescriptiveStatistics,
+    Readability,
+    DependencyDistance,
+    POSStatistics,
+)
 from .dataframe_extract import (
     extract_df,
     extract_dict,
