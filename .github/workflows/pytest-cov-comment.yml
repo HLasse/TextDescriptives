@@ -50,7 +50,7 @@ jobs:
         pytest --cov=textdescriptives --cov-report term-missing | tee pytest-coverage.txt
     - name: Pytest coverage comment
       id: coverage-comment
-      uses: MishaKav/pytest-coverage-comment@v1.1.24
+      uses: MishaKav/pytest-coverage-comment@v1.1.28
       with:
         pytest-coverage-path: ./pytest-coverage.txt
 
@@ -63,7 +63,7 @@ jobs:
       uses: schneegans/dynamic-badges-action@v1.3.0
       with:
         auth: ${{ secrets.PYTEST_COVERAGE }}
-        gistID: 4ee79064ca9d49616cbc410da65cee2
+        gistID: 24ee79064ca9d49616cbc410da65cee2
         filename: badge-textdescriptives-pytest-coverage.json
         label: Coverage
         message: ${{ steps.coverage-comment.outputs.coverage }}
