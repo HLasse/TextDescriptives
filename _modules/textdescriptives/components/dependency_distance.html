@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.09.15"/>
         <title>textdescriptives.components.dependency_distance - textdescriptives 1.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -197,7 +197,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -212,74 +213,74 @@
         </div>
         <article role="main">
           <h1>Source code for textdescriptives.components.dependency_distance</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""Calculation of statistics related to dependency distance"""</span>
+<span></span><span class="sd">&quot;&quot;&quot;Calculation of statistics related to dependency distance&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Token</span><span class="p">,</span> <span class="n">Span</span>
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="create_dependency_distance_component"><a class="viewcode-back" href="../../../dependencydistance.html#textdescriptives.components.dependency_distance.create_dependency_distance_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">"dependency_distance"</span><span class="p">)</span>
+<div class="viewcode-block" id="create_dependency_distance_component"><a class="viewcode-back" href="../../../dependencydistance.html#textdescriptives.components.dependency_distance.create_dependency_distance_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">create_dependency_distance_component</span><span class="p">(</span><span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">"""Create spaCy language factory that allows DependencyDistance attributes to be added to a pipe using nlp.add_pipe("dependency_distance")"""</span>
+    <span class="sd">&quot;&quot;&quot;Create spaCy language factory that allows DependencyDistance attributes to be added to a pipe using nlp.add_pipe(&quot;dependency_distance&quot;)&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">DependencyDistance</span><span class="p">(</span><span class="n">nlp</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="DependencyDistance"><a class="viewcode-back" href="../../../dependencydistance.html#textdescriptives.components.dependency_distance.DependencyDistance">[docs]</a><span class="k">class</span> <span class="nc">DependencyDistance</span><span class="p">:</span>
-    <span class="sd">"""spaCy v.3.0 component that adds attributes to `Doc`, `Span`, and `Token` objects relating to dependency distance.</span>
+    <span class="sd">&quot;&quot;&quot;spaCy v.3.0 component that adds attributes to `Doc`, `Span`, and `Token` objects relating to dependency distance.</span>
 <span class="sd">    Dependency distance can be used as a measure of syntactic complexity, and measures the distance from a word to its head word.</span>
-<span class="sd">    For `Doc` objects, dependency distance is calculated on the sentence level."""</span>
+<span class="sd">    For `Doc` objects, dependency distance is calculated on the sentence level.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>
-        <span class="sd">"""Initialise components"""</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"dependency_distance"</span><span class="p">):</span>
-            <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"dependency_distance"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">token_dependency</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"dependency_distance"</span><span class="p">):</span>
-            <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"dependency_distance"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">span_dependency</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">"dependency_distance"</span><span class="p">):</span>
-            <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">"dependency_distance"</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">doc_dependency</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Initialise components&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">):</span>
+            <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">token_dependency</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">):</span>
+            <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">span_dependency</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">):</span>
+            <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">doc_dependency</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">"""Run the pipeline component"""</span>
+        <span class="sd">&quot;&quot;&quot;Run the pipeline component&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">doc</span>
 
 <div class="viewcode-block" id="DependencyDistance.token_dependency"><a class="viewcode-back" href="../../../dependencydistance.html#textdescriptives.components.dependency_distance.DependencyDistance.token_dependency">[docs]</a>    <span class="k">def</span> <span class="nf">token_dependency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">"""Token-level dependency distance"""</span>
+        <span class="sd">&quot;&quot;&quot;Token-level dependency distance&quot;&quot;&quot;</span>
         <span class="n">dep_dist</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">ajd_dep</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">dep_</span> <span class="o">!=</span> <span class="s2">"ROOT"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">dep_</span> <span class="o">!=</span> <span class="s2">&quot;ROOT&quot;</span><span class="p">:</span>
             <span class="n">dep_dist</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">i</span> <span class="o">-</span> <span class="n">token</span><span class="o">.</span><span class="n">i</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">dep_dist</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">ajd_dep</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">"dependency_distance"</span><span class="p">:</span> <span class="n">dep_dist</span><span class="p">,</span> <span class="s2">"adjacent_dependency"</span><span class="p">:</span> <span class="n">ajd_dep</span><span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">:</span> <span class="n">dep_dist</span><span class="p">,</span> <span class="s2">&quot;adjacent_dependency&quot;</span><span class="p">:</span> <span class="n">ajd_dep</span><span class="p">}</span></div>
 
 <div class="viewcode-block" id="DependencyDistance.span_dependency"><a class="viewcode-back" href="../../../dependencydistance.html#textdescriptives.components.dependency_distance.DependencyDistance.span_dependency">[docs]</a>    <span class="k">def</span> <span class="nf">span_dependency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="n">Span</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">"""Span-level aggregated dependency distance"""</span>
+        <span class="sd">&quot;&quot;&quot;Span-level aggregated dependency distance&quot;&quot;&quot;</span>
         <span class="n">dep_dists</span><span class="p">,</span> <span class="n">adj_deps</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
             <span class="o">*</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">dependency_distance</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">span</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">"dependency_distance_mean"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dep_dists</span><span class="p">),</span>
-            <span class="s2">"prop_adjacent_dependency_relation"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">adj_deps</span><span class="p">),</span>
+            <span class="s2">&quot;dependency_distance_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dep_dists</span><span class="p">),</span>
+            <span class="s2">&quot;prop_adjacent_dependency_relation&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">adj_deps</span><span class="p">),</span>
         <span class="p">}</span></div>
 
 <div class="viewcode-block" id="DependencyDistance.doc_dependency"><a class="viewcode-back" href="../../../dependencydistance.html#textdescriptives.components.dependency_distance.DependencyDistance.doc_dependency">[docs]</a>    <span class="k">def</span> <span class="nf">doc_dependency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">"""Doc-level dependency distance aggregated on sentence level"""</span>
+        <span class="sd">&quot;&quot;&quot;Doc-level dependency distance aggregated on sentence level&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{</span>
-                <span class="s2">"dependency_distance_mean"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
-                <span class="s2">"dependency_distance_std"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
-                <span class="s2">"prop_adjacent_dependency_relation_mean"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
-                <span class="s2">"prop_adjacent_dependency_relation_std"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;dependency_distance_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;dependency_distance_std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;prop_adjacent_dependency_relation_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;prop_adjacent_dependency_relation_std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="n">dep_dists</span><span class="p">,</span> <span class="n">adj_deps</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
             <span class="o">*</span><span class="p">[</span><span class="n">sent</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">dependency_distance</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">"dependency_distance_mean"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dep_dists</span><span class="p">),</span>
-            <span class="s2">"dependency_distance_std"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">dep_dists</span><span class="p">),</span>
-            <span class="s2">"prop_adjacent_dependency_relation_mean"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">adj_deps</span><span class="p">),</span>
-            <span class="s2">"prop_adjacent_dependency_relation_std"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">adj_deps</span><span class="p">),</span>
+            <span class="s2">&quot;dependency_distance_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dep_dists</span><span class="p">),</span>
+            <span class="s2">&quot;dependency_distance_std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">dep_dists</span><span class="p">),</span>
+            <span class="s2">&quot;prop_adjacent_dependency_relation_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">adj_deps</span><span class="p">),</span>
+            <span class="s2">&quot;prop_adjacent_dependency_relation_std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">adj_deps</span><span class="p">),</span>
         <span class="p">}</span></div></div>
 </pre></div>
         </article>
@@ -318,6 +319,7 @@
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
