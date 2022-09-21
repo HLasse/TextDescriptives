@@ -1,7 +1,7 @@
 spacy>=3.1.0<3.3.0
 numpy>=1.20.0,<1.24.0  # >1.23.0 needed for Python 3.10
 pandas>=1.0.0,<1.5.0
-pyphen>=0.11.0,<0.12.0
+pyphen>=0.11.0,<0.14.0
 ftfy>=6.0.3,<6.2.0
 
 # for tests
