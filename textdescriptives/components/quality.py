@@ -1,4 +1,4 @@
-"""Calculation of various readability metrics."""
+"""Component for calculating quality metrics."""
 from collections import Counter, defaultdict
 from functools import partial
 from typing import Callable, Dict, List, Tuple, Union
@@ -251,9 +251,10 @@ class Quality:
         self,
         nlp: Language,
         name: str,
-        symbols: List[str] = ["#"],
-        contains=["lorem ipsum"],
-        duplicate_n_gram_fraction_range: Tuple[int] = [5, 10],
+        symbols: List[str],
+        contains: List[str],
+        top_ngram_range: Tuple[int, int],
+        duplicate_n_gram_fraction_range: Tuple[int, int],
         force: bool = False,
     ):  # noqa: D107
         """Initialise components"""
@@ -268,11 +269,11 @@ class Quality:
         )
 
         self.extensions = {
-            "lines": lambda span: span.text.split("\n"),
-            "paragrahs": lambda span: span.text.split("\n\n"),
-            "lines_counter": lambda span: Counter(span._.lines),
-            "paragraphs_counter": lambda span: Counter(span._.paragraphs),
-            "chr_len": lambda span: len(span.text),
+            "_lines": lambda span: span.text.split("\n"),
+            "_paragrahs": lambda span: span.text.split("\n\n"),
+            "_lines_counter": lambda span: Counter(span._.lines),
+            "_paragraphs_counter": lambda span: Counter(span._.paragraphs),
+            "_chr_len": lambda span: len(span.text),
         }
 
         self.getters = {
@@ -287,6 +288,9 @@ class Quality:
             "duplicate_paragraph_chr_fraction": duplicate_paragraph_chr_fraction,
             "duplicate_ngram_chr_fraction": partial(
                 duplicate_ngram_fraction, ngram_range=duplicate_n_gram_fraction_range
+            ),
+            "top_ngram_chr_fraction": partial(
+                top_ngram_chr_fraction, ngram_range=top_ngram_range
             ),
         }
         # add symbol to word ratio
@@ -348,19 +352,34 @@ class Quality:
                 Doc.set_extension(ext_name, getter=doc_getter)
 
 
-@Language.factory("quality")
+@Language.factory(
+    "quality",
+    default_config={
+        "symbols": ["#"],
+        "contains": ["lorem ipsum"],
+        "top_ngram_range": [2, 4],
+        "duplicate_n_gram_fraction_range": [5, 10],
+        "force": False,
+    },
+)
 def create_quality_component(
-    nlp: Language, name: str, force: bool = False
+    nlp: Language,
+    name: str,
+    symbols: List[str],
+    contains: List[str],
+    top_ngram_range: Tuple[int, int],
+    duplicate_n_gram_fraction_range: Tuple[int, int],
+    force: bool,
 ) -> Callable[[Doc], Doc]:
     """Allows Quality to be added to a spaCy pipe using nlp.add_pipe("quality").
 
     Set the following extensions:
         - {Span/Doc}._.quality
-        - {Span/Doc}._.lines
-        - {Span/Doc}._.paragraphs
-        - {Span/Doc}._.lines_counter
-        - {Span/Doc}._.paragraphs_counter
-        - {Span/Doc}._.chr_len
+        - {Span/Doc}._._lines
+        - {Span/Doc}._._paragraphs
+        - {Span/Doc}._._lines_counter
+        - {Span/Doc}._._paragraphs_counter
+        - {Span/Doc}._._chr_len
 
     Where the last are used to calculate some of the quality metrics. The can be
     overwritten if you e.g. wish lines to be split on "\\r\\n" instead of "\\n".
@@ -379,8 +398,25 @@ def create_quality_component(
     Args:
         nlp (Language): spaCy language object
         name (str): name of the component
+        symbols (List[str]): list of symbols for which to calculate the
+            proportion the ratio of symbols to words. Defaults to ["#"].
+        contains (List[str]): list of strings for which to check whether the
+            document contains them. Defaults to ["lorem ipsum"].
+        top_ngram_range (Tuple[int]): range of n-grams to calculate the
+            proportion of the top n-gram. Defaults to [2, 4].
+        duplicate_n_gram_fraction_range (Tuple[int]): range of n-grams to
+            calculate the proportion of duplicate n-grams. Defaults to [5, 10].
+        force (bool): whether to overwrite existing extensions. Defaults to False.
 
     Returns:
-        Quality: the spaCy component
+        Callable[[Doc], Doc]: the spaCy component
     """
-    return Quality(nlp, name=name, force=force)
+    return Quality(
+        nlp,
+        name=name,
+        symbols=symbols,
+        contains=contains,
+        top_ngram_range=top_ngram_range,
+        duplicate_n_gram_fraction_range=duplicate_n_gram_fraction_range,
+        force=force,
+    )
