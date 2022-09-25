@@ -478,7 +478,7 @@ class Quality:
         "top_ngram_range": [2, 4],
         "top_ngram_min_count": 3,
         "duplicate_n_gram_fraction_range": [5, 10],
-        "force": False,
+        "force": True,
         "quality_thresholds": None,
     },
 )
@@ -493,7 +493,7 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
     quality_thresholds: Optional[
         Dict[str, Union[bool, Tuple[Optional[float], Optional[float]]]]
     ] = None,
-    force: bool = False,
+    force: bool = True,
 ) -> Callable[[Doc], Doc]:
     """Allows Quality to be added to a spaCy pipe using nlp.add_pipe("quality").
 
@@ -532,7 +532,6 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
             be considered a top n-gram. Defaults to 3.
         duplicate_n_gram_fraction_range (Tuple[int]): range of n-grams to
             calculate the proportion of duplicate n-grams. Defaults to [5, 10].
-        force (bool): whether to overwrite existing extensions. Defaults to False.
         quality_thresholds (Dict[str, Union[bool, Tuple[Union[int, float, None],
             Union[int, float, None]]]]): A dictionary of quality thresholds indicated by
             either a range (Tuple), wherein the first value is the lower bound and the
@@ -545,6 +544,7 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
             `quality_thresholds={"duplicate_5-gram_chr_fraction": (None, 0.15)}`.
             Default values are set in
             `textdescriptives.constants.DEFAULT_QUALITY_THRESHOLDS`.
+        force (bool): whether to overwrite existing extensions. Defaults to True.
 
 
     Returns:
