@@ -320,7 +320,7 @@ def top_ngram_chr_fraction(
         count = count_span["count"]
         if count >= min_count:
             # calculate the fraction of the top n-gram
-            top_ngram_chr_frac[n] = len(ngram) / chr_len
+            top_ngram_chr_frac[n] = (len(ngram) * count) / chr_len
         else:
             top_ngram_chr_frac[n] = 0.0
 
@@ -465,9 +465,9 @@ class Quality:
             doc_getter = span_getter_to_doc_getter(span_getter)
 
             if not Span.has_extension(ext_name) or self.force is True:
-                Span.set_extension(ext_name, getter=span_getter)
+                Span.set_extension(ext_name, getter=span_getter, force=True)
             if not Doc.has_extension(ext_name) or self.force is True:
-                Doc.set_extension(ext_name, getter=doc_getter)
+                Doc.set_extension(ext_name, getter=doc_getter, force=True)
 
 
 @Language.factory(
