@@ -38,6 +38,7 @@ The documentation is organized in two parts:
    readability
    dependencydistance
    posstats
+   quality
 
 .. add more references here
 
