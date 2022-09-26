@@ -17,7 +17,7 @@ A Python library for calculating a large variety of statistics from text(s) usin
 # 📰 News
 
 * New component: `quality` which implements a bunch of metrics for checking the quality of a document. See the [news](https://github.com/HLasse/TextDescriptives/blob/master/NEWS.md) for further information. 
-* TextDescriptives has been completely re-implemented using spaCy v.3.0. The stanza implementation can be found in the `stanza_version` branch and will no longer be maintained. 
+* TextDescriptives has been completely re-implemented using spaCy v.3. The stanza implementation can be found in the `stanza_version` branch and will no longer be maintained. 
 * Check out the brand new documentation [here](https://hlasse.github.io/TextDescriptives/)!
 See [NEWS.md](https://github.com/HLasse/TextDescriptives/blob/master/NEWS.md) for release notes (v. 1.0.5 and onwards)
 
@@ -65,7 +65,7 @@ td.extract_df(docs, metrics="dependency_distance")
 The `text` column can by exluded by setting `include_text` to `False`.
 
 ### Using specific components
-The specific components (`descriptive_stats`, `readability`, `dependency_distance` and `pos_stats`) can be loaded individually. This can be helpful if you're only interested in e.g. readability metrics or descriptive statistics and don't want to run the dependency parser or part-of-speech tagger. 
+The specific components (`descriptive_stats`, `readability`, `dependency_distance`, `pos_stats`, and `quality`) can be loaded individually. This can be helpful if you're only interested in e.g. readability metrics or descriptive statistics and don't want to run the dependency parser or part-of-speech tagger. 
 
 ```py
 nlp = spacy.blank("da")
