@@ -13,7 +13,7 @@ def nlp():
 def test_extract_df_single_doc(nlp):
     doc = nlp("This is just a cute little text. Actually, it's two sentences.")
     td.extract_df(doc)
-    for metric in ["descriptive_stats", "readability", "dependency_distance"]:
+    for metric in ["descriptive_stats", "readability", "dependency_distance", "quality"]:
         td.extract_df(doc, metrics=metric)
 
 
