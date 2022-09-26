@@ -499,12 +499,12 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
     """Allows Quality to be added to a spaCy pipe using nlp.add_pipe("quality").
 
     Set the following extensions:
-        - {Span/Doc}._.quality
-        - {Span/Doc}._.passed_quality_check
+    - {Span/Doc}._.quality
+    - {Span/Doc}._.passed_quality_check
 
     It is also possible to optionally set the following extensions:
-        - {Span/Doc}._.lines
-        - {Span/Doc}._.paragraphs
+    - {Span/Doc}._.lines
+    - {Span/Doc}._.paragraphs
 
     These are used to calculate some of the quality metrics. They can be overwritten if
     you e.g. wish lines to be split on "\\r\\n" instead of "\\n".
