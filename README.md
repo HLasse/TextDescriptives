@@ -1,5 +1,5 @@
 
-<a href="https://github.com/HLasse/TextDescriptives"><img src="https://github.com/HLasse/TextDescriptives/raw/icon/docs/_static/icon.png" width="175" height="175" align="right" /></a>
+<a href="https://github.com/HLasse/TextDescriptives"><img src="https://github.com/HLasse/TextDescriptives/raw/master/docs/_static/icon.png" width="175" height="175" align="right" /></a>
 
 
 # TextDescriptives
