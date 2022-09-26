@@ -1,4 +1,6 @@
 
+<a href="https://github.com/HLasse/TextDescriptives"><img src="https://github.com/HLasse/TextDescriptives/raw/master/docs/_static/icon.png" width="175" height="175" align="right" /></a>
+
 [![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
 [![github actions pytest](https://github.com/hlasse/textdescriptives/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/hlasse/textdescriptives/actions)
 [![github actions docs](https://github.com/hlasse/textdescriptives/actions/workflows/documentation.yml/badge.svg)](https://hlasse.github.io/TextDescriptives/)
