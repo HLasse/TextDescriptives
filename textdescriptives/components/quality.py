@@ -89,6 +89,7 @@ def proportion_bullet_points(  # pylint: disable=dangerous-default-value
 
     Args:
         span (Span): spaCy span object
+        bullet_point (set): set of bullet points
 
     Returns:
         float: proportion of bullet points
@@ -543,7 +544,7 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
             set a upper bound on the `duplicate_5-gram_chr_fraction`, you can set
             `quality_thresholds={"duplicate_5-gram_chr_fraction": (None, 0.15)}`.
             Default values are set in
-            `textdescriptives.constants.DEFAULT_QUALITY_THRESHOLDS`.
+            `textdescriptives.components..quality.DEFAULT_QUALITY_THRESHOLDS`.
         force (bool): whether to overwrite existing extensions. Defaults to True.
 
 

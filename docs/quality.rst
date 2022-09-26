@@ -14,7 +14,7 @@ Heuristic quality metrics:
 * Symbol to word ratio (:code:`symbol_{symbol}_2_word_ratio`): Ratio of specified symbols to words, could e.g. include ratio of hashtags or curly brackets.
 * Contains string (:code:`contains_{string}`): Whether the document contains a specified string. For instance documents containing the string "lorem ipsum".
 
-Repititious text metrics:
+Repetitious text metrics:
 
 * Duplicate lines character fraction (:code:`duplicate_lines_chr_fraction`): Fraction of characters in a document which are contained within duplicate lines.
 * Duplicate paragraphs character fraction (:code:`duplicate_paragraphs_chr_fraction`): Fraction of characters in a document which are contained within duplicate paragraphs.

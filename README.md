@@ -16,6 +16,7 @@ A Python library for calculating a large variety of statistics from text(s) usin
 
 # 📰 News
 
+* New component: `quality` which implements a bunch of metrics for checking the quality of a document. See the [news](https://github.com/HLasse/TextDescriptives/blob/master/NEWS.md) for further information. 
 * TextDescriptives has been completely re-implemented using spaCy v.3.0. The stanza implementation can be found in the `stanza_version` branch and will no longer be maintained. 
 * Check out the brand new documentation [here](https://hlasse.github.io/TextDescriptives/)!
 See [NEWS.md](https://github.com/HLasse/TextDescriptives/blob/master/NEWS.md) for release notes (v. 1.0.5 and onwards)
@@ -93,7 +94,7 @@ The table below shows the metrics included in TextDescriptives and their attribu
 | `{Doc/Span}._.counts`               | `descriptive_stats`   | Dict containing the number of tokens, number of unique tokens, proportion unique tokens, and number of characters in the Doc/Span.                                           |
 | `{Doc/Span}._.pos_proportions`      | `pos_stats`           | Dict of `{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}`. Does not create a key if no tokens in the document fit the POSTAG.                                 |
 | `{Doc/Span}._.token_length`         | `descriptive_stats`   | Dict containing mean, median, and std of token length.                                                                                                                       |
-| `{Doc/Span}._.quality`              | `quality`             | Dict a series of heuristic metrics related to text quality. Targeted at filtering out low-quality text.                                                                      |
+| `{Doc/Span}._.quality`              | `quality`             | Dict containing a number of heuristic metrics related to text quality. Targeted at filtering out low-quality text.                                                                      |
 | `{Doc/Span}._.passed_quality_check` | `quality`             | Boolean on whether the document or span passed threshold sets for quality checks.                                                                                            |
 
 

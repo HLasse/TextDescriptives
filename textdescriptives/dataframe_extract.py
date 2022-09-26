@@ -35,6 +35,7 @@ class Extractor:
                 "readability",
                 "dependency_distance",
                 "pos_stats",
+                "quality",
                 "all",
             ]
         )
@@ -58,59 +59,54 @@ class Extractor:
             extraction = []
 
         if "all" in metrics:
-            if doc.has_extension("counts"):
-                extraction.append(self.__descriptive_stats(doc))
-            if doc.has_extension("readability"):
-                extraction.append(self.__readability(doc))
-            if doc.has_extension("dependency_distance"):
-                extraction.append(self.__dependency_distance(doc))
-            if doc.has_extension("pos_proportions"):
-                extraction.append(self.__pos_proportions(doc))
+            for component in valid_metrics - set(["all"]):
+                if doc.has_extension(component) or component == "descriptive_stats":
+                    extraction.append(self.__unpack_extension(doc, component))
+
         else:
-            if "descriptive_stats" in metrics:
-                extraction.append(self.__descriptive_stats(doc))
-            if "readability" in metrics:
-                extraction.append(self.__readability(doc))
-            if "dependency_distance" in metrics:
-                extraction.append(self.__dependency_distance(doc))
-            if "pos_stats" in metrics:
-                extraction.append(self.__pos_proportins(doc))
+            for component in metrics:
+                if doc.has_extension(component) or component == "descriptive_stats":
+                    extraction.append(self.__unpack_extension(doc, component))
 
         if self.as_dict:
             self.out = reduce(lambda a, b: {**a, **b}, extraction)
         else:
             self.out = pd.concat(extraction, axis=1)
 
-    def __descriptive_stats(self, doc: Doc) -> pd.DataFrame:
+    def __get_descriptive_stats_dict(self, doc: Doc) -> pd.DataFrame:
         descriptive_stats = {
             **doc._.token_length,
             **doc._.sentence_length,
             **doc._.syllables,
             **doc._.counts,
         }
-        if self.as_dict:
-            return descriptive_stats
-        return pd.DataFrame.from_records([descriptive_stats])
+        return descriptive_stats
 
-    def __readability(self, doc: Doc) -> pd.DataFrame:
-        if self.as_dict:
-            return doc._.readability
-        return pd.DataFrame.from_records([doc._.readability])
+    def __unpack_extension(self, doc: Doc, extension: str) -> pd.DataFrame:
+        """Unpacks the the values from the extension to a dict or dataframe
 
-    def __dependency_distance(self, doc: Doc) -> pd.DataFrame:
+        Args:
+            doc (Doc): Document to extract from
+            extension (str): Extension to extract
+
+        Returns:
+            pd.DataFrame: DataFrame with extension values
+        """
+        # doc.get_extension returns a tuple of (default, method, getter, setter)
+        # we only need the getter
+        if extension == "descriptive_stats":
+            values = self.__get_descriptive_stats_dict(doc)
+        else:
+            values = doc.get_extension(extension)[2](doc)
+
         if self.as_dict:
-            return doc._.dependency_distance
-        return pd.DataFrame.from_records([doc._.dependency_distance])
+            return values
+        return pd.DataFrame.from_records([values])
 
     def __extract_text(self, doc: Doc) -> Union[pd.DataFrame, str]:
         if self.as_dict:
             return {"text": doc.text}
         return pd.DataFrame([doc.text], columns=["text"])
-
-    def __pos_proportions(self, doc: Doc) -> pd.DataFrame:
-        if self.as_dict:
-            return doc._.pos_proportions
-        return pd.DataFrame.from_records([doc._.pos_proportions])
 
 
 def extract_df(
