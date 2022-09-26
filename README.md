@@ -96,8 +96,6 @@ The table below shows the metrics included in TextDescriptives and their attribu
 | `{Doc/Span}._.token_length`         | `descriptive_stats`   | Dict containing mean, median, and std of token length.                                                                                                                       |
 | `{Doc/Span}._.quality`              | `quality`             | Dict containing a number of heuristic metrics related to text quality. Targeted at filtering out low-quality text.                                                                      |
 | `{Doc/Span}._.passed_quality_check` | `quality`             | Boolean on whether the document or span passed threshold sets for quality checks.                                                                                            |
-
-
 | `Token._.dependency_distance`  | `dependency_distance` | Dict containing the dependency distance and whether the head word is adjacent for a Token.                                                                                   |
 
 
