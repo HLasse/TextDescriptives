@@ -1,5 +1,5 @@
 Part-of-Speech Statistics
-----------------------
+-------------------------
 
 The *pos_stats* component adds one attribute to a Doc or Span:
 
