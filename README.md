@@ -1,5 +1,8 @@
 
-<a href="https://github.com/HLasse/TextDescriptives"><img src="https://github.com/HLasse/TextDescriptives/raw/master/docs/_static/icon.png" width="175" height="175" align="right" /></a>
+<a href="https://github.com/HLasse/TextDescriptives"><img src="https://github.com/HLasse/TextDescriptives/raw/icon/docs/_static/icon.png" width="175" height="175" align="right" /></a>
+
+
+# TextDescriptives
 
 [![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
 [![github actions pytest](https://github.com/hlasse/textdescriptives/actions/workflows/pytest-cov-comment.yml/badge.svg)](https://github.com/hlasse/textdescriptives/actions)
@@ -8,8 +11,6 @@
 [![DOI](https://zenodo.org/badge/236710916.svg)](https://zenodo.org/badge/latestdoi/236710916)
 
 
-
-# TextDescriptives
 
 A Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance. 
 
