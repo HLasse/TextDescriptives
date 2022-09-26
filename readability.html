@@ -13,7 +13,7 @@
 <meta property="og:description" content="The readability component adds the following readabiltiy metrics under the ._.readability attribute to Doc objects. Gunning-Fog, SMOG, Flesch reading ease, Flesch-Kincaid grade, Automated readabili..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Dependency Distance" href="dependencydistance.html" /><link rel="prev" title="Descriptive Statistics" href="descriptivestats.html" />
 
-    <meta name="generator" content="sphinx-5.1.1, furo 2022.09.15"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>Readability - textdescriptives 1.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
@@ -235,10 +235,10 @@
 <li><p>Rix</p></li>
 </ul>
 <p>For specifics of the implementation, refer to the source. The equations are largely derived from the <a class="reference external" href="https://github.com/shivam5992/textstat">textstat</a> library.</p>
-<section id="module-textdescriptives.components.readability">
-<span id="textdescriptives-components-readability"></span><h2>textdescriptives.components.readability<a class="headerlink" href="#module-textdescriptives.components.readability" title="Permalink to this heading">#</a></h2>
+<section id="textdescriptives-components-readability">
+<h2>textdescriptives.components.readability<a class="headerlink" href="#textdescriptives-components-readability" title="Permalink to this heading">#</a></h2>
 <p>Calculation of various readability metrics.</p>
-<dl class="py class">
+<span class="target" id="module-textdescriptives.components.readability"></span><dl class="py class">
 <dt class="sig sig-object py" id="textdescriptives.components.readability.Readability">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textdescriptives.components.readability.</span></span><span class="sig-name descname"><span class="pre">Readability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -374,7 +374,22 @@ pipe if it not already loaded.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Readability</a><ul>
-<li><a class="reference internal" href="#module-textdescriptives.components.readability">textdescriptives.components.readability</a></li>
+<li><a class="reference internal" href="#textdescriptives-components-readability">textdescriptives.components.readability</a><ul>
+<li><a class="reference internal" href="#textdescriptives.components.readability.Readability"><code class="docutils literal notranslate"><span class="pre">Readability</span></code></a><ul>
+<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._automated_readability_index"><code class="docutils literal notranslate"><span class="pre">Readability._automated_readability_index()</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._coleman_liau_index"><code class="docutils literal notranslate"><span class="pre">Readability._coleman_liau_index()</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._flesch_kincaid_grade"><code class="docutils literal notranslate"><span class="pre">Readability._flesch_kincaid_grade()</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._flesch_reading_ease"><code class="docutils literal notranslate"><span class="pre">Readability._flesch_reading_ease()</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._gunning_fog"><code class="docutils literal notranslate"><span class="pre">Readability._gunning_fog()</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._lix"><code class="docutils literal notranslate"><span class="pre">Readability._lix()</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._rix"><code class="docutils literal notranslate"><span class="pre">Readability._rix()</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._smog"><code class="docutils literal notranslate"><span class="pre">Readability._smog()</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.readability.Readability.readability"><code class="docutils literal notranslate"><span class="pre">Readability.readability()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#textdescriptives.components.readability.create_readability_component"><code class="docutils literal notranslate"><span class="pre">create_readability_component()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -391,6 +406,7 @@ pipe if it not already loaded.</p>
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
