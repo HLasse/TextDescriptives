@@ -13,10 +13,10 @@
 <meta property="og:description" content="The dependency_distance component adds measures of depedency distance to both Doc, Span, and Token objects under the ._.dependency_distance attribute. Dependency distance can be used a measure of s..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Part-of-Speech Statistics" href="posstats.html" /><link rel="prev" title="Readability" href="readability.html" />
 
-    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
+    <meta name="generator" content="sphinx-5.2.3, furo 2022.09.29"/>
         <title>Dependency Distance - textdescriptives 1.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -208,7 +208,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -229,10 +230,10 @@ Dependency distance can be used a measure of syntactics complexity, the greater 
 <p>For <code class="code docutils literal notranslate"><span class="pre">Doc</span></code> objects, the mean and standard deviation of dependency distance on the sentence level is returned along with the mean and standard deviation of the proportion adjacent dependency relations on sentence level.</p>
 <p>For <code class="code docutils literal notranslate"><span class="pre">Span</span></code> objects, the mean dependency distance and the mean proportion adjacent dependency relations in the span are returned.</p>
 <p>For <code class="code docutils literal notranslate"><span class="pre">Token</span></code> objects, the dependency distance and whether the dependency relation is an adjacent token is returned.</p>
-<section id="textdescriptives-components-dependency-distance">
-<h2>textdescriptives.components.dependency_distance<a class="headerlink" href="#textdescriptives-components-dependency-distance" title="Permalink to this heading">#</a></h2>
+<section id="module-textdescriptives.components.dependency_distance">
+<span id="textdescriptives-components-dependency-distance"></span><h2>textdescriptives.components.dependency_distance<a class="headerlink" href="#module-textdescriptives.components.dependency_distance" title="Permalink to this heading">#</a></h2>
 <p>Calculation of statistics related to dependency distance</p>
-<span class="target" id="module-textdescriptives.components.dependency_distance"></span><dl class="py class">
+<dl class="py class">
 <dt class="sig sig-object py" id="textdescriptives.components.dependency_distance.DependencyDistance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textdescriptives.components.dependency_distance.</span></span><span class="sig-name descname"><span class="pre">DependencyDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/dependency_distance.html#DependencyDistance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.dependency_distance.DependencyDistance" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -326,7 +327,7 @@ For <cite>Doc</cite> objects, dependency distance is calculated on the sentence 
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Dependency Distance</a><ul>
-<li><a class="reference internal" href="#textdescriptives-components-dependency-distance">textdescriptives.components.dependency_distance</a><ul>
+<li><a class="reference internal" href="#module-textdescriptives.components.dependency_distance">textdescriptives.components.dependency_distance</a><ul>
 <li><a class="reference internal" href="#textdescriptives.components.dependency_distance.DependencyDistance"><code class="docutils literal notranslate"><span class="pre">DependencyDistance</span></code></a><ul>
 <li><a class="reference internal" href="#textdescriptives.components.dependency_distance.DependencyDistance.doc_dependency"><code class="docutils literal notranslate"><span class="pre">DependencyDistance.doc_dependency()</span></code></a></li>
 <li><a class="reference internal" href="#textdescriptives.components.dependency_distance.DependencyDistance.span_dependency"><code class="docutils literal notranslate"><span class="pre">DependencyDistance.span_dependency()</span></code></a></li>
