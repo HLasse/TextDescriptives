@@ -96,6 +96,8 @@ class Extractor:
         # we only need the getter
         if extension == "descriptive_stats":
             values = self.__get_descriptive_stats_dict(doc)
+        elif extension == "pos_stats":
+            values = doc.get_extension('pos_proportions')[2](doc)
         else:
             values = doc.get_extension(extension)[2](doc)
 
