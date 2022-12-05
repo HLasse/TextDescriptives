@@ -60,13 +60,10 @@ class Extractor:
 
         if "all" in metrics:
             for component in valid_metrics - set(["all"]):
-                if doc.has_extension(component) or component == "descriptive_stats":
-                    extraction.append(self.__unpack_extension(doc, component))
-
+                extraction.append(self.__unpack_extension(doc, component))
         else:
             for component in metrics:
-                if doc.has_extension(component) or component == "descriptive_stats":
-                    extraction.append(self.__unpack_extension(doc, component))
+                extraction.append(self.__unpack_extension(doc, component))
 
         if self.as_dict:
             self.out = reduce(lambda a, b: {**a, **b}, extraction)
@@ -96,6 +93,8 @@ class Extractor:
         # we only need the getter
         if extension == "descriptive_stats":
             values = self.__get_descriptive_stats_dict(doc)
+        elif extension == "pos_stats":
+            values = doc.get_extension('pos_proportions')[2](doc)
         else:
             values = doc.get_extension(extension)[2](doc)
 
