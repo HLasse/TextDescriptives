@@ -24,12 +24,12 @@ Repetitious text metrics:
 
 These quality metrics were for example used by
 `Rae et al. (2021) <https://arxiv.org/abs/2112.11446>`__ and
-`Raffel et al. (2020) <https://arxiv.org/abs/1910.10683>`__` to filter large text
+`Raffel et al. (2020) <https://arxiv.org/abs/1910.10683>`__ to filter large text
 corpora for pre-training language models.
 
 Note: this implementation is not optimized for speed, but rather for usability, simplicity, and spacy integration.
 If you need to run quality filters on a large corpus, you should consider using the implementation from
-[Danish Foundation Models](https://github.com/centre-for-humanities-computing/danish-foundation-models) which also
+`Danish Foundation Models <https://github.com/centre-for-humanities-computing/danish-foundation-models>`__ which also
 includes a number of other quality filters and deduplication strategies.
 
 
