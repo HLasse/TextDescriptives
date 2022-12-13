@@ -4,7 +4,7 @@ from .components import (
     DependencyDistance,
     DescriptiveStatistics,
     POSStatistics,
-    Quality
+    Quality,
 )
 
 from spacy.language import Language
@@ -18,7 +18,7 @@ def create_textdescriptives_component(nlp: Language, name: str):
         "readability",
         "dependency_distance",
         "pos_stats",
-        "quality"
+        "quality",
     ]:
         nlp.add_pipe(component, last=True)
     return TextDescriptives(nlp)

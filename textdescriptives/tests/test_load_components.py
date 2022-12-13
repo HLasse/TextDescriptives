@@ -17,7 +17,7 @@ def test_integration(nlp):
         "readability",
         "dependency_distance",
         "textdescriptives",
-        "quality"
+        "quality",
     ]:
         assert component in nlp.pipe_names
 
