@@ -51,7 +51,7 @@ jobs:
       - name: Pytest coverage comment
         if: ${{ github.event_name == 'push' }}
         id: coverage-comment
-        uses: MishaKav/pytest-coverage-comment@v1.1.39
+        uses: MishaKav/pytest-coverage-comment@v1.1.40
         with:
           pytest-coverage-path: ./pytest-coverage.txt
 
