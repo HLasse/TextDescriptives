@@ -16,7 +16,7 @@ def filtered_tokens(doc: Union[Doc, Span]):
     return filtered_tokens
 
 
-def n_sentences(doc: Union[Doc, Span]):
+def n_sentences(doc: Doc):
     """Return number of sentences in the document"""
     return len(list(doc.sents))
 

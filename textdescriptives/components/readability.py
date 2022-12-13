@@ -1,12 +1,11 @@
 """Calculation of various readability metrics."""
-from textdescriptives.components.utils import n_sentences
-from spacy.tokens import Doc
-from spacy.language import Language
-
 from typing import Dict
-import numpy as np
 
-from .descriptive_stats import create_descriptive_stats_component
+import numpy as np
+from spacy.language import Language
+from spacy.tokens import Doc
+
+from .descriptive_stats import create_descriptive_stats_component  # noqa
 
 
 @Language.factory("readability")

@@ -1,8 +1,7 @@
 """Calculation of statistics related to dependency distance"""
-from spacy.tokens import Doc, Token, Span
-from spacy.language import Language
-
 import numpy as np
+from spacy.language import Language
+from spacy.tokens import Doc, Span, Token
 
 
 @Language.factory("dependency_distance")
@@ -30,7 +29,14 @@ class DependencyDistance:
         return doc
 
     def token_dependency(self, token: Token) -> dict:
-        """Token-level dependency distance"""
+        """Calculate token level dependency distance, i.e. the distance from a
+        token to its head token. Also returns a boolean indicating whether the
+        dependency relation is adjacent to the token.
+
+        Returns:
+            dict: Dictionary with the following keys:
+                - dependency_distance: Dependency distance
+                - adjacent_dependency: Boolean indicating whether the dependency relation is adjacent to the token"""
         dep_dist = 0
         ajd_dep = False
         if token.dep_ != "ROOT":
@@ -40,7 +46,14 @@ class DependencyDistance:
         return {"dependency_distance": dep_dist, "adjacent_dependency": ajd_dep}
 
     def span_dependency(self, span: Span) -> dict:
-        """Span-level aggregated dependency distance"""
+        """Aggregates token level dependency distance on the span level by
+        taking the mean of the dependency distance and the proportion of
+        adjacent dependency relations.
+
+        Returns:
+            dict: Dictionary with the following keys:
+                - dependency_distance_mean: Mean dependency distance
+                - prop_adjacent_dependency_relation: Proportion of adjacent dependency relations"""
         dep_dists, adj_deps = zip(
             *[token._.dependency_distance.values() for token in span]
         )
@@ -50,7 +63,16 @@ class DependencyDistance:
         }
 
     def doc_dependency(self, doc: Doc) -> dict:
-        """Doc-level dependency distance aggregated on sentence level"""
+        """Aggregates token level dependency distance on the document level by
+        taking the mean of the dependency distance and the proportion of
+        adjacent dependency relations on the sentence level.
+
+        Returns:
+            dict: Dictionary with the following keys:
+                - dependency_distance_mean: Mean dependency distance on the sentence level
+                - dependency_distance_std: Standard deviation of dependency distance on the sentence level
+                - prop_adjacent_dependency_relation_mean: Mean proportion of adjacent dependency relations on the sentence level
+                - prop_adjacent_dependency_relation_std: Standard deviation of proportion of adjacent dependency relations on the sentence level"""
         if len(doc) == 0:
             return {
                 "dependency_distance_mean": np.nan,
