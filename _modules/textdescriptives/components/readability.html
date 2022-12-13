@@ -215,14 +215,13 @@
         <article role="main">
           <h1>Source code for textdescriptives.components.readability</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Calculation of various readability metrics.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">textdescriptives.components.utils</span> <span class="kn">import</span> <span class="n">n_sentences</span>
-<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span>
-<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
-
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">.descriptive_stats</span> <span class="kn">import</span> <span class="n">create_descriptive_stats_component</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
+<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span>
+
+<span class="kn">from</span> <span class="nn">.descriptive_stats</span> <span class="kn">import</span> <span class="n">create_descriptive_stats_component</span>  <span class="c1"># noqa</span>
 
 
 <div class="viewcode-block" id="create_readability_component"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.create_readability_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">&quot;readability&quot;</span><span class="p">)</span>
@@ -269,12 +268,12 @@
         <span class="p">}</span></div>
 
 <div class="viewcode-block" id="Readability._flesch_reading_ease"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._flesch_reading_ease">[docs]</a>    <span class="k">def</span> <span class="nf">_flesch_reading_ease</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the Flesch Reading Ease score for a document.</span>
+<span class="sd">        The equation for the Flesch Reading Ease score is:</span>
+
 <span class="sd">        206.835 - (1.015 X avg sent len) - (84.6 * avg_syl_per_word)</span>
 
 <span class="sd">        Higher = easier to read</span>
-
-<span class="sd">        Works best for English</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">avg_sentence_length</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">&quot;sentence_length_mean&quot;</span><span class="p">]</span>
         <span class="n">avg_syl_per_word</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">syllables</span><span class="p">[</span><span class="s2">&quot;syllables_per_token_mean&quot;</span><span class="p">]</span>
@@ -284,8 +283,10 @@
         <span class="k">return</span> <span class="n">score</span></div>
 
 <div class="viewcode-block" id="Readability._flesch_kincaid_grade"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._flesch_kincaid_grade">[docs]</a>    <span class="k">def</span> <span class="nf">_flesch_kincaid_grade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Score = grade required to read the text</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the Flesch-Kincaid grade of the document.</span>
+<span class="sd">        The equation for the Flesch-Kincaid grade is:</span>
+
+<span class="sd">        0.39 * (avg sent len) + 11.8 * (avg_syl_per_word) - 15.59</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">avg_sentence_length</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">&quot;sentence_length_mean&quot;</span><span class="p">]</span>
         <span class="n">avg_syl_per_word</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">syllables</span><span class="p">[</span><span class="s2">&quot;syllables_per_token_mean&quot;</span><span class="p">]</span>
@@ -294,33 +295,42 @@
         <span class="n">score</span> <span class="o">=</span> <span class="mf">0.39</span> <span class="o">*</span> <span class="n">avg_sentence_length</span> <span class="o">+</span> <span class="mf">11.8</span> <span class="o">*</span> <span class="n">avg_syl_per_word</span> <span class="o">-</span> <span class="mf">15.59</span>
         <span class="k">return</span> <span class="n">score</span></div>
 
-<div class="viewcode-block" id="Readability._smog"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._smog">[docs]</a>    <span class="k">def</span> <span class="nf">_smog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        grade level = 1.043( sqrt(30 * (hard words /n sentences)) + 3.1291</span>
+<div class="viewcode-block" id="Readability._smog"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._smog">[docs]</a>    <span class="k">def</span> <span class="nf">_smog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">n_hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the SMOG index of the document.</span>
+<span class="sd">        The equation for the SMOG index is:</span>
 
+<span class="sd">        1.043( sqrt(30 * (hard words /n sentences)) + 3.1291</span>
+
+<span class="sd">        Where hard words are words with 3 or more syllables.</span>
 <span class="sd">        Preferably need 30+ sentences. Will not work with less than 4</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n_sentences</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_sentences</span>
         <span class="k">if</span> <span class="n">n_sentences</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">smog</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.043</span> <span class="o">*</span> <span class="p">(</span><span class="mi">30</span> <span class="o">*</span> <span class="p">(</span><span class="n">hard_words</span> <span class="o">/</span> <span class="n">n_sentences</span><span class="p">))</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">3.1291</span>
+            <span class="n">smog</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.043</span> <span class="o">*</span> <span class="p">(</span><span class="mi">30</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_hard_words</span> <span class="o">/</span> <span class="n">n_sentences</span><span class="p">))</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">3.1291</span>
             <span class="k">return</span> <span class="n">smog</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span></div>
 
-<div class="viewcode-block" id="Readability._gunning_fog"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._gunning_fog">[docs]</a>    <span class="k">def</span> <span class="nf">_gunning_fog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Readability._gunning_fog"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._gunning_fog">[docs]</a>    <span class="k">def</span> <span class="nf">_gunning_fog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">n_hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the Gunning Fog index of the document.</span>
+<span class="sd">        The equation for the Gunning Fog index is:</span>
+
 <span class="sd">        Grade level = 0.4 * ((avg_sentence_length) + (percentage hard words))</span>
 
-<span class="sd">        hard words = 3+ syllables</span>
+<span class="sd">        Where hard words are word with 3 or more syllables.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n_tokens</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_tokens</span>
         <span class="k">if</span> <span class="n">n_tokens</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
         <span class="n">avg_sent_len</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">&quot;sentence_length_mean&quot;</span><span class="p">]</span>
-        <span class="n">percent_hard_words</span> <span class="o">=</span> <span class="p">(</span><span class="n">hard_words</span> <span class="o">/</span> <span class="n">n_tokens</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="n">percent_hard_words</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_hard_words</span> <span class="o">/</span> <span class="n">n_tokens</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
         <span class="k">return</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="p">(</span><span class="n">avg_sent_len</span> <span class="o">+</span> <span class="n">percent_hard_words</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Readability._automated_readability_index"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._automated_readability_index">[docs]</a>    <span class="k">def</span> <span class="nf">_automated_readability_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the Automated Readability Index of the document.</span>
+<span class="sd">        The equation for the Automated Readability Index is:</span>
+
+<span class="sd">        4.71 * (n_chars / n_words) + 0.5 * (n_words / n_sentences) - 21.43</span>
+
 <span class="sd">        Score = grade required to read the text</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -333,7 +343,9 @@
         <span class="k">return</span> <span class="n">score</span></div>
 
 <div class="viewcode-block" id="Readability._coleman_liau_index"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._coleman_liau_index">[docs]</a>    <span class="k">def</span> <span class="nf">_coleman_liau_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the Colmean-Liau index of the document.</span>
+<span class="sd">        The equation for the Coleman-Liau index is:</span>
+
 <span class="sd">        score = 0.0588 * avg number of chars pr 100 words - 0.296 * avg num of sents pr 100 words -15.8</span>
 
 <span class="sd">        Score = grade required to read the text</span>
@@ -346,8 +358,10 @@
         <span class="k">return</span> <span class="mf">0.0588</span> <span class="o">*</span> <span class="n">l</span> <span class="o">-</span> <span class="mf">0.296</span> <span class="o">*</span> <span class="n">s</span> <span class="o">-</span> <span class="mf">15.8</span></div>
 
 <div class="viewcode-block" id="Readability._lix"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._lix">[docs]</a>    <span class="k">def</span> <span class="nf">_lix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">long_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        (n_words / n_sentences) + (n_words longer than 6 letters * 100) / n_words</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the LIX index of the document.</span>
+<span class="sd">        The equation for the LIX index is:</span>
+
+<span class="sd">        (n_words / n_sentences) + (n_words longer than 6 characters * 100) / n_words</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n_tokens</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_tokens</span>
         <span class="k">if</span> <span class="n">n_tokens</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -356,7 +370,10 @@
         <span class="k">return</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">&quot;sentence_length_mean&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">percent_long_words</span></div>
 
 <div class="viewcode-block" id="Readability._rix"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.Readability._rix">[docs]</a>    <span class="k">def</span> <span class="nf">_rix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">long_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;n_long_words / n_sentences&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the RIX index of the document.</span>
+<span class="sd">        The equation for the RIX index is:</span>
+
+<span class="sd">        (n_words longer than 6 characters / n_sentences)&quot;&quot;&quot;</span>
         <span class="n">n_sentences</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_sentences</span>
         <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_tokens</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>

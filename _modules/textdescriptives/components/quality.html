@@ -347,7 +347,7 @@
 
 
 <span class="k">def</span> <span class="nf">get_ranges</span><span class="p">(</span><span class="n">arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Get true ranges from boolean array, i.e.</span>
+    <span class="sd">&quot;&quot;&quot;Get ranges that evaluate to true a from boolean array, i.e.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; get_ranges(np.array([0, 1, 1, 0, 0, 1, 1]))</span>
@@ -439,7 +439,7 @@
 
 
 <span class="k">def</span> <span class="nf">span_ngrams</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Span</span><span class="p">,</span> <span class="n">ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Counter</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the counts of n-grams in the specified range.</span>
+    <span class="sd">&quot;&quot;&quot;Calculates the counts of n-grams in the specified range.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Span): spaCy span object</span>
@@ -471,7 +471,7 @@
     <span class="n">span</span><span class="p">:</span> <span class="n">Span</span><span class="p">,</span>
     <span class="n">ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;calculates the character fraction of duplicate n-gram over the overall text,</span>
+    <span class="sd">&quot;&quot;&quot;Calculates the character fraction of duplicate n-gram over the overall text,</span>
 <span class="sd">    taking care not to count overlapping n-grams twice. This does not include spaces</span>
 <span class="sd">    between the n-grams.</span>
 
@@ -585,7 +585,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">top_ngram_min_count</span> <span class="o">=</span> <span class="n">top_ngram_min_count</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_n_gram_fraction_range</span> <span class="o">=</span> <span class="n">duplicate_n_gram_fraction_range</span>
         <span class="k">if</span> <span class="n">quality_thresholds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">quality_thresholds</span> <span class="o">=</span> <span class="n">DEFAULT_QUALITY_THRESHOLDS</span>
+            <span class="n">quality_thresholds</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">DEFAULT_QUALITY_THRESHOLDS</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span> <span class="o">=</span> <span class="n">quality_thresholds</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">getters</span> <span class="o">=</span> <span class="p">{</span>

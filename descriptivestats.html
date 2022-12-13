@@ -267,27 +267,64 @@ The following attributes are added:</p>
 The attributes relate to token and sentence length, number of syllables, and counts of tokens and sentences.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.descriptive_stats.DescriptiveStatistics.counts">
-<span class="sig-name descname"><span class="pre">counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Span</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_whitespace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.counts" title="Permalink to this definition">#</a></dt>
-<dd><p>Returns dict with keys: n_tokens, n_unique_tokens, proportion_unique_tokens,
-n_characters</p>
+<span class="sig-name descname"><span class="pre">counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Span</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_whitespace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.counts" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate counts of tokens, unique tokens, and characters for a <cite>Doc</cite> or <cite>Span</cite>.
+Adds number of sentences for <cite>Doc</cite> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ignore_whitespace</strong> – if True, whitespace is not counted as a character when
+counting number of characters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>n_tokens, n_unique_tokens, proportion_unique_tokens, n_characters, (n_sentences)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict with keys</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.descriptive_stats.DescriptiveStatistics.sentence_length">
-<span class="sig-name descname"><span class="pre">sentence_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.sentence_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.sentence_length" title="Permalink to this definition">#</a></dt>
-<dd><p>Return dict with measures of sentence length</p>
+<span class="sig-name descname"><span class="pre">sentence_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.sentence_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.sentence_length" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate mean, median and std of sentence length for a <cite>Doc</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sentence_length_mean, sentence_length_median, sentence_length_std</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict with keys</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.descriptive_stats.DescriptiveStatistics.syllables">
-<span class="sig-name descname"><span class="pre">syllables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.syllables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.syllables" title="Permalink to this definition">#</a></dt>
-<dd><p>Return dict with measures of syllables per token</p>
+<span class="sig-name descname"><span class="pre">syllables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.syllables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.syllables" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate mean, median and std of syllables per token for a <cite>Doc</cite>.
+Uses <cite>Pyphen</cite> for hyphenation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>syllables_per_token_mean, syllables_per_token_median, syllables_per_token_std</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict with keys</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.descriptive_stats.DescriptiveStatistics.token_length">
-<span class="sig-name descname"><span class="pre">token_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Span</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.token_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.token_length" title="Permalink to this definition">#</a></dt>
-<dd><p>Return dict with measures of token length</p>
+<span class="sig-name descname"><span class="pre">token_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Span</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/descriptive_stats.html#DescriptiveStatistics.token_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.descriptive_stats.DescriptiveStatistics.token_length" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate mean, median and std of token length for a <cite>Doc</cite> or <cite>Span</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>token_length_mean, token_length_median, token_length_std</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict with keys</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

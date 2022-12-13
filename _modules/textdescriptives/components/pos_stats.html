@@ -216,9 +216,10 @@
           <h1>Source code for textdescriptives.components.pos_stats</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Calculation of statistics that require a pos-tagger in the pipeline&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
-<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
+<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
 
 
 <div class="viewcode-block" id="create_pos_stats_component"><a class="viewcode-back" href="../../../posstats.html#textdescriptives.components.pos_stats.create_pos_stats_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">&quot;pos_stats&quot;</span><span class="p">,</span> <span class="n">default_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;use_pos&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
@@ -237,7 +238,11 @@
     <span class="sd">&quot;&quot;&quot;spaCy v.3.0 component that adds attributes for POS statistics to `Doc` and `Span` objects.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">use_pos</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialise components&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialise components</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            use_pos: If True, uses the simple POS tag. If False, uses the detailed universal POS tag.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_pos</span> <span class="o">=</span> <span class="n">use_pos</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;pos_proportions&quot;</span><span class="p">):</span>
@@ -252,6 +257,8 @@
 
 <div class="viewcode-block" id="POSStatistics.pos_proportions"><a class="viewcode-back" href="../../../posstats.html#textdescriptives.components.pos_stats.POSStatistics.pos_proportions">[docs]</a>    <span class="k">def</span> <span class="nf">pos_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the proportion of tokens in a `Doc`|`Span` that are tagged with each POS tag.</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with POSTAG. Does not create a key if no tokens in the document fit the POSTAG.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

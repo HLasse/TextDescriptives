@@ -241,19 +241,72 @@ For <cite>Doc</cite> objects, dependency distance is calculated on the sentence 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.dependency_distance.DependencyDistance.doc_dependency">
 <span class="sig-name descname"><span class="pre">doc_dependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/dependency_distance.html#DependencyDistance.doc_dependency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.dependency_distance.DependencyDistance.doc_dependency" title="Permalink to this definition">#</a></dt>
-<dd><p>Doc-level dependency distance aggregated on sentence level</p>
+<dd><p>Aggregates token level dependency distance on the document level by
+taking the mean of the dependency distance and the proportion of
+adjacent dependency relations on the sentence level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Dictionary with the following keys:</dt><dd><ul class="simple">
+<li><p>dependency_distance_mean: Mean dependency distance on the sentence level</p></li>
+<li><p>dependency_distance_std: Standard deviation of dependency distance on the sentence level</p></li>
+<li><p>prop_adjacent_dependency_relation_mean: Mean proportion of adjacent dependency relations on the sentence level</p></li>
+<li><p>prop_adjacent_dependency_relation_std: Standard deviation of proportion of adjacent dependency relations on the sentence level</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.dependency_distance.DependencyDistance.span_dependency">
 <span class="sig-name descname"><span class="pre">span_dependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Span</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/dependency_distance.html#DependencyDistance.span_dependency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.dependency_distance.DependencyDistance.span_dependency" title="Permalink to this definition">#</a></dt>
-<dd><p>Span-level aggregated dependency distance</p>
+<dd><p>Aggregates token level dependency distance on the span level by
+taking the mean of the dependency distance and the proportion of
+adjacent dependency relations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Dictionary with the following keys:</dt><dd><ul class="simple">
+<li><p>dependency_distance_mean: Mean dependency distance</p></li>
+<li><p>prop_adjacent_dependency_relation: Proportion of adjacent dependency relations</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.dependency_distance.DependencyDistance.token_dependency">
 <span class="sig-name descname"><span class="pre">token_dependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Token</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/dependency_distance.html#DependencyDistance.token_dependency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.dependency_distance.DependencyDistance.token_dependency" title="Permalink to this definition">#</a></dt>
-<dd><p>Token-level dependency distance</p>
+<dd><p>Calculate token level dependency distance, i.e. the distance from a
+token to its head token. Also returns a boolean indicating whether the
+dependency relation is adjacent to the token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Dictionary with the following keys:</dt><dd><ul class="simple">
+<li><p>dependency_distance: Dependency distance</p></li>
+<li><p>adjacent_dependency: Boolean indicating whether the dependency relation is adjacent to the token</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

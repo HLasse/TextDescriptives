@@ -247,54 +247,71 @@ Extracts metrics and returns them as a dictionary as the ._.readability attribut
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._automated_readability_index">
 <span class="sig-name descname"><span class="pre">_automated_readability_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._automated_readability_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._automated_readability_index" title="Permalink to this definition">#</a></dt>
-<dd><p>Score = grade required to read the text</p>
+<dd><p>Calculates the Automated Readability Index of the document.
+The equation for the Automated Readability Index is:</p>
+<p>4.71 * (n_chars / n_words) + 0.5 * (n_words / n_sentences) - 21.43</p>
+<p>Score = grade required to read the text</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._coleman_liau_index">
 <span class="sig-name descname"><span class="pre">_coleman_liau_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._coleman_liau_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._coleman_liau_index" title="Permalink to this definition">#</a></dt>
-<dd><p>score = 0.0588 * avg number of chars pr 100 words - 0.296 * avg num of sents pr 100 words -15.8</p>
+<dd><p>Calculates the Colmean-Liau index of the document.
+The equation for the Coleman-Liau index is:</p>
+<p>score = 0.0588 * avg number of chars pr 100 words - 0.296 * avg num of sents pr 100 words -15.8</p>
 <p>Score = grade required to read the text</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._flesch_kincaid_grade">
 <span class="sig-name descname"><span class="pre">_flesch_kincaid_grade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._flesch_kincaid_grade"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._flesch_kincaid_grade" title="Permalink to this definition">#</a></dt>
-<dd><p>Score = grade required to read the text</p>
+<dd><p>Calculate the Flesch-Kincaid grade of the document.
+The equation for the Flesch-Kincaid grade is:</p>
+<p>0.39 * (avg sent len) + 11.8 * (avg_syl_per_word) - 15.59</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._flesch_reading_ease">
 <span class="sig-name descname"><span class="pre">_flesch_reading_ease</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._flesch_reading_ease"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._flesch_reading_ease" title="Permalink to this definition">#</a></dt>
-<dd><p>206.835 - (1.015 X avg sent len) - (84.6 * avg_syl_per_word)</p>
+<dd><p>Calculate the Flesch Reading Ease score for a document.
+The equation for the Flesch Reading Ease score is:</p>
+<p>206.835 - (1.015 X avg sent len) - (84.6 * avg_syl_per_word)</p>
 <p>Higher = easier to read</p>
-<p>Works best for English</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._gunning_fog">
-<span class="sig-name descname"><span class="pre">_gunning_fog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hard_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._gunning_fog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._gunning_fog" title="Permalink to this definition">#</a></dt>
-<dd><p>Grade level = 0.4 * ((avg_sentence_length) + (percentage hard words))</p>
-<p>hard words = 3+ syllables</p>
+<span class="sig-name descname"><span class="pre">_gunning_fog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_hard_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._gunning_fog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._gunning_fog" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculates the Gunning Fog index of the document.
+The equation for the Gunning Fog index is:</p>
+<p>Grade level = 0.4 * ((avg_sentence_length) + (percentage hard words))</p>
+<p>Where hard words are word with 3 or more syllables.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._lix">
 <span class="sig-name descname"><span class="pre">_lix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._lix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._lix" title="Permalink to this definition">#</a></dt>
-<dd><p>(n_words / n_sentences) + (n_words longer than 6 letters * 100) / n_words</p>
+<dd><p>Calculates the LIX index of the document.
+The equation for the LIX index is:</p>
+<p>(n_words / n_sentences) + (n_words longer than 6 characters * 100) / n_words</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._rix">
 <span class="sig-name descname"><span class="pre">_rix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._rix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._rix" title="Permalink to this definition">#</a></dt>
-<dd><p>n_long_words / n_sentences</p>
+<dd><p>Calculates the RIX index of the document.
+The equation for the RIX index is:</p>
+<p>(n_words longer than 6 characters / n_sentences)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._smog">
-<span class="sig-name descname"><span class="pre">_smog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hard_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._smog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._smog" title="Permalink to this definition">#</a></dt>
-<dd><p>grade level = 1.043( sqrt(30 * (hard words /n sentences)) + 3.1291</p>
-<p>Preferably need 30+ sentences. Will not work with less than 4</p>
+<span class="sig-name descname"><span class="pre">_smog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_hard_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._smog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._smog" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate the SMOG index of the document.
+The equation for the SMOG index is:</p>
+<p>1.043( sqrt(30 * (hard words /n sentences)) + 3.1291</p>
+<p>Where hard words are words with 3 or more syllables.
+Preferably need 30+ sentences. Will not work with less than 4</p>
 </dd></dl>
 
 <dl class="py method">
