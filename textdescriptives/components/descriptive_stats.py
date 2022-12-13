@@ -1,10 +1,11 @@
 """Calculation of descriptive statistics."""
-from spacy.tokens import Doc, Span
-from spacy.language import Language
-from typing import Union
-import numpy as np
+from typing import Callable, Union
 
-from .utils import filtered_tokens, n_tokens, n_syllables, n_sentences
+import numpy as np
+from spacy.language import Language
+from spacy.tokens import Doc, Span
+
+from .utils import filtered_tokens, n_sentences, n_syllables, n_tokens
 
 
 @Language.factory("descriptive_stats")
@@ -34,7 +35,7 @@ class DescriptiveStatistics:
             "syllables",
             "counts",
         ]
-        ext_funs = [
+        ext_funs: list[Callable] = [
             n_sentences,
             n_tokens,
             n_syllables,
@@ -44,9 +45,12 @@ class DescriptiveStatistics:
             self.counts,
         ]
         for ext, fun in zip(extensions, ext_funs):
-            if ext not in ["_n_sentences", "sentence_length", "syllables"]:
-                if not Span.has_extension(ext):
-                    Span.set_extension(ext, getter=fun)
+            if ext not in [
+                "_n_sentences",
+                "sentence_length",
+                "syllables",
+            ] and not Span.has_extension(ext):
+                Span.set_extension(ext, getter=fun)
             if not Doc.has_extension(ext):
                 Doc.set_extension(ext, getter=fun)
 
@@ -60,8 +64,12 @@ class DescriptiveStatistics:
         doc._._filtered_tokens = filtered_tokens(doc)
         return doc
 
-    def token_length(self, doc: Union[Doc, Span]):
-        """Return dict with measures of token length"""
+    def token_length(self, doc: Union[Doc, Span]) -> dict:
+        """Calculate mean, median and std of token length for a `Doc` or `Span`.
+
+        Returns:
+            dict with keys: token_length_mean, token_length_median, token_length_std
+        """
         token_lengths = [len(token) for token in doc._._filtered_tokens]
         return {
             "token_length_mean": np.mean(token_lengths),
@@ -69,8 +77,11 @@ class DescriptiveStatistics:
             "token_length_std": np.std(token_lengths),
         }
 
-    def sentence_length(self, doc: Doc):
-        """Return dict with measures of sentence length"""
+    def sentence_length(self, doc: Doc) -> dict:
+        """Calculate mean, median and std of sentence length for a `Doc`.
+
+        Returns:
+            dict with keys: sentence_length_mean, sentence_length_median, sentence_length_std"""
         # get length of filtered tokens per sentence
         tokenized_sentences = [
             [
@@ -87,8 +98,12 @@ class DescriptiveStatistics:
             "sentence_length_std": np.std(len_sentences),
         }
 
-    def syllables(self, doc: Doc):
-        """Return dict with measures of syllables per token"""
+    def syllables(self, doc: Doc) -> dict:
+        """Calculate mean, median and std of syllables per token for a `Doc`.
+        Uses `Pyphen` for hyphenation.
+
+        Returns:
+            dict with keys: syllables_per_token_mean, syllables_per_token_median, syllables_per_token_std"""
         n_syllables = doc._._n_syllables
         return {
             "syllables_per_token_mean": np.mean(n_syllables),
@@ -96,9 +111,15 @@ class DescriptiveStatistics:
             "syllables_per_token_std": np.std(n_syllables),
         }
 
-    def counts(self, doc: Union[Doc, Span], ignore_whitespace: bool = True):
-        """Returns dict with keys: n_tokens, n_unique_tokens, proportion_unique_tokens,
-        n_characters
+    def counts(self, doc: Union[Doc, Span], ignore_whitespace: bool = True) -> dict:
+        """Calculate counts of tokens, unique tokens, and characters for a `Doc` or `Span`.
+        Adds number of sentences for `Doc` objects.
+
+        Args:
+            ignore_whitespace: if True, whitespace is not counted as a character when
+                counting number of characters.
+        Returns:
+            dict with keys: n_tokens, n_unique_tokens, proportion_unique_tokens, n_characters, (n_sentences)
         """
         n_tokens = doc._._n_tokens
         n_types = len(set([tok.lower_ for tok in doc._._filtered_tokens]))

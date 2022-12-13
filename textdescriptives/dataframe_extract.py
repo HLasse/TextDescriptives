@@ -1,12 +1,11 @@
 """Extract metrics as Pandas DataFrame"""
-from spacy.tokens import Doc
-
-from functools import reduce
-from collections import defaultdict
-from typing import Union, List
 import types
+from collections import defaultdict
+from functools import reduce
+from typing import List, Union
 
 import pandas as pd
+from spacy.tokens import Doc
 
 
 class Extractor:
@@ -25,20 +24,20 @@ class Extractor:
                 One or more of ["descriptive_stats", "readability", "dependency_distance", "pos_stats", "all"].
                 Defaults to "all".
             include_text (bool, optional): Whether to add a column containing the text. Defaults to True.
+            as_dict (bool, optional): Whether to return a dictionary instead of a DataFrame. Defaults to False.
         """
         if not isinstance(doc, (Doc)):
             raise TypeError(f"doc should be a spaCy Doc object, not {type(doc)}.")
 
-        valid_metrics = set(
-            [
-                "descriptive_stats",
-                "readability",
-                "dependency_distance",
-                "pos_stats",
-                "quality",
-                "all",
-            ]
-        )
+        valid_metrics = {
+            "descriptive_stats",
+            "readability",
+            "dependency_distance",
+            "pos_stats",
+            "quality",
+            "all",
+        }
+
         if isinstance(metrics, str):
             metrics = [metrics]
         if not isinstance(metrics, list):
@@ -47,7 +46,7 @@ class Extractor:
             )
         if not set(metrics).issubset(valid_metrics):
             raise ValueError(
-                f"'metrics' contained invalid metric.\nValid metrics are: ['all', 'descriptive_stats', 'readability', 'dependency_distance', 'pos_stats']"
+                f"'metrics' contained invalid metric.\nValid metrics are: {valid_metrics}"
             )
 
         self.include_text = include_text
@@ -59,7 +58,7 @@ class Extractor:
             extraction = []
 
         if "all" in metrics:
-            for component in valid_metrics - set(["all"]):
+            for component in valid_metrics - {"all"}:
                 extraction.append(self.__unpack_extension(doc, component))
         else:
             for component in metrics:
@@ -71,13 +70,12 @@ class Extractor:
             self.out = pd.concat(extraction, axis=1)
 
     def __get_descriptive_stats_dict(self, doc: Doc) -> pd.DataFrame:
-        descriptive_stats = {
+        return {
             **doc._.token_length,
             **doc._.sentence_length,
             **doc._.syllables,
             **doc._.counts,
         }
-        return descriptive_stats
 
     def __unpack_extension(self, doc: Doc, extension: str) -> pd.DataFrame:
         """Unpacks the the values from the extension to a dict or dataframe
@@ -94,7 +92,7 @@ class Extractor:
         if extension == "descriptive_stats":
             values = self.__get_descriptive_stats_dict(doc)
         elif extension == "pos_stats":
-            values = doc.get_extension('pos_proportions')[2](doc)
+            values = doc.get_extension("pos_proportions")[2](doc)
         else:
             values = doc.get_extension(extension)[2](doc)
 
@@ -163,8 +161,7 @@ def extract_dict(
     return Extractor(doc, metrics, include_text, as_dict=True).out
 
 
-"""Helpers to subset an extracted dataframe"""
-
+# Helpers to subset an extracted dataframe
 readability_cols = [
     "flesch_reading_ease",
     "flesch_kincaid_grade",

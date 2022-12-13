@@ -1,8 +1,9 @@
 """Calculation of statistics that require a pos-tagger in the pipeline"""
 
-from spacy.tokens import Doc, Span
-from spacy.language import Language
 from typing import Counter, Union
+
+from spacy.language import Language
+from spacy.tokens import Doc, Span
 
 
 @Language.factory("pos_stats", default_config={"use_pos": True})
@@ -21,7 +22,11 @@ class POSStatistics:
     """spaCy v.3.0 component that adds attributes for POS statistics to `Doc` and `Span` objects."""
 
     def __init__(self, nlp: Language, use_pos: bool):
-        """Initialise components"""
+        """Initialise components
+
+        Args:
+            use_pos: If True, uses the simple POS tag. If False, uses the detailed universal POS tag.
+        """
         self.use_pos = use_pos
 
         if not Doc.has_extension("pos_proportions"):
@@ -36,6 +41,8 @@ class POSStatistics:
 
     def pos_proportions(self, text: Union[Doc, Span]) -> dict:
         """
+        Calculates the proportion of tokens in a `Doc`|`Span` that are tagged with each POS tag.
+
         Returns:
             Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with POSTAG. Does not create a key if no tokens in the document fit the POSTAG.
         """

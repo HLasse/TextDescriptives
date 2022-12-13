@@ -1,12 +1,11 @@
 """Calculation of various readability metrics."""
-from textdescriptives.components.utils import n_sentences
-from spacy.tokens import Doc
-from spacy.language import Language
-
 from typing import Dict
-import numpy as np
 
-from .descriptive_stats import create_descriptive_stats_component
+import numpy as np
+from spacy.language import Language
+from spacy.tokens import Doc
+
+from .descriptive_stats import create_descriptive_stats_component  # noqa
 
 
 @Language.factory("readability")
@@ -53,12 +52,12 @@ class Readability:
         }
 
     def _flesch_reading_ease(self, doc: Doc):
-        """
+        """Calculate the Flesch Reading Ease score for a document.
+        The equation for the Flesch Reading Ease score is:
+
         206.835 - (1.015 X avg sent len) - (84.6 * avg_syl_per_word)
 
         Higher = easier to read
-
-        Works best for English
         """
         avg_sentence_length = doc._.sentence_length["sentence_length_mean"]
         avg_syl_per_word = doc._.syllables["syllables_per_token_mean"]
@@ -68,8 +67,10 @@ class Readability:
         return score
 
     def _flesch_kincaid_grade(self, doc: Doc):
-        """
-        Score = grade required to read the text
+        """Calculate the Flesch-Kincaid grade of the document.
+        The equation for the Flesch-Kincaid grade is:
+
+        0.39 * (avg sent len) + 11.8 * (avg_syl_per_word) - 15.59
         """
         avg_sentence_length = doc._.sentence_length["sentence_length_mean"]
         avg_syl_per_word = doc._.syllables["syllables_per_token_mean"]
@@ -78,33 +79,42 @@ class Readability:
         score = 0.39 * avg_sentence_length + 11.8 * avg_syl_per_word - 15.59
         return score
 
-    def _smog(self, doc: Doc, hard_words: int):
-        """
-        grade level = 1.043( sqrt(30 * (hard words /n sentences)) + 3.1291
+    def _smog(self, doc: Doc, n_hard_words: int):
+        """Calculate the SMOG index of the document.
+        The equation for the SMOG index is:
 
+        1.043( sqrt(30 * (hard words /n sentences)) + 3.1291
+
+        Where hard words are words with 3 or more syllables.
         Preferably need 30+ sentences. Will not work with less than 4
         """
         n_sentences = doc._._n_sentences
         if n_sentences >= 3:
-            smog = (1.043 * (30 * (hard_words / n_sentences)) ** 0.5) + 3.1291
+            smog = (1.043 * (30 * (n_hard_words / n_sentences)) ** 0.5) + 3.1291
             return smog
         return np.nan
 
-    def _gunning_fog(self, doc, hard_words: int):
-        """
+    def _gunning_fog(self, doc, n_hard_words: int):
+        """Calculates the Gunning Fog index of the document.
+        The equation for the Gunning Fog index is:
+
         Grade level = 0.4 * ((avg_sentence_length) + (percentage hard words))
 
-        hard words = 3+ syllables
+        Where hard words are word with 3 or more syllables.
         """
         n_tokens = doc._._n_tokens
         if n_tokens == 0:
             return np.nan
         avg_sent_len = doc._.sentence_length["sentence_length_mean"]
-        percent_hard_words = (hard_words / n_tokens) * 100
+        percent_hard_words = (n_hard_words / n_tokens) * 100
         return 0.4 * (avg_sent_len + percent_hard_words)
 
     def _automated_readability_index(self, doc: Doc):
-        """
+        """Calculates the Automated Readability Index of the document.
+        The equation for the Automated Readability Index is:
+
+        4.71 * (n_chars / n_words) + 0.5 * (n_words / n_sentences) - 21.43
+
         Score = grade required to read the text
         """
         if len(doc) == 0:
@@ -117,7 +127,9 @@ class Readability:
         return score
 
     def _coleman_liau_index(self, doc: Doc):
-        """
+        """Calculates the Colmean-Liau index of the document.
+        The equation for the Coleman-Liau index is:
+
         score = 0.0588 * avg number of chars pr 100 words - 0.296 * avg num of sents pr 100 words -15.8
 
         Score = grade required to read the text
@@ -130,8 +142,10 @@ class Readability:
         return 0.0588 * l - 0.296 * s - 15.8
 
     def _lix(self, doc: Doc, long_words: int):
-        """
-        (n_words / n_sentences) + (n_words longer than 6 letters * 100) / n_words
+        """Calculates the LIX index of the document.
+        The equation for the LIX index is:
+
+        (n_words / n_sentences) + (n_words longer than 6 characters * 100) / n_words
         """
         n_tokens = doc._._n_tokens
         if n_tokens == 0:
@@ -140,7 +154,10 @@ class Readability:
         return doc._.sentence_length["sentence_length_mean"] + percent_long_words
 
     def _rix(self, doc: Doc, long_words: int):
-        """n_long_words / n_sentences"""
+        """Calculates the RIX index of the document.
+        The equation for the RIX index is:
+
+        (n_words longer than 6 characters / n_sentences)"""
         n_sentences = doc._._n_sentences
         if doc._._n_tokens == 0:
             return np.nan

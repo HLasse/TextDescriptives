@@ -131,7 +131,7 @@ def proportion_ellipsis(  # pylint: disable=dangerous-default-value
 
 
 def get_ranges(arr: np.ndarray) -> List[Tuple[int, int]]:
-    """Get true ranges from boolean array, i.e.
+    """Get ranges that evaluate to true a from boolean array, i.e.
 
     Example:
         >>> get_ranges(np.array([0, 1, 1, 0, 0, 1, 1]))
@@ -223,7 +223,7 @@ def symbol_2_word_ratio(span: Span, symbol: str) -> float:
 
 
 def span_ngrams(span: Span, ngram_range: Tuple[int, int]) -> Dict[str, Counter]:
-    """Calculate the counts of n-grams in the specified range.
+    """Calculates the counts of n-grams in the specified range.
 
     Args:
         span (Span): spaCy span object
@@ -255,7 +255,7 @@ def duplicate_ngram_fraction(
     span: Span,
     ngram_range: Tuple[int, int],
 ) -> Dict[int, float]:
-    """calculates the character fraction of duplicate n-gram over the overall text,
+    """Calculates the character fraction of duplicate n-gram over the overall text,
     taking care not to count overlapping n-grams twice. This does not include spaces
     between the n-grams.
 
@@ -369,7 +369,7 @@ class Quality:
         self.top_ngram_min_count = top_ngram_min_count
         self.duplicate_n_gram_fraction_range = duplicate_n_gram_fraction_range
         if quality_thresholds is None:
-            quality_thresholds = DEFAULT_QUALITY_THRESHOLDS
+            quality_thresholds: dict = DEFAULT_QUALITY_THRESHOLDS
         self.quality_thresholds = quality_thresholds
 
         self.getters = {
