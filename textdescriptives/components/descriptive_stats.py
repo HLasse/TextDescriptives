@@ -54,7 +54,7 @@ class DescriptiveStatistics:
             if not Doc.has_extension(ext):
                 Doc.set_extension(ext, getter=fun)
 
-        if not Doc.has_extension("_filtered_tokeans"):
+        if not Doc.has_extension("_filtered_tokens"):
             Doc.set_extension("_filtered_tokens", default=[])
         if not Span.has_extension("_filtered_tokens"):
             Span.set_extension("_filtered_tokens", getter=filtered_tokens)
