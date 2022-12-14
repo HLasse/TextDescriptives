@@ -59,7 +59,8 @@ class Extractor:
 
         if "all" in metrics:
             for component in valid_metrics - {"all"}:
-                extraction.append(self.__unpack_extension(doc, component))
+                if doc.has_extension(component):
+                    extraction.append(self.__unpack_extension(doc, component))
         else:
             for component in metrics:
                 extraction.append(self.__unpack_extension(doc, component))
