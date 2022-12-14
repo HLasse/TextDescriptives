@@ -6,19 +6,19 @@ from spacy.language import Language
 from spacy.tokens import Doc, Span
 
 
-@Language.factory("pos_stats", default_config={"use_pos": True})
+@Language.factory("textdescriptives.pos_proportions", default_config={"use_pos": True})
 def create_pos_stats_component(nlp: Language, name: str, use_pos: bool) -> Language:
-    """Allows PosStats to be added to a spaCy pipe using nlp.add_pipe("pos_stats")"""
+    """Allows PosPropotions to be added to a spaCy pipe using nlp.add_pipe("textdescriptives.pos_proportions")"""
 
     tagger = {"tagger", "attribute_ruler"}
     if not tagger.intersection(set(nlp.pipe_names)):
         raise ValueError(
             "The pipeline does not contain a component for POS tagging. Please load a spaCy model which includes a 'tagger' or an 'attribute ruler' component."
         )
-    return POSStatistics(nlp, use_pos=use_pos)
+    return POSProportions(nlp, use_pos=use_pos)
 
 
-class POSStatistics:
+class POSProportions:
     """spaCy v.3.0 component that adds attributes for POS statistics to `Doc` and `Span` objects."""
 
     def __init__(self, nlp: Language, use_pos: bool):

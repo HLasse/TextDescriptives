@@ -9,12 +9,12 @@ import ftfy
 @pytest.fixture(scope="function")
 def nlp():
     nlp = spacy.load("en_core_web_sm")
-    nlp.add_pipe("dependency_distance")
+    nlp.add_pipe("textdescriptives.dependency_distance")
     return nlp
 
 
 def test_dependency_distance_integration(nlp):
-    assert "dependency_distance" == nlp.pipe_names[-1]
+    assert "textdescriptives.dependency_distance" == nlp.pipe_names[-1]
 
 
 def test_dependency_distance(nlp):

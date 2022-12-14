@@ -7,12 +7,12 @@ from textdescriptives.components import DescriptiveStatistics
 def nlp():
     nlp = English()
     nlp.add_pipe("sentencizer")
-    nlp.add_pipe("descriptive_stats")
+    nlp.add_pipe("textdescriptives.descriptive_stats")
     return nlp
 
 
 def test_descriptive_stats_integration(nlp):
-    assert "descriptive_stats" == nlp.pipe_names[-1]
+    assert "textdescriptives.descriptive_stats" == nlp.pipe_names[-1]
 
 
 def test_descriptive_stats(nlp):
