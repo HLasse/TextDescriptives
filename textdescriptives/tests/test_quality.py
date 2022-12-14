@@ -180,7 +180,7 @@ def test_top_ngram_chr_fraction(
 
 def test_quality_component(nlp: spacy.Language):
     """Test the quality component."""
-    nlp.add_pipe("quality", config={"force": True})
+    nlp.add_pipe("textdescriptives.quality", config={"force": True})
     doc = nlp("This is a test. This is a test. This is a test.")
     assert doc._.quality["n_stop_words"] == 9
     assert doc._.quality["mean_word_length"] == 2.4
@@ -211,7 +211,7 @@ def test_quality_component_with_config(nlp: spacy.Language):
         "contains_lorem ipsum": False,
     }
     d = nlp.add_pipe(
-        "quality",
+        "textdescriptives.quality",
         config={
             "symbols": ["."],
             "quality_thresholds": quality_thresholds,
@@ -251,6 +251,6 @@ def test_quality_component_with_config(nlp: spacy.Language):
 )
 def test_passed_quality_check(text: str, passed: bool, nlp: spacy.Language):
     """Test the passed_quality_check attribute."""
-    nlp.add_pipe("quality", config={"force": True})
+    nlp.add_pipe("textdescriptives.quality", config={"force": True})
     doc = nlp(text)
     assert doc._.passed_quality_check == passed

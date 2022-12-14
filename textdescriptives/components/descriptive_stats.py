@@ -8,9 +8,9 @@ from spacy.tokens import Doc, Span
 from .utils import filtered_tokens, n_sentences, n_syllables, n_tokens
 
 
-@Language.factory("descriptive_stats")
+@Language.factory("textdescriptives.descriptive_stats")
 def create_descriptive_stats_component(nlp: Language, name: str):
-    """Allows DescriptiveStatistics to be added to a spaCy pipe using nlp.add_pipe("descriptive_stats").
+    """Allows DescriptiveStatistics to be added to a spaCy pipe using nlp.add_pipe("textdescriptives.descriptive_stats").
     If the pipe does not contain a parser or sentencizer, the sentencizer component is silently added."""
     sentencizers = set(["sentencizer", "parser"])
     if not sentencizers.intersection(set(nlp.pipe_names)):
