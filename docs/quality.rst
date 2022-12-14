@@ -33,7 +33,33 @@ If you need to run quality filters on a large corpus, you should consider using 
 includes a number of other quality filters and deduplication strategies.
 
 
-Quality Component
+Usage
+~~~~~~
+
+.. code-block:: python
+
+    import spacy
+    import textdescriptives as td
+    nlp = spacy.load("en_core_web_sm")
+    nlp.add_pipe("textdescriptives.quality") 
+    doc = nlp("The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.")
+
+    # all attributes are stored as a dict in the ._.quality attribute
+    doc._.quality
+    # check if the document passed all quality checks
+    doc._.passed_quality_check
+
+    # extract to dataframe
+    td.extract_df(doc)
+
+
+====  =========================  ==============  =============  ==================  ============  =====================  ==========================  =============================  ==================================  ===============================  ===============================  ===============================  ===============================  ===============================  ================================  =========================  =========================  =========================  =======================  ======================  ======================
+  ..  text                         n_stop_words    alpha_ratio    mean_word_length    doc_length    proportion_ellipsis    proportion_bullet_points    duplicate_line_chr_fraction    duplicate_paragraph_chr_fraction    duplicate_5-gram_chr_fraction    duplicate_6-gram_chr_fraction    duplicate_7-gram_chr_fraction    duplicate_8-gram_chr_fraction    duplicate_9-gram_chr_fraction    duplicate_10-gram_chr_fraction    top_2-gram_chr_fraction    top_3-gram_chr_fraction    top_4-gram_chr_fraction    symbol_#_2_word_ratio  contains_lorem ipsum    passed_quality_check
+====  =========================  ==============  =============  ==================  ============  =====================  ==========================  =============================  ==================================  ===============================  ===============================  ===============================  ===============================  ===============================  ================================  =========================  =========================  =========================  =======================  ======================  ======================
+   0  The world is changed(...)              24       0.853659             2.95122            41                      0                           0                              0                                   0                         0.232258                         0.232258                                0                                0                                0                                 0                  0.0580645                   0.174194                          0                        0  False                   False
+====  =========================  ==============  =============  ==================  ============  =====================  ==========================  =============================  ==================================  ===============================  ===============================  ===============================  ===============================  ===============================  ================================  =========================  =========================  =========================  =======================  ======================  ======================
+
+textdescriptives.components.quality
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autofunction:: textdescriptives.components.quality.create_quality_component

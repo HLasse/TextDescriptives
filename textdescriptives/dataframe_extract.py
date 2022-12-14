@@ -69,13 +69,10 @@ class Extractor:
         else:
             self.out = pd.concat(extraction, axis=1)
 
-    def __get_descriptive_stats_dict(self, doc: Doc) -> pd.DataFrame:
-        return {
-            **doc._.token_length,
-            **doc._.sentence_length,
-            **doc._.syllables,
-            **doc._.counts,
-        }
+    @staticmethod
+    def _get_quality(doc: Doc) -> dict:
+        """Get quality metrics as well as boolean indicator for passing filters."""
+        return {**doc._.quality, "passed_quality_check": doc._.passed_quality_check}
 
     def __unpack_extension(self, doc: Doc, extension: str) -> pd.DataFrame:
         """Unpacks the values from the extension to a dict or dataframe
@@ -89,8 +86,8 @@ class Extractor:
         """
         # doc.get_extension returns a tuple of (default, method, getter, setter)
         # we only need the getter
-        if extension == "descriptive_stats":
-            values = self.__get_descriptive_stats_dict(doc)
+        if extension == "quality":
+            values = self._get_quality(doc)
         else:
             values = doc.get_extension(extension)[2](doc)
 

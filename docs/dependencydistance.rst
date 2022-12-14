@@ -15,6 +15,33 @@ For :code:`Span` objects, the mean dependency distance and the mean proportion a
 
 For :code:`Token` objects, the dependency distance and whether the dependency relation is an adjacent token is returned. 
 
+Usage
+~~~~~~
+
+.. code-block:: python
+
+   import spacy
+   import textdescriptives as td
+   nlp = spacy.load("en_core_web_sm")
+   nlp.add_pipe("textdescriptives.dependency_distance") 
+   doc = nlp("The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.")
+
+   # all attributes are stored as a dict in the ._.dependency_distance attribute
+   doc._.dependency_distance
+
+   # access span and token level dependency distance in the same way
+   doc[:3]._.dependency_distance
+   doc[1]._.dependency_distance
+
+   # extract to dataframe
+   td.extract_df(doc)
+
+====  =========================  ==========================  =========================  ========================================  =======================================
+  ..  text                         dependency_distance_mean    dependency_distance_std    prop_adjacent_dependency_relation_mean    prop_adjacent_dependency_relation_std
+====  =========================  ==========================  =========================  ========================================  =======================================
+   0  The world is changed(...)                     1.77524                   0.553188                                  0.457143                                0.0722806
+====  =========================  ==========================  =========================  ========================================  =======================================
+
 textdescriptives.components.dependency_distance
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
