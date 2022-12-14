@@ -33,7 +33,7 @@ class Extractor:
             "descriptive_stats",
             "readability",
             "dependency_distance",
-            "pos_stats",
+            "pos_proportions",
             "quality",
             "all",
         }
@@ -78,7 +78,7 @@ class Extractor:
         }
 
     def __unpack_extension(self, doc: Doc, extension: str) -> pd.DataFrame:
-        """Unpacks the the values from the extension to a dict or dataframe
+        """Unpacks the values from the extension to a dict or dataframe
 
         Args:
             doc (Doc): Document to extract from
@@ -91,8 +91,6 @@ class Extractor:
         # we only need the getter
         if extension == "descriptive_stats":
             values = self.__get_descriptive_stats_dict(doc)
-        elif extension == "pos_stats":
-            values = doc.get_extension("pos_proportions")[2](doc)
         else:
             values = doc.get_extension(extension)[2](doc)
 

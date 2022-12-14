@@ -1,24 +1,24 @@
 """Adds all components to a spaCy pipeline"""
-from .components import (
-    Readability,
-    DependencyDistance,
-    DescriptiveStatistics,
-    POSStatistics,
-    Quality,
-)
-
 from spacy.language import Language
 from spacy.tokens import Doc
 
+from .components import (
+    DependencyDistance,
+    DescriptiveStatistics,
+    POSProportions,
+    Quality,
+    Readability,
+)
 
-@Language.factory("textdescriptives")
+
+@Language.factory("textdescriptives.all")
 def create_textdescriptives_component(nlp: Language, name: str):
     for component in [
-        "descriptive_stats",
-        "readability",
-        "dependency_distance",
-        "pos_stats",
-        "quality",
+        "textdescriptives.descriptive_stats",
+        "textdescriptives.readability",
+        "textdescriptives.dependency_distance",
+        "textdescriptives.pos_proportions",
+        "textdescriptives.quality",
     ]:
         nlp.add_pipe(component, last=True)
     return TextDescriptives(nlp)

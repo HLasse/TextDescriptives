@@ -1,5 +1,10 @@
 # News
 
+## v2.0.0 - X 2022
+- All components have been renamed to have the `textdescriptives.` prefix. I.e. components should now be loaded with e.g. `nlp.add_pipe("textdescriptives.descriptive_stats)`.
+`textdescriptives.all` can be used to load all components at once. 
+- `pos_stats` has been renamed to `pos_proportions` for consistency.
+
 ## v1.1.0 - 21st of September, 2022
 - Added the new pipe; "quality". This pipe implements a series of metrics related to text quality, some of which were used by Rae et al. (2021) and Raffel et al. (2020) to filter large text corpora. See the documentation for examples.
 

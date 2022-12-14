@@ -297,7 +297,7 @@ def top_ngram_chr_fraction(
     ngram_range: Tuple[int, int],
     min_count: int = 0,
 ) -> float:
-    """Calculated whether the character fraction of the top n-grams is below the
+    """Calculates whether the character fraction of the top n-grams is below the
     given thresholds
 
     Args:
@@ -472,7 +472,7 @@ class Quality:
 
 
 @Language.factory(
-    "quality",
+    "textdescriptives.quality",
     default_config={
         "symbols": ["#"],
         "contains": ["lorem ipsum"],
