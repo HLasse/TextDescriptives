@@ -57,24 +57,38 @@ class Coherence:
             },
         )
 
-    def _first_order_coherence(self, doc: Doc) -> List[float]:
+    @staticmethod
+    def _first_order_coherence(doc: Doc) -> List[float]:
         """Calculate first order coherence for a `Doc`, i.e. the semantic similarity
         between consecutive sentences."""
-        return self._n_order_coherence(doc=doc, order=1)
+        return n_order_coherence(doc=doc, order=1)
 
-    def _second_order_coherence(self, doc: Doc) -> List[float]:
+    @staticmethod
+    def _second_order_coherence(doc: Doc) -> List[float]:
         """Calculate second order coherence for a `Doc`, i.e. the semantic similarity
         between sentences that are two sentences apart."""
-        return self._n_order_coherence(doc, order=2)
+        return n_order_coherence(doc, order=2)
 
-    def _n_order_coherence(self, doc: Doc, order: int):
-        """Calculate coherence for a `Doc` for a given order."""
-        sents = list(doc.sents)
-        if len(sents) < order + 1:
-            return np.nan
-        similarities: List[float] = []
-        for i, sent in enumerate(sents):
-            if i == len(sents) - order:
-                break
-            similarities.append(sent.similarity(sents[i + order]))
-        return similarities
+
+def n_order_coherence(doc: Doc, order: int) -> List[float]:
+    """Calculate coherence for a `Doc` for a given order.
+
+    Args:
+        doc: A `Doc` object.
+        order: The order of coherence to calculate. For example, order=1 will
+            calculate the semantic similarity between consecutive sentences. And
+            order=2 will calculate the semantic similarity between sentences that
+            are two sentences apart.
+
+    Returns:
+        A list of floats representing the semantic similarity between sentences
+    """
+    sents = list(doc.sents)
+    if len(sents) < order + 1:
+        return [np.nan]
+    similarities: List[float] = []
+    for i, sent in enumerate(sents):
+        if i == len(sents) - order:
+            break
+        similarities.append(sent.similarity(sents[i + order]))
+    return similarities
