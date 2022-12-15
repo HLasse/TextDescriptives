@@ -15,7 +15,7 @@ def create_readability_component(nlp: Language, name: str):
     pipe if it not already loaded."""
     if "textdescriptives.descriptive_stats" not in nlp.pipe_names:
         print(
-            "'descriptive_stats' component is required for 'readability'. Adding to pipe."
+            "'textdescriptives.descriptive_stats' component is required for 'textdescriptives.readability'. Adding to pipe."
         )
         nlp = nlp.add_pipe("textdescriptives.descriptive_stats")
     return Readability(nlp)
