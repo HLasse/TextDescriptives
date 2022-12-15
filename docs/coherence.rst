@@ -12,7 +12,9 @@ implementation follows e.g. [1] and [2]:
 The implementation uses spacy's :code:`Span.similarity` method to calculate the
 similarity between sentences. The similarity is based on the word embeddings in 
 the spacy pipeline, i.e. small, medium, large, or transformer models will have 
-different results. Read more on `spacy's documentation <https://spacy.io/usage/linguistic-features#vectors-similarity>`_
+different results. If you want to use a specific word embedding (e.g. fasttext)
+you should overwrite the :code:`Doc.vector` attribute. Read more on spacy's documentation for `similarity <https://spacy.io/usage/linguistic-features#vectors-similarity>`_
+and `overwriting the vector attribute <https://spacy.io/usage/linguistic-features#adding-individual-vectors>`_
 
 The following attributes are added to :code:`Doc` objects.:
 
