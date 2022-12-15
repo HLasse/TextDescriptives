@@ -39,6 +39,7 @@ The documentation is organized in two parts:
    dependencydistance
    posstats
    quality
+   coherence
 
 .. add more references here
 
