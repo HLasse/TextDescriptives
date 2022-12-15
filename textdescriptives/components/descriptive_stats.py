@@ -1,11 +1,11 @@
 """Calculation of descriptive statistics."""
-from typing import Callable, Union
+from typing import Callable, Dict, Union
 
 import numpy as np
 from spacy.language import Language
 from spacy.tokens import Doc, Span
 
-from .utils import filtered_tokens, n_sentences, n_syllables, n_tokens
+from .utils import filter_tokens, n_sentences, n_syllables, n_tokens
 
 
 @Language.factory("textdescriptives.descriptive_stats")
@@ -26,37 +26,18 @@ class DescriptiveStatistics:
     def __init__(self, nlp: Language):
         """Initialise components"""
 
-        extensions = {
+        extensions: Dict[str, Callable] = {
             "_n_sentences": n_sentences,
             "_n_tokens": n_tokens,
             "_n_syllables": n_syllables,
             "token_length": self.token_length,
+            "sentence_length": self.sentence_length,
             "syllables": self.syllables,
             "counts": self.counts,
             "descriptive_stats": self.descriptive_stats,
         }
 
-        extensions = [
-            "_n_sentences",
-            "_n_tokens",
-            "_n_syllables",
-            "token_length",
-            "sentence_length",
-            "syllables",
-            "counts",
-            "descriptive_stats",
-        ]
-        ext_funs: list[Callable] = [
-            n_sentences,
-            n_tokens,
-            n_syllables,
-            self.token_length,
-            self.sentence_length,
-            self.syllables,
-            self.counts,
-            self.descriptive_stats,
-        ]
-        for extension_name, getter_fun in zip(extensions, ext_funs):
+        for extension_name, getter_fun in extensions.items():
             if extension_name not in [
                 "_n_sentences",
                 "sentence_length",
@@ -66,14 +47,8 @@ class DescriptiveStatistics:
             if not Doc.has_extension(extension_name):
                 Doc.set_extension(extension_name, getter=getter_fun)
 
-        if not Doc.has_extension("_filtered_tokens"):
-            Doc.set_extension("_filtered_tokens", default=[])
-        if not Span.has_extension("_filtered_tokens"):
-            Span.set_extension("_filtered_tokens", getter=filtered_tokens)
-
     def __call__(self, doc):
         """Run the pipeline component"""
-        doc._._filtered_tokens = filtered_tokens(doc)
         return doc
 
     def token_length(self, doc: Union[Doc, Span]) -> dict:
@@ -82,7 +57,8 @@ class DescriptiveStatistics:
         Returns:
             dict with keys: token_length_mean, token_length_median, token_length_std
         """
-        token_lengths = [len(token) for token in doc._._filtered_tokens]
+
+        token_lengths = [len(token) for token in filter_tokens(doc)]
         return {
             "token_length_mean": np.mean(token_lengths),
             "token_length_median": np.median(token_lengths),
@@ -134,16 +110,13 @@ class DescriptiveStatistics:
             dict with keys: n_tokens, n_unique_tokens, proportion_unique_tokens, n_characters, (n_sentences)
         """
         n_tokens = doc._._n_tokens
-        n_types = len(set([tok.lower_ for tok in doc._._filtered_tokens]))
+        n_types = len(set([tok.lower_ for tok in filter_tokens(doc)]))
         if ignore_whitespace:
             n_chars = len(doc.text.replace(" ", ""))
         else:
             n_chars = len(doc.text)
 
-        if n_tokens == 0:
-            prop_unique_tokens = np.nan
-        else:
-            prop_unique_tokens = n_types / n_tokens
+        prop_unique_tokens = np.nan if n_tokens == 0 else n_types / n_tokens
         out = {
             "n_tokens": n_tokens,
             "n_unique_tokens": n_types,
