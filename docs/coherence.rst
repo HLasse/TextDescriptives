@@ -9,7 +9,7 @@ implementation follows e.g. [1] and [2]:
 * First-order coherence: The cosine similarity between consecutive sentences.
 * Second-order coherence: The cosine similarity between sentences that are two sentences apart.
 
-The implementation uses spacy's :code:`Token.similarity` method to calculate the
+The implementation uses spacy's :code:`Span.similarity` method to calculate the
 similarity between sentences. The similarity is based on the word embeddings in 
 the spacy pipeline, i.e. small, medium, large, or transformer models will have 
 different results. Read more on `spacy's documentation <https://spacy.io/usage/linguistic-features#vectors-similarity>`_
