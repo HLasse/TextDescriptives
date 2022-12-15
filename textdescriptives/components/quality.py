@@ -297,8 +297,7 @@ def top_ngram_chr_fraction(
     ngram_range: Tuple[int, int],
     min_count: int = 0,
 ) -> float:
-    """Calculates whether the character fraction of the top n-grams is below the
-    given thresholds
+    """Calculates the character fraction of the top ngrams
 
     Args:
         span (Span): spaCy span object
@@ -309,6 +308,8 @@ def top_ngram_chr_fraction(
     Returns:
         float: The fraction of the top n-grams.
     """
+    # check if span has enough tokens within the range
+
     chr_len = len(span.text)
     if chr_len == 0:
         return {n: 0.0 for n in range(ngram_range[0], ngram_range[1] + 1)}
@@ -317,11 +318,16 @@ def top_ngram_chr_fraction(
     top_ngram_chr_frac = {}
     for n in ngram_counter:
         # find the top n-gram
-        ngram, count_span = max(ngram_counter[n].items(), key=lambda x: x[1]["count"])
-        count = count_span["count"]
-        if count >= min_count:
-            # calculate the fraction of the top n-gram
-            top_ngram_chr_frac[n] = (len(ngram) * count) / chr_len
+        if ngram_counter[n]:
+            ngram, count_span = max(
+                ngram_counter[n].items(), key=lambda x: x[1]["count"]
+            )
+            count = count_span["count"]
+            if count >= min_count:
+                # calculate the fraction of the top n-gram
+                top_ngram_chr_frac[n] = (len(ngram) * count) / chr_len
+            else:
+                top_ngram_chr_frac[n] = 0.0
         else:
             top_ngram_chr_frac[n] = 0.0
 

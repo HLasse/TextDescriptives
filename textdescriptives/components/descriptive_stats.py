@@ -26,6 +26,16 @@ class DescriptiveStatistics:
     def __init__(self, nlp: Language):
         """Initialise components"""
 
+        extensions = {
+            "_n_sentences": n_sentences,
+            "_n_tokens": n_tokens,
+            "_n_syllables": n_syllables,
+            "token_length": self.token_length,
+            "syllables": self.syllables,
+            "counts": self.counts,
+            "descriptive_stats": self.descriptive_stats,
+        }
+
         extensions = [
             "_n_sentences",
             "_n_tokens",
@@ -34,6 +44,7 @@ class DescriptiveStatistics:
             "sentence_length",
             "syllables",
             "counts",
+            "descriptive_stats",
         ]
         ext_funs: list[Callable] = [
             n_sentences,
@@ -43,16 +54,17 @@ class DescriptiveStatistics:
             self.sentence_length,
             self.syllables,
             self.counts,
+            self.descriptive_stats,
         ]
-        for ext, fun in zip(extensions, ext_funs):
-            if ext not in [
+        for extension_name, getter_fun in zip(extensions, ext_funs):
+            if extension_name not in [
                 "_n_sentences",
                 "sentence_length",
                 "syllables",
-            ] and not Span.has_extension(ext):
-                Span.set_extension(ext, getter=fun)
-            if not Doc.has_extension(ext):
-                Doc.set_extension(ext, getter=fun)
+            ] and not Span.has_extension(extension_name):
+                Span.set_extension(extension_name, getter=getter_fun)
+            if not Doc.has_extension(extension_name):
+                Doc.set_extension(extension_name, getter=getter_fun)
 
         if not Doc.has_extension("_filtered_tokens"):
             Doc.set_extension("_filtered_tokens", default=[])
@@ -141,3 +153,10 @@ class DescriptiveStatistics:
         if isinstance(doc, Doc):
             out["n_sentences"] = doc._._n_sentences
         return out
+
+    def descriptive_stats(self, doc: Union[Doc, Span]) -> dict:
+        """Get all descriptive statistics in a single dict"""
+        out = {**doc._.counts, **doc._.token_length}
+        if isinstance(doc, Span):
+            return out
+        return {**out, **doc._.sentence_length, **doc._.syllables}
