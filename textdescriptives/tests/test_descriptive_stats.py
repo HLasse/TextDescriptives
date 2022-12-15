@@ -1,6 +1,10 @@
-from spacy.lang.en import English
+import ftfy
 import pytest
+from spacy.lang.en import English
+
 from textdescriptives.components import DescriptiveStatistics
+
+from .books import flatland, oliver_twist, secret_garden
 
 
 @pytest.fixture(scope="function")
@@ -84,3 +88,12 @@ def test_descriptive_edge(text, nlp):
     assert doc._.sentence_length
     assert doc._.syllables
     assert doc._.counts
+
+
+def test_descriptive_multi_process(nlp):
+    texts = [oliver_twist, secret_garden, flatland]
+    texts = [ftfy.fix_text(text) for text in texts]
+
+    docs = nlp.pipe(texts, n_process=3)
+    for doc in docs:
+        assert doc._.descriptive_stats

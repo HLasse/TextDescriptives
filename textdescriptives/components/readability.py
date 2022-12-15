@@ -6,6 +6,7 @@ from spacy.language import Language
 from spacy.tokens import Doc
 
 from .descriptive_stats import create_descriptive_stats_component  # noqa
+from .utils import filter_tokens
 
 
 @Language.factory("textdescriptives.readability")
@@ -38,7 +39,7 @@ class Readability:
     def readability(self, doc: Doc) -> Dict[str, float]:
         """Apply readability functions and return a dict of the results."""
         hard_words = len([syllable for syllable in doc._._n_syllables if syllable >= 3])
-        long_words = len([t for t in doc._._filtered_tokens if len(t) > 6])
+        long_words = len([t for t in filter_tokens(doc) if len(t) > 6])
 
         return {
             "flesch_reading_ease": self._flesch_reading_ease(doc),

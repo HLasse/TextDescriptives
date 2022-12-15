@@ -182,3 +182,12 @@ def test_rix(text, expected, nlp):
     text = " ".join(text.split())
     doc = nlp(text)
     assert pytest.approx(expected, rel=1e-2) == doc._.readability["rix"]
+
+
+def test_readability_multi_process(nlp):
+    texts = [oliver_twist, secret_garden, flatland]
+    texts = [ftfy.fix_text(text) for text in texts]
+
+    docs = nlp.pipe(texts, n_process=3)
+    for doc in docs:
+        assert doc._.readability
