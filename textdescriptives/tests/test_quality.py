@@ -4,6 +4,7 @@ Tests for the quality module.
 
 from typing import List, Tuple
 
+import ftfy
 import pytest
 import spacy
 
@@ -17,6 +18,8 @@ from textdescriptives.components.quality import (
     symbol_2_word_ratio,
     top_ngram_chr_fraction,
 )
+
+from .books import flatland, oliver_twist, secret_garden
 
 
 @pytest.fixture
@@ -254,3 +257,12 @@ def test_passed_quality_check(text: str, passed: bool, nlp: spacy.Language):
     nlp.add_pipe("textdescriptives.quality", config={"force": True})
     doc = nlp(text)
     assert doc._.passed_quality_check == passed
+
+
+def test_quality_multi_process(nlp):
+    texts = [oliver_twist, secret_garden, flatland]
+    texts = [ftfy.fix_text(text) for text in texts]
+
+    docs = nlp.pipe(texts, n_process=3)
+    for doc in docs:
+        assert doc._.quality
