@@ -478,7 +478,7 @@ class Quality:
 
 
 @Language.factory(
-    "textdescriptives.quality",
+    "textdescriptives/quality",
     default_config={
         "symbols": ["#"],
         "contains": ["lorem ipsum"],
@@ -502,7 +502,7 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
     ] = None,
     force: bool = True,
 ) -> Callable[[Doc], Doc]:
-    """Allows Quality to be added to a spaCy pipe using nlp.add_pipe("quality").
+    """Allows Quality to be added to a spaCy pipe using nlp.add_pipe("textdescriptives/quality").
 
     Set the following extensions:
     - {Span/Doc}._.quality
