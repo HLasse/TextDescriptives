@@ -1,9 +1,6 @@
 import pytest
 import spacy
-from spacy.lang.en import English
 from spacy.tokens import Doc
-
-from textdescriptives.components import POSProportions
 
 
 @pytest.fixture(scope="function")

@@ -60,8 +60,8 @@ def mean_word_length(span: Span) -> float:
 
 
 def alpha_ratio(span: Span) -> float:
-    """The percentage of spacy tokens in this document which contain
-    at leat one alphabetic character.
+    """The percentage of spacy tokens in this document which contain at leat
+    one alphabetic character.
 
     Args:
         span (Span): spaCy span object
@@ -83,9 +83,11 @@ def alpha_ratio(span: Span) -> float:
 
 
 def proportion_bullet_points(  # pylint: disable=dangerous-default-value
-    span: Span, bullet_point: set = {"-", "*"}
+    span: Span,
+    bullet_point: set = {"-", "*"},
 ) -> float:
-    """Calculate the proportion of lines which start with a bullet points in a span.
+    """Calculate the proportion of lines which start with a bullet points in a
+    span.
 
     Args:
         span (Span): spaCy span object
@@ -108,7 +110,8 @@ def proportion_bullet_points(  # pylint: disable=dangerous-default-value
 
 
 def proportion_ellipsis(  # pylint: disable=dangerous-default-value
-    span: Span, ellipsis: set = {"…", "..."}
+    span: Span,
+    ellipsis: set = {"…", "..."},
 ) -> float:
     """Calculate the proportion line which ends with an ellipsis in a span.
 
@@ -255,9 +258,9 @@ def duplicate_ngram_fraction(
     span: Span,
     ngram_range: Tuple[int, int],
 ) -> Dict[int, float]:
-    """Calculates the character fraction of duplicate n-gram over the overall text,
-    taking care not to count overlapping n-grams twice. This does not include spaces
-    between the n-grams.
+    """Calculates the character fraction of duplicate n-gram over the overall
+    text, taking care not to count overlapping n-grams twice. This does not
+    include spaces between the n-grams.
 
     Args:
         span (Span): spaCy span object
@@ -297,7 +300,7 @@ def top_ngram_chr_fraction(
     ngram_range: Tuple[int, int],
     min_count: int = 0,
 ) -> float:
-    """Calculates the character fraction of the top ngrams
+    """Calculates the character fraction of the top ngrams.
 
     Args:
         span (Span): spaCy span object
@@ -320,7 +323,8 @@ def top_ngram_chr_fraction(
         # find the top n-gram
         if ngram_counter[n]:
             ngram, count_span = max(
-                ngram_counter[n].items(), key=lambda x: x[1]["count"]
+                ngram_counter[n].items(),
+                key=lambda x: x[1]["count"],
             )
             count = count_span["count"]
             if count >= min_count:
@@ -348,8 +352,11 @@ def contains_string(span: Span, string: str) -> bool:
 
 
 class Quality:
-    """spaCy component for adding text quality metrics to the `Doc` and `Span` objects.
-    Extracts metrics and returns them as a dictionary as the ._.quality attribute.
+    """spaCy component for adding text quality metrics to the `Doc` and `Span`
+    objects.
+
+    Extracts metrics and returns them as a dictionary as the ._.quality
+    attribute.
     """
 
     def __init__(  # pylint: disable=dangerous-default-value
@@ -366,7 +373,7 @@ class Quality:
         ] = None,
         force: bool = False,
     ):  # noqa: D107
-        """Initialise components"""
+        """Initialise components."""
         self.name = name
         self.force = force
         self.symbols = symbols
@@ -390,7 +397,8 @@ class Quality:
             "duplicate_line_chr_fraction": duplicate_line_chr_fraction,
             "duplicate_paragraph_chr_fraction": duplicate_paragraph_chr_fraction,
             "duplicate_ngram_chr_fraction": partial(
-                duplicate_ngram_fraction, ngram_range=duplicate_n_gram_fraction_range
+                duplicate_ngram_fraction,
+                ngram_range=duplicate_n_gram_fraction_range,
             ),
             "top_ngram_chr_fraction": partial(
                 top_ngram_chr_fraction,
@@ -401,7 +409,8 @@ class Quality:
         # add symbol to word ratio
         for symbol in symbols:
             self.getters[f"symbol_{symbol}_2_word_ratio"] = partial(
-                symbol_2_word_ratio, symbol=symbol
+                symbol_2_word_ratio,
+                symbol=symbol,
             )
         # add contains
         for string in contains:
@@ -414,12 +423,8 @@ class Quality:
 
         self.set_extensions()
 
-    def __call__(self, doc: Doc):
-        """Run the pipeline component"""
-        return doc
-
     def quality_getter(self, span: Span) -> Dict[str, Union[float, int, bool]]:
-        """Apply quality functions to doc
+        """Apply quality functions to doc.
 
         Args:
             span (Span): spaCy span object
@@ -442,9 +447,7 @@ class Quality:
         return quality
 
     def passed_quality_thresholds(self, span: Span) -> bool:
-        """
-        Checks whether a span passed the quality thresholds
-        """
+        """Checks whether a span passed the quality thresholds."""
         quality = span._.quality
         for name, threshold in self.quality_thresholds.items():
             if name not in quality:
@@ -460,7 +463,7 @@ class Quality:
             else:
                 raise ValueError(
                     f"Quality threshold {name} is not a bool, or "
-                    + f"Tuple of length 2, but {type(threshold)}."
+                    + f"Tuple of length 2, but {type(threshold)}.",
                 )
 
         return True
@@ -475,6 +478,10 @@ class Quality:
                 Span.set_extension(ext_name, getter=span_getter, force=True)
             if not Doc.has_extension(ext_name) or self.force is True:
                 Doc.set_extension(ext_name, getter=doc_getter, force=True)
+
+    def __call__(self, doc: Doc):
+        """Run the pipeline component."""
+        return doc
 
 
 @Language.factory(
@@ -502,7 +509,8 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
     ] = None,
     force: bool = True,
 ) -> Callable[[Doc], Doc]:
-    """Allows Quality to be added to a spaCy pipe using nlp.add_pipe("textdescriptives/quality").
+    """Allows Quality to be added to a spaCy pipe using
+    nlp.add_pipe("textdescriptives/quality").
 
     Set the following extensions:
     - {Span/Doc}._.quality

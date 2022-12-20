@@ -8,23 +8,16 @@ from spacy.tokens import Doc, Span
 from .utils import filter_tokens, n_sentences, n_syllables, n_tokens
 
 
-@Language.factory("textdescriptives/descriptive_stats")
-def create_descriptive_stats_component(nlp: Language, name: str):
-    """Allows DescriptiveStatistics to be added to a spaCy pipe using nlp.add_pipe("textdescriptives/descriptive_stats").
-    If the pipe does not contain a parser or sentencizer, the sentencizer component is silently added."""
-    sentencizers = set(["sentencizer", "parser"])
-    if not sentencizers.intersection(set(nlp.pipe_names)):
-        nlp.add_pipe("sentencizer")  # add a sentencizer if not one in pipe
-    return DescriptiveStatistics(nlp)
-
-
 class DescriptiveStatistics:
-    """spaCy v.3.0 component that adds attributes with desriptive statistics to `Doc` and `Span` objects.
-    The attributes relate to token and sentence length, number of syllables, and counts of tokens and sentences.
+    """spaCy v.3.0 component that adds attributes with desriptive statistics to
+    `Doc` and `Span` objects.
+
+    The attributes relate to token and sentence length, number of
+    syllables, and counts of tokens and sentences.
     """
 
     def __init__(self, nlp: Language):
-        """Initialise components"""
+        """Initialise components."""
 
         extensions: Dict[str, Callable] = {
             "_n_sentences": n_sentences,
@@ -47,15 +40,12 @@ class DescriptiveStatistics:
             if not Doc.has_extension(extension_name):
                 Doc.set_extension(extension_name, getter=getter_fun)
 
-    def __call__(self, doc):
-        """Run the pipeline component"""
-        return doc
-
     def token_length(self, doc: Union[Doc, Span]) -> dict:
-        """Calculate mean, median and std of token length for a `Doc` or `Span`.
+        """Calculate mean, median and std of token length for a `Doc` or
+        `Span`.
 
         Returns:
-            dict with keys: token_length_mean, token_length_median, token_length_std
+            dict: token_length_mean, token_length_median, token_length_std
         """
 
         token_lengths = [len(token) for token in filter_tokens(doc)]
@@ -69,7 +59,8 @@ class DescriptiveStatistics:
         """Calculate mean, median and std of sentence length for a `Doc`.
 
         Returns:
-            dict with keys: sentence_length_mean, sentence_length_median, sentence_length_std"""
+            dict: sentence_length_mean, sentence_length_median, sentence_length_std
+        """
         # get length of filtered tokens per sentence
         tokenized_sentences = [
             [
@@ -91,7 +82,9 @@ class DescriptiveStatistics:
         Uses `Pyphen` for hyphenation.
 
         Returns:
-            dict with keys: syllables_per_token_mean, syllables_per_token_median, syllables_per_token_std"""
+            dict: syllables_per_token_mean, syllables_per_token_median,
+                syllables_per_token_std
+        """
         n_syllables = doc._._n_syllables
         return {
             "syllables_per_token_mean": np.mean(n_syllables),
@@ -100,17 +93,18 @@ class DescriptiveStatistics:
         }
 
     def counts(self, doc: Union[Doc, Span], ignore_whitespace: bool = True) -> dict:
-        """Calculate counts of tokens, unique tokens, and characters for a `Doc` or `Span`.
-        Adds number of sentences for `Doc` objects.
+        """Calculate counts of tokens, unique tokens, and characters for a
+        `Doc` or `Span`. Adds number of sentences for `Doc` objects.
 
         Args:
             ignore_whitespace: if True, whitespace is not counted as a character when
                 counting number of characters.
-        Returns:
-            dict with keys: n_tokens, n_unique_tokens, proportion_unique_tokens, n_characters, (n_sentences)
+        Return:
+            dict: n_tokens, n_unique_tokens, proportion_unique_tokens, n_characters,
+                (n_sentences)
         """
         n_tokens = doc._._n_tokens
-        n_types = len(set([tok.lower_ for tok in filter_tokens(doc)]))
+        n_types = len({tok.lower_ for tok in filter_tokens(doc)})
         if ignore_whitespace:
             n_chars = len(doc.text.replace(" ", ""))
         else:
@@ -128,8 +122,26 @@ class DescriptiveStatistics:
         return out
 
     def descriptive_stats(self, doc: Union[Doc, Span]) -> dict:
-        """Get all descriptive statistics in a single dict"""
+        """Get all descriptive statistics in a single dict."""
         out = {**doc._.counts, **doc._.token_length}
         if isinstance(doc, Span):
             return out
         return {**out, **doc._.sentence_length, **doc._.syllables}
+
+    def __call__(self, doc):
+        """Run the pipeline component."""
+        return doc
+
+
+@Language.factory("textdescriptives/descriptive_stats")
+def create_descriptive_stats_component(nlp: Language, name: str):
+    """Allows DescriptiveStatistics to be added to a spaCy pipe using
+    nlp.add_pipe("textdescriptives/descriptive_stats").
+
+    If the pipe does not contain a parser or sentencizer, the
+    sentencizer component is silently added.
+    """
+    sentencizers = {"sentencizer", "parser"}
+    if not sentencizers.intersection(set(nlp.pipe_names)):
+        nlp.add_pipe("sentencizer")  # add a sentencizer if not one in pipe
+    return DescriptiveStatistics(nlp)

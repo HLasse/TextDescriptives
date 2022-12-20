@@ -1,6 +1,4 @@
-"""
-Tests for the quality module.
-"""
+"""Tests for the quality module."""
 
 from typing import List, Tuple
 
@@ -213,7 +211,7 @@ def test_quality_component_with_config(nlp: spacy.Language):
         "top_3-gram_chr_fraction": (None, 0.6),
         "contains_lorem ipsum": False,
     }
-    d = nlp.add_pipe(
+    nlp.add_pipe(
         "textdescriptives/quality",
         config={
             "symbols": ["."],

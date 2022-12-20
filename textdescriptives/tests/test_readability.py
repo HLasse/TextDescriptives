@@ -3,9 +3,20 @@ import numpy as np
 import pytest
 from spacy.lang.en import English
 
-from textdescriptives.components import Readability
-
-from .books import *
+from .books import (
+    flatland,
+    grade_1,
+    grade_2,
+    grade_3,
+    grade_4,
+    grade_6,
+    grade_8,
+    grade_10,
+    grade_12,
+    grade_14,
+    oliver_twist,
+    secret_garden,
+)
 
 
 @pytest.fixture(scope="function")
@@ -178,6 +189,19 @@ def test_lix(text, expected, nlp):
     ],
 )
 def test_rix(text, expected, nlp):
+    text = ftfy.fix_text(text)
+    text = " ".join(text.split())
+    doc = nlp(text)
+    assert pytest.approx(expected, rel=1e-2) == doc._.readability["rix"]
+
+
+def test_readability_multi_process(nlp):
+    texts = [oliver_twist, secret_garden, flatland]
+    texts = [ftfy.fix_text(text) for text in texts]
+
+    docs = nlp.pipe(texts, n_process=3)
+    for doc in docs:
+        assert doc._.readability
     text = ftfy.fix_text(text)
     text = " ".join(text.split())
     doc = nlp(text)

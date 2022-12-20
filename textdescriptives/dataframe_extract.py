@@ -1,4 +1,4 @@
-"""Extract metrics as Pandas DataFrame"""
+"""Extract metrics as Pandas DataFrame."""
 import types
 from collections import defaultdict
 from functools import reduce
@@ -9,74 +9,14 @@ from spacy.tokens import Doc
 
 
 class Extractor:
-    def __init__(
-        self,
-        doc: Doc,
-        metrics: Union[List[str], str] = "all",
-        include_text: bool = True,
-        as_dict=False,
-    ):
-        """Utility class to extract specified metrics to a Pandas DataFrame or dictionary
-
-        Args:
-            doc (Doc): a spaCy doc
-            metrics (Union[list[str], str], optional): Which metrics to extract.
-                One or more of ["descriptive_stats", "readability", "dependency_distance", "pos_stats", "all"].
-                Defaults to "all".
-            include_text (bool, optional): Whether to add a column containing the text. Defaults to True.
-            as_dict (bool, optional): Whether to return a dictionary instead of a DataFrame. Defaults to False.
-        """
-        if not isinstance(doc, (Doc)):
-            raise TypeError(f"doc should be a spaCy Doc object, not {type(doc)}.")
-
-        valid_metrics = {
-            "descriptive_stats",
-            "readability",
-            "dependency_distance",
-            "pos_proportions",
-            "quality",
-            "all",
-        }
-
-        if isinstance(metrics, str):
-            metrics = [metrics]
-        if not isinstance(metrics, list):
-            raise TypeError(
-                f"'metrics' should be string or list of strings, not {type(metrics)}"
-            )
-        if not set(metrics).issubset(valid_metrics):
-            raise ValueError(
-                f"'metrics' contained invalid metric.\nValid metrics are: {valid_metrics}"
-            )
-
-        self.include_text = include_text
-        self.as_dict = as_dict
-
-        if include_text:
-            extraction = [self.__extract_text(doc)]
-        else:
-            extraction = []
-
-        if "all" in metrics:
-            for component in valid_metrics - {"all"}:
-                if doc.has_extension(component):
-                    extraction.append(self.__unpack_extension(doc, component))
-        else:
-            for component in metrics:
-                extraction.append(self.__unpack_extension(doc, component))
-
-        if self.as_dict:
-            self.out = reduce(lambda a, b: {**a, **b}, extraction)
-        else:
-            self.out = pd.concat(extraction, axis=1)
-
     @staticmethod
     def _get_quality(doc: Doc) -> dict:
-        """Get quality metrics as well as boolean indicator for passing filters."""
+        """Get quality metrics as well as boolean indicator for passing
+        filters."""
         return {**doc._.quality, "passed_quality_check": doc._.passed_quality_check}
 
     def __unpack_extension(self, doc: Doc, extension: str) -> pd.DataFrame:
-        """Unpacks the values from the extension to a dict or dataframe
+        """Unpacks the values from the extension to a dict or dataframe.
 
         Args:
             doc (Doc): Document to extract from
@@ -101,19 +41,87 @@ class Extractor:
             return {"text": doc.text}
         return pd.DataFrame([doc.text], columns=["text"])
 
+    def __init__(
+        self,
+        doc: Doc,
+        metrics: Union[List[str], str] = "all",
+        include_text: bool = True,
+        as_dict=False,
+    ):
+        """Utility class to extract specified metrics to a Pandas DataFrame or
+        dictionary.
+
+        Args:
+            doc (Doc): a spaCy doc
+            metrics (Union[list[str], str], optional): Which metrics to extract.
+                One or more of ["descriptive_stats", "readability",
+                "dependency_distance", "pos_stats", "all"]. Defaults to "all".
+            include_text (bool, optional): Whether to add a column containing the text.
+                Defaults to True.
+            as_dict (bool, optional): Whether to return a dictionary instead of a
+                DataFrame. Defaults to False.
+        """
+        if not isinstance(doc, (Doc)):
+            raise TypeError(f"doc should be a spaCy Doc object, not {type(doc)}.")
+
+        valid_metrics = {
+            "descriptive_stats",
+            "readability",
+            "dependency_distance",
+            "pos_proportions",
+            "quality",
+            "all",
+        }
+
+        if isinstance(metrics, str):
+            metrics = [metrics]
+        if not isinstance(metrics, list):
+            raise TypeError(
+                f"'metrics' should be string or list of strings, not {type(metrics)}",
+            )
+        if not set(metrics).issubset(valid_metrics):
+            raise ValueError(
+                "'metrics' contained invalid metric.\n"
+                + f"Valid metrics are: {valid_metrics}",
+            )
+
+        self.include_text = include_text
+        self.as_dict = as_dict
+
+        if include_text:
+            extraction = [self.__extract_text(doc)]
+        else:
+            extraction = []
+
+        if "all" in metrics:
+            for component in valid_metrics - {"all"}:
+                if doc.has_extension(component):
+                    extraction.append(self.__unpack_extension(doc, component))
+        else:
+            for component in metrics:
+                extraction.append(self.__unpack_extension(doc, component))
+
+        if self.as_dict:
+            self.out = reduce(lambda a, b: {**a, **b}, extraction)
+        else:
+            self.out = pd.concat(extraction, axis=1)
+
 
 def extract_df(
-    doc: Doc, metrics: Union[List[str], str] = "all", include_text: bool = True
+    doc: Doc,
+    metrics: Union[List[str], str] = "all",
+    include_text: bool = True,
 ) -> pd.DataFrame:
-    """Extract calculated metrics from a spaCy Doc object or a generator of Docs from
-    nlp.pipe to a Pandas DataFrame
+    """Extract calculated metrics from a spaCy Doc object or a generator of
+    Docs from nlp.pipe to a Pandas DataFrame.
 
     Args:
         doc (Doc): a spaCy doc or a generator of spaCy Docs
         metrics (Union[list[str], str], optional): Which metrics to extract.
-                One or more of ["descriptive_stats", "readability", "dependency_distance", "pos_stats", "all"].
-                Defaults to "all".
-        include_text (bool, optional): Whether to add a column containing the text. Defaults to True.
+                One or more of ["descriptive_stats", "readability",
+                "dependency_distance", "pos_stats", "all"]. Defaults to "all".
+        include_text (bool, optional): Whether to add a column containing the text.
+            Defaults to True.
 
     Returns:
         pd.DataFrame: DataFrame with a row for each doc and column for each metric.
@@ -128,17 +136,20 @@ def extract_df(
 
 
 def extract_dict(
-    doc: Doc, metrics: Union[List[str], str] = "all", include_text: bool = True
+    doc: Doc,
+    metrics: Union[List[str], str] = "all",
+    include_text: bool = True,
 ) -> dict:
-    """Extract calculated metrics from a spaCy Doc object or a generator of Docs from
-    nlp.pipe to a dictionary
+    """Extract calculated metrics from a spaCy Doc object or a generator of
+    Docs from nlp.pipe to a dictionary.
 
     Args:
         doc (Doc): a spaCy doc or a generator of spaCy Docs
         metrics (Union[list[str], str], optional): Which metrics to extract.
-                One or more of ["descriptive_stats", "readability", "dependency_distance", "pos_stats", "all"].
-                Defaults to "all".
-        include_text (bool, optional): Whether to add an entry containing the text. Defaults to True.
+                One or more of ["descriptive_stats", "readability",
+                "dependency_distance", "pos_stats", "all"]. Defaults to "all".
+        include_text (bool, optional): Whether to add an entry containing the text.
+            Defaults to True.
 
     Returns:
         dict: Dictionary with a key for each metric.

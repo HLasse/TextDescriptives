@@ -2,7 +2,7 @@ import ftfy
 import pytest
 from spacy.lang.en import English
 
-from textdescriptives.components import DescriptiveStatistics
+from textdescriptives.components import DescriptiveStatistics  # noqa: F401
 
 from .books import flatland, oliver_twist, secret_garden
 
@@ -41,7 +41,8 @@ def test_token_length(nlp):
 
 def test_sentence_length(nlp):
     doc = nlp(
-        "Here is the first sentence. It was pretty short. Let's make another one that's slightly longer and more complex."
+        "Here is the first sentence. It was pretty short. Let's make another one "
+        + "that's slightly longer and more complex.",
     )
     assert (
         pytest.approx(6.33, rel=1e-2) == doc._.sentence_length["sentence_length_mean"]
@@ -68,7 +69,8 @@ def test_syllables_complex(nlp):
 
 def test_counts(nlp):
     doc = nlp(
-        "Here is the first sentence. It was pretty short. Let's make another one that's slightly longer and more complex."
+        "Here is the first sentence. It was pretty short. Let's make another one "
+        + "that's slightly longer and more complex.",
     )
     assert doc._.counts["n_tokens"] == 19
     assert doc._.counts["n_unique_tokens"] == 19
