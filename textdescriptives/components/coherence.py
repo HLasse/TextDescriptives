@@ -5,9 +5,9 @@ from spacy.language import Language
 from spacy.tokens import Doc
 
 
-@Language.factory("textdescriptives.coherence")
+@Language.factory("textdescriptives/coherence")
 def create_coherence_component(nlp: Language, name: str):
-    """Allows Coherence to be added to a spaCy pipe using nlp.add_pipe("textdescriptives.coherence").
+    """Allows Coherence to be added to a spaCy pipe using nlp.add_pipe("textdescriptives/coherence").
     If the pipe does not contain a parser or sentencizer, the sentencizer component is silently added."""
     return Coherence(nlp)
 
