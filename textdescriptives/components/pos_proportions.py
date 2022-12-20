@@ -6,9 +6,9 @@ from spacy.language import Language
 from spacy.tokens import Doc, Span
 
 
-@Language.factory("textdescriptives.pos_proportions", default_config={"use_pos": True})
+@Language.factory("textdescriptives/pos_proportions", default_config={"use_pos": True})
 def create_pos_stats_component(nlp: Language, name: str, use_pos: bool) -> Language:
-    """Allows PosPropotions to be added to a spaCy pipe using nlp.add_pipe("textdescriptives.pos_proportions")"""
+    """Allows PosPropotions to be added to a spaCy pipe using nlp.add_pipe("textdescriptives/pos_proportions")"""
 
     tagger = {"tagger", "attribute_ruler"}
     if not tagger.intersection(set(nlp.pipe_names)):

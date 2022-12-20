@@ -11,12 +11,12 @@ from .books import *
 @pytest.fixture(scope="function")
 def nlp():
     nlp = English()
-    nlp.add_pipe("textdescriptives.readability")
+    nlp.add_pipe("textdescriptives/readability")
     return nlp
 
 
 def test_readability_integration(nlp):
-    assert "textdescriptives.readability" == nlp.pipe_names[-1]
+    assert "textdescriptives/readability" == nlp.pipe_names[-1]
 
 
 def test_readability(nlp):

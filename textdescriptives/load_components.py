@@ -11,14 +11,14 @@ from .components import (
 )
 
 
-@Language.factory("textdescriptives.all")
+@Language.factory("textdescriptives/all")
 def create_textdescriptives_component(nlp: Language, name: str):
     for component in [
-        "textdescriptives.descriptive_stats",
-        "textdescriptives.readability",
-        "textdescriptives.dependency_distance",
-        "textdescriptives.pos_proportions",
-        "textdescriptives.quality",
+        "textdescriptives/descriptive_stats",
+        "textdescriptives/readability",
+        "textdescriptives/dependency_distance",
+        "textdescriptives/pos_proportions",
+        "textdescriptives/quality",
     ]:
         nlp.add_pipe(component, last=True)
     return TextDescriptives(nlp)

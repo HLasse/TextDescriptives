@@ -9,16 +9,16 @@ from .descriptive_stats import create_descriptive_stats_component  # noqa
 from .utils import filter_tokens
 
 
-@Language.factory("textdescriptives.readability")
+@Language.factory("textdescriptives/readability")
 def create_readability_component(nlp: Language, name: str):
-    """Allows Readability to be added to a spaCy pipe using nlp.add_pipe("textdescriptives.readability").
+    """Allows Readability to be added to a spaCy pipe using nlp.add_pipe("textdescriptives/readability").
     Readability requires attributes from DescriptiveStatistics and adds it to the
     pipe if it not already loaded."""
-    if "textdescriptives.descriptive_stats" not in nlp.pipe_names:
+    if "textdescriptives/descriptive_stats" not in nlp.pipe_names:
         print(
-            "'textdescriptives.descriptive_stats' component is required for 'textdescriptives.readability'. Adding to pipe."
+            "'textdescriptives/descriptive_stats' component is required for 'textdescriptives.readability'. Adding to pipe."
         )
-        nlp = nlp.add_pipe("textdescriptives.descriptive_stats")
+        nlp = nlp.add_pipe("textdescriptives/descriptive_stats")
     return Readability(nlp)
 
 

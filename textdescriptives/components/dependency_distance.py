@@ -4,10 +4,10 @@ from spacy.language import Language
 from spacy.tokens import Doc, Span, Token
 
 
-@Language.factory("textdescriptives.dependency_distance")
+@Language.factory("textdescriptives/dependency_distance")
 def create_dependency_distance_component(nlp: Language, name: str):
     """Create spaCy language factory that allows DependencyDistance attributes to be 
-    added to a pipe using nlp.add_pipe("textdescriptives.dependency_distance")"""
+    added to a pipe using nlp.add_pipe("textdescriptives/dependency_distance")"""
     return DependencyDistance(nlp)
 
 
