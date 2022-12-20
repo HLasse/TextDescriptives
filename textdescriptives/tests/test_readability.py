@@ -1,23 +1,22 @@
+import ftfy
+import numpy as np
 import pytest
-
-from textdescriptives.components import Readability
-from .books import *
-
 from spacy.lang.en import English
 
-import numpy as np
-import ftfy
+from textdescriptives.components import Readability
+
+from .books import *
 
 
 @pytest.fixture(scope="function")
 def nlp():
     nlp = English()
-    nlp.add_pipe("readability")
+    nlp.add_pipe("textdescriptives/readability")
     return nlp
 
 
 def test_readability_integration(nlp):
-    assert "readability" == nlp.pipe_names[-1]
+    assert "textdescriptives/readability" == nlp.pipe_names[-1]
 
 
 def test_readability(nlp):
@@ -183,3 +182,12 @@ def test_rix(text, expected, nlp):
     text = " ".join(text.split())
     doc = nlp(text)
     assert pytest.approx(expected, rel=1e-2) == doc._.readability["rix"]
+
+
+def test_readability_multi_process(nlp):
+    texts = [oliver_twist, secret_garden, flatland]
+    texts = [ftfy.fix_text(text) for text in texts]
+
+    docs = nlp.pipe(texts, n_process=3)
+    for doc in docs:
+        assert doc._.readability

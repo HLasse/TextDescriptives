@@ -2,7 +2,7 @@ from .about import __title__, __version__  # noqa: F401
 from .components import (  # noqa: F401
     DependencyDistance,
     DescriptiveStatistics,
-    POSStatistics,
+    POSProportions,
     Quality,
     Readability,
 )

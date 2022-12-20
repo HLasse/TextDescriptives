@@ -1,20 +1,22 @@
-import spacy
-import pytest
-from textdescriptives.components import DependencyDistance
-from .books import *
-import numpy as np
 import ftfy
+import numpy as np
+import pytest
+import spacy
+
+from textdescriptives.components import DependencyDistance
+
+from .books import flatland, oliver_twist, secret_garden
 
 
 @pytest.fixture(scope="function")
 def nlp():
     nlp = spacy.load("en_core_web_sm")
-    nlp.add_pipe("dependency_distance")
+    nlp.add_pipe("textdescriptives/dependency_distance")
     return nlp
 
 
 def test_dependency_distance_integration(nlp):
-    assert "dependency_distance" == nlp.pipe_names[-1]
+    assert "textdescriptives/dependency_distance" == nlp.pipe_names[-1]
 
 
 def test_dependency_distance(nlp):
@@ -110,3 +112,11 @@ def test_std_adj_dep(text, expected, nlp):
         pytest.approx(expected, rel=0.1)
         == doc._.dependency_distance["prop_adjacent_dependency_relation_std"]
     )
+
+def test_dependency_distance_multi_process(nlp):
+    texts = [oliver_twist, secret_garden, flatland]
+    texts = [ftfy.fix_text(text) for text in texts]
+
+    docs = nlp.pipe(texts, n_process=3)
+    for doc in docs:
+        assert doc._.dependency_distance

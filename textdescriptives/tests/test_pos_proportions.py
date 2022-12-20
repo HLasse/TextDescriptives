@@ -1,14 +1,15 @@
-import spacy
-from spacy.tokens import Doc
-from spacy.lang.en import English
 import pytest
-from textdescriptives.components import POSStatistics
+import spacy
+from spacy.lang.en import English
+from spacy.tokens import Doc
+
+from textdescriptives.components import POSProportions
 
 
 @pytest.fixture(scope="function")
 def nlp():
     nlp = spacy.load("en_core_web_sm", disable=("ner", "textcat"))
-    nlp.add_pipe("pos_stats")
+    nlp.add_pipe("textdescriptives/pos_proportions")
 
     return nlp
 
@@ -76,7 +77,7 @@ def doc(nlp):
 
 
 def test_pos_integrations(nlp):
-    assert "pos_stats" == nlp.pipe_names[-1]
+    assert "textdescriptives/pos_proportions" == nlp.pipe_names[-1]
 
 
 def test_pos_proportions_doc(doc):

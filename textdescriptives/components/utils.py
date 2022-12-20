@@ -7,7 +7,7 @@ from pyphen import Pyphen
 from spacy.tokens import Doc, Span, Token
 
 
-def filtered_tokens(doc: Union[Doc, Span]):
+def filter_tokens(doc: Union[Doc, Span]):
     """Return words in document or span.
     Filters punctuation and words that start with an apostrophe (contractions)"""
     filtered_tokens = [
@@ -23,7 +23,7 @@ def n_sentences(doc: Doc):
 
 def n_tokens(doc: Union[Doc, Span]):
     """Return number of words in the document."""
-    return len(doc._._filtered_tokens)  # pylint: disable=protected-access
+    return len(filter_tokens(doc))
 
 
 def n_syllables(doc: Doc):
@@ -37,10 +37,7 @@ def n_syllables(doc: Doc):
         word_hyphenated = dic.inserted(token.lower_)
         return max(1, word_hyphenated.count("-") + 1)
 
-    return [
-        count_syl(token)
-        for token in doc._._filtered_tokens  # pylint: disable=protected-access
-    ]
+    return [count_syl(token) for token in filter_tokens(doc)]
 
 
 def span_getter_to_token_getter(

@@ -1,18 +1,22 @@
-from spacy.lang.en import English
+import ftfy
 import pytest
+from spacy.lang.en import English
+
 from textdescriptives.components import DescriptiveStatistics
+
+from .books import flatland, oliver_twist, secret_garden
 
 
 @pytest.fixture(scope="function")
 def nlp():
     nlp = English()
     nlp.add_pipe("sentencizer")
-    nlp.add_pipe("descriptive_stats")
+    nlp.add_pipe("textdescriptives/descriptive_stats")
     return nlp
 
 
 def test_descriptive_stats_integration(nlp):
-    assert "descriptive_stats" == nlp.pipe_names[-1]
+    assert "textdescriptives/descriptive_stats" == nlp.pipe_names[-1]
 
 
 def test_descriptive_stats(nlp):
@@ -84,3 +88,12 @@ def test_descriptive_edge(text, nlp):
     assert doc._.sentence_length
     assert doc._.syllables
     assert doc._.counts
+
+
+def test_descriptive_multi_process(nlp):
+    texts = [oliver_twist, secret_garden, flatland]
+    texts = [ftfy.fix_text(text) for text in texts]
+
+    docs = nlp.pipe(texts, n_process=3)
+    for doc in docs:
+        assert doc._.descriptive_stats

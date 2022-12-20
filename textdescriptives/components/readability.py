@@ -6,18 +6,19 @@ from spacy.language import Language
 from spacy.tokens import Doc
 
 from .descriptive_stats import create_descriptive_stats_component  # noqa
+from .utils import filter_tokens
 
 
-@Language.factory("readability")
+@Language.factory("textdescriptives/readability")
 def create_readability_component(nlp: Language, name: str):
-    """Allows Readability to be added to a spaCy pipe using nlp.add_pipe("readability").
+    """Allows Readability to be added to a spaCy pipe using nlp.add_pipe("textdescriptives/readability").
     Readability requires attributes from DescriptiveStatistics and adds it to the
     pipe if it not already loaded."""
-    if "descriptive_stats" not in nlp.pipe_names:
+    if "textdescriptives/descriptive_stats" not in nlp.pipe_names:
         print(
-            "'descriptive_stats' component is required for 'readability'. Adding to pipe."
+            "'textdescriptives/descriptive_stats' component is required for 'textdescriptives.readability'. Adding to pipe."
         )
-        nlp = nlp.add_pipe("descriptive_stats")
+        nlp = nlp.add_pipe("textdescriptives/descriptive_stats")
     return Readability(nlp)
 
 
@@ -38,7 +39,7 @@ class Readability:
     def readability(self, doc: Doc) -> Dict[str, float]:
         """Apply readability functions and return a dict of the results."""
         hard_words = len([syllable for syllable in doc._._n_syllables if syllable >= 3])
-        long_words = len([t for t in doc._._filtered_tokens if len(t) > 6])
+        long_words = len([t for t in filter_tokens(doc) if len(t) > 6])
 
         return {
             "flesch_reading_ease": self._flesch_reading_ease(doc),

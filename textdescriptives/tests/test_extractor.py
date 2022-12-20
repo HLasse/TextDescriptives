@@ -1,12 +1,15 @@
-import textdescriptives as td
-import spacy
 import pytest
+import spacy
+
+import textdescriptives as td
+
+# pylint: disable=missing-function-docstring
 
 
 @pytest.fixture(scope="function")
 def nlp():
     nlp = spacy.load("en_core_web_sm")
-    nlp.add_pipe("textdescriptives")
+    nlp.add_pipe("textdescriptives/all")
     return nlp
 
 
@@ -57,10 +60,18 @@ def test_extract_dict_single_doc(nlp):
         td.extract_dict(doc, metrics=metric)
 
 
-def test_extract_df_pipe(nlp):
+def test_extract_df_pipe_specific_value(nlp):
     text = [
         "I wonder how well the function works on multiple documents",
         "Very exciting to see, don't you think?",
     ]
     docs = nlp.pipe(text)
     assert len(td.extract_dict(docs)["token_length_mean"]) == 2
+
+
+def test_extract_df_only_pos():
+    nlp = spacy.load("en_core_web_sm")
+    nlp.add_pipe("textdescriptives/pos_proportions")
+
+    doc = nlp("This is just a cute little text. Actually, it's two sentences.")
+    td.extract_df(doc)

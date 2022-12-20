@@ -1,23 +1,25 @@
-import spacy
 import pytest
+import spacy
+
 from textdescriptives import TextDescriptives
 
 
 @pytest.fixture(scope="function")
 def nlp():
     nlp = spacy.load("en_core_web_sm")
-    nlp.add_pipe("textdescriptives")
+    nlp.add_pipe("textdescriptives/all")
     return nlp
 
 
 def test_integration(nlp):
-    assert nlp.pipe_names[-1] == "textdescriptives"
+    assert nlp.pipe_names[-1] == "textdescriptives/all"
     for component in [
-        "descriptive_stats",
-        "readability",
-        "dependency_distance",
-        "textdescriptives",
-        "quality",
+        "textdescriptives/descriptive_stats",
+        "textdescriptives/readability",
+        "textdescriptives/dependency_distance",
+        "textdescriptives/all",
+        "textdescriptives/quality",
+        "textdescriptives/pos_proportions",
     ]:
         assert component in nlp.pipe_names
 
