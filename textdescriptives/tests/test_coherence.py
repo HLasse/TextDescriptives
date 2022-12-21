@@ -8,12 +8,12 @@ from textdescriptives.components import Coherence
 @pytest.fixture(scope="function")
 def nlp():
     nlp = spacy.load("en_core_web_sm")
-    nlp.add_pipe("textdescriptives.coherence")
+    nlp.add_pipe("textdescriptives/coherence")
     return nlp
 
 
 def test_coherence_integration(nlp):
-    assert "textdescriptives.coherence" == nlp.pipe_names[-1]
+    assert "textdescriptives/coherence" == nlp.pipe_names[-1]
 
 
 def test_coherence(nlp):
