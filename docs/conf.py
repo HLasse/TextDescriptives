@@ -33,6 +33,7 @@ extensions = [
     "sphinxext.opengraph",
     "sphinx_copybutton",
     "sphinx.ext.githubpages",
+    "sphinxcontrib.autodoc_pydantic",
 ]
 
 # autodoc_mock_imports = ["textdescriptives"]
@@ -44,6 +45,11 @@ templates_path = ["_templates"]
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+
+# Autodoc Pydantic
+autodoc_pydantic_model_show_json = False
+autodoc_pydantic_model_show_config = False
+autodoc_pydantic_model_show_field_summary = False
 
 
 # -- Options for HTML output -------------------------------------------------

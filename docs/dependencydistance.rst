@@ -42,7 +42,10 @@ Usage
    0  The world is changed(...)                     1.77524                   0.553188                                  0.457143                                0.0722806
 ====  =========================  ==========================  =========================  ========================================  =======================================
 
-textdescriptives.components.dependency_distance
+-----
+
+
+Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. automodule:: textdescriptives.components.dependency_distance
