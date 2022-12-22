@@ -17,7 +17,6 @@ from textdescriptives.components.quality import (
 )
 
 
-
 @pytest.fixture
 def nlp():
     """Load a blank English model."""
