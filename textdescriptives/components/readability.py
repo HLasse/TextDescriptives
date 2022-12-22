@@ -156,7 +156,7 @@ class Readability:
         return doc
 
 
-@Language.factory("textdescriptives/readability")
+@Language.factory("textdescriptives/readability", assigns=["doc._.readability"])
 def create_readability_component(nlp: Language, name: str):
     """Allows Readability to be added to a spaCy pipe using
     nlp.add_pipe("textdescriptives/readability").

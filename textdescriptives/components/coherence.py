@@ -89,7 +89,14 @@ class Coherence:
         return doc
 
 
-@Language.factory("textdescriptives/coherence")
+@Language.factory(
+    "textdescriptives/coherence",
+    assigns=[
+        "doc._.first_order_coherence_values",
+        "doc._.second_order_coherence_values",
+        "doc._.coherence",
+    ],
+)
 def create_coherence_component(nlp: Language, name: str):
     """Allows Coherence to be added to a spaCy pipe using
     nlp.add_pipe("textdescriptives/coherence").

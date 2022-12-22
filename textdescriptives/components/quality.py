@@ -7,7 +7,6 @@ import numpy as np
 from spacy.language import Language
 from spacy.tokens import Doc, Span
 
-
 DEFAULT_QUALITY_THRESHOLDS = {
     "n_stop_words": (2, None),
     "alpha_ratio": (0.8, None),
@@ -485,6 +484,12 @@ class Quality:
 
 @Language.factory(
     "textdescriptives/quality",
+    assigns=[
+        "doc._.quality",
+        "doc._.passed_quality_check",
+        "span._.quality",
+        "span._.passed_quality_check",
+    ],
     default_config={
         "symbols": ["#"],
         "contains": ["lorem ipsum"],

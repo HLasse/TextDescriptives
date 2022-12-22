@@ -98,7 +98,14 @@ class DependencyDistance:
         return doc
 
 
-@Language.factory("textdescriptives/dependency_distance")
+@Language.factory(
+    "textdescriptives/dependency_distance",
+    assigns=[
+        "token._.dependency_distance",
+        "span._.dependency_distance",
+        "doc._.dependency_distance",
+    ],
+)
 def create_dependency_distance_component(nlp: Language, name: str):
     """Create spaCy language factory that allows DependencyDistance attributes
     to be added to a pipe using

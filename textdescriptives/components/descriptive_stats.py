@@ -133,7 +133,21 @@ class DescriptiveStatistics:
         return doc
 
 
-@Language.factory("textdescriptives/descriptive_stats")
+@Language.factory(
+    "textdescriptives/descriptive_stats",
+    assigns=[
+        "doc._.n_sentences",
+        "doc._.n_tokens",
+        "doc._.token_length",
+        "doc._.sentence_length",
+        "doc._.syllables",
+        "doc._.counts",
+        "doc._.descriptive_stats",
+        "span._.token_length",
+        "span._.counts",
+        "span._.descriptive_stats",
+    ],
+)
 def create_descriptive_stats_component(nlp: Language, name: str):
     """Allows DescriptiveStatistics to be added to a spaCy pipe using
     nlp.add_pipe("textdescriptives/descriptive_stats").
