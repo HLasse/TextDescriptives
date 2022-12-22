@@ -49,12 +49,12 @@ class TextDescriptives:
     ],  # intentionally not assigning span attributes
 )
 def create_textdescriptives_component(nlp: Language, name: str):
-    for component in [
-        "textdescriptives/descriptive_stats",
-        "textdescriptives/readability",
-        "textdescriptives/dependency_distance",
-        "textdescriptives/pos_proportions",
-        "textdescriptives/quality",
-    ]:
+    components = [
+        k
+        for k in Language.factories.keys()
+        if k.startswith("textdescriptives") and k != "textdescriptives/all"
+    ]
+
+    for component in components:
         nlp.add_pipe(component, last=True)
     return TextDescriptives(nlp)
