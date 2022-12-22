@@ -102,7 +102,7 @@ def test_proportion_ellipsis(text: str, ellipsis: float, nlp: spacy.Language):
 
 # test symbol to word ratio
 @pytest.mark.parametrize(
-    "text, symbol_2_word",
+    "text, symbol_to_word",
     [
         ("", 0),
         ("This is a test.", 0),
@@ -110,10 +110,10 @@ def test_proportion_ellipsis(text: str, ellipsis: float, nlp: spacy.Language):
         ("#### test symbol to word ratio", 0.8),
     ],
 )
-def test_symbol_2_word_ratio(text: str, symbol_2_word: float, nlp: spacy.Language):
-    """Test the symbol_2_word_ratio function."""
+def test_symbol_to_word_ratio(text: str, symbol_to_word: float, nlp: spacy.Language):
+    """Test the symbol_to_word_ratio function."""
     doc = nlp(text)
-    assert abs(symbol_to_word_ratio(doc, symbol="#") - symbol_2_word) < 0.01
+    assert abs(symbol_to_word_ratio(doc, symbol="#") - symbol_to_word) < 0.01
 
 
 # test duplicate ngram fraction
