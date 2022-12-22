@@ -11,11 +11,11 @@ def test_get_valid_metrics():
 def test_get_columns():
     columns_ = set()
     for metric in td.get_valid_metrics():
-        columns = td.get_columns(metric)
+        columns = td.get_assigns(metric)
         assert isinstance(columns, list)
         assert len(columns) > 0
         assert isinstance(columns[0], str)
         columns_.update(columns)
-    columns_all = td.get_columns("all")
+    columns_all = td.get_assigns("all")
     assert set(columns_all) == columns_
     assert set(columns_all) == columns_

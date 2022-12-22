@@ -1,19 +1,14 @@
 """Extract metrics as Pandas DataFrame."""
-import types
-from collections import defaultdict
-from functools import reduce
 from typing import Any, Dict, Iterable, List, Union
 
 import pandas as pd
-from spacy import Language
 from spacy.tokens import Doc
 
 from textdescriptives.utils import get_valid_metrics
 
 
 def __get_quality(doc: Doc) -> dict:
-    """Get quality metrics as well as boolean indicator for passing
-    filters."""
+    """Get quality metrics as well as boolean indicator for passing filters."""
     return {**doc._.quality, "passed_quality_check": doc._.passed_quality_check}
 
 
@@ -63,7 +58,6 @@ def extract_dict(
 
     # extract textdescriptive metrics from the list of spacy Language factory
     valid_metrics = get_valid_metrics()
-    valid_metrics.update({"all"})
 
     if isinstance(metrics, str):
         metrics = [metrics]
@@ -108,7 +102,4 @@ def extract_df(
     Returns:
         pd.DataFrame: DataFrame with a row for each doc and column for each metric.
     """
-    if isinstance(docs, Doc):
-        docs = [docs]
-
     return pd.DataFrame(extract_dict(docs, metrics, include_text))

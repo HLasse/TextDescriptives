@@ -5,7 +5,7 @@ import pandas as pd
 from spacy import Language
 
 
-def get_columns(metric: str) -> List[str]:
+def get_assigns(metric: str) -> List[str]:
     """Get columns for a given metric.
 
     Args:

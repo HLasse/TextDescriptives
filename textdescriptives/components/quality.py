@@ -4,30 +4,119 @@ from functools import partial
 from typing import Callable, Dict, List, Optional, Tuple, Union
 
 import numpy as np
+from pydantic import BaseModel, Field
 from spacy.language import Language
 from spacy.tokens import Doc, Span
 
-DEFAULT_QUALITY_THRESHOLDS = {
-    "n_stop_words": (2, None),
-    "alpha_ratio": (0.8, None),
-    "mean_word_length": (3, 10),
-    "doc_length": (10, 100_000),
-    "symbol_#_2_word_ratio": (None, 0.1),
-    "proportion_ellipsis": (None, 0.3),
-    "proportion_bullet_points": (None, 0.8),
-    "duplicate_line_chr_fraction": (None, 0.2),
-    "duplicate_paragraph_chr_fraction": (None, 0.2),
-    "duplicate_5-gram_chr_fraction": (None, 0.15),
-    "duplicate_6-gram_chr_fraction": (None, 0.14),
-    "duplicate_7-gram_chr_fraction": (None, 0.13),
-    "duplicate_8-gram_chr_fraction": (None, 0.12),
-    "duplicate_9-gram_chr_fraction": (None, 0.11),
-    "duplicate_10-gram_chr_fraction": (None, 0.1),
-    "top_2-gram_chr_fraction": (None, 0.20),
-    "top_3-gram_chr_fraction": (None, 0.18),
-    "top_4-gram_chr_fraction": (None, 0.16),
-    "contains_lorem ipsum": False,
-}
+RangeType = Tuple[Optional[float], Optional[float]]
+
+
+class QualityThresholds(BaseModel):
+    n_stop_words: RangeType = Field(
+        (2, None),
+        description="A Range for the number of stop words. Default: (2, None), i.e. "
+        + "at least 2 stop words, but no upper limit.",
+    )
+    alpha_ratio: RangeType = Field(
+        (0.8, None),
+        description="A Range for the alpha ratio. Default: (0.8, None), i.e. at "
+        + "least 80% of tokens contain at least one alphabetic character, but no "
+        + "upper limit.",
+    )
+    mean_word_length: RangeType = Field(
+        (3, 10),
+        description="A Range for the mean word length. Default: (3, 10), i.e. between"
+        + " 3 and 10 characters.",
+    )
+    doc_length: RangeType = Field(
+        (10, 100_000),
+        description="A Range for the document length. Default: (10, 100_000), i.e."
+        + " between 10 and 100_000 characters.",
+    )
+    symbol_hashtag_to_word_ratio: RangeType = Field(
+        (None, 0.1),
+        description="A Range for the symbol hashtag to word ratio. Default: "
+        + "(None, 0.1), i.e. no lower limit, but at most 10% of tokens are hashtags.",
+    )
+    proportion_ellipsis: RangeType = Field(
+        (None, 0.3),
+        description="A Range for the proportion of ellipsis. Default: (None, 0.3), "
+        + "i.e. no lower limit, but at most 30% of lines end with an ellipsis.",
+    )
+    proportion_bullet_points: RangeType = Field(
+        (None, 0.8),
+        description="A Range for the proportion of bullet points. Default: "
+        + "(None, 0.8), i.e. no lower limit, but at most 80% of lines start with a"
+        + " bullet point.",
+    )
+    duplicate_line_chr_fraction: RangeType = Field(
+        (None, 0.2),
+        description="A Range for the duplicate line character fraction. Default: "
+        + "(None, 0.2), i.e. no lower limit, but at most 20% of characters are"
+        + " duplicates.",
+    )
+    duplicate_paragraph_chr_fraction: RangeType = Field(
+        (None, 0.2),
+        description="A Range for the duplicate paragraph character fraction. Default:"
+        + " (None, 0.2), i.e. no lower limit, but at most 20% of characters are "
+        + "duplicates.",
+    )
+    duplicate_5gram_chr_fraction: RangeType = Field(
+        (None, 0.15),
+        description="A Range for the duplicate 5-gram character fraction. Default: "
+        + "(None, 0.15), i.e. no lower limit, but at most 15% of characters are "
+        + "duplicates.",
+    )
+    duplicate_6gram_chr_fraction: RangeType = Field(
+        (None, 0.14),
+        description="A Range for the duplicate 6-gram character fraction. Default: "
+        + "(None, 0.14), i.e. no lower limit, but at most 14% of characters are "
+        + "duplicates.",
+    )
+    duplicate_7gram_chr_fraction: RangeType = Field(
+        (None, 0.13),
+        description="A Range for the duplicate 7-gram character fraction. Default: "
+        + "(None, 0.13), i.e. no lower limit, but at most 13% of characters are "
+        + "duplicates.",
+    )
+    duplicate_8gram_chr_fraction: RangeType = Field(
+        (None, 0.12),
+        description="A Range for the duplicate 8-gram character fraction. Default: "
+        + "(None, 0.12), i.e. no lower limit, but at most 12% of characters are "
+        + "duplicates.",
+    )
+    duplicate_9gram_chr_fraction: RangeType = Field(
+        (None, 0.11),
+        description="A Range for the duplicate 9-gram character fraction. Default: "
+        + "(None, 0.11), i.e. no lower limit, but at most 11% of characters are "
+        + "duplicates.",
+    )
+    duplicate_10gram_chr_fraction: RangeType = Field(
+        (None, 0.1),
+        description="A Range for the duplicate 10-gram character fraction. Default:"
+        + " (None, 0.1), i.e. no lower limit, but at most 10% of characters are "
+        + "duplicates.",
+    )
+    top_2gram_chr_fraction: RangeType = Field(
+        (None, 0.20),
+        description="A Range for the top 2-gram character fraction. Default: (None,"
+        + " 0.20), i.e. no lower limit, but at most 20% of characters are duplicates.",
+    )
+    top_3gram_chr_fraction: RangeType = Field(
+        (None, 0.18),
+        description="A Range for the top 3-gram character fraction. Default: (None,"
+        + " 0.18), i.e. no lower limit, but at most 18% of characters are duplicates.",
+    )
+    top_4gram_chr_fraction: RangeType = Field(
+        (None, 0.16),
+        description="A Range for the top 4-gram character fraction. Default: (None, "
+        + "0.16), i.e. no lower limit, but at most 16% of characters are duplicates.",
+    )
+    contains_lorem_ipsum: bool = Field(
+        False,
+        description="Whether the document contains the string 'lorem ipsum'. Default: "
+        + "False.",
+    )
 
 
 def n_stop_words(span: Span) -> int:
@@ -223,7 +312,10 @@ def symbol_2_word_ratio(span: Span, symbol: str) -> float:
     return 0.0
 
 
-def span_ngrams(span: Span, ngram_range: Tuple[int, int]) -> Dict[str, Counter]:
+def span_ngrams(
+    span: Span,
+    ngram_range: Tuple[int, int],
+) -> Dict[int, Dict[str, Union[int, List[Span]]]]:
     """Calculates the counts of n-grams in the specified range.
 
     Args:
@@ -231,13 +323,13 @@ def span_ngrams(span: Span, ngram_range: Tuple[int, int]) -> Dict[str, Counter]:
         ngram_range (Tuple[int, int]): The n-gram range.
 
     Returns:
-        Dict[int, Dict[str, int, List[Span]]]: A dictionary that for each n in the ngram
-            range contains the counts of the n-grams as well as the spans of the
-            n-grams.
+        Dict[int, Dict[str, Union[int, List[Span]]]]: A dictionary that for each n in
+            the ngram range contains the counts of the n-grams as well as the spans of
+            the n-grams.
     """
     max_len = len(span)
     lower, upper = ngram_range
-    shingles_count = {
+    shingles_count = {  # type: ignore
         n: defaultdict(lambda: {"count": 0, "span": []})
         for n in range(lower, upper + 1)
     }
@@ -247,9 +339,11 @@ def span_ngrams(span: Span, ngram_range: Tuple[int, int]) -> Dict[str, Counter]:
             if not end > max_len:
                 ngram_span = span[i:end]
                 ngram = ngram_span.text
-                shingles_count[ngram_size][ngram]["count"] += 1
-                shingles_count[ngram_size][ngram]["span"].append(ngram_span)
-    return shingles_count
+                shingles_count[ngram_size][ngram]["count"] += 1  # type: ignore
+                shingles_count[ngram_size][ngram]["span"].append(  # type: ignore
+                    ngram_span,
+                )
+    return shingles_count  # type: ignore
 
 
 def duplicate_ngram_fraction(
@@ -280,8 +374,8 @@ def duplicate_ngram_fraction(
         is_duplicate = np.zeros(max_len, dtype=bool)
         # set duplicate tokens to True
         for ngram, count in ngrams.items():
-            if count["count"] > 1:
-                for ngram_span in count["span"]:
+            if count["count"] > 1:  # type: ignore
+                for ngram_span in count["span"]:  # type: ignore
                     is_duplicate[ngram_span.start : ngram_span.end] = True
 
         duplicate_chars = 0
@@ -297,7 +391,7 @@ def top_ngram_chr_fraction(
     span: Span,
     ngram_range: Tuple[int, int],
     min_count: int = 0,
-) -> float:
+) -> Dict[int, float]:
     """Calculates the character fraction of the top ngrams.
 
     Args:
@@ -307,7 +401,8 @@ def top_ngram_chr_fraction(
             a top n-gram. Defaults to 0.
 
     Returns:
-        float: The fraction of the top n-grams.
+        Dict[int, float]: the fraction of duplicate characters for each
+            n-gram size
     """
     # check if span has enough tokens within the range
 
@@ -322,9 +417,9 @@ def top_ngram_chr_fraction(
         if ngram_counter[n]:
             ngram, count_span = max(
                 ngram_counter[n].items(),
-                key=lambda x: x[1]["count"],
+                key=lambda x: x[1]["count"],  # type: ignore
             )
-            count = count_span["count"]
+            count = count_span["count"]  # type: ignore
             if count >= min_count:
                 # calculate the fraction of the top n-gram
                 top_ngram_chr_frac[n] = (len(ngram) * count) / chr_len
@@ -366,9 +461,7 @@ class Quality:
         top_ngram_range: Tuple[int, int],
         top_ngram_min_count: int,
         duplicate_n_gram_fraction_range: Tuple[int, int],
-        quality_thresholds: Optional[
-            Dict[str, Union[bool, Tuple[Optional[float], Optional[float]]]]
-        ] = None,
+        quality_thresholds: Optional[QualityThresholds] = None,
         force: bool = False,
     ):  # noqa: D107
         """Initialise components."""
@@ -380,7 +473,7 @@ class Quality:
         self.top_ngram_min_count = top_ngram_min_count
         self.duplicate_n_gram_fraction_range = duplicate_n_gram_fraction_range
         if quality_thresholds is None:
-            quality_thresholds: dict = DEFAULT_QUALITY_THRESHOLDS
+            quality_thresholds = QualityThresholds()
         self.quality_thresholds = quality_thresholds
 
         self.getters = {
@@ -433,21 +526,21 @@ class Quality:
         quality = {}
         for name, getter in self.getters.items():
             if name == "top_ngram_chr_fraction":
-                chr_frac = getter(span)
+                chr_frac = getter(span)  # type: ignore
                 for n_gram, frac in chr_frac.items():
                     quality[f"top_{n_gram}-gram_chr_fraction"] = frac
             elif name == "duplicate_ngram_chr_fraction":
-                chr_frac = getter(span)
+                chr_frac = getter(span)  # type: ignore
                 for n_gram, frac in chr_frac.items():
                     quality[f"duplicate_{n_gram}-gram_chr_fraction"] = frac
             else:
-                quality[name] = getter(span)
+                quality[name] = getter(span)  # type: ignore
         return quality
 
     def passed_quality_thresholds(self, span: Span) -> bool:
         """Checks whether a span passed the quality thresholds."""
         quality = span._.quality
-        for name, threshold in self.quality_thresholds.items():
+        for name, threshold in self.quality_thresholds.dict().items():
             if name not in quality:
                 raise KeyError(f"Quality metric {name} not found in doc._.quality")
             if isinstance(threshold, bool):
@@ -508,9 +601,7 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
     top_ngram_range: Tuple[int, int],
     top_ngram_min_count: int,
     duplicate_n_gram_fraction_range: Tuple[int, int],
-    quality_thresholds: Optional[
-        Dict[str, Union[bool, Tuple[Optional[float], Optional[float]]]]
-    ] = None,
+    quality_thresholds: Optional[QualityThresholds] = None,
     force: bool = True,
 ) -> Callable[[Doc], Doc]:
     """Allows Quality to be added to a spaCy pipe using
@@ -551,18 +642,11 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
             be considered a top n-gram. Defaults to 3.
         duplicate_n_gram_fraction_range (Tuple[int]): range of n-grams to
             calculate the proportion of duplicate n-grams. Defaults to [5, 10].
-        quality_thresholds (Dict[str, Union[bool, Tuple[Union[int, float, None],
-            Union[int, float, None]]]]): A dictionary of quality thresholds indicated by
-            either a range (Tuple), wherein the first value is the lower bound and the
-            second value is the upper bound. Lower and upper bounds can be None, in
-            which case they are not checked. Alternatively, a boolean can be provided,
-            checking if the quality metric is boolean. For example, if you  don't want
-            documents containing `lorem ipsum`, to pass the quality check, you can set
-            `quality_thresholds={"contains_lorem_ipsum": False}`. Similar if you want to
-            set a upper bound on the `duplicate_5-gram_chr_fraction`, you can set
-            `quality_thresholds={"duplicate_5-gram_chr_fraction": (None, 0.15)}`.
-            Default values are set in
-            `textdescriptives.components..quality.DEFAULT_QUALITY_THRESHOLDS`.
+        quality_thresholds (Optional[QualityThresholds]): A QualityThresholds object of
+            quality thresholds indicated by either a range (Tuple), wherein the first
+            value is the lower bound and the second value is the upper bound or
+            a boolean. Defaults to None in which case the default for QualityThresholds
+            is used.
         force (bool): whether to overwrite existing extensions. Defaults to True.
 
 
