@@ -12,24 +12,14 @@ def __get_quality(doc: Doc) -> dict:
     return {**doc._.quality, "passed_quality_check": doc._.passed_quality_check}
 
 
-def __unpack_extension(doc: Doc, extension: str) -> Dict[str, Any]:
-    """Unpacks the values from the extension to a dict unnested dict.
-
-    Args:
-        doc (Doc): Document to extract from
-        extension (str): Extension to extract
-
-    Returns:
-        Dict[str, Any]: Dictionary with extension values
-    """
-    # doc.get_extension returns a tuple of (default, method, getter, setter)
-    # we only need the getter
-    if extension == "quality":
-        values = __get_quality(doc)
-    else:
-        values = doc.get_extension(extension)[2](doc)
-
-    return values
+def __get_descriptive_stats_dict(doc: Doc) -> dict:
+    """Get descriptive statistics as dictionary."""
+    return {
+        **doc._.token_length,
+        **doc._.sentence_length,
+        **doc._.syllables,
+        **doc._.counts,
+    }
 
 
 def extract_dict(
@@ -74,11 +64,17 @@ def extract_dict(
         )
 
     for component in metrics:
-        extraction = __unpack_extension(docs, component)
+        extracted_metrics: Dict[str, Any] = {}
+        if component == "quality":
+            extracted_metrics.update(__get_quality(docs))
+        elif component == "descriptive_stats":
+            extracted_metrics.update(__get_descriptive_stats_dict(docs))
+        else:
+            extracted_metrics.update(getattr(docs._, component))
     if include_text:
-        extraction["text"] = docs.text
+        extracted_metrics["text"] = docs.text
 
-    return [extraction]
+    return [extracted_metrics]
 
 
 def extract_df(
