@@ -52,4 +52,4 @@ def test_extract_df_only_pos():
     nlp.add_pipe("textdescriptives/pos_proportions")
 
     doc = nlp("This is just a cute little text. Actually, it's two sentences.")
-    td.extract_df(doc)
+    td.extract_df(doc, metrics="pos_proportions")
