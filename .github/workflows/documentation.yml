@@ -24,7 +24,7 @@ jobs:
           documentation_path: docs
       - name: Push changes
         if: ${{ github.event_name == 'push' }}
-        uses: ad-m/github-push-action@2.1
+        uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.SPHINX_DOCUMENTATION }}
           branch: gh-pages
