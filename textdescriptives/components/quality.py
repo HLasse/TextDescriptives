@@ -8,122 +8,105 @@ from pydantic import BaseModel, Field
 from spacy.language import Language
 from spacy.tokens import Doc, Span
 
-RangeType = Tuple[Optional[float], Optional[float]]
+Interval = Tuple[Optional[float], Optional[float]]
 
 
 class QualityThresholds(BaseModel):
-    n_stop_words: RangeType = Field(
+    """Thresholds for quality metrics."""
+
+    n_stop_words: Interval = Field(
         (2, None),
         description="A Range for the number of stop words. Default: (2, None), i.e. "
         + "at least 2 stop words, but no upper limit.",
     )
-    alpha_ratio: RangeType = Field(
+    alpha_ratio: Interval = Field(
         (0.8, None),
         description="A Range for the alpha ratio. Default: (0.8, None), i.e. at "
-        + "least 80% of tokens contain at least one alphabetic character, but no "
+        + r"least 80% of tokens contain at least one alphabetic character, but no "
         + "upper limit.",
     )
-    mean_word_length: RangeType = Field(
+    mean_word_length: Interval = Field(
         (3, 10),
         description="A Range for the mean word length. Default: (3, 10), i.e. between"
         + " 3 and 10 characters.",
     )
-    doc_length: RangeType = Field(
+    doc_length: Interval = Field(
         (10, 100_000),
         description="A Range for the document length. Default: (10, 100_000), i.e."
         + " between 10 and 100_000 characters.",
     )
-    symbol_hashtag_to_word_ratio: RangeType = Field(
-        (None, 0.1),
-        description="A Range for the symbol hashtag to word ratio. Default: "
-        + "(None, 0.1), i.e. no lower limit, but at most 10% of tokens are hashtags.",
+    symbol_to_word_ratio: Dict[str, Interval] = Field(
+        {"#": (None, 0.1)},
+        description="A dict of symbols and the allowed range for the "
+        + r"symbol-to-word-ratio. Default: {'#': (None, 0.1)} i.e. no lower limit, "
+        + r"but at most 10% of words start with a hashtag. Values not in the dict "
+        + "are not checked.",
     )
-    proportion_ellipsis: RangeType = Field(
+    proportion_ellipsis: Interval = Field(
         (None, 0.3),
-        description="A Range for the proportion of ellipsis. Default: (None, 0.3), "
-        + "i.e. no lower limit, but at most 30% of lines end with an ellipsis.",
+        description="A Range for the proportion of lines which end with ellipsis. "
+        + "Default: (None, 0.3), "
+        + r"i.e. no lower limit, but at most 30% of lines end with an ellipsis.",
     )
-    proportion_bullet_points: RangeType = Field(
+    proportion_bullet_points: Interval = Field(
         (None, 0.8),
-        description="A Range for the proportion of bullet points. Default: "
-        + "(None, 0.8), i.e. no lower limit, but at most 80% of lines start with a"
-        + " bullet point.",
+        description="A Range for the proportion lines which start with a bullet "
+        + r"points. Default: (None, 0.8), i.e. no lower limit, but at most 80% of lines"
+        + " start with a bullet point.",
     )
-    duplicate_line_chr_fraction: RangeType = Field(
+    contains: Dict[str, bool] = Field(
+        {"lorem ipsum": False},
+        description="A dictionary of strings and whether they should be contained in "
+        + "the document. Default: {'lorem ipsum': False}, i.e. the document should not"
+        + " contain the string 'lorem ipsum'.",
+    )
+    duplicate_line_chr_fraction: Interval = Field(
         (None, 0.2),
         description="A Range for the duplicate line character fraction. Default: "
-        + "(None, 0.2), i.e. no lower limit, but at most 20% of characters are"
+        + r"(None, 0.2), i.e. no lower limit, but at most 20% of characters are"
         + " duplicates.",
     )
-    duplicate_paragraph_chr_fraction: RangeType = Field(
+    duplicate_paragraph_chr_fraction: Interval = Field(
         (None, 0.2),
         description="A Range for the duplicate paragraph character fraction. Default:"
-        + " (None, 0.2), i.e. no lower limit, but at most 20% of characters are "
+        + r" (None, 0.2), i.e. no lower limit, but at most 20% of characters are "
         + "duplicates.",
     )
-    duplicate_5gram_chr_fraction: RangeType = Field(
-        (None, 0.15),
-        description="A Range for the duplicate 5-gram character fraction. Default: "
-        + "(None, 0.15), i.e. no lower limit, but at most 15% of characters are "
-        + "duplicates.",
+    duplicate_ngram_chr_fraction: Dict[str, Interval] = Field(
+        {
+            "5": (None, 0.15),
+            "6": (None, 0.14),
+            "7": (None, 0.13),
+            "8": (None, 0.12),
+            "9": (None, 0.11),
+            "10": (None, 0.1),
+        },
+        description="A dictionary of n-gram lengths and the allowed range for the "
+        + "duplicate n-gram character fraction. Default: {5: (None, 0.15), 6: (None, "
+        + "0.14), 7: (None, 0.13), 8: (None, 0.12), 9: (None, 0.11), 10: (None, 0.1)}, "
+        + r"i.e. no lower limit, but at most 15% of characters are duplicates for "
+        + r"5-grams, 14% for 6-grams, 13% for 7-grams, 12% for 8-grams, 11% for 9-grams"
+        + r" and 10% for 10-grams.",
     )
-    duplicate_6gram_chr_fraction: RangeType = Field(
-        (None, 0.14),
-        description="A Range for the duplicate 6-gram character fraction. Default: "
-        + "(None, 0.14), i.e. no lower limit, but at most 14% of characters are "
-        + "duplicates.",
-    )
-    duplicate_7gram_chr_fraction: RangeType = Field(
-        (None, 0.13),
-        description="A Range for the duplicate 7-gram character fraction. Default: "
-        + "(None, 0.13), i.e. no lower limit, but at most 13% of characters are "
-        + "duplicates.",
-    )
-    duplicate_8gram_chr_fraction: RangeType = Field(
-        (None, 0.12),
-        description="A Range for the duplicate 8-gram character fraction. Default: "
-        + "(None, 0.12), i.e. no lower limit, but at most 12% of characters are "
-        + "duplicates.",
-    )
-    duplicate_9gram_chr_fraction: RangeType = Field(
-        (None, 0.11),
-        description="A Range for the duplicate 9-gram character fraction. Default: "
-        + "(None, 0.11), i.e. no lower limit, but at most 11% of characters are "
-        + "duplicates.",
-    )
-    duplicate_10gram_chr_fraction: RangeType = Field(
-        (None, 0.1),
-        description="A Range for the duplicate 10-gram character fraction. Default:"
-        + " (None, 0.1), i.e. no lower limit, but at most 10% of characters are "
-        + "duplicates.",
-    )
-    top_2gram_chr_fraction: RangeType = Field(
-        (None, 0.20),
-        description="A Range for the top 2-gram character fraction. Default: (None,"
-        + " 0.20), i.e. no lower limit, but at most 20% of characters are duplicates.",
-    )
-    top_3gram_chr_fraction: RangeType = Field(
-        (None, 0.18),
-        description="A Range for the top 3-gram character fraction. Default: (None,"
-        + " 0.18), i.e. no lower limit, but at most 18% of characters are duplicates.",
-    )
-    top_4gram_chr_fraction: RangeType = Field(
-        (None, 0.16),
-        description="A Range for the top 4-gram character fraction. Default: (None, "
-        + "0.16), i.e. no lower limit, but at most 16% of characters are duplicates.",
-    )
-    contains_lorem_ipsum: bool = Field(
-        False,
-        description="Whether the document contains the string 'lorem ipsum'. Default: "
-        + "False.",
+    top_ngram_chr_fraction: Dict[str, Interval] = Field(
+        {
+            "2": (None, 0.2),
+            "3": (None, 0.18),
+            "4": (None, 0.16),
+        },
+        description="A dictionary of n-gram lengths and the allowed range for the "
+        + "top n-gram character fraction. Default: {2: (None, 0.2), 3: (None, 0.18)"
+        + r", 4: (None, 0.16)}, i.e. no lower limit, but at most 20% of characters "
+        + r"are contained within a duplicate for 2-grams, 18% for 3-grams and 16% "
+        + "for 4-grams.",
     )
 
 
-def n_stop_words(span: Span) -> int:
+def n_stop_words(span: Union[Doc, Span]) -> int:
     """Count the number of stop words in a document.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Doc, Span]): A spaCy Doc or Span object
 
     Returns:
         int: number of stop words
@@ -131,11 +114,11 @@ def n_stop_words(span: Span) -> int:
     return sum(t.is_stop for t in span)
 
 
-def mean_word_length(span: Span) -> float:
+def mean_word_length(span: Union[Doc, Span]) -> float:
     """Calculate the mean word length of a document.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Doc, Span]): A spaCy Doc or Span object
 
     Returns:
         float: mean word length
@@ -146,12 +129,12 @@ def mean_word_length(span: Span) -> float:
     return 0.0
 
 
-def alpha_ratio(span: Span) -> float:
+def alpha_ratio(span: Union[Doc, Span]) -> float:
     """The percentage of spacy tokens in this document which contain at leat
     one alphabetic character.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Doc, Span]): A spaCy Doc or Span object
 
     Returns:
         float: alpha ratio
@@ -170,14 +153,14 @@ def alpha_ratio(span: Span) -> float:
 
 
 def proportion_bullet_points(  # pylint: disable=dangerous-default-value
-    span: Span,
+    span: Union[Doc, Span],
     bullet_point: set = {"-", "*"},
 ) -> float:
     """Calculate the proportion of lines which start with a bullet points in a
     span.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Doc, Span]): A spaCy Doc or Span object
         bullet_point (set): set of bullet points
 
     Returns:
@@ -197,13 +180,13 @@ def proportion_bullet_points(  # pylint: disable=dangerous-default-value
 
 
 def proportion_ellipsis(  # pylint: disable=dangerous-default-value
-    span: Span,
+    span: Union[Doc, Span],
     ellipsis: set = {"…", "..."},
 ) -> float:
     """Calculate the proportion line which ends with an ellipsis in a span.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Doc, Span]): A spaCy Doc or Span object
         ellipsis (set): set of ellipsis
 
     Returns:
@@ -240,11 +223,11 @@ def get_ranges(arr: np.ndarray) -> List[Tuple[int, int]]:
     return ranges
 
 
-def duplicate_paragraph_chr_fraction(span: Span) -> float:
+def duplicate_paragraph_chr_fraction(span: Union[Doc, Span]) -> float:
     """Calculate the character fraction of duplicate paragraphs.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Doc, Span]): A spaCy Doc or Span object
 
     Returns:
         float: The fraction of duplicate characters.
@@ -267,11 +250,11 @@ def duplicate_paragraph_chr_fraction(span: Span) -> float:
     return frac
 
 
-def duplicate_line_chr_fraction(span: Span) -> float:
+def duplicate_line_chr_fraction(span: Union[Doc, Span]) -> float:
     """Calculate the character fraction of duplicate lines.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Doc, Span]): A spaCy Doc or Span object
 
     Returns:
         float: The fraction of duplicate characters.
@@ -294,11 +277,11 @@ def duplicate_line_chr_fraction(span: Span) -> float:
     return frac
 
 
-def symbol_2_word_ratio(span: Span, symbol: str) -> float:
+def symbol_to_word_ratio(span: Union[Span, Doc], symbol: str) -> float:
     """Calculate the ratio of symbols to words in a span.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Span, Doc]): spaCy Span or Doc object
         ratio (float): ratio of symbols to words
         symbol (str): symbol to count
 
@@ -313,13 +296,13 @@ def symbol_2_word_ratio(span: Span, symbol: str) -> float:
 
 
 def span_ngrams(
-    span: Span,
+    span: Union[Span, Doc],
     ngram_range: Tuple[int, int],
 ) -> Dict[int, Dict[str, Union[int, List[Span]]]]:
     """Calculates the counts of n-grams in the specified range.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Span, Doc]): A spaCy Span or Doc object.
         ngram_range (Tuple[int, int]): The n-gram range.
 
     Returns:
@@ -347,7 +330,7 @@ def span_ngrams(
 
 
 def duplicate_ngram_fraction(
-    span: Span,
+    span: Union[Span, Doc],
     ngram_range: Tuple[int, int],
 ) -> Dict[int, float]:
     """Calculates the character fraction of duplicate n-gram over the overall
@@ -355,7 +338,7 @@ def duplicate_ngram_fraction(
     include spaces between the n-grams.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Span, Doc]): A spaCy Span or Doc object.
         ngram_range (Tuple[int, int], optional): The n-gram range.
 
     Returns:
@@ -388,14 +371,14 @@ def duplicate_ngram_fraction(
 
 
 def top_ngram_chr_fraction(
-    span: Span,
+    span: Union[Doc, Span],
     ngram_range: Tuple[int, int],
     min_count: int = 0,
 ) -> Dict[int, float]:
     """Calculates the character fraction of the top ngrams.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Span, Doc]): A spaCy Span or Doc object.
         ngram_range (Tuple[int, int], optional): Range of n grams to examine.
         min_count (int): Minimum count of n-grams to before an n-gram is considered
             a top n-gram. Defaults to 0.
@@ -431,11 +414,11 @@ def top_ngram_chr_fraction(
     return top_ngram_chr_frac
 
 
-def contains_string(span: Span, string: str) -> bool:
+def contains_string(span: Union[Span, Doc], string: str) -> bool:
     """Check if a span contains a string.
 
     Args:
-        span (Span): spaCy span object
+        span (Union[Span, Doc]): A spaCy Span or Doc object.
         string (str): string to check for
 
     Returns:
@@ -499,8 +482,8 @@ class Quality:
         }
         # add symbol to word ratio
         for symbol in symbols:
-            self.getters[f"symbol_{symbol}_2_word_ratio"] = partial(
-                symbol_2_word_ratio,
+            self.getters[f"symbol_{symbol}_to_word_ratio"] = partial(
+                symbol_to_word_ratio,
                 symbol=symbol,
             )
         # add contains
@@ -537,25 +520,89 @@ class Quality:
                 quality[name] = getter(span)  # type: ignore
         return quality
 
+    @staticmethod
+    def is_within_range(rangetuple: Interval, value: float) -> bool:
+        """Check if a value is within a range tuple. If one of the values in
+        the range tuple is None it is considered to be unbounded.
+
+        Args:
+            rangetuple (RangeTuple): range tuple
+            value (float): value to check
+
+        Returns:
+            bool: True if value is within range
+        """
+        return (rangetuple[0] is None or rangetuple[0] <= value) and (
+            rangetuple[1] is None or value <= rangetuple[1]
+        )
+
     def passed_quality_thresholds(self, span: Span) -> bool:
         """Checks whether a span passed the quality thresholds."""
         quality = span._.quality
-        for name, threshold in self.quality_thresholds.dict().items():
-            if name not in quality:
-                raise KeyError(f"Quality metric {name} not found in doc._.quality")
-            if isinstance(threshold, bool):
-                if quality[name] != threshold:
+        qt = self.quality_thresholds
+
+        # heuristic quality filters
+        if not self.is_within_range(qt.n_stop_words, quality["n_stop_words"]):
+            return False
+        if not self.is_within_range(qt.alpha_ratio, quality["alpha_ratio"]):
+            return False
+        if not self.is_within_range(qt.mean_word_length, quality["mean_word_length"]):
+            return False
+        if not self.is_within_range(qt.doc_length, quality["doc_length"]):
+            return False
+        if not self.is_within_range(
+            qt.proportion_ellipsis,
+            quality["proportion_ellipsis"],
+        ):
+            return False
+        if not self.is_within_range(
+            qt.proportion_bullet_points,
+            quality["proportion_bullet_points"],
+        ):
+            return False
+
+        for symbol in self.symbols:
+            if symbol in qt.symbol_to_word_ratio:
+                if not self.is_within_range(
+                    qt.symbol_to_word_ratio[symbol],
+                    quality[f"symbol_{symbol}_to_word_ratio"],
+                ):
                     return False
-            elif isinstance(threshold, tuple) and len(threshold) == 2:
-                if threshold[0] is not None and quality[name] < threshold[0]:
+
+        for string in self.contains:
+            if string in qt.contains and (
+                qt.contains[string] is not quality[f"contains_{string}"]
+            ):
+                return False
+
+        # text repetition
+        if not self.is_within_range(
+            qt.duplicate_line_chr_fraction,
+            quality["duplicate_line_chr_fraction"],
+        ):
+            return False
+        if not self.is_within_range(
+            qt.duplicate_paragraph_chr_fraction,
+            quality["duplicate_paragraph_chr_fraction"],
+        ):
+            return False
+
+        for ngram in qt.duplicate_ngram_chr_fraction:
+            key = f"duplicate_{ngram}-gram_chr_fraction"
+            if key in quality:
+                if not self.is_within_range(
+                    qt.duplicate_ngram_chr_fraction[ngram],
+                    quality[key],
+                ):
                     return False
-                if threshold[1] is not None and quality[name] > threshold[1]:
+
+        for n_gram in qt.top_ngram_chr_fraction:
+            if n_gram in quality:
+                if not self.is_within_range(
+                    qt.top_ngram_chr_fraction[n_gram],
+                    quality[n_gram],
+                ):
                     return False
-            else:
-                raise ValueError(
-                    f"Quality threshold {name} is not a bool, or "
-                    + f"Tuple of length 2, but {type(threshold)}.",
-                )
 
         return True
 
@@ -593,7 +640,7 @@ class Quality:
         "quality_thresholds": None,
     },
 )
-def create_quality_component(  # pylint: disable=dangerous-default-value
+def create_quality_component(
     nlp: Language,
     name: str,
     symbols: List[str],
@@ -601,7 +648,7 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
     top_ngram_range: Tuple[int, int],
     top_ngram_min_count: int,
     duplicate_n_gram_fraction_range: Tuple[int, int],
-    quality_thresholds: Optional[QualityThresholds] = None,
+    quality_thresholds: Optional[dict] = None,
     force: bool = True,
 ) -> Callable[[Doc], Doc]:
     """Allows Quality to be added to a spaCy pipe using
@@ -642,11 +689,12 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
             be considered a top n-gram. Defaults to 3.
         duplicate_n_gram_fraction_range (Tuple[int]): range of n-grams to
             calculate the proportion of duplicate n-grams. Defaults to [5, 10].
-        quality_thresholds (Optional[QualityThresholds]): A QualityThresholds object of
-            quality thresholds indicated by either a range (Tuple), wherein the first
-            value is the lower bound and the second value is the upper bound or
-            a boolean. Defaults to None in which case the default for QualityThresholds
-            is used.
+        quality_thresholds (Optional[dict]): A dictionary object containing the
+            thresholds indicated by either an interval (Tuple) or a boolean. We
+            recommend using the QualityThresholds class to create this dictionary by
+            calling QualityThresholds(...).dict(). This ensures that all the thresholds
+            are validated. Defaults to None in which case the default for
+            QualityThresholds is used.
         force (bool): whether to overwrite existing extensions. Defaults to True.
 
 
@@ -664,6 +712,13 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
         >>> # check whether the document passed the quality thresholds
         >>> doc._.passed_quality_check
     """
+    # recons quality_thresholds since it needs to be json serializable for the config
+    # in the nlp.add_pipe call
+    if quality_thresholds is not None:
+        quality_thresholds_ = QualityThresholds(**quality_thresholds)
+    else:
+        quality_thresholds_ = None
+
     return Quality(
         nlp,
         name=name,
@@ -672,6 +727,6 @@ def create_quality_component(  # pylint: disable=dangerous-default-value
         top_ngram_range=top_ngram_range,
         top_ngram_min_count=top_ngram_min_count,
         duplicate_n_gram_fraction_range=duplicate_n_gram_fraction_range,
-        quality_thresholds=quality_thresholds,
+        quality_thresholds=quality_thresholds_,
         force=force,
     )

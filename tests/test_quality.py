@@ -5,6 +5,7 @@ from typing import List, Tuple
 import pytest
 import spacy
 
+import textdescriptives as td
 from textdescriptives.components.quality import (
     alpha_ratio,
     duplicate_ngram_fraction,
@@ -12,7 +13,7 @@ from textdescriptives.components.quality import (
     n_stop_words,
     proportion_bullet_points,
     proportion_ellipsis,
-    symbol_2_word_ratio,
+    symbol_to_word_ratio,
     top_ngram_chr_fraction,
 )
 
@@ -112,7 +113,7 @@ def test_proportion_ellipsis(text: str, ellipsis: float, nlp: spacy.Language):
 def test_symbol_2_word_ratio(text: str, symbol_2_word: float, nlp: spacy.Language):
     """Test the symbol_2_word_ratio function."""
     doc = nlp(text)
-    assert abs(symbol_2_word_ratio(doc, symbol="#") - symbol_2_word) < 0.01
+    assert abs(symbol_to_word_ratio(doc, symbol="#") - symbol_2_word) < 0.01
 
 
 # test duplicate ngram fraction
@@ -185,7 +186,7 @@ def test_quality_component(nlp: spacy.Language):
     assert doc._.quality["alpha_ratio"] == 0.8
     assert doc._.quality["proportion_bullet_points"] == 0
     assert doc._.quality["proportion_ellipsis"] == 0
-    assert doc._.quality["symbol_#_2_word_ratio"] == 0
+    assert doc._.quality["symbol_#_to_word_ratio"] == 0
     assert doc._.quality["duplicate_5-gram_chr_fraction"] == 1
     assert abs(doc._.quality["top_2-gram_chr_fraction"] - 0.44) < 0.01
     assert doc._.passed_quality_check is False
@@ -194,25 +195,26 @@ def test_quality_component(nlp: spacy.Language):
 def test_quality_component_with_config(nlp: spacy.Language):
     """Test the quality component with config."""
 
-    quality_thresholds = {
-        "n_stop_words": (3, None),
-        "alpha_ratio": (None, 0.8),
-        "mean_word_length": (1, 10),
-        "doc_length": (10, 100_000),
-        "symbol_._2_word_ratio": (None, 0.3),
-        "proportion_ellipsis": (None, 0.3),
-        "proportion_bullet_points": (None, 0.8),
-        "duplicate_line_chr_fraction": (None, 0.2),
-        "duplicate_paragraph_chr_fraction": (None, 0.2),
-        "top_2-gram_chr_fraction": (None, 0.6),
-        "top_3-gram_chr_fraction": (None, 0.6),
-        "contains_lorem ipsum": False,
-    }
+    quality_thresholds = td.QualityThresholds(
+        n_stop_words=(3, None),
+        alpha_ratio=(None, 0.8),
+        mean_word_length=(1, 10),
+        doc_length=(10, 100_000),
+        symbols_to_word_ratio={".": (None, 0.3)},
+        proportion_ellipsis=(None, 0.3),
+        proportion_bullet_points=(None, 0.8),
+        duplicate_line_chr_fraction=(None, 0.2),
+        duplicate_paragraph_chr_fraction=(None, 0.2),
+        top_ngram_chr_fraction={2: (None, 0.6), 3: (None, 0.6)},
+        duplicate_ngram_chr_fraction={},
+        contains={"lorem ipsum": False},
+    )
+
     nlp.add_pipe(
         "textdescriptives/quality",
         config={
             "symbols": ["."],
-            "quality_thresholds": quality_thresholds,
+            "quality_thresholds": quality_thresholds.dict(),
             "force": True,
         },
     )
@@ -223,7 +225,7 @@ def test_quality_component_with_config(nlp: spacy.Language):
     assert doc._.quality["alpha_ratio"] == 0.8
     assert doc._.quality["proportion_bullet_points"] == 0
     assert doc._.quality["proportion_ellipsis"] == 0
-    assert doc._.quality["symbol_._2_word_ratio"] == 0.25
+    assert doc._.quality["symbol_._to_word_ratio"] == 0.25
     assert doc._.quality["duplicate_5-gram_chr_fraction"] == 1
     assert doc._.quality["duplicate_8-gram_chr_fraction"] == 1
     assert abs(doc._.quality["top_3-gram_chr_fraction"] - 0.57) < 0.01
