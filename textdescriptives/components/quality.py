@@ -7,7 +7,6 @@ import numpy as np
 from spacy.language import Language
 from spacy.tokens import Doc, Span
 
-from textdescriptives.components.utils import span_getter_to_doc_getter
 
 DEFAULT_QUALITY_THRESHOLDS = {
     "n_stop_words": (2, None),

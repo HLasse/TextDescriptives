@@ -5,7 +5,6 @@ from spacy.language import Language
 from spacy.tokens import Doc
 
 
-
 def n_order_coherence(doc: Doc, order: int) -> List[float]:
     """Calculate coherence for a `Doc` for a given order.
 
@@ -28,12 +27,6 @@ def n_order_coherence(doc: Doc, order: int) -> List[float]:
             break
         similarities.append(sent.similarity(sents[i + order]))
     return similarities
-
-@Language.factory("textdescriptives/coherence")
-def create_coherence_component(nlp: Language, name: str):
-    """Allows Coherence to be added to a spaCy pipe using nlp.add_pipe("textdescriptives/coherence").
-    If the pipe does not contain a parser or sentencizer, the sentencizer component is silently added."""
-    return Coherence(nlp)
 
 
 class Coherence:
@@ -94,3 +87,14 @@ class Coherence:
         """Run the pipeline component."""
         self.coherence(doc)
         return doc
+
+
+@Language.factory("textdescriptives/coherence")
+def create_coherence_component(nlp: Language, name: str):
+    """Allows Coherence to be added to a spaCy pipe using
+    nlp.add_pipe("textdescriptives/coherence").
+
+    If the pipe does not contain a parser or sentencizer, the
+    sentencizer component is silently added.
+    """
+    return Coherence(nlp)
