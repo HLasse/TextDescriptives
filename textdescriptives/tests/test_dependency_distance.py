@@ -3,7 +3,6 @@ import numpy as np
 import pytest
 import spacy
 
-from textdescriptives.components import DependencyDistance
 
 from .books import flatland, oliver_twist, secret_garden
 
@@ -112,6 +111,7 @@ def test_std_adj_dep(text, expected, nlp):
         pytest.approx(expected, rel=0.1)
         == doc._.dependency_distance["prop_adjacent_dependency_relation_std"]
     )
+
 
 def test_dependency_distance_multi_process(nlp):
     texts = [oliver_twist, secret_garden, flatland]

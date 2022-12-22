@@ -1,6 +1,4 @@
-"""
-Utility functions for calculating various text descriptives
-"""
+"""Utility functions for calculating various text descriptives."""
 from typing import Any, Callable, Union
 
 from pyphen import Pyphen
@@ -9,7 +7,10 @@ from spacy.tokens import Doc, Span, Token
 
 def filter_tokens(doc: Union[Doc, Span]):
     """Return words in document or span.
-    Filters punctuation and words that start with an apostrophe (contractions)"""
+
+    Filters punctuation and words that start with an apostrophe
+    (contractions)
+    """
     filtered_tokens = [
         word for word in doc if not word.is_punct and "'" not in word.text
     ]
@@ -17,7 +18,7 @@ def filter_tokens(doc: Union[Doc, Span]):
 
 
 def n_sentences(doc: Doc):
-    """Return number of sentences in the document"""
+    """Return number of sentences in the document."""
     return len(list(doc.sents))
 
 
@@ -27,9 +28,7 @@ def n_tokens(doc: Union[Doc, Span]):
 
 
 def n_syllables(doc: Doc):
-    """
-    Return number of syllables per token
-    """
+    """Return number of syllables per token."""
 
     dic = Pyphen(lang=doc.lang_)
 
@@ -41,7 +40,7 @@ def n_syllables(doc: Doc):
 
 
 def span_getter_to_token_getter(
-    span_getter: Callable[[Span], Any]
+    span_getter: Callable[[Span], Any],
 ) -> Callable[[Token], Any]:
     """Converts a span getter to a token getter.
 
@@ -60,7 +59,7 @@ def span_getter_to_token_getter(
 
 
 def span_getter_to_doc_getter(
-    span_getter: Callable[[Span], Any]
+    span_getter: Callable[[Span], Any],
 ) -> Callable[[Doc], Any]:
     """Converts a span getter to a document getter.
 

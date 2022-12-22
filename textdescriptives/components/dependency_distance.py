@@ -1,33 +1,27 @@
-"""Calculation of statistics related to dependency distance"""
+"""Calculation of statistics related to dependency distance."""
 import numpy as np
 from spacy.language import Language
 from spacy.tokens import Doc, Span, Token
 
 
-@Language.factory("textdescriptives/dependency_distance")
-def create_dependency_distance_component(nlp: Language, name: str):
-    """Create spaCy language factory that allows DependencyDistance attributes to be 
-    added to a pipe using nlp.add_pipe("textdescriptives/dependency_distance")"""
-    return DependencyDistance(nlp)
-
-
 class DependencyDistance:
-    """spaCy v.3.0 component that adds attributes to `Doc`, `Span`, and `Token` objects relating to dependency distance.
-    Dependency distance can be used as a measure of syntactic complexity, and measures the distance from a word to its head word.
-    For `Doc` objects, dependency distance is calculated on the sentence level."""
+    """spaCy v.3.0 component that adds attributes to `Doc`, `Span`, and `Token`
+    objects relating to dependency distance.
+
+    Dependency distance can be used as a measure of syntactic
+    complexity, and measures the distance from a word to its head word.
+    For `Doc` objects, dependency distance is calculated on the sentence
+    level.
+    """
 
     def __init__(self, nlp: Language):
-        """Initialise components"""
+        """Initialise components."""
         if not Token.has_extension("dependency_distance"):
             Token.set_extension("dependency_distance", getter=self.token_dependency)
         if not Span.has_extension("dependency_distance"):
             Span.set_extension("dependency_distance", getter=self.span_dependency)
         if not Doc.has_extension("dependency_distance"):
             Doc.set_extension("dependency_distance", getter=self.doc_dependency)
-
-    def __call__(self, doc: Doc):
-        """Run the pipeline component"""
-        return doc
 
     def token_dependency(self, token: Token) -> dict:
         """Calculate token level dependency distance, i.e. the distance from a
@@ -37,7 +31,9 @@ class DependencyDistance:
         Returns:
             dict: Dictionary with the following keys:
                 - dependency_distance: Dependency distance
-                - adjacent_dependency: Boolean indicating whether the dependency relation is adjacent to the token"""
+                - adjacent_dependency: Boolean indicating whether the dependency
+                  relation is adjacent to the token
+        """
         dep_dist = 0
         ajd_dep = False
         if token.dep_ != "ROOT":
@@ -52,9 +48,10 @@ class DependencyDistance:
         adjacent dependency relations.
 
         Returns:
-            dict: Dictionary with the following keys:
-                - dependency_distance_mean: Mean dependency distance
-                - prop_adjacent_dependency_relation: Proportion of adjacent dependency relations"""
+            dict: Dictionary with the following keys: dependency_distance_mean:
+                Mean dependency distance and prop_adjacent_dependency_relation:
+                Proportion of adjacent dependency relations
+        """
         dep_dists, adj_deps = zip(
             *[token._.dependency_distance.values() for token in span]
         )
@@ -70,10 +67,15 @@ class DependencyDistance:
 
         Returns:
             dict: Dictionary with the following keys:
-                - dependency_distance_mean: Mean dependency distance on the sentence level
-                - dependency_distance_std: Standard deviation of dependency distance on the sentence level
-                - prop_adjacent_dependency_relation_mean: Mean proportion of adjacent dependency relations on the sentence level
-                - prop_adjacent_dependency_relation_std: Standard deviation of proportion of adjacent dependency relations on the sentence level"""
+                - dependency_distance_mean: Mean dependency distance on the sentence
+                  level
+                - dependency_distance_std: Standard deviation of dependency distance on
+                  the sentence level
+                - prop_adjacent_dependency_relation_mean: Mean proportion of adjacent
+                  dependency relations on the sentence level
+                - prop_adjacent_dependency_relation_std: Standard deviation of
+                  proportion of adjacent dependency relations on the sentence level
+        """
         if len(doc) == 0:
             return {
                 "dependency_distance_mean": np.nan,
@@ -90,3 +92,15 @@ class DependencyDistance:
             "prop_adjacent_dependency_relation_mean": np.mean(adj_deps),
             "prop_adjacent_dependency_relation_std": np.std(adj_deps),
         }
+
+    def __call__(self, doc: Doc):
+        """Run the pipeline component."""
+        return doc
+
+
+@Language.factory("textdescriptives/dependency_distance")
+def create_dependency_distance_component(nlp: Language, name: str):
+    """Create spaCy language factory that allows DependencyDistance attributes
+    to be added to a pipe using
+    nlp.add_pipe("textdescriptives/dependency_distance")"""
+    return DependencyDistance(nlp)

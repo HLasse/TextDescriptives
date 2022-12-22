@@ -45,11 +45,11 @@ def test_extract_df_subsetters(nlp):
 def test_extract_df_error(nlp):
     doc = nlp("Very brief text")
 
-    with pytest.raises(Exception) as e_info:
+    with pytest.raises(Exception):
         td.extract_df("This is just a string")
-    with pytest.raises(Exception) as e_info:
+    with pytest.raises(Exception):
         td.extract_df(doc, metrics="not a metric")
-    with pytest.raises(Exception) as e_info:
+    with pytest.raises(Exception):
         td.extract_df(doc, metrics=True)
 
 

@@ -1,10 +1,7 @@
-"""
-Tests for the quality module.
-"""
+"""Tests for the quality module."""
 
 from typing import List, Tuple
 
-import ftfy
 import pytest
 import spacy
 
@@ -18,8 +15,6 @@ from textdescriptives.components.quality import (
     symbol_2_word_ratio,
     top_ngram_chr_fraction,
 )
-
-from .books import flatland, oliver_twist, secret_garden
 
 
 @pytest.fixture
@@ -213,7 +208,7 @@ def test_quality_component_with_config(nlp: spacy.Language):
         "top_3-gram_chr_fraction": (None, 0.6),
         "contains_lorem ipsum": False,
     }
-    d = nlp.add_pipe(
+    nlp.add_pipe(
         "textdescriptives/quality",
         config={
             "symbols": ["."],
@@ -260,7 +255,10 @@ def test_passed_quality_check(text: str, passed: bool, nlp: spacy.Language):
 
 
 def test_quality_multi_process(nlp):
-    texts = ["A couple of texts here, yeah yeah yeah.", "This is a second text, no repetition what so ever."]
+    texts = [
+        "A couple of texts here, yeah yeah yeah.",
+        "This is a second text, no repetition what so ever.",
+    ]
 
     docs = nlp.pipe(texts, n_process=2)
     for doc in docs:

@@ -10,6 +10,5 @@ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.2.0
 en_core_web_sm==3.2.0
 
 # style
-flake8
-black
-isort
+black==22.8.0
+pre-commit

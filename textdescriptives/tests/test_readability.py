@@ -3,9 +3,20 @@ import numpy as np
 import pytest
 from spacy.lang.en import English
 
-from textdescriptives.components import Readability
-
-from .books import *
+from .books import (
+    flatland,
+    grade_1,
+    grade_10,
+    grade_12,
+    grade_14,
+    grade_2,
+    grade_3,
+    grade_4,
+    grade_6,
+    grade_8,
+    oliver_twist,
+    secret_garden,
+)
 
 
 @pytest.fixture(scope="function")

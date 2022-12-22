@@ -1,8 +1,6 @@
 import pytest
 import spacy
 
-from textdescriptives import TextDescriptives
-
 
 @pytest.fixture(scope="function")
 def nlp():

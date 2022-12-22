@@ -1,0 +1,35 @@
+default_stages: [commit, push]
+
+repos:
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.38.0
+    hooks:
+      - id: pyupgrade
+
+  - repo: https://github.com/bwhmather/ssort
+    rev: v0.11.6
+    hooks:
+      - id: ssort
+
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.3.0
+    hooks:
+      - id: add-trailing-comma
+
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.5.0
+    hooks:
+      - id: docformatter
+        args: [--in-place]
+
+  - repo: https://github.com/psf/black
+    rev: 22.8.0
+    hooks:
+      - id: black
+        args: [--line-length, "88"]
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.0.181
+    hooks:
+      - id: ruff
+        args: [--fix]

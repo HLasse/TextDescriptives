@@ -1,4 +1,5 @@
-"""These books and several tests are borrowed from https://github.com/mholtzscher/spacy_readability"""
+"""These books and several tests are borrowed from
+https://github.com/mholtzscher/spacy_readability."""
 
 oliver_twist = """Among other public buildings in a certain town, which for many reasons
 it will be prudent to refrain from mentioning, and to which I will
@@ -398,8 +399,8 @@ been all this time?"
 "Coming over Hemlock Mountain," said Jonathan in a small voice. And he ran
 right into his father's arms."""
 
-grade_3 = """For months I had been telling myself that I would never put the Magic Finger
-upon anyone again—not after what happened to my teacher, old Mrs. Winter.
+grade_3 = """For months I had been telling myself that I would never put the Magic
+Finger upon anyone again—not after what happened to my teacher, old Mrs. Winter.
 Poor old Mrs. Winter.
 One day we were in class, and she was teaching us spelling. "Stand up," she said
 to me, "and spell kat."
@@ -414,8 +415,8 @@ Whiskers began growing out of her face! They were long black whiskers, just
 like the little ones you see on a kat, only much bigger. And how fast they grew!
 Before we had time to think, they were out to her ears!"""
 
-grade_4 = """The wheelbarrow picked up speed, so quickly that it sort of kicked up like a
-whipped horse. I thought the handle was going to rip right out of my fingers.
+grade_4 = """The wheelbarrow picked up speed, so quickly that it sort of kicked up like
+a whipped horse. I thought the handle was going to rip right out of my fingers.
 "Hang on," I said.
 "If I can," said Soup.
 We were running now, full speed, smack down Sutter's Hill and heading full tilt
@@ -445,8 +446,8 @@ were too astonished. They watched, sullen and yet fascinated by the drama. This
 was the great Cuyloga at his bravest that they looked upon, and none knew what
 he would do next"""
 
-grade_8 = """All day Buck brooded by the pool or roamed restlessly about the camp. Death,
-as a cessation of movement, as a passing out and away from the lives of the
+grade_8 = """All day Buck brooded by the pool or roamed restlessly about the camp.
+Death, as a cessation of movement, as a passing out and away from the lives of the
 living, he knew, and he knew John Thornton was dead. It left a great void in him
 somewhat akin to hunger, but a void which ached and ached, and which food
 could not fill. At times when he paused to contemplate the carcasses of the
@@ -458,8 +459,8 @@ husky dog than them. They were no match at all, were it not for their arrows and
 spears and clubs. Thenceforward he would be unafraid of them except when
 they bore in their hands their arrows, spears, and clubs."""
 
-grade_10 = """Looking upward, I surveyed the ceiling of my prison. It was some thirty or forty
-feet overhead, and constructed much as the side walls. In one of its panels a very
+grade_10 = """Looking upward, I surveyed the ceiling of my prison. It was some thirty or
+forty feet overhead, and constructed much as the side walls. In one of its panels a very
 singular figure riveted my whole attention. It was the painted figure of Time as
 he is commonly represented, save that, in lieu of a scythe, he held what, at a
 casual glance, I supposed to be the pictured image of a huge pendulum, such as
@@ -474,8 +475,8 @@ A slight noise attracted my notice, and, looking to the floor, I saw several
 enormous rats traversing it. They had issued from the wall which lay just within
 view to my right."""
 
-grade_12 = """For the rest he lived solitary, but not misanthropic, with his books and his
-collection, classing and arranging specimens, corresponding with entomologists
+grade_12 = """For the rest he lived solitary, but not misanthropic, with his books and
+his collection, classing and arranging specimens, corresponding with entomologists
 in Europe, writing up a descriptive catalogue of his treasures. Such was the
 history of the man whom I had come to consult upon Jim's case without any
 definite hope. Simply to hear what he would have to say would have been a
