@@ -472,12 +472,12 @@ class Quality:
         """Set required extensions."""
 
         for ext_name, span_getter in self.extensions.items():
-            doc_getter = span_getter_to_doc_getter(span_getter)
+            # doc_getter = span_getter_to_doc_getter(span_getter)
 
             if not Span.has_extension(ext_name) or self.force is True:
                 Span.set_extension(ext_name, getter=span_getter, force=True)
             if not Doc.has_extension(ext_name) or self.force is True:
-                Doc.set_extension(ext_name, getter=doc_getter, force=True)
+                Doc.set_extension(ext_name, getter=span_getter, force=True)
 
     def __call__(self, doc: Doc):
         """Run the pipeline component."""

@@ -258,9 +258,8 @@ def test_passed_quality_check(text: str, passed: bool, nlp: spacy.Language):
 
 
 def test_quality_multi_process(nlp):
-    texts = [oliver_twist, secret_garden, flatland]
-    texts = [ftfy.fix_text(text) for text in texts]
+    texts = ["A couple of texts here, yeah yeah yeah.", "This is a second text, no repetition what so ever."]
 
-    docs = nlp.pipe(texts, n_process=3)
+    docs = nlp.pipe(texts, n_process=2)
     for doc in docs:
         assert doc._.quality

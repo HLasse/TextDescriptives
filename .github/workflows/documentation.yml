@@ -23,7 +23,7 @@ jobs:
         documentation_path: docs
         install_requirements: "true"
     - name: Push changes
-      uses: ad-m/github-push-action@master
+      uses: ad-m/github-push-action@2.1
       with:
         github_token: ${{ secrets.SPHINX_DOCUMENTATION }}
         branch: gh-pages
