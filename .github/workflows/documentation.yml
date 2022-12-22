@@ -21,7 +21,6 @@ jobs:
       uses: sphinx-notes/pages@master
       with:
         documentation_path: docs
-        install_requirements: "true"
     - name: Push changes
       uses: ad-m/github-push-action@2.1
       with:
