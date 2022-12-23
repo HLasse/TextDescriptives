@@ -1,4 +1,4 @@
-name: CI Pytest
+name: Test and Release
 on:
   push:
     branches: [main, dev]
@@ -6,7 +6,7 @@ on:
     branches: [main, dev]
 
 jobs:
-  pytest:
+  pytest-and-notebooks:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -38,6 +38,12 @@ jobs:
           set -o pipefail
           pytest --cov=textdescriptives --cov-report term-missing | tee pytest-coverage.txt
 
+      - name: Convert and run notebooks
+        shell: bash
+        run: |
+          jupyter nbconvert --to python ./docs/tutorials/*.ipynb
+          for f in docs/tutorials/*.py; do python "$f"; done
+
       # if it is run on ubuntu-latest, python 3.9, then create the badge
       - name: Pytest coverage comment
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
@@ -48,6 +54,7 @@ jobs:
 
       - name: Check the output coverage
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
+        shell: bash
         run: |
           echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
           echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"

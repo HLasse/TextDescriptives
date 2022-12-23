@@ -10,6 +10,9 @@ pytest-cov
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.2.0/en_core_web_sm-3.2.0.tar.gz
 en_core_web_sm==3.2.0
 
+# for test of notebooks
+jupyter
+
 # style
 black==22.8.0
 pre-commit
