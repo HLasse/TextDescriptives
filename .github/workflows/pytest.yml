@@ -1,9 +1,9 @@
 name: CI Pytest
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
   pytest:
@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'pip'
+          cache: "pip"
 
       - name: Install dependencies
         run: |
@@ -51,7 +51,7 @@ jobs:
         run: |
           echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
           echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
-      
+
       # and if it is a push to main then create the badge
       - name: Create the Badge
         if: ${{ github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
@@ -89,4 +89,3 @@ jobs:
           # 3) Uncomment the two lines below
           repository_username: __token__
           repository_password: ${{ secrets.PYPI_TOKEN }}
-
