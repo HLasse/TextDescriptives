@@ -5,11 +5,11 @@ file."""
 try:
     from importlib.metadata import version
 
-    __version__ = version(__name__)
+    __version__ = version("textdescriptives")
 except ImportError:
     from pkg_resources import get_distribution  # type: ignore
 
-    __version__ = get_distribution(__name__).version
+    __version__ = get_distribution("textdescriptives").version
 
 __title__ = "textdescriptives"
 __download_url__ = "https://github.com/HLasse/textdescriptives"
