@@ -1,5 +1,5 @@
 Part-of-Speech Proportions
--------------------------
+-----------------------------
 
 The *pos_stats* component adds one attribute to a Doc or Span:
 
@@ -34,7 +34,10 @@ Usage
    0  The world is changed(...)        0.097561         0.121951       0.0731707         0.170732          0.146341         0.195122       0.0731707       0.0731707         0.0487805
 ====  =========================  ==============  ===============  ==============  ===============  ================  ===============  ==============  ==============  ================
 
-textdescriptives.components.pos_proportions
+-----
+
+
+Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. automodule:: textdescriptives.components.pos_proportions

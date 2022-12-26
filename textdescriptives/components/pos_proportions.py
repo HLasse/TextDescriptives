@@ -34,7 +34,7 @@ class POSProportions:
                 POSTAG. Does not create a key if no tokens in the document fit the
                 POSTAG.
         """
-        pos_counts = Counter()
+        pos_counts: Counter = Counter()
         if self.use_pos:
             pos_counts.update([token.pos_ for token in text])
         else:
@@ -50,7 +50,11 @@ class POSProportions:
         return doc
 
 
-@Language.factory("textdescriptives/pos_proportions", default_config={"use_pos": True})
+@Language.factory(
+    "textdescriptives/pos_proportions",
+    assigns=["doc._.pos_proportions", "span._.pos_proportions"],
+    default_config={"use_pos": True},
+)
 def create_pos_stats_component(nlp: Language, name: str, use_pos: bool) -> Language:
     """Allows PosPropotions to be added to a spaCy pipe using
     nlp.add_pipe("textdescriptives/pos_proportions")"""
