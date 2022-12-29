@@ -526,7 +526,7 @@ class Quality:
         the range tuple is None it is considered to be unbounded.
 
         Args:
-            rangetuple (RangeTuple): range tuple
+            rangetuple (Interval): range tuple
             value (float): value to check
 
         Returns:
