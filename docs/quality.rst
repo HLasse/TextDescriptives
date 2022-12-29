@@ -71,7 +71,7 @@ If you want to specify the thresholds for the quality metrics, you can do so by 
 
     # set thresholds for quality metrics (these are just the default)
     thresholds = QualityThresholds(
-        n_stop_words(2, None),
+        n_stop_words=(2, None),
         alpha_ratio=(0.8, None),
         mean_word_length=(3, 10),
         doc_length= (10, 100_000),
