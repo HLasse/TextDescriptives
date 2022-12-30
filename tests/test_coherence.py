@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 import spacy
+import textdescriptives as td  # noqa: F401
 
 
 @pytest.fixture(scope="function")
@@ -63,3 +64,21 @@ def test_coherence_multi_process(nlp):
     )
     for doc in docs:
         assert doc._.coherence
+
+
+def test_coherence_blank_pipe():
+    nlp = spacy.blank("en")
+    nlp.add_pipe("textdescriptives/coherence")
+
+    text = "This is a short and simple sentence. Here is yet another one."
+    # check that an exception is raised
+    with pytest.raises(ValueError) as e:
+        doc = nlp(text)  # noqa F841
+    assert "Sentence boundaries unset" in str(e.value)
+
+    # add a sentencizer
+    nlp.add_pipe("sentencizer", before="textdescriptives/coherence")
+
+    with pytest.raises(ValueError) as e:
+        doc = nlp(text)  # noqa F841
+    assert "Sentence vectors are not available" in str(e.value)
