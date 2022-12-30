@@ -9,13 +9,14 @@
 <meta property="og:site_name" content="textdescriptives" />
 <meta property="og:description" content="The dependency_distance component adds measures of depedency distance to both Doc, Span, and Token objects under the ._.dependency_distance attribute. Dependency distance can be used a measure of s..." />
 <meta name="description" content="The dependency_distance component adds measures of depedency distance to both Doc, Span, and Token objects under the ._.dependency_distance attribute. Dependency distance can be used a measure of s..." />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Part-of-Speech Statistics" href="posstats.html" /><link rel="prev" title="Readability" href="readability.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Part-of-Speech Proportions" href="posstats.html" /><link rel="prev" title="Readability" href="readability.html" />
 
-    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
-        <title>Dependency Distance - textdescriptives 1.1.1 documentation</title>
+    <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
+        <title>Dependency Distance - textdescriptives 2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -136,7 +137,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">textdescriptives 1.1.1 documentation</div></a>
+      <a href="index.html"><div class="brand">textdescriptives 2.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,8 +183,9 @@
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Dependency Distance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quality.html">Quality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coherence.html">Coherence</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -225,98 +227,56 @@
 <h1>Dependency Distance<a class="headerlink" href="#dependency-distance" title="Permalink to this heading">#</a></h1>
 <p>The <em>dependency_distance</em> component adds measures of depedency distance to both <code class="code docutils literal notranslate"><span class="pre">Doc</span></code>, <code class="code docutils literal notranslate"><span class="pre">Span</span></code>, and <code class="code docutils literal notranslate"><span class="pre">Token</span></code> objects under the ._.dependency_distance attribute.
 Dependency distance can be used a measure of syntactics complexity, the greater the distance, the more complex (<a class="reference external" href="https://pdfs.semanticscholar.org/b6b9/cf00698a76d7a1e5ba58baa92d8799366813.pdf">Liu 2008</a>, <a class="reference external" href="http://www.paaljapan.org/conference2011/ProcNewest2011/pdf/poster/P-13.pdf">Oya 2011</a>).</p>
+<p>The implementation in textdescriptives follows Oya, 2011. We calculate the distances from each token to their dependent, and take the mean of this for calculating the mean dependency distance for spans. We then calculate the Doc level DD by averaging over the sentence-level mean DDs.</p>
+<p>Please see <a class="reference external" href="https://github.com/HLasse/TextDescriptives/issues/77">this issue</a> for how to calculate the DD metric proposed by Liu, 2008 with TextDescriptives.</p>
 <p>For <code class="code docutils literal notranslate"><span class="pre">Doc</span></code> objects, the mean and standard deviation of dependency distance on the sentence level is returned along with the mean and standard deviation of the proportion adjacent dependency relations on sentence level.</p>
 <p>For <code class="code docutils literal notranslate"><span class="pre">Span</span></code> objects, the mean dependency distance and the mean proportion adjacent dependency relations in the span are returned.</p>
 <p>For <code class="code docutils literal notranslate"><span class="pre">Token</span></code> objects, the dependency distance and whether the dependency relation is an adjacent token is returned.</p>
-<section id="module-textdescriptives.components.dependency_distance">
-<span id="textdescriptives-components-dependency-distance"></span><h2>textdescriptives.components.dependency_distance<a class="headerlink" href="#module-textdescriptives.components.dependency_distance" title="Permalink to this heading">#</a></h2>
-<p>Calculation of statistics related to dependency distance</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="textdescriptives.components.dependency_distance.DependencyDistance">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textdescriptives.components.dependency_distance.</span></span><span class="sig-name descname"><span class="pre">DependencyDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/dependency_distance.html#DependencyDistance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.dependency_distance.DependencyDistance" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>spaCy v.3.0 component that adds attributes to <cite>Doc</cite>, <cite>Span</cite>, and <cite>Token</cite> objects relating to dependency distance.
-Dependency distance can be used as a measure of syntactic complexity, and measures the distance from a word to its head word.
-For <cite>Doc</cite> objects, dependency distance is calculated on the sentence level.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.dependency_distance.DependencyDistance.doc_dependency">
-<span class="sig-name descname"><span class="pre">doc_dependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/dependency_distance.html#DependencyDistance.doc_dependency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.dependency_distance.DependencyDistance.doc_dependency" title="Permalink to this definition">#</a></dt>
-<dd><p>Aggregates token level dependency distance on the document level by
-taking the mean of the dependency distance and the proportion of
-adjacent dependency relations on the sentence level.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><dl class="simple">
-<dt>Dictionary with the following keys:</dt><dd><ul class="simple">
-<li><p>dependency_distance_mean: Mean dependency distance on the sentence level</p></li>
-<li><p>dependency_distance_std: Standard deviation of dependency distance on the sentence level</p></li>
-<li><p>prop_adjacent_dependency_relation_mean: Mean proportion of adjacent dependency relations on the sentence level</p></li>
-<li><p>prop_adjacent_dependency_relation_std: Standard deviation of proportion of adjacent dependency relations on the sentence level</p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives.dependency_distance&quot;</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.&quot;</span><span class="p">)</span>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.dependency_distance.DependencyDistance.span_dependency">
-<span class="sig-name descname"><span class="pre">span_dependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Span</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/dependency_distance.html#DependencyDistance.span_dependency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.dependency_distance.DependencyDistance.span_dependency" title="Permalink to this definition">#</a></dt>
-<dd><p>Aggregates token level dependency distance on the span level by
-taking the mean of the dependency distance and the proportion of
-adjacent dependency relations.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><dl class="simple">
-<dt>Dictionary with the following keys:</dt><dd><ul class="simple">
-<li><p>dependency_distance_mean: Mean dependency distance</p></li>
-<li><p>prop_adjacent_dependency_relation: Proportion of adjacent dependency relations</p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="c1"># all attributes are stored as a dict in the ._.dependency_distance attribute</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">dependency_distance</span>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.dependency_distance.DependencyDistance.token_dependency">
-<span class="sig-name descname"><span class="pre">token_dependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Token</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/dependency_distance.html#DependencyDistance.token_dependency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.dependency_distance.DependencyDistance.token_dependency" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate token level dependency distance, i.e. the distance from a
-token to its head token. Also returns a boolean indicating whether the
-dependency relation is adjacent to the token.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><dl class="simple">
-<dt>Dictionary with the following keys:</dt><dd><ul class="simple">
-<li><p>dependency_distance: Dependency distance</p></li>
-<li><p>adjacent_dependency: Boolean indicating whether the dependency relation is adjacent to the token</p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="c1"># access span and token level dependency distance in the same way</span>
+<span class="n">doc</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">dependency_distance</span>
+<span class="n">doc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">dependency_distance</span>
 
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="textdescriptives.components.dependency_distance.create_dependency_distance_component">
-<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.dependency_distance.</span></span><span class="sig-name descname"><span class="pre">create_dependency_distance_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/dependency_distance.html#create_dependency_distance_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.dependency_distance.create_dependency_distance_component" title="Permalink to this definition">#</a></dt>
-<dd><p>Create spaCy language factory that allows DependencyDistance attributes to be added to a pipe using nlp.add_pipe(“dependency_distance”)</p>
-</dd></dl>
-
+<span class="c1"># extract to dataframe</span>
+<span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>text</p></th>
+<th class="head"><p>dependency_distance_mean</p></th>
+<th class="head"><p>dependency_distance_std</p></th>
+<th class="head"><p>prop_adjacent_dependency_relation_mean</p></th>
+<th class="head"><p>prop_adjacent_dependency_relation_std</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>The world is changed(…)</p></td>
+<td><p>1.77524</p></td>
+<td><p>0.553188</p></td>
+<td><p>0.457143</p></td>
+<td><p>0.0722806</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="component">
+<h2>Component<a class="headerlink" href="#component" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -330,7 +290,7 @@ dependency relation is adjacent to the token.</p>
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Part-of-Speech Statistics</div>
+                <div class="title">Part-of-Speech Proportions</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -376,16 +336,8 @@ dependency relation is adjacent to the token.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Dependency Distance</a><ul>
-<li><a class="reference internal" href="#module-textdescriptives.components.dependency_distance">textdescriptives.components.dependency_distance</a><ul>
-<li><a class="reference internal" href="#textdescriptives.components.dependency_distance.DependencyDistance"><code class="docutils literal notranslate"><span class="pre">DependencyDistance</span></code></a><ul>
-<li><a class="reference internal" href="#textdescriptives.components.dependency_distance.DependencyDistance.doc_dependency"><code class="docutils literal notranslate"><span class="pre">DependencyDistance.doc_dependency()</span></code></a></li>
-<li><a class="reference internal" href="#textdescriptives.components.dependency_distance.DependencyDistance.span_dependency"><code class="docutils literal notranslate"><span class="pre">DependencyDistance.span_dependency()</span></code></a></li>
-<li><a class="reference internal" href="#textdescriptives.components.dependency_distance.DependencyDistance.token_dependency"><code class="docutils literal notranslate"><span class="pre">DependencyDistance.token_dependency()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#textdescriptives.components.dependency_distance.create_dependency_distance_component"><code class="docutils literal notranslate"><span class="pre">create_dependency_distance_component()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#component">Component</a></li>
 </ul>
 </li>
 </ul>
@@ -398,9 +350,6 @@ dependency relation is adjacent to the token.</p>
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>

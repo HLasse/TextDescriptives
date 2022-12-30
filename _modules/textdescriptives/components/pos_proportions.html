@@ -4,11 +4,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
-        <title>textdescriptives.components.pos_stats - textdescriptives 1.1.1 documentation</title>
+    <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
+        <title>textdescriptives.components.pos_proportions - textdescriptives 2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -129,7 +130,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">textdescriptives 1.1.1 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">textdescriptives 2.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -175,8 +176,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dependencydistance.html">Dependency Distance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../posstats.html">Part-of-Speech Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quality.html">Quality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../coherence.html">Coherence</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -213,35 +215,25 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for textdescriptives.components.pos_stats</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Calculation of statistics that require a pos-tagger in the pipeline&quot;&quot;&quot;</span>
+          <h1>Source code for textdescriptives.components.pos_proportions</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Calculation of statistics that require a pos-tagger in the pipeline.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
 <span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
 
 
-<div class="viewcode-block" id="create_pos_stats_component"><a class="viewcode-back" href="../../../posstats.html#textdescriptives.components.pos_stats.create_pos_stats_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">&quot;pos_stats&quot;</span><span class="p">,</span> <span class="n">default_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;use_pos&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
-<span class="k">def</span> <span class="nf">create_pos_stats_component</span><span class="p">(</span><span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">use_pos</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Allows PosStats to be added to a spaCy pipe using nlp.add_pipe(&quot;pos_stats&quot;)&quot;&quot;&quot;</span>
-
-    <span class="n">tagger</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;tagger&quot;</span><span class="p">,</span> <span class="s2">&quot;attribute_ruler&quot;</span><span class="p">}</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">tagger</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="p">)):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;The pipeline does not contain a component for POS tagging. Please load a spaCy model which includes a &#39;tagger&#39; or an &#39;attribute ruler&#39; component.&quot;</span>
-        <span class="p">)</span>
-    <span class="k">return</span> <span class="n">POSStatistics</span><span class="p">(</span><span class="n">nlp</span><span class="p">,</span> <span class="n">use_pos</span><span class="o">=</span><span class="n">use_pos</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="POSStatistics"><a class="viewcode-back" href="../../../posstats.html#textdescriptives.components.pos_stats.POSStatistics">[docs]</a><span class="k">class</span> <span class="nc">POSStatistics</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;spaCy v.3.0 component that adds attributes for POS statistics to `Doc` and `Span` objects.&quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">POSProportions</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;spaCy v.3.0 component that adds attributes for POS statistics to `Doc`</span>
+<span class="sd">    and `Span` objects.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">use_pos</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialise components</span>
+        <span class="sd">&quot;&quot;&quot;Initialise components.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            use_pos: If True, uses the simple POS tag. If False, uses the detailed universal POS tag.</span>
+<span class="sd">            use_pos: If True, uses the simple POS tag. If False, uses the detailed</span>
+<span class="sd">                universal POS tag.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_pos</span> <span class="o">=</span> <span class="n">use_pos</span>
 
@@ -251,18 +243,16 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;pos_proportions&quot;</span><span class="p">):</span>
             <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;pos_proportions&quot;</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_proportions</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run the pipeline component&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">doc</span>
-
-<div class="viewcode-block" id="POSStatistics.pos_proportions"><a class="viewcode-back" href="../../../posstats.html#textdescriptives.components.pos_stats.POSStatistics.pos_proportions">[docs]</a>    <span class="k">def</span> <span class="nf">pos_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculates the proportion of tokens in a `Doc`|`Span` that are tagged with each POS tag.</span>
+    <span class="k">def</span> <span class="nf">pos_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the proportion of tokens in a `Doc`|`Span` that are</span>
+<span class="sd">        tagged with each POS tag.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with POSTAG. Does not create a key if no tokens in the document fit the POSTAG.</span>
+<span class="sd">            Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with</span>
+<span class="sd">                POSTAG. Does not create a key if no tokens in the document fit the</span>
+<span class="sd">                POSTAG.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">pos_counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+        <span class="n">pos_counts</span><span class="p">:</span> <span class="n">Counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_pos</span><span class="p">:</span>
             <span class="n">pos_counts</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">text</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
@@ -271,7 +261,58 @@
             <span class="s2">&quot;pos_prop_&quot;</span> <span class="o">+</span> <span class="n">tag</span><span class="p">:</span> <span class="n">count</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">pos_counts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="p">}</span>
 
-        <span class="k">return</span> <span class="n">pos_proportions</span></div></div>
+        <span class="k">return</span> <span class="n">pos_proportions</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">doc</span>
+
+
+<div class="viewcode-block" id="create_pos_stats_component"><a class="viewcode-back" href="../../../posstats.html#textdescriptives.components.pos_proportions.create_pos_stats_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span>
+    <span class="s2">&quot;textdescriptives/pos_proportions&quot;</span><span class="p">,</span>
+    <span class="n">assigns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;doc._.pos_proportions&quot;</span><span class="p">,</span> <span class="s2">&quot;span._.pos_proportions&quot;</span><span class="p">],</span>
+    <span class="n">default_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;use_pos&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_pos_stats_component</span><span class="p">(</span>
+    <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">use_pos</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Allows PosPropotions to be added to a spaCy pipe using</span>
+<span class="sd">    nlp.add_pipe(&quot;textdescriptives/pos_proportions&quot;)</span>
+
+<span class="sd">    Adding this component to a pipeline sets the following attributes:</span>
+<span class="sd">        - `doc._.pos_proportions`</span>
+<span class="sd">        - `span._.pos_proportions`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nlp (Language): spaCy language object, does not need to be specified in the</span>
+<span class="sd">            nlp.add_pipe call.</span>
+<span class="sd">        name (str): name of the component. Can be optionally specified in the</span>
+<span class="sd">            nlp.add_pipe call, using the name argument.</span>
+<span class="sd">        use_pos: If True, uses the simple token.pos attribute. If False, uses the</span>
+<span class="sd">            detailed token.tag attribute.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Callable[[Doc], Doc]: The POSProportions component to be added to the pipe.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; import spacy</span>
+<span class="sd">        &gt;&gt;&gt; nlp = spacy.load(&quot;en_core_web_sm&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; nlp.add_pipe(&quot;textdescriptives/pos_proportions&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; # apply the component to a document</span>
+<span class="sd">        &gt;&gt;&gt; doc = nlp(&quot;This is a test sentence.&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; doc._.pos_proportions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">tagger</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;tagger&quot;</span><span class="p">,</span> <span class="s2">&quot;attribute_ruler&quot;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tagger</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;The pipeline does not contain a component for POS tagging. Please load &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;a spaCy model which includes a &#39;tagger&#39; or an &#39;attribute ruler&#39; &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;component.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">POSProportions</span><span class="p">(</span><span class="n">nlp</span><span class="p">,</span> <span class="n">use_pos</span><span class="o">=</span><span class="n">use_pos</span><span class="p">)</span></div>
 </pre></div>
         </article>
       </div>
@@ -305,9 +346,6 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>

@@ -2,12 +2,21 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Coherence" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="coherence.html" />
+<meta property="og:site_name" content="textdescriptives" />
+<meta property="og:description" content="The coherence components calculates the coherence of the document, based on word embedding cosine similarity between sentences. textdescriptives currently implements first-order and second-order co..." />
+<meta name="description" content="The coherence components calculates the coherence of the document, based on word embedding cosine similarity between sentences. textdescriptives currently implements first-order and second-order co..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Quality" href="quality.html" />
 
-    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 --><title>Python Module Index - textdescriptives 1.1.1 documentation</title>
-<link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
+        <title>Coherence - textdescriptives 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -128,7 +137,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">textdescriptives 1.1.1 documentation</div></a>
+      <a href="index.html"><div class="brand">textdescriptives 2.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -139,7 +148,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -170,12 +179,13 @@
 <li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available attributes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Package References</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependencydistance.html">Dependency Distance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quality.html">Quality</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Coherence</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -198,7 +208,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -206,56 +217,86 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          
-<section class="domainindex-section">
-  <h1>Python Module Index</h1>
-  <div class="domainindex-jumpbox"><a href="#cap-t"><strong>t</strong></a></div>
+          <section id="coherence">
+<h1>Coherence<a class="headerlink" href="#coherence" title="Permalink to this heading">#</a></h1>
+<p>The <cite>coherence</cite> components calculates the coherence of the document, based on
+word embedding cosine similarity between sentences.</p>
+<p>textdescriptives currently implements first-order and second-order coherence. The
+implementation follows e.g. [1] and [2]:
+* First-order coherence: The cosine similarity between consecutive sentences.
+* Second-order coherence: The cosine similarity between sentences that are two sentences apart.</p>
+<p>The implementation uses spacy’s <code class="code docutils literal notranslate"><span class="pre">Span.similarity</span></code> method to calculate the
+similarity between sentences. The similarity is based on the word embeddings in
+the spacy pipeline, i.e. small, medium, large, or transformer models will have
+different results. If you want to use a specific word embedding (e.g. fasttext)
+you should overwrite the <code class="code docutils literal notranslate"><span class="pre">Doc.vector</span></code> attribute. Read more on spacy’s documentation for <a class="reference external" href="https://spacy.io/usage/linguistic-features#vectors-similarity">similarity</a>
+and <a class="reference external" href="https://spacy.io/usage/linguistic-features#adding-individual-vectors">overwriting the vector attribute</a></p>
+<p>The following attributes are added to <code class="code docutils literal notranslate"><span class="pre">Doc</span></code> objects.:</p>
+<ul class="simple">
+<li><p>._.first_order_coherence_values: A list of floats, where each float is the
+cosine similarity between consecutive sentences.</p></li>
+<li><dl class="simple">
+<dt>._.second_order_coherence_values: A list of floats, where each float is the</dt><dd><p>cosine similarity between sentences that are two sentences apart.</p>
+</dd>
+</dl>
+</li>
+<li><p>._.cohererence: a dict containing the mean coherence values for first and
+second order coherence (keys: “first_order_coherence”, “second_order_coherence”)</p></li>
+</ul>
+<p>[1] Bedi, G., Carrillo, F., Cecchi, G. A., Slezak, D. F., Sigman, M., Mota, N. B., Ribeiro, S., Javitt, D. C., Copelli, M., &amp; Corcoran, C. M. (2015). Automated analysis of free speech predicts psychosis onset in high-risk youths. Npj Schizophrenia, 1(1), Article 1. <a class="reference external" href="https://doi.org/10.1038/npjschz.2015.30">https://doi.org/10.1038/npjschz.2015.30</a>
+[2] Parola, A., Lin, J. M., Simonsen, A., Bliksted, V., Zhou, Y., Wang, H., Inoue, L., Koelkebeck, K., &amp; Fusaroli, R. (2022). Speech disturbances in schizophrenia: Assessing cross-linguistic generalizability of NLP automated measures of coherence. Schizophrenia Research. <a class="reference external" href="https://doi.org/10.1016/j.schres.2022.07.002">https://doi.org/10.1016/j.schres.2022.07.002</a></p>
+<hr class="docutils" />
+<section id="component">
+<h2>Component<a class="headerlink" href="#component" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="textdescriptives.components.coherence.create_coherence_component">
+<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.coherence.</span></span><span class="sig-name descname"><span class="pre">create_coherence_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/textdescriptives/components/coherence.html#create_coherence_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.coherence.create_coherence_component" title="Permalink to this definition">#</a></dt>
+<dd><p>Allows Coherence to be added to a spaCy pipe using
+nlp.add_pipe(“textdescriptives/coherence”).</p>
+<dl class="simple">
+<dt>Adding this component to a pipeline sets the following attributes:</dt><dd><ul class="simple">
+<li><p>doc._.first_order_coherence_values</p></li>
+<li><p>doc._.second_order_coherence_values</p></li>
+<li><p>doc._.coherence</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nlp</strong> (<em>Language</em>) – spaCy language object, does not need to be specified in the
+nlp.add_pipe call.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – name of the component. Can be optionally specified in the
+nlp.add_pipe call, using the name argument.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Coherence component to be added to the pipe.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[Doc], Doc]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_md&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/coherence&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># apply the pipeline to a text</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;This is a sentence. This is another sentence.&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get coherence values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">coherence</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
-<table class="domainindex-table">
-  <tr class="pcap">
-    <td></td><td>&#160;</td><td></td>
-  </tr>
-  <tr class="cap" id="cap-t">
-    <td></td><td><strong>t</strong></td><td></td>
-  </tr>
-  <tr>
-    <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-    <td>
-        <code class="xref">textdescriptives</code></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="dependencydistance.html#module-textdescriptives.components.dependency_distance"><code class="xref">textdescriptives.components.dependency_distance</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="descriptivestats.html#module-textdescriptives.components.descriptive_stats"><code class="xref">textdescriptives.components.descriptive_stats</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="posstats.html#module-textdescriptives.components.pos_stats"><code class="xref">textdescriptives.components.pos_stats</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="readability.html#module-textdescriptives.components.readability"><code class="xref">textdescriptives.components.readability</code></a></td><td>
-    <em></em></td>
-  </tr>
-</table>
+</section>
 
         </article>
       </div>
@@ -263,7 +304,17 @@
         
         <div class="related-pages">
           
-          
+          <a class="prev-page" href="quality.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Quality</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -282,16 +333,35 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Coherence</a><ul>
+<li><a class="reference internal" href="#component">Component</a><ul>
+<li><a class="reference internal" href="#textdescriptives.components.coherence.create_coherence_component"><code class="docutils literal notranslate"><span class="pre">create_coherence_component()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>

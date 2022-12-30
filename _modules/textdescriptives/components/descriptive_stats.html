@@ -4,11 +4,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
-        <title>textdescriptives.components.descriptive_stats - textdescriptives 1.1.1 documentation</title>
+    <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
+        <title>textdescriptives.components.descriptive_stats - textdescriptives 2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -129,7 +130,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">textdescriptives 1.1.1 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">textdescriptives 2.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -175,8 +176,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dependencydistance.html">Dependency Distance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../posstats.html">Part-of-Speech Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quality.html">Quality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../coherence.html">Coherence</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -215,89 +217,68 @@
         <article role="main">
           <h1>Source code for textdescriptives.components.descriptive_stats</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Calculation of descriptive statistics.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
 <span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">filtered_tokens</span><span class="p">,</span> <span class="n">n_sentences</span><span class="p">,</span> <span class="n">n_syllables</span><span class="p">,</span> <span class="n">n_tokens</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">filter_tokens</span><span class="p">,</span> <span class="n">n_sentences</span><span class="p">,</span> <span class="n">n_syllables</span><span class="p">,</span> <span class="n">n_tokens</span>
 
 
-<div class="viewcode-block" id="create_descriptive_stats_component"><a class="viewcode-back" href="../../../descriptivestats.html#textdescriptives.components.descriptive_stats.create_descriptive_stats_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">&quot;descriptive_stats&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">create_descriptive_stats_component</span><span class="p">(</span><span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Allows DescriptiveStatistics to be added to a spaCy pipe using nlp.add_pipe(&quot;descriptive_stats&quot;).</span>
-<span class="sd">    If the pipe does not contain a parser or sentencizer, the sentencizer component is silently added.&quot;&quot;&quot;</span>
-    <span class="n">sentencizers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s2">&quot;sentencizer&quot;</span><span class="p">,</span> <span class="s2">&quot;parser&quot;</span><span class="p">])</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">sentencizers</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="p">)):</span>
-        <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;sentencizer&quot;</span><span class="p">)</span>  <span class="c1"># add a sentencizer if not one in pipe</span>
-    <span class="k">return</span> <span class="n">DescriptiveStatistics</span><span class="p">(</span><span class="n">nlp</span><span class="p">)</span></div>
+<span class="k">class</span> <span class="nc">DescriptiveStatistics</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;spaCy v.3.0 component that adds attributes with desriptive statistics to</span>
+<span class="sd">    `Doc` and `Span` objects.</span>
 
-
-<div class="viewcode-block" id="DescriptiveStatistics"><a class="viewcode-back" href="../../../descriptivestats.html#textdescriptives.components.descriptive_stats.DescriptiveStatistics">[docs]</a><span class="k">class</span> <span class="nc">DescriptiveStatistics</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;spaCy v.3.0 component that adds attributes with desriptive statistics to `Doc` and `Span` objects.</span>
-<span class="sd">    The attributes relate to token and sentence length, number of syllables, and counts of tokens and sentences.</span>
+<span class="sd">    The attributes relate to token and sentence length, number of</span>
+<span class="sd">    syllables, and counts of tokens and sentences.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialise components&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialise components.&quot;&quot;&quot;</span>
 
-        <span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;_n_sentences&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;_n_tokens&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;_n_syllables&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;token_length&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sentence_length&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syllables&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;counts&quot;</span><span class="p">,</span>
-        <span class="p">]</span>
-        <span class="n">ext_funs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">n_sentences</span><span class="p">,</span>
-            <span class="n">n_tokens</span><span class="p">,</span>
-            <span class="n">n_syllables</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">token_length</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">syllables</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">counts</span><span class="p">,</span>
-        <span class="p">]</span>
-        <span class="k">for</span> <span class="n">ext</span><span class="p">,</span> <span class="n">fun</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">extensions</span><span class="p">,</span> <span class="n">ext_funs</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+        <span class="n">extensions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;_n_sentences&quot;</span><span class="p">:</span> <span class="n">n_sentences</span><span class="p">,</span>
+            <span class="s2">&quot;_n_tokens&quot;</span><span class="p">:</span> <span class="n">n_tokens</span><span class="p">,</span>
+            <span class="s2">&quot;_n_syllables&quot;</span><span class="p">:</span> <span class="n">n_syllables</span><span class="p">,</span>
+            <span class="s2">&quot;token_length&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_length</span><span class="p">,</span>
+            <span class="s2">&quot;sentence_length&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">,</span>
+            <span class="s2">&quot;syllables&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">syllables</span><span class="p">,</span>
+            <span class="s2">&quot;counts&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">counts</span><span class="p">,</span>
+            <span class="s2">&quot;descriptive_stats&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">descriptive_stats</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">extension_name</span><span class="p">,</span> <span class="n">getter_fun</span> <span class="ow">in</span> <span class="n">extensions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">extension_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
                 <span class="s2">&quot;_n_sentences&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;sentence_length&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;syllables&quot;</span><span class="p">,</span>
-            <span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="n">ext</span><span class="p">):</span>
-                <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">fun</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="n">ext</span><span class="p">):</span>
-                <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">fun</span><span class="p">)</span>
+            <span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="n">extension_name</span><span class="p">):</span>
+                <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="n">extension_name</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">getter_fun</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="n">extension_name</span><span class="p">):</span>
+                <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="n">extension_name</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">getter_fun</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;_filtered_tokens&quot;</span><span class="p">):</span>
-            <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;_filtered_tokens&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[])</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;_filtered_tokens&quot;</span><span class="p">):</span>
-            <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;_filtered_tokens&quot;</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">filtered_tokens</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run the pipeline component&quot;&quot;&quot;</span>
-        <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_filtered_tokens</span> <span class="o">=</span> <span class="n">filtered_tokens</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">doc</span>
-
-<div class="viewcode-block" id="DescriptiveStatistics.token_length"><a class="viewcode-back" href="../../../descriptivestats.html#textdescriptives.components.descriptive_stats.DescriptiveStatistics.token_length">[docs]</a>    <span class="k">def</span> <span class="nf">token_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate mean, median and std of token length for a `Doc` or `Span`.</span>
+    <span class="k">def</span> <span class="nf">token_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculate mean, median and std of token length for a `Doc` or</span>
+<span class="sd">        `Span`.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            dict with keys: token_length_mean, token_length_median, token_length_std</span>
+<span class="sd">            dict: token_length_mean, token_length_median, token_length_std</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">token_lengths</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_filtered_tokens</span><span class="p">]</span>
+
+        <span class="n">token_lengths</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">filter_tokens</span><span class="p">(</span><span class="n">doc</span><span class="p">)]</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;token_length_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">token_lengths</span><span class="p">),</span>
             <span class="s2">&quot;token_length_median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">token_lengths</span><span class="p">),</span>
             <span class="s2">&quot;token_length_std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">token_lengths</span><span class="p">),</span>
-        <span class="p">}</span></div>
+        <span class="p">}</span>
 
-<div class="viewcode-block" id="DescriptiveStatistics.sentence_length"><a class="viewcode-back" href="../../../descriptivestats.html#textdescriptives.components.descriptive_stats.DescriptiveStatistics.sentence_length">[docs]</a>    <span class="k">def</span> <span class="nf">sentence_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">sentence_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Calculate mean, median and std of sentence length for a `Doc`.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            dict with keys: sentence_length_mean, sentence_length_median, sentence_length_std&quot;&quot;&quot;</span>
+<span class="sd">            dict: sentence_length_mean, sentence_length_median, sentence_length_std</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># get length of filtered tokens per sentence</span>
         <span class="n">tokenized_sentences</span> <span class="o">=</span> <span class="p">[</span>
             <span class="p">[</span>
@@ -312,42 +293,42 @@
             <span class="s2">&quot;sentence_length_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">len_sentences</span><span class="p">),</span>
             <span class="s2">&quot;sentence_length_median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">len_sentences</span><span class="p">),</span>
             <span class="s2">&quot;sentence_length_std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">len_sentences</span><span class="p">),</span>
-        <span class="p">}</span></div>
+        <span class="p">}</span>
 
-<div class="viewcode-block" id="DescriptiveStatistics.syllables"><a class="viewcode-back" href="../../../descriptivestats.html#textdescriptives.components.descriptive_stats.DescriptiveStatistics.syllables">[docs]</a>    <span class="k">def</span> <span class="nf">syllables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">syllables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Calculate mean, median and std of syllables per token for a `Doc`.</span>
 <span class="sd">        Uses `Pyphen` for hyphenation.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            dict with keys: syllables_per_token_mean, syllables_per_token_median, syllables_per_token_std&quot;&quot;&quot;</span>
+<span class="sd">            dict: syllables_per_token_mean, syllables_per_token_median,</span>
+<span class="sd">                syllables_per_token_std</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n_syllables</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_syllables</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;syllables_per_token_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">n_syllables</span><span class="p">),</span>
             <span class="s2">&quot;syllables_per_token_median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">n_syllables</span><span class="p">),</span>
             <span class="s2">&quot;syllables_per_token_std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">n_syllables</span><span class="p">),</span>
-        <span class="p">}</span></div>
+        <span class="p">}</span>
 
-<div class="viewcode-block" id="DescriptiveStatistics.counts"><a class="viewcode-back" href="../../../descriptivestats.html#textdescriptives.components.descriptive_stats.DescriptiveStatistics.counts">[docs]</a>    <span class="k">def</span> <span class="nf">counts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">],</span> <span class="n">ignore_whitespace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate counts of tokens, unique tokens, and characters for a `Doc` or `Span`.</span>
-<span class="sd">        Adds number of sentences for `Doc` objects.</span>
+    <span class="k">def</span> <span class="nf">counts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">],</span> <span class="n">ignore_whitespace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculate counts of tokens, unique tokens, and characters for a</span>
+<span class="sd">        `Doc` or `Span`. Adds number of sentences for `Doc` objects.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            ignore_whitespace: if True, whitespace is not counted as a character when</span>
 <span class="sd">                counting number of characters.</span>
-<span class="sd">        Returns:</span>
-<span class="sd">            dict with keys: n_tokens, n_unique_tokens, proportion_unique_tokens, n_characters, (n_sentences)</span>
+<span class="sd">        Return:</span>
+<span class="sd">            dict: n_tokens, n_unique_tokens, proportion_unique_tokens, n_characters,</span>
+<span class="sd">                (n_sentences)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n_tokens</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_tokens</span>
-        <span class="n">n_types</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">tok</span><span class="o">.</span><span class="n">lower_</span> <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_filtered_tokens</span><span class="p">]))</span>
+        <span class="n">n_types</span> <span class="o">=</span> <span class="nb">len</span><span class="p">({</span><span class="n">tok</span><span class="o">.</span><span class="n">lower_</span> <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">filter_tokens</span><span class="p">(</span><span class="n">doc</span><span class="p">)})</span>
         <span class="k">if</span> <span class="n">ignore_whitespace</span><span class="p">:</span>
             <span class="n">n_chars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">n_chars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">n_tokens</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">prop_unique_tokens</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">prop_unique_tokens</span> <span class="o">=</span> <span class="n">n_types</span> <span class="o">/</span> <span class="n">n_tokens</span>
+        <span class="n">prop_unique_tokens</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">if</span> <span class="n">n_tokens</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">n_types</span> <span class="o">/</span> <span class="n">n_tokens</span>
         <span class="n">out</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;n_tokens&quot;</span><span class="p">:</span> <span class="n">n_tokens</span><span class="p">,</span>
             <span class="s2">&quot;n_unique_tokens&quot;</span><span class="p">:</span> <span class="n">n_types</span><span class="p">,</span>
@@ -356,7 +337,79 @@
         <span class="p">}</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
             <span class="n">out</span><span class="p">[</span><span class="s2">&quot;n_sentences&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_sentences</span>
-        <span class="k">return</span> <span class="n">out</span></div></div>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span> <span class="nf">descriptive_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get all descriptive statistics in a single dict.&quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">counts</span><span class="p">,</span> <span class="o">**</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">token_length</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">out</span>
+        <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">out</span><span class="p">,</span> <span class="o">**</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">,</span> <span class="o">**</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">syllables</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">doc</span>
+
+
+<div class="viewcode-block" id="create_descriptive_stats_component"><a class="viewcode-back" href="../../../descriptivestats.html#textdescriptives.components.descriptive_stats.create_descriptive_stats_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span>
+    <span class="s2">&quot;textdescriptives/descriptive_stats&quot;</span><span class="p">,</span>
+    <span class="n">assigns</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;doc._.n_sentences&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;doc._.n_tokens&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;doc._.token_length&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;doc._.sentence_length&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;doc._.syllables&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;doc._.counts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;doc._.descriptive_stats&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;span._.token_length&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;span._.counts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;span._.descriptive_stats&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_descriptive_stats_component</span><span class="p">(</span>
+    <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Allows DescriptiveStatistics to be added to a spaCy pipe using</span>
+<span class="sd">    nlp.add_pipe(&quot;textdescriptives/descriptive_stats&quot;).</span>
+
+<span class="sd">    Adding the component to the pipe will add the following attributes to</span>
+<span class="sd">    `Doc` and `Span` objects:</span>
+<span class="sd">        - `doc._.n_sentences`</span>
+<span class="sd">        - `doc._.n_tokens`</span>
+<span class="sd">        - `doc._.token_length`</span>
+<span class="sd">        - `doc._.sentence_length`</span>
+<span class="sd">        - `doc._.syllables`</span>
+<span class="sd">        - `doc._.counts`</span>
+<span class="sd">        - `doc._.descriptive_stats`</span>
+<span class="sd">        - `span._.token_length`</span>
+<span class="sd">        - `span._.counts`</span>
+<span class="sd">        - `span._.descriptive_stats`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nlp (Language): spaCy language object, does not need to be specified in the</span>
+<span class="sd">            nlp.add_pipe call.</span>
+<span class="sd">        name (str): name of the component. Can be optionally specified in the</span>
+<span class="sd">            nlp.add_pipe call, using the name argument.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Callable[[Doc], Doc]: DescriptiveStatistics component</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; import spacy</span>
+<span class="sd">        &gt;&gt;&gt; nlp = spacy.blank(&quot;en&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; # add sentencizer</span>
+<span class="sd">        &gt;&gt;&gt; nlp.add_pipe(&quot;sentencizer&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; # add descriptive stats</span>
+<span class="sd">        &gt;&gt;&gt; nlp.add_pipe(&quot;textdescriptives/descriptive_stats&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; # apply to a document</span>
+<span class="sd">        &gt;&gt;&gt; doc = nlp(&quot;This is a sentence. This is another sentence.&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; doc._.descriptive_stats</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sentencizers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sentencizer&quot;</span><span class="p">,</span> <span class="s2">&quot;parser&quot;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sentencizers</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="p">)):</span>
+        <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;sentencizer&quot;</span><span class="p">)</span>  <span class="c1"># add a sentencizer if not one in pipe</span>
+    <span class="k">return</span> <span class="n">DescriptiveStatistics</span><span class="p">(</span><span class="n">nlp</span><span class="p">)</span></div>
 </pre></div>
         </article>
       </div>
@@ -390,9 +443,6 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>

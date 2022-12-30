@@ -11,11 +11,12 @@
 <meta name="description" content="The readability component adds the following readabiltiy metrics under the ._.readability attribute to Doc objects. Gunning-Fog, SMOG, Flesch reading ease, Flesch-Kincaid grade, Automated readabili..." />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Dependency Distance" href="dependencydistance.html" /><link rel="prev" title="Descriptive Statistics" href="descriptivestats.html" />
 
-    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
-        <title>Readability - textdescriptives 1.1.1 documentation</title>
+    <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
+        <title>Readability - textdescriptives 2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -136,7 +137,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">textdescriptives 1.1.1 documentation</div></a>
+      <a href="index.html"><div class="brand">textdescriptives 2.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,8 +183,9 @@
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependencydistance.html">Dependency Distance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quality.html">Quality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coherence.html">Coherence</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -235,99 +237,94 @@
 <li><p>Rix</p></li>
 </ul>
 <p>For specifics of the implementation, refer to the source. The equations are largely derived from the <a class="reference external" href="https://github.com/shivam5992/textstat">textstat</a> library.</p>
-<section id="module-textdescriptives.components.readability">
-<span id="textdescriptives-components-readability"></span><h2>textdescriptives.components.readability<a class="headerlink" href="#module-textdescriptives.components.readability" title="Permalink to this heading">#</a></h2>
-<p>Calculation of various readability metrics.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="textdescriptives.components.readability.Readability">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textdescriptives.components.readability.</span></span><span class="sig-name descname"><span class="pre">Readability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>spaCy v.3.0 component for adding readability metrics to <cite>Doc</cite> objects.
-Extracts metrics and returns them as a dictionary as the ._.readability attribute.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._automated_readability_index">
-<span class="sig-name descname"><span class="pre">_automated_readability_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._automated_readability_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._automated_readability_index" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculates the Automated Readability Index of the document.
-The equation for the Automated Readability Index is:</p>
-<p>4.71 * (n_chars / n_words) + 0.5 * (n_words / n_sentences) - 21.43</p>
-<p>Score = grade required to read the text</p>
-</dd></dl>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives.readability&quot;</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.&quot;</span><span class="p">)</span>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._coleman_liau_index">
-<span class="sig-name descname"><span class="pre">_coleman_liau_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._coleman_liau_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._coleman_liau_index" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculates the Colmean-Liau index of the document.
-The equation for the Coleman-Liau index is:</p>
-<p>score = 0.0588 * avg number of chars pr 100 words - 0.296 * avg num of sents pr 100 words -15.8</p>
-<p>Score = grade required to read the text</p>
-</dd></dl>
+<span class="c1"># all attributes are stored as a dict in the ._.readability attribute</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">readability</span>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._flesch_kincaid_grade">
-<span class="sig-name descname"><span class="pre">_flesch_kincaid_grade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._flesch_kincaid_grade"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._flesch_kincaid_grade" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate the Flesch-Kincaid grade of the document.
-The equation for the Flesch-Kincaid grade is:</p>
-<p>0.39 * (avg sent len) + 11.8 * (avg_syl_per_word) - 15.59</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._flesch_reading_ease">
-<span class="sig-name descname"><span class="pre">_flesch_reading_ease</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._flesch_reading_ease"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._flesch_reading_ease" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate the Flesch Reading Ease score for a document.
-The equation for the Flesch Reading Ease score is:</p>
-<p>206.835 - (1.015 X avg sent len) - (84.6 * avg_syl_per_word)</p>
-<p>Higher = easier to read</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._gunning_fog">
-<span class="sig-name descname"><span class="pre">_gunning_fog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_hard_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._gunning_fog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._gunning_fog" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculates the Gunning Fog index of the document.
-The equation for the Gunning Fog index is:</p>
-<p>Grade level = 0.4 * ((avg_sentence_length) + (percentage hard words))</p>
-<p>Where hard words are word with 3 or more syllables.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._lix">
-<span class="sig-name descname"><span class="pre">_lix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._lix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._lix" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculates the LIX index of the document.
-The equation for the LIX index is:</p>
-<p>(n_words / n_sentences) + (n_words longer than 6 characters * 100) / n_words</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._rix">
-<span class="sig-name descname"><span class="pre">_rix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._rix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._rix" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculates the RIX index of the document.
-The equation for the RIX index is:</p>
-<p>(n_words longer than 6 characters / n_sentences)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.readability.Readability._smog">
-<span class="sig-name descname"><span class="pre">_smog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_hard_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability._smog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability._smog" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate the SMOG index of the document.
-The equation for the SMOG index is:</p>
-<p>1.043( sqrt(30 * (hard words /n sentences)) + 3.1291</p>
-<p>Where hard words are words with 3 or more syllables.
-Preferably need 30+ sentences. Will not work with less than 4</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textdescriptives.components.readability.Readability.readability">
-<span class="sig-name descname"><span class="pre">readability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Doc</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#Readability.readability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.Readability.readability" title="Permalink to this definition">#</a></dt>
-<dd><p>Apply readability functions and return a dict of the results.</p>
-</dd></dl>
-
-</dd></dl>
-
+<span class="c1"># extract to dataframe</span>
+<span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>text</p></th>
+<th class="head"><p>flesch_reading_ease</p></th>
+<th class="head"><p>flesch_kincaid_grade</p></th>
+<th class="head"><p>smog</p></th>
+<th class="head"><p>gunning_fog</p></th>
+<th class="head"><p>automated_readability_index</p></th>
+<th class="head"><p>coleman_liau_index</p></th>
+<th class="head"><p>lix</p></th>
+<th class="head"><p>rix</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>The world is changed(…)</p></td>
+<td><p>107.879</p></td>
+<td><p>-0.0485714</p></td>
+<td><p>5.68392</p></td>
+<td><p>3.94286</p></td>
+<td><p>-2.45429</p></td>
+<td><p>-0.708571</p></td>
+<td><p>12.7143</p></td>
+<td><p>0.4</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="component">
+<h2>Component<a class="headerlink" href="#component" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="textdescriptives.components.readability.create_readability_component">
-<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.readability.</span></span><span class="sig-name descname"><span class="pre">create_readability_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#create_readability_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.create_readability_component" title="Permalink to this definition">#</a></dt>
-<dd><p>Allows Readability to be added to a spaCy pipe using nlp.add_pipe(“readability”).
-Readability requires attributes from DescriptiveStatistics and adds it to the
-pipe if it not already loaded.</p>
+<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.readability.</span></span><span class="sig-name descname"><span class="pre">create_readability_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#create_readability_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.create_readability_component" title="Permalink to this definition">#</a></dt>
+<dd><p>Allows Readability to be added to a spaCy pipe using
+nlp.add_pipe(“textdescriptives/readability”).</p>
+<p>Readability requires attributes from DescriptiveStatistics and adds
+it to the pipe if it not already loaded.</p>
+<dl class="simple">
+<dt>Adding this component to a pipeline sets the following attributes:</dt><dd><ul class="simple">
+<li><p>doc._.readability</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nlp</strong> (<em>Language</em>) – spaCy language object, does not need to be specified in the
+nlp.add_pipe call.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – name of the component. Can be optionally specified in the
+nlp.add_pipe call, using the name argument.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Readability component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[Doc], Doc]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># apply the pipeline to a document</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;This is a test document.&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">readability</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>
@@ -389,19 +386,8 @@ pipe if it not already loaded.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Readability</a><ul>
-<li><a class="reference internal" href="#module-textdescriptives.components.readability">textdescriptives.components.readability</a><ul>
-<li><a class="reference internal" href="#textdescriptives.components.readability.Readability"><code class="docutils literal notranslate"><span class="pre">Readability</span></code></a><ul>
-<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._automated_readability_index"><code class="docutils literal notranslate"><span class="pre">Readability._automated_readability_index()</span></code></a></li>
-<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._coleman_liau_index"><code class="docutils literal notranslate"><span class="pre">Readability._coleman_liau_index()</span></code></a></li>
-<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._flesch_kincaid_grade"><code class="docutils literal notranslate"><span class="pre">Readability._flesch_kincaid_grade()</span></code></a></li>
-<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._flesch_reading_ease"><code class="docutils literal notranslate"><span class="pre">Readability._flesch_reading_ease()</span></code></a></li>
-<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._gunning_fog"><code class="docutils literal notranslate"><span class="pre">Readability._gunning_fog()</span></code></a></li>
-<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._lix"><code class="docutils literal notranslate"><span class="pre">Readability._lix()</span></code></a></li>
-<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._rix"><code class="docutils literal notranslate"><span class="pre">Readability._rix()</span></code></a></li>
-<li><a class="reference internal" href="#textdescriptives.components.readability.Readability._smog"><code class="docutils literal notranslate"><span class="pre">Readability._smog()</span></code></a></li>
-<li><a class="reference internal" href="#textdescriptives.components.readability.Readability.readability"><code class="docutils literal notranslate"><span class="pre">Readability.readability()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#component">Component</a><ul>
 <li><a class="reference internal" href="#textdescriptives.components.readability.create_readability_component"><code class="docutils literal notranslate"><span class="pre">create_readability_component()</span></code></a></li>
 </ul>
 </li>
@@ -417,9 +403,6 @@ pipe if it not already loaded.</p>
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>

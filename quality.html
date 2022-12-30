@@ -9,13 +9,14 @@
 <meta property="og:site_name" content="textdescriptives" />
 <meta property="og:description" content="The quality component adds the following quality metrics under the._.quality` attribute to Doc and Span objects. Heuristic quality metrics: Number of stop words ( n_stop_words`): The number of stop..." />
 <meta name="description" content="The quality component adds the following quality metrics under the._.quality` attribute to Doc and Span objects. Heuristic quality metrics: Number of stop words ( n_stop_words`): The number of stop..." />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Part-of-Speech Statistics" href="posstats.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Coherence" href="coherence.html" /><link rel="prev" title="Part-of-Speech Proportions" href="posstats.html" />
 
-    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
-        <title>Quality - textdescriptives 1.1.1 documentation</title>
+    <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
+        <title>Quality - textdescriptives 2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -136,7 +137,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">textdescriptives 1.1.1 documentation</div></a>
+      <a href="index.html"><div class="brand">textdescriptives 2.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,8 +183,9 @@
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependencydistance.html">Dependency Distance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Quality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coherence.html">Coherence</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -250,16 +252,128 @@ corpora for pre-training language models.</p>
 If you need to run quality filters on a large corpus, you should consider using the implementation from
 <a class="reference external" href="https://github.com/centre-for-humanities-computing/danish-foundation-models">Danish Foundation Models</a> which also
 includes a number of other quality filters and deduplication strategies.</p>
-<section id="quality-component">
-<h2>Quality Component<a class="headerlink" href="#quality-component" title="Permalink to this heading">#</a></h2>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives.quality&quot;</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.&quot;</span><span class="p">)</span>
+
+<span class="c1"># all attributes are stored as a dict in the ._.quality attribute</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">quality</span>
+<span class="c1"># check if the document passed all quality checks</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">passed_quality_check</span>
+
+<span class="c1"># extract to dataframe</span>
+<span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>text</p></th>
+<th class="head"><p>n_stop_words</p></th>
+<th class="head"><p>alpha_ratio</p></th>
+<th class="head"><p>mean_word_length</p></th>
+<th class="head"><p>doc_length</p></th>
+<th class="head"><p>proportion_ellipsis</p></th>
+<th class="head"><p>proportion_bullet_points</p></th>
+<th class="head"><p>duplicate_line_chr_fraction</p></th>
+<th class="head"><p>duplicate_paragraph_chr_fraction</p></th>
+<th class="head"><p>duplicate_5-gram_chr_fraction</p></th>
+<th class="head"><p>duplicate_6-gram_chr_fraction</p></th>
+<th class="head"><p>duplicate_7-gram_chr_fraction</p></th>
+<th class="head"><p>duplicate_8-gram_chr_fraction</p></th>
+<th class="head"><p>duplicate_9-gram_chr_fraction</p></th>
+<th class="head"><p>duplicate_10-gram_chr_fraction</p></th>
+<th class="head"><p>top_2-gram_chr_fraction</p></th>
+<th class="head"><p>top_3-gram_chr_fraction</p></th>
+<th class="head"><p>top_4-gram_chr_fraction</p></th>
+<th class="head"><p>symbol_#_2_word_ratio</p></th>
+<th class="head"><p>contains_lorem ipsum</p></th>
+<th class="head"><p>passed_quality_check</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>The world is changed(…)</p></td>
+<td><p>24</p></td>
+<td><p>0.853659</p></td>
+<td><p>2.95122</p></td>
+<td><p>41</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0.232258</p></td>
+<td><p>0.232258</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0.0580645</p></td>
+<td><p>0.174194</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>False</p></td>
+<td><p>False</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>If you want to specify the thresholds for the quality metrics, you can do so by passing a
+<a class="reference external" href="https://textdescriptives.readthedocs.io/en/latest/api/textdescriptives.components.quality.html#textdescriptives.components.quality.QualityThresholds">QualityThresholds</a> object to the component.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+
+<span class="c1"># set thresholds for quality metrics (these are just the default)</span>
+<span class="n">thresholds</span> <span class="o">=</span> <span class="n">QualityThresholds</span><span class="p">(</span>
+    <span class="n">n_stop_words</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="n">alpha_ratio</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="n">mean_word_length</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">doc_length</span><span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100_000</span><span class="p">),</span>
+    <span class="n">symbol_hashtag_to_word_ratio</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+    <span class="n">proportion_ellipsis</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+    <span class="n">proportion_bullet_points</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span>
+    <span class="n">duplicate_line_chr_fraction</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+    <span class="n">duplicate_paragraph_chr_fraction</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+    <span class="n">duplicate_5gram_chr_fraction</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">),</span>
+    <span class="n">duplicate_6gram_chr_fraction</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">),</span>
+    <span class="n">duplicate_7gram_chr_fraction</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.13</span><span class="p">),</span>
+    <span class="n">duplicate_8gram_chr_fraction</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">),</span>
+    <span class="n">duplicate_9gram_chr_fraction</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">),</span>
+    <span class="n">duplicate_10gram_chr_fraction</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+    <span class="n">top_2gram_chr_fraction</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">),</span>
+    <span class="n">top_3gram_chr_fraction</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">),</span>
+    <span class="n">top_4gram_chr_fraction</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">),</span>
+    <span class="n">contains_lorem_ipsum</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives.quality&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;quality_thresholds&quot;</span><span class="p">:</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">dict</span><span class="p">()})</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.&quot;</span><span class="p">)</span>
+
+<span class="c1"># all attributes are stored as a dict in the ._.quality attribute</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">quality</span>
+<span class="c1"># check if the document passed all quality checks</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">passed_quality_check</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="component">
+<h2>Component<a class="headerlink" href="#component" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="textdescriptives.components.quality.create_quality_component">
-<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.quality.</span></span><span class="sig-name descname"><span class="pre">create_quality_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_ngram_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_ngram_min_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_n_gram_fraction_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_thresholds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/textdescriptives/components/quality.html#create_quality_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.quality.create_quality_component" title="Permalink to this definition">#</a></dt>
-<dd><p>Allows Quality to be added to a spaCy pipe using nlp.add_pipe(“quality”).</p>
-<p>Set the following extensions:
+<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.quality.</span></span><span class="sig-name descname"><span class="pre">create_quality_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_ngram_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_ngram_min_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_n_gram_fraction_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_thresholds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/textdescriptives/components/quality.html#create_quality_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.quality.create_quality_component" title="Permalink to this definition">#</a></dt>
+<dd><p>Allows Quality to be added to a spaCy pipe using
+nlp.add_pipe(“textdescriptives/quality”).</p>
+<p>Adding this component to a pipeline sets the following attributes:
 - {Span/Doc}._.quality
 - {Span/Doc}._.passed_quality_check</p>
-<p>It is also possible to optionally set the following extensions:
+<p>It also sets:
 - {Span/Doc}._.lines
 - {Span/Doc}._.paragraphs</p>
 <p>These are used to calculate some of the quality metrics. They can be overwritten if
@@ -280,8 +394,10 @@ text-to-text transformer. J. Mach. Learn. Res., 21(140), 1-67.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>nlp</strong> (<em>Language</em>) – spaCy language object</p></li>
-<li><p><strong>name</strong> (<em>str</em>) – name of the component</p></li>
+<li><p><strong>nlp</strong> (<em>Language</em>) – spaCy language object, does not need to be specified in the
+nlp.add_pipe call.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – name of the component. Can be optionally specified in the
+nlp.add_pipe call, using the name argument.</p></li>
 <li><p><strong>symbols</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – list of symbols for which to calculate the
 proportion the ratio of symbols to words. Defaults to [“#”].</p></li>
 <li><p><strong>contains</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – list of strings for which to check whether the
@@ -292,83 +408,17 @@ proportion of the top n-gram. Defaults to [2, 4].</p></li>
 be considered a top n-gram. Defaults to 3.</p></li>
 <li><p><strong>duplicate_n_gram_fraction_range</strong> (<em>Tuple</em><em>[</em><em>int</em><em>]</em>) – range of n-grams to
 calculate the proportion of duplicate n-grams. Defaults to [5, 10].</p></li>
-<li><p><strong>(</strong><strong>Dict</strong><strong>[</strong><strong>str</strong> (<em>quality_thresholds</em>) – Union[int, float, None]]]]): A dictionary of quality thresholds indicated by
-either a range (Tuple), wherein the first value is the lower bound and the
-second value is the upper bound. Lower and upper bounds can be None, in
-which case they are not checked. Alternatively, a boolean can be provided,
-checking if the quality metric is boolean. For example, if you  don’t want
-documents containing <cite>lorem ipsum</cite>, to pass the quality check, you can set
-<cite>quality_thresholds={“contains_lorem_ipsum”: False}</cite>. Similar if you want to
-set a upper bound on the <cite>duplicate_5-gram_chr_fraction</cite>, you can set
-<cite>quality_thresholds={“duplicate_5-gram_chr_fraction”: (None, 0.15)}</cite>.
-Default values are set in
-<cite>textdescriptives.components..quality.DEFAULT_QUALITY_THRESHOLDS</cite>.</p></li>
-<li><p><strong>Union</strong><strong>[</strong><strong>bool</strong> – Union[int, float, None]]]]): A dictionary of quality thresholds indicated by
-either a range (Tuple), wherein the first value is the lower bound and the
-second value is the upper bound. Lower and upper bounds can be None, in
-which case they are not checked. Alternatively, a boolean can be provided,
-checking if the quality metric is boolean. For example, if you  don’t want
-documents containing <cite>lorem ipsum</cite>, to pass the quality check, you can set
-<cite>quality_thresholds={“contains_lorem_ipsum”: False}</cite>. Similar if you want to
-set a upper bound on the <cite>duplicate_5-gram_chr_fraction</cite>, you can set
-<cite>quality_thresholds={“duplicate_5-gram_chr_fraction”: (None, 0.15)}</cite>.
-Default values are set in
-<cite>textdescriptives.components..quality.DEFAULT_QUALITY_THRESHOLDS</cite>.</p></li>
-<li><p><strong>Tuple</strong><strong>[</strong><strong>Union</strong><strong>[</strong><strong>int</strong> – Union[int, float, None]]]]): A dictionary of quality thresholds indicated by
-either a range (Tuple), wherein the first value is the lower bound and the
-second value is the upper bound. Lower and upper bounds can be None, in
-which case they are not checked. Alternatively, a boolean can be provided,
-checking if the quality metric is boolean. For example, if you  don’t want
-documents containing <cite>lorem ipsum</cite>, to pass the quality check, you can set
-<cite>quality_thresholds={“contains_lorem_ipsum”: False}</cite>. Similar if you want to
-set a upper bound on the <cite>duplicate_5-gram_chr_fraction</cite>, you can set
-<cite>quality_thresholds={“duplicate_5-gram_chr_fraction”: (None, 0.15)}</cite>.
-Default values are set in
-<cite>textdescriptives.components..quality.DEFAULT_QUALITY_THRESHOLDS</cite>.</p></li>
-<li><p><strong>float</strong> – Union[int, float, None]]]]): A dictionary of quality thresholds indicated by
-either a range (Tuple), wherein the first value is the lower bound and the
-second value is the upper bound. Lower and upper bounds can be None, in
-which case they are not checked. Alternatively, a boolean can be provided,
-checking if the quality metric is boolean. For example, if you  don’t want
-documents containing <cite>lorem ipsum</cite>, to pass the quality check, you can set
-<cite>quality_thresholds={“contains_lorem_ipsum”: False}</cite>. Similar if you want to
-set a upper bound on the <cite>duplicate_5-gram_chr_fraction</cite>, you can set
-<cite>quality_thresholds={“duplicate_5-gram_chr_fraction”: (None, 0.15)}</cite>.
-Default values are set in
-<cite>textdescriptives.components..quality.DEFAULT_QUALITY_THRESHOLDS</cite>.</p></li>
-<li><p><strong>None</strong><strong>]</strong> – Union[int, float, None]]]]): A dictionary of quality thresholds indicated by
-either a range (Tuple), wherein the first value is the lower bound and the
-second value is the upper bound. Lower and upper bounds can be None, in
-which case they are not checked. Alternatively, a boolean can be provided,
-checking if the quality metric is boolean. For example, if you  don’t want
-documents containing <cite>lorem ipsum</cite>, to pass the quality check, you can set
-<cite>quality_thresholds={“contains_lorem_ipsum”: False}</cite>. Similar if you want to
-set a upper bound on the <cite>duplicate_5-gram_chr_fraction</cite>, you can set
-<cite>quality_thresholds={“duplicate_5-gram_chr_fraction”: (None, 0.15)}</cite>.
-Default values are set in
-<cite>textdescriptives.components..quality.DEFAULT_QUALITY_THRESHOLDS</cite>.</p></li>
+<li><p><strong>quality_thresholds</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em>) – A dictionary object containing the
+thresholds indicated by either an interval (Tuple) or a boolean. We
+recommend using the QualityThresholds class to create this dictionary by
+calling QualityThresholds(…).dict(). This ensures that all the thresholds
+are validated. Defaults to None in which case the default for
+QualityThresholds is used.</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – whether to overwrite existing extensions. Defaults to True.</p></li>
 </ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>:param<span class="classifier">Union[int, float, None]]]]): A dictionary of quality thresholds indicated by</span></dt><dd><p>either a range (Tuple), wherein the first value is the lower bound and the
-second value is the upper bound. Lower and upper bounds can be None, in
-which case they are not checked. Alternatively, a boolean can be provided,
-checking if the quality metric is boolean. For example, if you  don’t want
-documents containing <cite>lorem ipsum</cite>, to pass the quality check, you can set
-<cite>quality_thresholds={“contains_lorem_ipsum”: False}</cite>. Similar if you want to
-set a upper bound on the <cite>duplicate_5-gram_chr_fraction</cite>, you can set
-<cite>quality_thresholds={“duplicate_5-gram_chr_fraction”: (None, 0.15)}</cite>.
-Default values are set in
-<cite>textdescriptives.components..quality.DEFAULT_QUALITY_THRESHOLDS</cite>.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>force</strong> (<em>bool</em>) – whether to overwrite existing extensions. Defaults to True.</p>
-</dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>the spaCy component</p>
+<dd class="field-even"><p>the Quality component</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Callable[[Doc], Doc]</p>
@@ -389,6 +439,87 @@ Default values are set in
 </dd></dl>
 
 </section>
+<section id="data-classes">
+<h2>Data Classes<a class="headerlink" href="#data-classes" title="Permalink to this heading">#</a></h2>
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textdescriptives.components.quality.</span></span><span class="sig-name descname"><span class="pre">QualityThresholds</span></span><a class="reference internal" href="_modules/textdescriptives/components/quality.html#QualityThresholds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds" title="Permalink to this definition">#</a></dt>
+<dd><p>Thresholds for quality metrics.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.alpha_ratio">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">alpha_ratio</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(0.8,</span> <span class="pre">None)</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.alpha_ratio" title="Permalink to this definition">#</a></dt>
+<dd><p>A Range for the alpha ratio. Default: (0.8, None), i.e. at least 80% of tokens contain at least one alphabetic character, but no upper limit.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.contains">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contains</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'lorem</span> <span class="pre">ipsum':</span> <span class="pre">False}</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.contains" title="Permalink to this definition">#</a></dt>
+<dd><p>A dictionary of strings and whether they should be contained in the document. Default: {‘lorem ipsum’: False}, i.e. the document should not contain the string ‘lorem ipsum’.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.doc_length">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">doc_length</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(10,</span> <span class="pre">100000)</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.doc_length" title="Permalink to this definition">#</a></dt>
+<dd><p>A Range for the document length. Default: (10, 100_000), i.e. between 10 and 100_000 characters.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.duplicate_line_chr_fraction">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duplicate_line_chr_fraction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(None,</span> <span class="pre">0.2)</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.duplicate_line_chr_fraction" title="Permalink to this definition">#</a></dt>
+<dd><p>A Range for the duplicate line character fraction. Default: (None, 0.2), i.e. no lower limit, but at most 20% of characters are duplicates.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.duplicate_ngram_chr_fraction">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duplicate_ngram_chr_fraction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'10':</span> <span class="pre">(None,</span> <span class="pre">0.1),</span> <span class="pre">'5':</span> <span class="pre">(None,</span> <span class="pre">0.15),</span> <span class="pre">'6':</span> <span class="pre">(None,</span> <span class="pre">0.14),</span> <span class="pre">'7':</span> <span class="pre">(None,</span> <span class="pre">0.13),</span> <span class="pre">'8':</span> <span class="pre">(None,</span> <span class="pre">0.12),</span> <span class="pre">'9':</span> <span class="pre">(None,</span> <span class="pre">0.11)}</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.duplicate_ngram_chr_fraction" title="Permalink to this definition">#</a></dt>
+<dd><p>A dictionary of n-gram lengths and the allowed range for the duplicate n-gram character fraction. Default: {5: (None, 0.15), 6: (None, 0.14), 7: (None, 0.13), 8: (None, 0.12), 9: (None, 0.11), 10: (None, 0.1)}, i.e. no lower limit, but at most 15% of characters are duplicates for 5-grams, 14% for 6-grams, 13% for 7-grams, 12% for 8-grams, 11% for 9-grams and 10% for 10-grams.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.duplicate_paragraph_chr_fraction">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duplicate_paragraph_chr_fraction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(None,</span> <span class="pre">0.2)</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.duplicate_paragraph_chr_fraction" title="Permalink to this definition">#</a></dt>
+<dd><p>A Range for the duplicate paragraph character fraction. Default: (None, 0.2), i.e. no lower limit, but at most 20% of characters are duplicates.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.mean_word_length">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mean_word_length</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(3,</span> <span class="pre">10)</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.mean_word_length" title="Permalink to this definition">#</a></dt>
+<dd><p>A Range for the mean word length. Default: (3, 10), i.e. between 3 and 10 characters.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.n_stop_words">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_stop_words</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(2,</span> <span class="pre">None)</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.n_stop_words" title="Permalink to this definition">#</a></dt>
+<dd><p>A Range for the number of stop words. Default: (2, None), i.e. at least 2 stop words, but no upper limit.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.proportion_bullet_points">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">proportion_bullet_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(None,</span> <span class="pre">0.8)</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.proportion_bullet_points" title="Permalink to this definition">#</a></dt>
+<dd><p>A Range for the proportion lines which start with a bullet points. Default: (None, 0.8), i.e. no lower limit, but at most 80% of lines start with a bullet point.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.proportion_ellipsis">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">proportion_ellipsis</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(None,</span> <span class="pre">0.3)</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.proportion_ellipsis" title="Permalink to this definition">#</a></dt>
+<dd><p>A Range for the proportion of lines which end with ellipsis. Default: (None, 0.3), i.e. no lower limit, but at most 30% of lines end with an ellipsis.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.symbol_to_word_ratio">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">symbol_to_word_ratio</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'#':</span> <span class="pre">(None,</span> <span class="pre">0.1)}</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.symbol_to_word_ratio" title="Permalink to this definition">#</a></dt>
+<dd><p>A dict of symbols and the allowed range for the symbol-to-word-ratio. The symbol-to-word-ratio is the ratio between symboloccurrence and word occurrence. Defaults to {‘#’: (None, 0.1)} i.e. no lower limit, but there must at most be a ratio of 0.1 between the number of of words and hashtags. i.e. if we have 100 words the symbol should appear no more than 10 times. Values not in the dict are not checked.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="textdescriptives.components.quality.QualityThresholds.top_ngram_chr_fraction">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">top_ngram_chr_fraction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'2':</span> <span class="pre">(None,</span> <span class="pre">0.2),</span> <span class="pre">'3':</span> <span class="pre">(None,</span> <span class="pre">0.18),</span> <span class="pre">'4':</span> <span class="pre">(None,</span> <span class="pre">0.16)}</span></em><a class="headerlink" href="#textdescriptives.components.quality.QualityThresholds.top_ngram_chr_fraction" title="Permalink to this definition">#</a></dt>
+<dd><p>A dictionary of n-gram lengths and the allowed range for the top n-gram character fraction. Default: {2: (None, 0.2), 3: (None, 0.18), 4: (None, 0.16)}, i.e. no lower limit, but at most 20% of characters are contained within a duplicate for 2-grams, 18% for 3-grams and 16% for 4-grams.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 </section>
 
         </article>
@@ -396,7 +527,15 @@ Default values are set in
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="coherence.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Coherence</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="posstats.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
@@ -404,7 +543,7 @@ Default values are set in
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Part-of-Speech Statistics</div>
+                <div class="title">Part-of-Speech Proportions</div>
                 
               </div>
             </a>
@@ -439,8 +578,27 @@ Default values are set in
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Quality</a><ul>
-<li><a class="reference internal" href="#quality-component">Quality Component</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#component">Component</a><ul>
 <li><a class="reference internal" href="#textdescriptives.components.quality.create_quality_component"><code class="docutils literal notranslate"><span class="pre">create_quality_component()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#data-classes">Data Classes</a><ul>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds"><code class="docutils literal notranslate"><span class="pre">QualityThresholds</span></code></a><ul>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.alpha_ratio"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.alpha_ratio</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.contains"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.contains</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.doc_length"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.doc_length</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.duplicate_line_chr_fraction"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.duplicate_line_chr_fraction</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.duplicate_ngram_chr_fraction"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.duplicate_ngram_chr_fraction</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.duplicate_paragraph_chr_fraction"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.duplicate_paragraph_chr_fraction</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.mean_word_length"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.mean_word_length</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.n_stop_words"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.n_stop_words</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.proportion_bullet_points"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.proportion_bullet_points</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.proportion_ellipsis"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.proportion_ellipsis</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.symbol_to_word_ratio"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.symbol_to_word_ratio</span></code></a></li>
+<li><a class="reference internal" href="#textdescriptives.components.quality.QualityThresholds.top_ngram_chr_fraction"><code class="docutils literal notranslate"><span class="pre">QualityThresholds.top_ngram_chr_fraction</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -455,9 +613,6 @@ Default values are set in
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
