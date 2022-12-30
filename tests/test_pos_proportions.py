@@ -1,6 +1,7 @@
 import pytest
 import spacy
 from spacy.tokens import Doc
+import textdescriptives as td  # noqa: F401
 
 
 @pytest.fixture(scope="function")
