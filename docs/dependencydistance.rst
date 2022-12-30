@@ -48,10 +48,5 @@ Usage
 Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. automodule:: textdescriptives.components.dependency_distance
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. autofunction:: textdescriptives.components.coherence.create_dependency_distance_component
 
-.. :exclude-members: function
-.. for functions you wish to exclude

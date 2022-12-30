@@ -33,7 +33,4 @@ The following attributes are added to :code:`Doc` objects.:
 Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. automodule:: textdescriptives.components.coherence
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. autofunction:: textdescriptives.components.coherence.create_coherence_component

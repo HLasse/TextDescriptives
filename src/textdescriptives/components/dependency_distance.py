@@ -1,4 +1,6 @@
 """Calculation of statistics related to dependency distance."""
+from typing import Callable
+
 import numpy as np
 from spacy.language import Language
 from spacy.tokens import Doc, Span, Token
@@ -106,8 +108,35 @@ class DependencyDistance:
         "doc._.dependency_distance",
     ],
 )
-def create_dependency_distance_component(nlp: Language, name: str):
+def create_dependency_distance_component(
+    nlp: Language,
+    name: str,
+) -> Callable[[Doc], Doc]:
     """Create spaCy language factory that allows DependencyDistance attributes
     to be added to a pipe using
-    nlp.add_pipe("textdescriptives/dependency_distance")"""
+    nlp.add_pipe("textdescriptives/dependency_distance")
+
+    Adding this component to a pipeline sets the following attributes:
+        - `token._.dependency_distance`
+        - `span._.dependency_distance`
+        - `doc._.dependency_distance`
+
+    Args:
+        nlp (Language): spaCy language object, does not need to be specified in the
+            nlp.add_pipe call.
+        name (str): name of the component. Can be optionally specified in the
+            nlp.add_pipe call, using the name argument.
+
+    Returns:
+        Callable[[Doc], Doc]: The DependencyDistance component
+
+    Example:
+        >>> import spacy
+        >>> nlp = spacy.load("en_core_web_sm")
+        >>> nlp.add_pipe("textdescriptives/dependency_distance")
+        >>> # apply the pipeline to a text
+        >>> doc = nlp("This is a sentence.")
+        >>> # access the dependency distance attributes
+        >>> doc._.dependency_distance
+    """
     return DependencyDistance(nlp)

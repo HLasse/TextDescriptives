@@ -148,12 +148,45 @@ class DescriptiveStatistics:
         "span._.descriptive_stats",
     ],
 )
-def create_descriptive_stats_component(nlp: Language, name: str):
+def create_descriptive_stats_component(
+    nlp: Language,
+    name: str,
+) -> Callable[[Doc], Doc]:
     """Allows DescriptiveStatistics to be added to a spaCy pipe using
     nlp.add_pipe("textdescriptives/descriptive_stats").
 
-    If the pipe does not contain a parser or sentencizer, the
-    sentencizer component is silently added.
+    Adding the component to the pipe will add the following attributes to
+    `Doc` and `Span` objects:
+        - `doc._.n_sentences`
+        - `doc._.n_tokens`
+        - `doc._.token_length`
+        - `doc._.sentence_length`
+        - `doc._.syllables`
+        - `doc._.counts`
+        - `doc._.descriptive_stats`
+        - `span._.token_length`
+        - `span._.counts`
+        - `span._.descriptive_stats`
+
+    Args:
+        nlp (Language): spaCy language object, does not need to be specified in the
+            nlp.add_pipe call.
+        name (str): name of the component. Can be optionally specified in the
+            nlp.add_pipe call, using the name argument.
+
+    Returns:
+        Callable[[Doc], Doc]: DescriptiveStatistics component
+
+    Example:
+        >>> import spacy
+        >>> nlp = spacy.blank("en")
+        >>> # add sentencizer
+        >>> nlp.add_pipe("sentencizer")
+        >>> # add descriptive stats
+        >>> nlp.add_pipe("textdescriptives/descriptive_stats")
+        >>> # apply to a document
+        >>> doc = nlp("This is a sentence. This is another sentence.")
+        >>> doc._.descriptive_stats
     """
     sentencizers = {"sentencizer", "parser"}
     if not sentencizers.intersection(set(nlp.pipe_names)):

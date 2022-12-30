@@ -42,11 +42,4 @@ Usage
 Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. automodule:: textdescriptives.components.readability
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :private-members:
-
-.. :exclude-members: function
-.. for functions you wish to exclude
+.. autofunction:: textdescriptives.components.readability.create_readability_component

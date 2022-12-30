@@ -40,10 +40,4 @@ Usage
 Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. automodule:: textdescriptives.components.pos_proportions
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. :exclude-members: function
-.. for functions you wish to exclude
+.. autofunction:: textdescriptives.components.pos_proportions.create_pos_stats_component

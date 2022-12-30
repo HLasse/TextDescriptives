@@ -656,11 +656,11 @@ def create_quality_component(
     """Allows Quality to be added to a spaCy pipe using
     nlp.add_pipe("textdescriptives/quality").
 
-    Set the following extensions:
+    Adding this component to a pipeline sets the following attributes:
     - {Span/Doc}._.quality
     - {Span/Doc}._.passed_quality_check
 
-    It is also possible to optionally set the following extensions:
+    It also sets:
     - {Span/Doc}._.lines
     - {Span/Doc}._.paragraphs
 
@@ -679,8 +679,10 @@ def create_quality_component(
         text-to-text transformer. J. Mach. Learn. Res., 21(140), 1-67.
 
     Args:
-        nlp (Language): spaCy language object
-        name (str): name of the component
+        nlp (Language): spaCy language object, does not need to be specified in the
+            nlp.add_pipe call.
+        name (str): name of the component. Can be optionally specified in the
+            nlp.add_pipe call, using the name argument.
         symbols (List[str]): list of symbols for which to calculate the
             proportion the ratio of symbols to words. Defaults to ["#"].
         contains (List[str]): list of strings for which to check whether the
@@ -701,7 +703,7 @@ def create_quality_component(
 
 
     Returns:
-        Callable[[Doc], Doc]: the spaCy component
+        Callable[[Doc], Doc]: the Quality component
 
     Example:
         >>> import spacy
