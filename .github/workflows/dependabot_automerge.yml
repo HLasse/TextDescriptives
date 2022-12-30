@@ -11,7 +11,8 @@ permissions:
 jobs:
   dependabot-automerge:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]'}}
+    # if actor is dependabot or pre-commit-ci[bot] then run
+    if: ${{ github.actor == 'dependabot[bot]' || github.actor == 'pre-commit-ci[bot]' }}
 
     steps:
       # Checkout action is required for token to persist
@@ -22,7 +23,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.DEPENDABOT_AUTOMERGE_TOKEN }}
 
       - name: Auto approve dependabot PRs
-        if: github.actor == 'dependabot[bot]'
+        if: ${{ github.actor == 'dependabot[bot]' || github.actor == 'pre-commit-ci[bot]' }}
         uses: hmarr/auto-approve-action@v2
         with:
           github-token: ${{ secrets.DEPENDABOT_AUTOMERGE_TOKEN }}
