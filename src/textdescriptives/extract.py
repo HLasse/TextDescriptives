@@ -62,9 +62,8 @@ def extract_dict(
             "'metrics' contained invalid metric.\n"
             + f"Valid metrics are: {valid_metrics}",
         )
-
+    extracted_metrics: Dict[str, Any] = {}
     for component in metrics:
-        extracted_metrics: Dict[str, Any] = {}
         if component == "quality":
             extracted_metrics.update(__get_quality(docs))
         elif component == "descriptive_stats":
