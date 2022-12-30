@@ -48,5 +48,5 @@ Usage
 Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. autofunction:: textdescriptives.components.coherence.create_dependency_distance_component
+.. autofunction:: textdescriptives.components.dependency_distance.create_dependency_distance_component
 
