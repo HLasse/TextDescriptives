@@ -31,7 +31,14 @@ def test_extract_df_pipe(nlp):
         "Very exciting to see, don't you think?",
     ]
     docs = nlp.pipe(text)
-    td.extract_df(docs)
+    df = td.extract_df(docs)
+    assert "lix" in df.columns
+    assert "dependency_distance_mean" in df.columns
+    assert "n_stop_words" in df.columns
+    assert "pos_prop_VERB" in df.columns
+    assert "n_tokens" in df.columns
+    assert "first_order_coherence" in df.columns
+    assert len(df) == 2
 
 
 def test_extract_dict_single_doc(nlp):
