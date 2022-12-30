@@ -1,7 +1,8 @@
 Using TextDescriptives
 =======================
 
-Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are *descriptive_stats*, *readability*, *dependency_distance*, *pos_proportions*, *coherence*, and *quality* prefixed with :code:`textdescriptives/`. If you want to add all the components you can use the shorthand :code:`textdescriptives/all`
+Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are *descriptive_stats*, *readability*, *dependency_distance*, *pos_proportions*, *coherence*, and *quality* prefixed with :code:`textdescriptives/`. 
+If you want to add all the components you can use the shorthand :code:`textdescriptives/all`.
 
 
 .. code-block:: python
@@ -28,7 +29,7 @@ You can control which measures to extract with the *metrics* argument.
 
 .. code-block:: python
 
-   td.extract_df(doc, metrics = ["descriptive_stats", "readability", "dependency_distance", "coherence", "quality"])
+   td.extract_df(doc, metrics = ["descriptive_stats", "readability", "dependency_distance", "pos_proportions", "coherence", "quality"])
 
 .. note::
    By default, the :code:`extract_X` functions adds a column containing the text. You can change this behaviour by setting :code:`include_text = False`.

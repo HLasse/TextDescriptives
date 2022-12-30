@@ -30,3 +30,4 @@ sphinxext-opengraph>=0.7.3,<0.7.4
 myst-nb>=0.6.0,<1.17.0
 sphinx_design>=0.3.0,<0.3.1
 autodoc_pydantic>=1.1.0,<1.9.0
+myst-nb>=0.17.0

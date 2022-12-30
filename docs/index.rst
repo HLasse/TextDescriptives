@@ -44,6 +44,7 @@ please use the discussion Forums.
 
    installation
    usingthepackage
+   tutorial
 
 
 
