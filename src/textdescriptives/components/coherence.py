@@ -1,4 +1,4 @@
-from typing import List
+from typing import Callable, List
 
 import numpy as np
 from spacy.language import Language
@@ -97,11 +97,31 @@ class Coherence:
         "doc._.coherence",
     ],
 )
-def create_coherence_component(nlp: Language, name: str):
+def create_coherence_component(nlp: Language, name: str) -> Callable[[Doc], Doc]:
     """Allows Coherence to be added to a spaCy pipe using
     nlp.add_pipe("textdescriptives/coherence").
 
-    If the pipe does not contain a parser or sentencizer, the
-    sentencizer component is silently added.
+    Adding this component to a pipeline sets the following attributes:
+        - doc._.first_order_coherence_values
+        - doc._.second_order_coherence_values
+        - doc._.coherence
+
+    Args:
+        nlp (Language): spaCy language object, does not need to be specified in the
+            nlp.add_pipe call.
+        name (str): name of the component. Can be optionally specified in the
+            nlp.add_pipe call, using the name argument.
+
+    Returns:
+        Callable[[Doc], Doc]: The Coherence component to be added to the pipe.
+
+    Examples:
+        >>> import spacy
+        >>> nlp = spacy.load("en_core_web_md")
+        >>> nlp.add_pipe("textdescriptives/coherence")
+        >>> # apply the pipeline to a text
+        >>> doc = nlp("This is a sentence. This is another sentence.")
+        >>> # get coherence values
+        >>> doc._.coherence
     """
     return Coherence(nlp)

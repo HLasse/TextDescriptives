@@ -1,6 +1,6 @@
 """Calculation of statistics that require a pos-tagger in the pipeline."""
 
-from typing import Counter, Union
+from typing import Callable, Counter, Union
 
 from spacy.language import Language
 from spacy.tokens import Doc, Span
@@ -55,9 +55,37 @@ class POSProportions:
     assigns=["doc._.pos_proportions", "span._.pos_proportions"],
     default_config={"use_pos": True},
 )
-def create_pos_stats_component(nlp: Language, name: str, use_pos: bool) -> Language:
+def create_pos_stats_component(
+    nlp: Language,
+    name: str,
+    use_pos: bool,
+) -> Callable[[Doc], Doc]:
     """Allows PosPropotions to be added to a spaCy pipe using
-    nlp.add_pipe("textdescriptives/pos_proportions")"""
+    nlp.add_pipe("textdescriptives/pos_proportions")
+
+    Adding this component to a pipeline sets the following attributes:
+        - `doc._.pos_proportions`
+        - `span._.pos_proportions`
+
+    Args:
+        nlp (Language): spaCy language object, does not need to be specified in the
+            nlp.add_pipe call.
+        name (str): name of the component. Can be optionally specified in the
+            nlp.add_pipe call, using the name argument.
+        use_pos: If True, uses the simple token.pos attribute. If False, uses the
+            detailed token.tag attribute.
+
+    Returns:
+        Callable[[Doc], Doc]: The POSProportions component to be added to the pipe.
+
+    Example:
+        >>> import spacy
+        >>> nlp = spacy.load("en_core_web_sm")
+        >>> nlp.add_pipe("textdescriptives/pos_proportions")
+        >>> # apply the component to a document
+        >>> doc = nlp("This is a test sentence.")
+        >>> doc._.pos_proportions
+    """
 
     tagger = {"tagger", "attribute_ruler"}
     if not tagger.intersection(set(nlp.pipe_names)):

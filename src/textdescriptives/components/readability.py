@@ -1,5 +1,6 @@
 """Calculation of various readability metrics."""
-from typing import Dict
+import warnings
+from typing import Callable, Dict
 
 import numpy as np
 from spacy.language import Language
@@ -157,15 +158,36 @@ class Readability:
 
 
 @Language.factory("textdescriptives/readability", assigns=["doc._.readability"])
-def create_readability_component(nlp: Language, name: str):
+def create_readability_component(nlp: Language, name: str) -> Callable[[Doc], Doc]:
     """Allows Readability to be added to a spaCy pipe using
     nlp.add_pipe("textdescriptives/readability").
 
     Readability requires attributes from DescriptiveStatistics and adds
     it to the pipe if it not already loaded.
+
+    Adding this component to a pipeline sets the following attributes:
+        - doc._.readability
+
+    Args:
+        nlp (Language): spaCy language object, does not need to be specified in the
+            nlp.add_pipe call.
+        name (str): name of the component. Can be optionally specified in the
+            nlp.add_pipe call, using the name argument.
+
+    Returns:
+        Callable[[Doc], Doc]: The Readability component
+
+    Example:
+        >>> import spacy
+        >>> import textdescriptives as td
+        >>> nlp = spacy.blank("en")
+        >>> nlp.add_pipe("textdescriptives/readability")
+        >>> # apply the pipeline to a document
+        >>> doc = nlp("This is a test document.")
+        >>> doc._.readability
     """
     if "textdescriptives/descriptive_stats" not in nlp.pipe_names:
-        print(
+        warnings.warn(
             "'textdescriptives/descriptive_stats' component is required for"
             + " 'textdescriptives.readability'. Adding to pipe.",
         )

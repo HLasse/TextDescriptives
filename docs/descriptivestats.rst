@@ -61,10 +61,4 @@ Usage
 Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. automodule:: textdescriptives.components.descriptive_stats
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. :exclude-members: function
-.. for functions you wish to exclude
+.. autofunction:: textdescriptives.components.descriptive_stats.create_descriptive_stats_component
