@@ -27,8 +27,7 @@ The documentation is organized in two parts:
 
    installation
    usingthepackage
-
-
+   faq
 
 .. toctree::
    :maxdepth: 3
@@ -40,10 +39,6 @@ The documentation is organized in two parts:
    posstats
    quality
    coherence
-
-.. add more references here
-
-
 
 .. toctree::
   GitHub Repository <https://github.com/hlasse/TextDescriptives>
