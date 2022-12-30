@@ -38,9 +38,11 @@ class QualityThresholds(BaseModel):
     symbol_to_word_ratio: Dict[str, Interval] = Field(
         {"#": (None, 0.1)},
         description="A dict of symbols and the allowed range for the "
-        + r"symbol-to-word-ratio. Default: {'#': (None, 0.1)} i.e. no lower limit, "
-        + r"but at most 10% of words start with a hashtag. Values not in the dict "
-        + "are not checked.",
+        + r"symbol-to-word-ratio. The symbol-to-word-ratio is the ratio between symbol"
+        + "occurrence and word occurrence. Defaults to {'#': (None, 0.1)} i.e. no lower"
+        + r" limit, but there must at most be a ratio of 0.1 between the number of of "
+        + "words and hashtags. i.e. if we have 100 words the symbol should appear no "
+        + "more than 10 times. Values not in the dict are not checked.",
     )
     proportion_ellipsis: Interval = Field(
         (None, 0.3),
