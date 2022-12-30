@@ -3,16 +3,16 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<meta property="og:title" content="TextDescriptives" />
+<meta property="og:title" content="Frequently Asked Questions" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="index.html" />
+<meta property="og:url" content="faq.html" />
 <meta property="og:site_name" content="textdescriptives" />
-<meta property="og:description" content="TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several d..." />
-<meta name="description" content="TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several d..." />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation" href="installation.html" />
+<meta property="og:description" content="How do I test the code and run the test suite?: This package comes with test suite to ensure functionality of the package. To run the tests, you should clone the repository, then install the packag..." />
+<meta name="description" content="How do I test the code and run the test suite?: This package comes with test suite to ensure functionality of the package. To run the tests, you should clone the repository, then install the packag..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Descriptive Statistics" href="descriptivestats.html" /><link rel="prev" title="Using TextDescriptives" href="usingthepackage.html" />
 
     <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
-        <title>textdescriptives 2.0.0 documentation</title>
+        <title>Frequently Asked Questions - textdescriptives 2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -137,7 +137,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">textdescriptives 2.0.0 documentation</div></a>
+      <a href="index.html"><div class="brand">textdescriptives 2.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -157,7 +157,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="_static/icon.png" alt="Light Logo"/>
@@ -172,12 +172,12 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Using TextDescriptives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using specific components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available attributes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Frequently Asked Questions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Package References</span></p>
 <ul>
@@ -224,108 +224,50 @@
           </label>
         </div>
         <article role="main">
-          <section id="textdescriptives">
-<h1>TextDescriptives<a class="headerlink" href="#textdescriptives" title="Permalink to this heading">#</a></h1>
-<a class="reference external image-reference" href="https://github.com/hlasse/textdescriptives"><img alt="https://img.shields.io/github/stars/hlasse/textdescriptives.svg?style=social&amp;label=Star&amp;maxAge=2592000" src="https://img.shields.io/github/stars/hlasse/textdescriptives.svg?style=social&amp;label=Star&amp;maxAge=2592000" /></a>
-<p>TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions.
-TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance.</p>
-<section id="news">
-<h2>📰 News<a class="headerlink" href="#news" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>TextDescriptives has been completely re-implemented using spaCy v.3.0. The stanza implementation can be found in the <a class="reference external" href="https://github.com/HLasse/TextDescriptives/tree/stanza_version">stanza_version branch</a> and will no longer be maintained.</p></li>
-</ul>
-</section>
-<section id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">#</a></h2>
-<p>The documentation is organized in two parts:</p>
-<ul class="simple">
-<li><p><strong>Getting Started</strong> contains the installation instructions, guides, and tutorials on how to use the package.</p></li>
-<li><p><strong>Package References</strong> contains the documentation of each public class and function.</p></li>
-</ul>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-from-source">Installing from source</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Using TextDescriptives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using specific components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available attributes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-test-the-code-and-run-the-test-suite">How do I test the code and run the test suite?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#does-this-package-run-on-x">Does this package run on X?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#how-is-the-documentation-generated">How is the documentation generated?</a></li>
-</ul>
-</li>
-</ul>
+          <section id="frequently-asked-questions">
+<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">#</a></h1>
+<section id="how-do-i-test-the-code-and-run-the-test-suite">
+<h2>How do I test the code and run the test suite?<a class="headerlink" href="#how-do-i-test-the-code-and-run-the-test-suite" title="Permalink to this heading">#</a></h2>
+<p>This package comes with test suite to ensure functionality of the package.
+To run the tests, you should clone the repository, then install the package using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span><span class="p">[</span><span class="n">style</span><span class="p">,</span><span class="n">tests</span><span class="p">]</span>
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="descriptivestats.html#usage">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="descriptivestats.html#component">Component</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="descriptivestats.html#textdescriptives.components.descriptive_stats.create_descriptive_stats_component"><code class="docutils literal notranslate"><span class="pre">create_descriptive_stats_component()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="readability.html#usage">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="readability.html#component">Component</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="readability.html#textdescriptives.components.readability.create_readability_component"><code class="docutils literal notranslate"><span class="pre">create_readability_component()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="dependencydistance.html">Dependency Distance</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dependencydistance.html#usage">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dependencydistance.html#component">Component</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Proportions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="posstats.html#usage">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="posstats.html#component">Component</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="posstats.html#textdescriptives.components.pos_proportions.create_pos_stats_component"><code class="docutils literal notranslate"><span class="pre">create_pos_stats_component()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="quality.html">Quality</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quality.html#usage">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quality.html#component">Component</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="quality.html#textdescriptives.components.quality.create_quality_component"><code class="docutils literal notranslate"><span class="pre">create_quality_component()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="quality.html#data-classes">Data Classes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="quality.html#textdescriptives.components.quality.QualityThresholds"><code class="docutils literal notranslate"><span class="pre">QualityThresholds</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="coherence.html">Coherence</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="coherence.html#component">Component</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="coherence.html#textdescriptives.components.coherence.create_coherence_component"><code class="docutils literal notranslate"><span class="pre">create_coherence_component()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<p>This will install the required dependencies for running test as well as packages for linting. These are specified in the <code class="code docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file.
+Following this installation you can run the test suite using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span>
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
-</ul>
+<p>which will run all the test in the <code class="code docutils literal notranslate"><span class="pre">tests</span></code> folder.</p>
+<p>Specific tests can be run using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="n">tests</span><span class="o">/</span><span class="n">desired_test</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>If you want to check code coverage you can run the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="o">--</span><span class="n">cov</span><span class="o">=.</span>
+</pre></div>
 </div>
 </section>
+<section id="does-this-package-run-on-x">
+<h2>Does this package run on X?<a class="headerlink" href="#does-this-package-run-on-x" title="Permalink to this heading">#</a></h2>
+<p>This package is intended to run on all major OS, this includes Windows (latest version), MacOS (latest) and the latest version of Linux (Ubuntu).
+Similarly it also tested on python 3.7, 3.8, and 3.9.
+Please note these are only the systems this package is being actively tested on, if you run on a similar system (e.g. an earlier version of Linux) DaCy
+will likely run there as well, if not please create an issue.</p>
 </section>
-<section id="indices-and-search">
-<h1>Indices and search<a class="headerlink" href="#indices-and-search" title="Permalink to this heading">#</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
+<section id="how-is-the-documentation-generated">
+<h2>How is the documentation generated?<a class="headerlink" href="#how-is-the-documentation-generated" title="Permalink to this heading">#</a></h2>
+<p>This package uses <a class="reference external" href="https://www.sphinx-doc.org/en/master/index.html">sphinx</a> to generate documentation. It uses the <a class="reference external" href="https://github.com/pradyunsg/furo">Furo</a> theme with custom styling.</p>
+<p>To make the documentation you can run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># install sphinx, themes and extensions</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;.[docs]&quot;</span>
+
+<span class="c1"># generate html from documentations</span>
+
+<span class="n">make</span> <span class="o">-</span><span class="n">C</span> <span class="n">docs</span> <span class="n">html</span>
+</pre></div>
+</div>
+</section>
 </section>
 
         </article>
@@ -333,16 +275,26 @@ TextDescriptives can be used to calculate several descriptive statistics, readab
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="installation.html">
+          <a class="next-page" href="descriptivestats.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Installation</div>
+                <div class="title">Descriptive Statistics</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          
+          <a class="prev-page" href="usingthepackage.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Using TextDescriptives</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -373,14 +325,12 @@ TextDescriptives can be used to calculate several descriptive statistics, readab
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">TextDescriptives</a><ul>
-<li><a class="reference internal" href="#news">📰 News</a></li>
-<li><a class="reference internal" href="#contents">Contents</a><ul>
+<li><a class="reference internal" href="#">Frequently Asked Questions</a><ul>
+<li><a class="reference internal" href="#how-do-i-test-the-code-and-run-the-test-suite">How do I test the code and run the test suite?</a></li>
+<li><a class="reference internal" href="#does-this-package-run-on-x">Does this package run on X?</a></li>
+<li><a class="reference internal" href="#how-is-the-documentation-generated">How is the documentation generated?</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a class="reference internal" href="#indices-and-search">Indices and search</a></li>
 </ul>
 
           </div>
