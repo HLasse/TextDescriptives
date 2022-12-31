@@ -3,16 +3,16 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<meta property="og:title" content="TextDescriptives" />
+<meta property="og:title" content="Tutorials" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="index.html" />
+<meta property="og:url" content="tutorial.html" />
 <meta property="og:site_name" content="textdescriptives" />
-<meta property="og:description" content="TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several d..." />
-<meta name="description" content="TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several d..." />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation" href="installation.html" />
+<meta property="og:description" content="To get started using the package, we recommend going through the tutorials in the order listed below. Each tutorial is also a Jupyter notebook which you can download and run locally. Tutorials: Int..." />
+<meta name="description" content="To get started using the package, we recommend going through the tutorials in the order listed below. Each tutorial is also a Jupyter notebook which you can download and run locally. Tutorials: Int..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Introductory Tutorial" href="tutorials/introductory_tutorial.html" /><link rel="prev" title="Using TextDescriptives" href="usingthepackage.html" />
 
     <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
-        <title>textdescriptives 2.0.0 documentation</title>
+        <title>Tutorials - textdescriptives 2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -139,7 +139,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">textdescriptives 2.0.0 documentation</div></a>
+      <a href="index.html"><div class="brand">textdescriptives 2.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -150,7 +150,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -159,7 +159,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="_static/icon.png" alt="Light Logo"/>
@@ -174,12 +174,12 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Using TextDescriptives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using specific components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available attributes</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 </ul>
 </li>
@@ -224,63 +224,27 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="textdescriptives">
-<h1>TextDescriptives<a class="headerlink" href="#textdescriptives" title="Permalink to this heading">#</a></h1>
-<a class="reference external image-reference" href="https://github.com/hlasse/textdescriptives"><img alt="https://img.shields.io/github/stars/hlasse/textdescriptives.svg?style=social&amp;label=Star&amp;maxAge=2592000" src="https://img.shields.io/github/stars/hlasse/textdescriptives.svg?style=social&amp;label=Star&amp;maxAge=2592000" /></a>
-<p>TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions.
-TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance.</p>
-<p>The documentation is organized in two parts:</p>
-<ul class="simple">
-<li><p><strong>Getting Started</strong> contains the installation instructions, guides, and tutorials on how to use the package.</p></li>
-<li><p><strong>Package References</strong> contains the documentation of each public class and function.</p></li>
+          <section id="tutorials">
+<h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this heading">#</a></h1>
+<p>To get started using the package, we recommend going through the tutorials in the order
+listed below. Each tutorial is also a Jupyter notebook which you can download and run
+locally.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/introductory_tutorial.html">Introductory Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/introductory_tutorial.html#sms-dataset">SMS dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/introductory_tutorial.html#id1"></a></li>
 </ul>
-<section id="where-to-ask-questions">
-<h2>Where to ask questions?<a class="headerlink" href="#where-to-ask-questions" title="Permalink to this heading">#</a></h2>
-<p>To ask report issues or request features, please use the
-<a class="reference external" href="https://github.com/HLasse/TextDescriptives/issues">GitHub Issue Tracker</a>.
-Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum. Otherwise,
-please use the discussion Forums.</p>
-<div class="table-wrapper docutils container">
-<table class="docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p>Type</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><strong>Bug Reports</strong></p></td>
-<td><p><a class="reference external" href="https://github.com/HLasse/TextDescriptives/issues">GitHub Issue Tracker</a></p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Feature Requests &amp; Ideas</strong></p></td>
-<td><p><a class="reference external" href="https://github.com/HLasse/TextDescriptives/issues">GitHub Issue Tracker</a></p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Usage Questions</strong></p></td>
-<td><p><a class="reference external" href="https://github.com/HLasse/TextDescriptives/discussions">GitHub Discussions</a></p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>General Discussion</strong></p></td>
-<td><p><a class="reference external" href="https://github.com/HLasse/TextDescriptives/discussions">GitHub Discussions</a></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-</section>
-</section>
-<section id="indices-and-search">
-<h1>Indices and search<a class="headerlink" href="#indices-and-search" title="Permalink to this heading">#</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</li>
 </ul>
+</div>
 </section>
 
         </article>
@@ -288,16 +252,26 @@ please use the discussion Forums.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="installation.html">
+          <a class="next-page" href="tutorials/introductory_tutorial.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Installation</div>
+                <div class="title">Introductory Tutorial</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          
+          <a class="prev-page" href="usingthepackage.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Using TextDescriptives</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -316,30 +290,8 @@ please use the discussion Forums.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">TextDescriptives</a><ul>
-<li><a class="reference internal" href="#where-to-ask-questions">Where to ask questions?</a><ul>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#indices-and-search">Indices and search</a></li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

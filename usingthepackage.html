@@ -7,9 +7,9 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="usingthepackage.html" />
 <meta property="og:site_name" content="textdescriptives" />
-<meta property="og:description" content="Import the library and add the component to your pipeline using the string name of the “textdescriptives” component factory: The calculated metrics can be conveniently extracted to a Pandas DataFra..." />
-<meta name="description" content="Import the library and add the component to your pipeline using the string name of the “textdescriptives” component factory: The calculated metrics can be conveniently extracted to a Pandas DataFra..." />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Frequently Asked Questions" href="faq.html" /><link rel="prev" title="Installation" href="installation.html" />
+<meta property="og:description" content="Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are descriptive_stats, readability, dependency_distance, pos_proportions, coherenc..." />
+<meta name="description" content="Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are descriptive_stats, readability, dependency_distance, pos_proportions, coherenc..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tutorials" href="tutorial.html" /><link rel="prev" title="Installation" href="installation.html" />
 
     <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
         <title>Using TextDescriptives - textdescriptives 2.0.0 documentation</title>
@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -177,6 +179,10 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Using TextDescriptives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#using-specific-components">Using specific components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#available-attributes">Available attributes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Package References</span></p>
@@ -226,12 +232,12 @@
         <article role="main">
           <section id="using-textdescriptives">
 <h1>Using TextDescriptives<a class="headerlink" href="#using-textdescriptives" title="Permalink to this heading">#</a></h1>
-<p>Import the library and add the component to your pipeline using the string name of the “textdescriptives” component factory:</p>
+<p>Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are <em>descriptive_stats</em>, <em>readability</em>, <em>dependency_distance</em>, <em>pos_proportions</em>, <em>coherence</em>, and <em>quality</em> prefixed with <code class="code docutils literal notranslate"><span class="pre">textdescriptives/</span></code>.
+If you want to add all the components you can use the shorthand <code class="code docutils literal notranslate"><span class="pre">textdescriptives/all</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
 <span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
-<span class="c1"># or only load the component:</span>
 <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
-<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/all&quot;</span><span class="p">)</span>
 <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.&quot;</span><span class="p">)</span>
 
 <span class="c1"># access some of the values</span>
@@ -239,13 +245,13 @@
 <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">token_length</span>
 </pre></div>
 </div>
-<p>The calculated metrics can be conveniently extracted to a Pandas DataFrame using the <code class="code docutils literal notranslate"><span class="pre">extract_df</span></code> function or a dictionary using the <code class="code docutils literal notranslate"><span class="pre">extract_dict</span></code> function.</p>
+<p>The calculated metrics can be conveniently extracted to a Pandas DataFrame using the <code class="code docutils literal notranslate"><span class="pre">extract_df</span></code> function or to a dictionary using the <code class="code docutils literal notranslate"><span class="pre">extract_dict</span></code> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 <span class="n">td</span><span class="o">.</span><span class="n">extract_dict</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can control which measures to extract with the <em>metrics</em> argument.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;descriptive_stats&quot;</span><span class="p">,</span> <span class="s2">&quot;readability&quot;</span><span class="p">,</span> <span class="s2">&quot;dependency_distance&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;descriptive_stats&quot;</span><span class="p">,</span> <span class="s2">&quot;readability&quot;</span><span class="p">,</span> <span class="s2">&quot;dependency_distance&quot;</span><span class="p">,</span> <span class="s2">&quot;pos_proportions&quot;</span><span class="p">,</span> <span class="s2">&quot;coherence&quot;</span><span class="p">,</span> <span class="s2">&quot;quality&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -261,22 +267,15 @@
 </section>
 <section id="using-specific-components">
 <h1>Using specific components<a class="headerlink" href="#using-specific-components" title="Permalink to this heading">#</a></h1>
-<p>TextDescriptives includes 3 components that can be used individually: <em>descriptive_stats</em>, <em>readability</em>, and <em>dependency_distance</em>.
+<p>TextDescriptives includes 6 components that can be used individually:<em>descriptive_stats</em>, <em>readability</em>, <em>dependency_distance</em>, <em>pos_proportions</em>, <em>coherence</em>, and <em>quality</em>.
 This can be helpful if you’re only interested in e.g. readabiltiy metrics or descriptive statistics and don’t to run a dependency parser.
 If you have imported the TextDesriptives package you can add them to a pipe using the standard spaCy syntax.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;da&quot;</span><span class="p">)</span>
-<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;descriptive_stats&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/descriptive_stats&quot;</span><span class="p">)</span>
 <span class="n">docs</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">([</span><span class="s1">&#39;Da jeg var atten, tog jeg patent på ild. Det skulle senere vise sig at blive en meget indbringende forretning&#39;</span><span class="p">,</span>
          <span class="s2">&quot;Spis skovsneglen, Mulle. Du vil jo gerne være med i hulen, ikk&#39;?&quot;</span><span class="p">])</span>
 <span class="c1"># extract_df is clever enough to only extract metrics that are in the Doc</span>
 <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">include_text</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>If you don’t to import the entire TextDescriptives library (although it is very lightweight), you can import only the components you need.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">textdescriptives</span> <span class="kn">import</span> <span class="p">(</span><span class="n">DescriptiveStatistics</span><span class="p">,</span>
-                              <span class="n">Readability</span><span class="p">,</span>
-                              <span class="n">DependencyDistance</span><span class="p">,</span>
-                              <span class="n">TextDecriptives</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -322,6 +321,22 @@ For more details on each metrics, see the following sections in the documentatio
 <td><p><cite>dependency_distance</cite></p></td>
 <td><p>Dict containing the mean and standard deviation of the dependency distance and proportion adjacent dependency relations in the Doc.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">Doc._.pos_proportions</span></code></p></td>
+<td><p><cite>pos_proportions</cite></p></td>
+<td><p>Dict containing the proportion of each part-of-speech tag in the Doc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">Doc._.coherence</span></code></p></td>
+<td><p><cite>coherence</cite></p></td>
+<td><p>Dict containing the first and second order coherence scores for the Doc.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">Doc._.quality</span></code></p></td>
+<td><p><cite>quality</cite></p></td>
+<td><p>Dict containing the quality scores for the Doc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">Doc._.passed_quality_check</span></code></p></td>
+<td><p><cite>quality</cite></p></td>
+<td><p>Boolean indicator of whether the doc passed the quality check.</p></td>
+</tr>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">Span._.token_length</span></code></p></td>
 <td><p><cite>descriptive_stats</cite></p></td>
 <td><p>Dict containing mean, median, and std of token length in the span.</p></td>
@@ -334,7 +349,11 @@ For more details on each metrics, see the following sections in the documentatio
 <td><p><cite>dependency_distance</cite></p></td>
 <td><p>Dict containing the mean dependency distance and proportion adjacent dependency relations in the Doc.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">Token._.dependency_distance</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">Span._.quality</span></code></p></td>
+<td><p><cite>quality</cite></p></td>
+<td><p>Dict containing the quality scores for the Span.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">Token._.dependency_distance</span></code></p></td>
 <td><p><cite>dependency_distance</cite></p></td>
 <td><p>Dict containing the dependency distance and whether the head word is adjacent for a Token.</p></td>
 </tr>
@@ -348,12 +367,12 @@ For more details on each metrics, see the following sections in the documentatio
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="faq.html">
+          <a class="next-page" href="tutorial.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Frequently Asked Questions</div>
+                <div class="title">Tutorials</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -398,5 +417,6 @@ For more details on each metrics, see the following sections in the documentatio
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
     </body>
 </html>

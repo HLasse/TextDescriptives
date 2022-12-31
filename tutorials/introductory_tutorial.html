@@ -1,0 +1,716 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Introductory Tutorial" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="tutorials/introductory_tutorial.html" />
+<meta property="og:site_name" content="textdescriptives" />
+<meta property="og:description" content="TextDescriptives lets you quickly and easily calculate a large variety of statistics and metrics from texts. The package includes a number of components that make it easy to only spend time extract..." />
+<meta name="description" content="TextDescriptives lets you quickly and easily calculate a large variety of statistics and metrics from texts. The package includes a number of components that make it easy to only spend time extract..." />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Frequently Asked Questions" href="../faq.html" /><link rel="prev" title="Tutorials" href="../tutorial.html" />
+
+    <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
+        <title>Introductory Tutorial - textdescriptives 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #ff5454;
+  --color-brand-content: #ff7575;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff8f8f;
+  --color-brand-content: #ff8f8f;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">textdescriptives 2.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/icon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/icon_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usingthepackage.html">Using TextDescriptives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usingthepackage.html#using-specific-components">Using specific components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usingthepackage.html#available-attributes">Available attributes</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorial.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Introductory Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../descriptivestats.html">Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../readability.html">Readability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencydistance.html">Dependency Distance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../posstats.html">Part-of-Speech Proportions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quality.html">Quality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coherence.html">Coherence</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="introductory-tutorial">
+<h1>Introductory Tutorial<a class="headerlink" href="#introductory-tutorial" title="Permalink to this heading">#</a></h1>
+<p>TextDescriptives lets you quickly and easily calculate a large variety of statistics and metrics from texts.</p>
+<p>The package includes a number of components that make it easy to only spend time extracting exactly the metrics you care about.</p>
+<p>This tutorial introduces some of components available in TextDescriptives and how you can use them to quickly analyse a text corpus.
+For more information on the components, see the <a class="reference external" href="https://hlasse.github.io/TextDescriptives/">documentation</a>.</p>
+<section id="sms-dataset">
+<h2>SMS dataset<a class="headerlink" href="#sms-dataset" title="Permalink to this heading">#</a></h2>
+<p>In this tutorial we’ll use TextDescriptives to get a quick overview of the <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection">SMS Spam Collection Data Set</a>.
+The dataset contains 5572 SMS messages categorized as ham or spam.</p>
+<p>To start, let’s load a <code class="docutils literal notranslate"><span class="pre">spacy</span></code> pipeline and add some components to it.</p>
+</section>
+<section id="id1">
+<h2><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/dependency_distance&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">spacy</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/dependency_distance&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/__init__.py:54,</span> in <span class="ni">load</span><span class="nt">(name, vocab, disable, enable, exclude, config)</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span>     <span class="n">name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span>     <span class="o">*</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span>     <span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Config</span><span class="p">]</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">SimpleFrozenDict</span><span class="p">(),</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">39</span>     <span class="sd">&quot;&quot;&quot;Load a spaCy model from an installed package or a local path.</span>
+<span class="g g-Whitespace">     </span><span class="mi">40</span><span class="sd"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">41</span><span class="sd">     name (str): Package name or model path.</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">52</span><span class="sd">     RETURNS (Language): The loaded nlp object.</span>
+<span class="g g-Whitespace">     </span><span class="mi">53</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">54</span>     <span class="k">return</span> <span class="n">util</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span>         <span class="n">name</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span>         <span class="n">vocab</span><span class="o">=</span><span class="n">vocab</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span>         <span class="n">disable</span><span class="o">=</span><span class="n">disable</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span>         <span class="n">enable</span><span class="o">=</span><span class="n">enable</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span>         <span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span>         <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span>     <span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:439,</span> in <span class="ni">load_model</span><span class="nt">(name, vocab, disable, enable, exclude, config)</span>
+<span class="g g-Whitespace">    </span><span class="mi">437</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">OLD_MODEL_SHORTCUTS</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span>     <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">Errors</span><span class="o">.</span><span class="n">E941</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">full</span><span class="o">=</span><span class="n">OLD_MODEL_SHORTCUTS</span><span class="p">[</span><span class="n">name</span><span class="p">]))</span>  <span class="c1"># type: ignore[index]</span>
+<span class="ne">--&gt; </span><span class="mi">439</span> <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">Errors</span><span class="o">.</span><span class="n">E050</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">))</span>
+
+<span class="ne">OSError</span>: [E050] Can&#39;t find model &#39;en_core_web_sm&#39;. It doesn&#39;t seem to be a Python package or a valid path to a data directory.
+</pre></div>
+</div>
+</div>
+</div>
+<p>From now on, whenever we pass a document through the spacy pipeline (<code class="docutils literal notranslate"><span class="pre">nlp</span></code>), TextDescriptives will add readability and dependency distance metrics to the document.</p>
+<p>Let’s load the data and pass it through the pipeline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">textdescriptives.utils</span> <span class="kn">import</span> <span class="n">load_sms_data</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">load_sms_data</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ham</td>
+      <td>Go until jurong point, crazy.. Available only ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ham</td>
+      <td>Ok lar... Joking wif u oni...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>spam</td>
+      <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ham</td>
+      <td>U dun say so early hor... U c already then say...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ham</td>
+      <td>Nah I don't think he goes to usf, he lives aro...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ham     4825
+spam     747
+Name: label, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="c1"># muting a bunch of numpy warnings due to very short texts</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">include_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># join the metrics to the original dataframe</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s all we need to do! Let’s take a look at the dataframe and the metrics we have calculated</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>message</th>
+      <th>token_length_mean</th>
+      <th>token_length_median</th>
+      <th>token_length_std</th>
+      <th>sentence_length_mean</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
+      <th>...</th>
+      <th>smog</th>
+      <th>gunning_fog</th>
+      <th>automated_readability_index</th>
+      <th>coleman_liau_index</th>
+      <th>lix</th>
+      <th>rix</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ham</td>
+      <td>Go until jurong point, crazy.. Available only ...</td>
+      <td>4.150000</td>
+      <td>5.0</td>
+      <td>1.904600</td>
+      <td>6.666667</td>
+      <td>5.0</td>
+      <td>2.357023</td>
+      <td>1.250000</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>3.1291</td>
+      <td>2.666667</td>
+      <td>1.449833</td>
+      <td>4.162000</td>
+      <td>11.666667</td>
+      <td>0.333333</td>
+      <td>2.119048</td>
+      <td>0.639763</td>
+      <td>0.344877</td>
+      <td>0.064145</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ham</td>
+      <td>Ok lar... Joking wif u oni...</td>
+      <td>3.000000</td>
+      <td>3.0</td>
+      <td>1.527525</td>
+      <td>3.000000</td>
+      <td>3.0</td>
+      <td>1.000000</td>
+      <td>1.166667</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>1.200000</td>
+      <td>-5.800000</td>
+      <td>-8.026667</td>
+      <td>3.000000</td>
+      <td>0.000000</td>
+      <td>1.233333</td>
+      <td>0.566667</td>
+      <td>0.533333</td>
+      <td>0.133333</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>spam</td>
+      <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
+      <td>4.392857</td>
+      <td>4.0</td>
+      <td>3.298693</td>
+      <td>14.000000</td>
+      <td>14.0</td>
+      <td>2.000000</td>
+      <td>1.178571</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>5.600000</td>
+      <td>6.260357</td>
+      <td>7.915714</td>
+      <td>28.285714</td>
+      <td>2.000000</td>
+      <td>2.976891</td>
+      <td>0.094538</td>
+      <td>0.485294</td>
+      <td>0.014706</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ham</td>
+      <td>U dun say so early hor... U c already then say...</td>
+      <td>3.000000</td>
+      <td>3.0</td>
+      <td>1.758098</td>
+      <td>5.500000</td>
+      <td>5.5</td>
+      <td>0.500000</td>
+      <td>1.000000</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>2.200000</td>
+      <td>-4.550000</td>
+      <td>-3.541818</td>
+      <td>14.590909</td>
+      <td>0.500000</td>
+      <td>1.452381</td>
+      <td>0.119048</td>
+      <td>0.535714</td>
+      <td>0.035714</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ham</td>
+      <td>Nah I don't think he goes to usf, he lives aro...</td>
+      <td>3.461538</td>
+      <td>3.0</td>
+      <td>1.598816</td>
+      <td>13.000000</td>
+      <td>13.0</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>5.200000</td>
+      <td>1.373846</td>
+      <td>2.276923</td>
+      <td>13.000000</td>
+      <td>0.000000</td>
+      <td>2.066667</td>
+      <td>0.000000</td>
+      <td>0.400000</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 28 columns</p>
+</div></div></div>
+</div>
+<p>Let’s do some quick exploratory data analysis to get a sense of the data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;lix&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/6c359fab9bd4c4758a8be741f12ee391491588af38e3757bfb24f7ba048d9964.png" src="../_images/6c359fab9bd4c4758a8be741f12ee391491588af38e3757bfb24f7ba048d9964.png" />
+</div>
+</div>
+<p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># encode the label as a boolean</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ham&quot;</span>
+<span class="c1"># compute the correlation between all metrics and the label</span>
+<span class="n">metrics_correlations</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">abs</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">metrics_correlations</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>token_length_std              -0.409000
+n_characters                  -0.408325
+n_unique_tokens               -0.363069
+coleman_liau_index            -0.317732
+dependency_distance_std       -0.313342
+automated_readability_index   -0.310453
+n_tokens                      -0.298789
+token_length_mean             -0.294734
+sentence_length_std           -0.293698
+rix                           -0.284293
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s some pretty high correlations - let’s plot a few of them!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot a kde plot for the top 3 metrics</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">metric</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">metrics_correlations</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">3</span><span class="p">]):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a89ae13c47c32d2eb9502ad221846fa31f8d4c298a4490cee224378e033e2574.png" src="../_images/a89ae13c47c32d2eb9502ad221846fa31f8d4c298a4490cee224378e033e2574.png" />
+</div>
+</div>
+<p>Cool! We’ve now done a quick analysis of the SMS dataset and found the distributions of e.g. the standard deviation of token length, the number of characters, and the number of unique tokens to be distributed differently between the actual SMS’s and spam.</p>
+<p>Next steps could be continue the exploratory data analysis or to build a simple classifier using the extracted metrics.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../faq.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Frequently Asked Questions</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../tutorial.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Tutorials</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Introductory Tutorial</a><ul>
+<li><a class="reference internal" href="#sms-dataset">SMS dataset</a></li>
+<li><a class="reference internal" href="#id1"></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    </body>
+</html>

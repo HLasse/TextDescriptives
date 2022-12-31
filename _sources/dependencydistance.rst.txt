@@ -23,7 +23,7 @@ Usage
    import spacy
    import textdescriptives as td
    nlp = spacy.load("en_core_web_sm")
-   nlp.add_pipe("textdescriptives.dependency_distance") 
+   nlp.add_pipe("textdescriptives/dependency_distance") 
    doc = nlp("The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.")
 
    # all attributes are stored as a dict in the ._.dependency_distance attribute
@@ -48,5 +48,5 @@ Usage
 Component
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. autofunction:: textdescriptives.components.coherence.create_dependency_distance_component
+.. autofunction:: textdescriptives.components.dependency_distance.create_dependency_distance_component
 
