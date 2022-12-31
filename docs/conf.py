@@ -60,7 +60,7 @@ autodoc_pydantic_model_show_field_summary = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "furo"  # "press", "sphinx_rtd_theme", "furo"
+html_theme = "furo"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -69,11 +69,7 @@ html_static_path = ["_static"]
 
 html_show_sourcelink = True
 
-source_suffix = {
-    ".rst": "restructuredtext",
-    ".md": "markdown",
-    ".ipynb": "myst-nb",
-}
+source_suffix = {".rst": "restructuredtext", ".md": "markdown", ".ipynb": "myst-nb"}
 
 html_context = {
     "display_github": True,  # Add 'Edit on Github' link instead of 'View page source'
