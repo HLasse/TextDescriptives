@@ -6,7 +6,9 @@
    "source": [
     "# Introductory Tutorial\n",
     "\n",
-    "## [Open in Colab](https://colab.research.google.com/github/HLasse/TextDescriptives/blob/main/docs/tutorials/introductory_tutorial.ipynb)\n",
+    "<a target=\"_blank\" href=\"https://colab.research.google.com/github/HLasse/TextDescriptives/blob/main/docs/tutorials/introductory_tutorial.ipynb\">\n",
+    "  <img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/>\n",
+    "</a>\n",
     "\n",
     "TextDescriptives lets you quickly and easily calculate a large variety of statistics and metrics from texts. \n",
     "\n",
