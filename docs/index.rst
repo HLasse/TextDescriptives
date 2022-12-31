@@ -45,8 +45,7 @@ please use the discussion Forums.
    installation
    usingthepackage
    tutorial
-
-
+   faq
 
 .. toctree::
    :maxdepth: 2
@@ -67,3 +66,9 @@ please use the discussion Forums.
    GitHub Repository <https://github.com/hlasse/TextDescriptives>
 
    
+
+Indices and search
+==================
+
+* :ref:`genindex`
+* :ref:`search`

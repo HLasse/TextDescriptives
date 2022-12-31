@@ -17,6 +17,7 @@ from .books import (
     oliver_twist,
     secret_garden,
 )
+import textdescriptives as td  # noqa: F401
 
 
 @pytest.fixture(scope="function")
