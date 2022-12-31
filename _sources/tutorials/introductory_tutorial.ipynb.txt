@@ -36,12 +36,7 @@
     "try:\n",
     "    import textdescriptives\n",
     "except:\n",
-    "    !pip install textdescriptives\n",
-    "\n",
-    "try:\n",
-    "    import seaborn\n",
-    "except:\n",
-    "    !pip install seaborn"
+    "    !pip install textdescriptives[tutorials]"
    ]
   },
   {
