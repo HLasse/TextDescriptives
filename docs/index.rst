@@ -6,32 +6,51 @@ TextDescriptives
 
 TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. 
 TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance. 
-
-📰 News
----------------------------------
-
-* TextDescriptives has been completely re-implemented using spaCy v.3.0. The stanza implementation can be found in the `stanza_version branch <https://github.com/HLasse/TextDescriptives/tree/stanza_version>`_ and will no longer be maintained. 
-
-
-Contents
----------------------------------
   
 The documentation is organized in two parts:
 
 - **Getting Started** contains the installation instructions, guides, and tutorials on how to use the package.
 - **Package References** contains the documentation of each public class and function.
 
+
+Where to ask questions?
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+To ask report issues or request features, please use the
+`GitHub Issue Tracker <https://github.com/HLasse/TextDescriptives/issues>`__.
+Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum. Otherwise,
+please use the discussion Forums.
+
++------------------------------+-------------------------+
+| Type                         |                         |
++------------------------------+-------------------------+
+| **Bug Reports**              | `GitHub Issue Tracker`_ |
++------------------------------+-------------------------+
+| **Feature Requests & Ideas** | `GitHub Issue Tracker`_ |
++------------------------------+-------------------------+
+| **Usage Questions**          | `GitHub Discussions`_   |
++------------------------------+-------------------------+
+| **General Discussion**       | `GitHub Discussions`_   |
++------------------------------+-------------------------+
+
+
+.. _GitHub Issue Tracker: https://github.com/HLasse/TextDescriptives/issues
+.. _GitHub Discussions: https://github.com/HLasse/TextDescriptives/discussions
+
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Getting Started
+   :hidden:
 
    installation
    usingthepackage
+   tutorial
    faq
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Package References
+   :hidden:
 
    descriptivestats
    readability
@@ -40,8 +59,11 @@ The documentation is organized in two parts:
    quality
    coherence
 
+
 .. toctree::
-  GitHub Repository <https://github.com/hlasse/TextDescriptives>
+   :hidden:
+   
+   GitHub Repository <https://github.com/hlasse/TextDescriptives>
 
    
 
