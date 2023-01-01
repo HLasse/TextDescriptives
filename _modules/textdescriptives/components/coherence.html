@@ -231,7 +231,7 @@
 
 
 <span class="k">def</span> <span class="nf">n_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate coherence for a `Doc` for a given order.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate coherence for a `Doc` for a given order.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        doc: A `Doc` object.</span>
@@ -263,11 +263,11 @@
 
 
 <span class="k">class</span> <span class="nc">Coherence</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Spacy v.3.0 component that adds attributes with coherence to `Doc` and</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Spacy v.3.0 component that adds attributes with coherence to `Doc` and</span>
 <span class="sd">    `Span` objects.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialise component.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialise component.&quot;&quot;&quot;</span>
         <span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">&quot;first_order_coherence_values&quot;</span><span class="p">,</span>
             <span class="s2">&quot;second_order_coherence_values&quot;</span><span class="p">,</span>
@@ -279,18 +279,18 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_first_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate first order coherence for a `Doc`, i.e. the semantic</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate first order coherence for a `Doc`, i.e. the semantic</span>
 <span class="sd">        similarity between consecutive sentences.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">n_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_second_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate second order coherence for a `Doc`, i.e. the semantic</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate second order coherence for a `Doc`, i.e. the semantic</span>
 <span class="sd">        similarity between sentences that are two sentences apart.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">n_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">coherence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate mean semantic coherence for a `Doc` and set the coherence</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate mean semantic coherence for a `Doc` and set the coherence</span>
 <span class="sd">        attribute.</span>
 
 <span class="sd">        Coherence is calculated by taking the mean of the similarity</span>
@@ -317,7 +317,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">doc</span>
 
@@ -331,7 +331,7 @@
     <span class="p">],</span>
 <span class="p">)</span>
 <span class="k">def</span> <span class="nf">create_coherence_component</span><span class="p">(</span><span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Allows Coherence to be added to a spaCy pipe using</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Allows Coherence to be added to a spaCy pipe using</span>
 <span class="sd">    nlp.add_pipe(&quot;textdescriptives/coherence&quot;).</span>
 
 <span class="sd">    Adding this component to a pipeline sets the following attributes:</span>

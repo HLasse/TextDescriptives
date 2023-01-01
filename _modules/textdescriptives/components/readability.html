@@ -236,19 +236,19 @@
 
 
 <span class="k">class</span> <span class="nc">Readability</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;spaCy v.3.0 component for adding readability metrics to `Doc` objects.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;spaCy v.3.0 component for adding readability metrics to `Doc` objects.</span>
 
 <span class="sd">    Extracts metrics and returns them as a dictionary as the</span>
 <span class="sd">    ._.readability attribute.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialise components.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialise components.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;readability&quot;</span><span class="p">):</span>
             <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;readability&quot;</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">readability</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_flesch_reading_ease</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculate the Flesch Reading Ease score for a document. The equation</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the Flesch Reading Ease score for a document. The equation</span>
 <span class="sd">        for the Flesch Reading Ease score is:</span>
 
 <span class="sd">        206.835 - (1.015 X avg sent len) - (84.6 * avg_syl_per_word)</span>
@@ -263,7 +263,7 @@
         <span class="k">return</span> <span class="n">score</span>
 
     <span class="k">def</span> <span class="nf">_flesch_kincaid_grade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculate the Flesch-Kincaid grade of the document. The equation for</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the Flesch-Kincaid grade of the document. The equation for</span>
 <span class="sd">        the Flesch-Kincaid grade is:</span>
 
 <span class="sd">        0.39 * (avg sent len) + 11.8 * (avg_syl_per_word) - 15.59</span>
@@ -276,7 +276,7 @@
         <span class="k">return</span> <span class="n">score</span>
 
     <span class="k">def</span> <span class="nf">_smog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">n_hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculate the SMOG index of the document. The equation for the SMOG</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the SMOG index of the document. The equation for the SMOG</span>
 <span class="sd">        index is:</span>
 
 <span class="sd">        1.043( sqrt(30 * (hard words /n sentences)) + 3.1291</span>
@@ -291,7 +291,7 @@
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
     <span class="k">def</span> <span class="nf">_gunning_fog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">n_hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculates the Gunning Fog index of the document. The equation for</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the Gunning Fog index of the document. The equation for</span>
 <span class="sd">        the Gunning Fog index is:</span>
 
 <span class="sd">        Grade level = 0.4 * ((avg_sentence_length) + (percentage hard words))</span>
@@ -306,7 +306,7 @@
         <span class="k">return</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="p">(</span><span class="n">avg_sent_len</span> <span class="o">+</span> <span class="n">percent_hard_words</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_automated_readability_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculates the Automated Readability Index of the document. The</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the Automated Readability Index of the document. The</span>
 <span class="sd">        equation for the Automated Readability Index is:</span>
 
 <span class="sd">        4.71 * (n_chars / n_words) + 0.5 * (n_words / n_sentences) - 21.43</span>
@@ -323,7 +323,7 @@
         <span class="k">return</span> <span class="n">score</span>
 
     <span class="k">def</span> <span class="nf">_coleman_liau_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculates the Colmean-Liau index of the document. The equation for</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the Colmean-Liau index of the document. The equation for</span>
 <span class="sd">        the Coleman-Liau index is:</span>
 
 <span class="sd">        score = 0.0588 * avg number of chars pr 100 words - 0.296 * avg num of sents pr</span>
@@ -339,7 +339,7 @@
         <span class="k">return</span> <span class="mf">0.0588</span> <span class="o">*</span> <span class="n">lengths</span> <span class="o">-</span> <span class="mf">0.296</span> <span class="o">*</span> <span class="n">s</span> <span class="o">-</span> <span class="mf">15.8</span>
 
     <span class="k">def</span> <span class="nf">_lix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">long_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculates the LIX index of the document. The equation for the LIX</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the LIX index of the document. The equation for the LIX</span>
 <span class="sd">        index is:</span>
 
 <span class="sd">        (n_words / n_sentences) + (n_words longer than 6 characters * 100) / n_words</span>
@@ -351,7 +351,7 @@
         <span class="k">return</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">&quot;sentence_length_mean&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">percent_long_words</span>
 
     <span class="k">def</span> <span class="nf">_rix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">long_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculates the RIX index of the document. The equation for the RIX</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the RIX index of the document. The equation for the RIX</span>
 <span class="sd">        index is:</span>
 
 <span class="sd">        (n_words longer than 6 characters / n_sentences)</span>
@@ -362,7 +362,7 @@
         <span class="k">return</span> <span class="n">long_words</span> <span class="o">/</span> <span class="n">n_sentences</span>
 
     <span class="k">def</span> <span class="nf">readability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Apply readability functions and return a dict of the results.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply readability functions and return a dict of the results.&quot;&quot;&quot;</span>
         <span class="n">hard_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">syllable</span> <span class="k">for</span> <span class="n">syllable</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_syllables</span> <span class="k">if</span> <span class="n">syllable</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">])</span>
         <span class="n">long_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">filter_tokens</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">])</span>
 
@@ -378,13 +378,13 @@
         <span class="p">}</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">doc</span>
 
 
 <div class="viewcode-block" id="create_readability_component"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.create_readability_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">,</span> <span class="n">assigns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;doc._.readability&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">create_readability_component</span><span class="p">(</span><span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Allows Readability to be added to a spaCy pipe using</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Allows Readability to be added to a spaCy pipe using</span>
 <span class="sd">    nlp.add_pipe(&quot;textdescriptives/readability&quot;).</span>
 
 <span class="sd">    Readability requires attributes from DescriptiveStatistics and adds</span>

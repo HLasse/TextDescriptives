@@ -237,7 +237,7 @@
 
 
 <div class="viewcode-block" id="QualityThresholds"><a class="viewcode-back" href="../../../quality.html#textdescriptives.components.quality.QualityThresholds">[docs]</a><span class="k">class</span> <span class="nc">QualityThresholds</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Thresholds for quality metrics.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Thresholds for quality metrics.&quot;&quot;&quot;</span>
 
     <span class="n">n_stop_words</span><span class="p">:</span> <span class="n">Interval</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
@@ -330,7 +330,7 @@
 
 
 <span class="k">def</span> <span class="nf">n_stop_words</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Count the number of stop words in a document.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Count the number of stop words in a document.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Union[Doc, Span]): A spaCy Doc or Span object</span>
@@ -342,7 +342,7 @@
 
 
 <span class="k">def</span> <span class="nf">mean_word_length</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the mean word length of a document.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the mean word length of a document.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Union[Doc, Span]): A spaCy Doc or Span object</span>
@@ -357,7 +357,7 @@
 
 
 <span class="k">def</span> <span class="nf">alpha_ratio</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;The percentage of spacy tokens in this document which contain at leat</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The percentage of spacy tokens in this document which contain at leat</span>
 <span class="sd">    one alphabetic character.</span>
 
 <span class="sd">    Args:</span>
@@ -383,7 +383,7 @@
     <span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">],</span>
     <span class="n">bullet_point</span><span class="p">:</span> <span class="nb">set</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">},</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the proportion of lines which start with a bullet points in a</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the proportion of lines which start with a bullet points in a</span>
 <span class="sd">    span.</span>
 
 <span class="sd">    Args:</span>
@@ -410,7 +410,7 @@
     <span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">],</span>
     <span class="n">ellipsis</span><span class="p">:</span> <span class="nb">set</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;…&quot;</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the proportion line which ends with an ellipsis in a span.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the proportion line which ends with an ellipsis in a span.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Union[Doc, Span]): A spaCy Doc or Span object</span>
@@ -431,7 +431,7 @@
 
 
 <span class="k">def</span> <span class="nf">get_ranges</span><span class="p">(</span><span class="n">arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Get ranges that evaluate to true a from boolean array, i.e.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get ranges that evaluate to true a from boolean array, i.e.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; get_ranges(np.array([0, 1, 1, 0, 0, 1, 1]))</span>
@@ -451,7 +451,7 @@
 
 
 <span class="k">def</span> <span class="nf">duplicate_paragraph_chr_fraction</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the character fraction of duplicate paragraphs.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the character fraction of duplicate paragraphs.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Union[Doc, Span]): A spaCy Doc or Span object</span>
@@ -478,7 +478,7 @@
 
 
 <span class="k">def</span> <span class="nf">duplicate_line_chr_fraction</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the character fraction of duplicate lines.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the character fraction of duplicate lines.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Union[Doc, Span]): A spaCy Doc or Span object</span>
@@ -505,7 +505,7 @@
 
 
 <span class="k">def</span> <span class="nf">symbol_to_word_ratio</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the ratio of symbols to words in a span.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the ratio of symbols to words in a span.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Union[Span, Doc]): spaCy Span or Doc object</span>
@@ -526,7 +526,7 @@
     <span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span>
     <span class="n">ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Span</span><span class="p">]]]]:</span>
-    <span class="sd">&quot;&quot;&quot;Calculates the counts of n-grams in the specified range.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the counts of n-grams in the specified range.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Union[Span, Doc]): A spaCy Span or Doc object.</span>
@@ -560,7 +560,7 @@
     <span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span>
     <span class="n">ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Calculates the character fraction of duplicate n-gram over the overall</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the character fraction of duplicate n-gram over the overall</span>
 <span class="sd">    text, taking care not to count overlapping n-grams twice. This does not</span>
 <span class="sd">    include spaces between the n-grams.</span>
 
@@ -602,7 +602,7 @@
     <span class="n">ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
     <span class="n">min_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Calculates the character fraction of the top ngrams.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the character fraction of the top ngrams.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Union[Span, Doc]): A spaCy Span or Doc object.</span>
@@ -642,7 +642,7 @@
 
 
 <span class="k">def</span> <span class="nf">contains_string</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Check if a span contains a string.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a span contains a string.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Union[Span, Doc]): A spaCy Span or Doc object.</span>
@@ -655,7 +655,7 @@
 
 
 <span class="k">class</span> <span class="nc">Quality</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;spaCy component for adding text quality metrics to the `Doc` and `Span`</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;spaCy component for adding text quality metrics to the `Doc` and `Span`</span>
 <span class="sd">    objects.</span>
 
 <span class="sd">    Extracts metrics and returns them as a dictionary as the ._.quality</span>
@@ -674,7 +674,7 @@
         <span class="n">quality_thresholds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QualityThresholds</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>  <span class="c1"># noqa: D107</span>
-        <span class="sd">&quot;&quot;&quot;Initialise components.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialise components.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="o">=</span> <span class="n">force</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span> <span class="o">=</span> <span class="n">symbols</span>
@@ -725,7 +725,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">set_extensions</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">quality_getter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="n">Span</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;Apply quality functions to doc.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply quality functions to doc.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            span (Span): spaCy span object</span>
@@ -749,7 +749,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">is_within_range</span><span class="p">(</span><span class="n">rangetuple</span><span class="p">:</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if a value is within a range tuple. If one of the values in</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if a value is within a range tuple. If one of the values in</span>
 <span class="sd">        the range tuple is None it is considered to be unbounded.</span>
 
 <span class="sd">        Args:</span>
@@ -764,7 +764,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">passed_quality_thresholds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="n">Span</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Checks whether a span passed the quality thresholds.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks whether a span passed the quality thresholds.&quot;&quot;&quot;</span>
         <span class="n">quality</span> <span class="o">=</span> <span class="n">span</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">quality</span>
         <span class="n">qt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span>
 
@@ -834,7 +834,7 @@
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">set_extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set required extensions.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set required extensions.&quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">ext_name</span><span class="p">,</span> <span class="n">span_getter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="c1"># doc_getter = span_getter_to_doc_getter(span_getter)</span>
@@ -845,7 +845,7 @@
                 <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">span_getter</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">doc</span>
 
 
@@ -878,7 +878,7 @@
     <span class="n">quality_thresholds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Allows Quality to be added to a spaCy pipe using</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Allows Quality to be added to a spaCy pipe using</span>
 <span class="sd">    nlp.add_pipe(&quot;textdescriptives/quality&quot;).</span>
 
 <span class="sd">    Adding this component to a pipeline sets the following attributes:</span>

@@ -232,7 +232,7 @@
 
 
 <span class="k">class</span> <span class="nc">DependencyDistance</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;spaCy v.3.0 component that adds attributes to `Doc`, `Span`, and `Token`</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;spaCy v.3.0 component that adds attributes to `Doc`, `Span`, and `Token`</span>
 <span class="sd">    objects relating to dependency distance.</span>
 
 <span class="sd">    Dependency distance can be used as a measure of syntactic</span>
@@ -242,7 +242,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialise components.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialise components.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Token</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">):</span>
             <span class="n">Token</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">token_dependency</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">):</span>
@@ -251,7 +251,7 @@
             <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">doc_dependency</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">token_dependency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate token level dependency distance, i.e. the distance from a</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate token level dependency distance, i.e. the distance from a</span>
 <span class="sd">        token to its head token. Also returns a boolean indicating whether the</span>
 <span class="sd">        dependency relation is adjacent to the token.</span>
 
@@ -270,7 +270,7 @@
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;dependency_distance&quot;</span><span class="p">:</span> <span class="n">dep_dist</span><span class="p">,</span> <span class="s2">&quot;adjacent_dependency&quot;</span><span class="p">:</span> <span class="n">ajd_dep</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">span_dependency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="n">Span</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Aggregates token level dependency distance on the span level by</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Aggregates token level dependency distance on the span level by</span>
 <span class="sd">        taking the mean of the dependency distance and the proportion of</span>
 <span class="sd">        adjacent dependency relations.</span>
 
@@ -288,7 +288,7 @@
         <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">doc_dependency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Aggregates token level dependency distance on the document level by</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Aggregates token level dependency distance on the document level by</span>
 <span class="sd">        taking the mean of the dependency distance and the proportion of</span>
 <span class="sd">        adjacent dependency relations on the sentence level.</span>
 
@@ -321,7 +321,7 @@
         <span class="p">}</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">doc</span>
 
 
@@ -337,7 +337,7 @@
     <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Create spaCy language factory that allows DependencyDistance attributes</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create spaCy language factory that allows DependencyDistance attributes</span>
 <span class="sd">    to be added to a pipe using</span>
 <span class="sd">    nlp.add_pipe(&quot;textdescriptives/dependency_distance&quot;)</span>
 

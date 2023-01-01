@@ -234,7 +234,7 @@
 
 
 <span class="k">class</span> <span class="nc">DescriptiveStatistics</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;spaCy v.3.0 component that adds attributes with desriptive statistics to</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;spaCy v.3.0 component that adds attributes with desriptive statistics to</span>
 <span class="sd">    `Doc` and `Span` objects.</span>
 
 <span class="sd">    The attributes relate to token and sentence length, number of</span>
@@ -242,7 +242,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialise components.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialise components.&quot;&quot;&quot;</span>
 
         <span class="n">extensions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;_n_sentences&quot;</span><span class="p">:</span> <span class="n">n_sentences</span><span class="p">,</span>
@@ -266,7 +266,7 @@
                 <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="n">extension_name</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">getter_fun</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">token_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate mean, median and std of token length for a `Doc` or</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate mean, median and std of token length for a `Doc` or</span>
 <span class="sd">        `Span`.</span>
 
 <span class="sd">        Returns:</span>
@@ -281,7 +281,7 @@
         <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">sentence_length</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate mean, median and std of sentence length for a `Doc`.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate mean, median and std of sentence length for a `Doc`.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            dict: sentence_length_mean, sentence_length_median, sentence_length_std</span>
@@ -303,7 +303,7 @@
         <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">syllables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate mean, median and std of syllables per token for a `Doc`.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate mean, median and std of syllables per token for a `Doc`.</span>
 <span class="sd">        Uses `Pyphen` for hyphenation.</span>
 
 <span class="sd">        Returns:</span>
@@ -318,7 +318,7 @@
         <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">counts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">],</span> <span class="n">ignore_whitespace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Calculate counts of tokens, unique tokens, and characters for a</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate counts of tokens, unique tokens, and characters for a</span>
 <span class="sd">        `Doc` or `Span`. Adds number of sentences for `Doc` objects.</span>
 
 <span class="sd">        Args:</span>
@@ -347,14 +347,14 @@
         <span class="k">return</span> <span class="n">out</span>
 
     <span class="k">def</span> <span class="nf">descriptive_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Get all descriptive statistics in a single dict.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get all descriptive statistics in a single dict.&quot;&quot;&quot;</span>
         <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">counts</span><span class="p">,</span> <span class="o">**</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">token_length</span><span class="p">}</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">out</span>
         <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">out</span><span class="p">,</span> <span class="o">**</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">,</span> <span class="o">**</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">syllables</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">doc</span>
 
 
@@ -377,7 +377,7 @@
     <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Allows DescriptiveStatistics to be added to a spaCy pipe using</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Allows DescriptiveStatistics to be added to a spaCy pipe using</span>
 <span class="sd">    nlp.add_pipe(&quot;textdescriptives/descriptive_stats&quot;).</span>
 
 <span class="sd">    Adding the component to the pipe will add the following attributes to</span>
