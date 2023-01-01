@@ -63,6 +63,8 @@ def extract_dict(
             + f"Valid metrics are: {valid_metrics}",
         )
     extracted_metrics: Dict[str, Any] = {}
+    if include_text:
+        extracted_metrics["text"] = docs.text
     for component in metrics:
         if component == "quality":
             extracted_metrics.update(__get_quality(docs))
@@ -70,8 +72,6 @@ def extract_dict(
             extracted_metrics.update(__get_descriptive_stats_dict(docs))
         else:
             extracted_metrics.update(getattr(docs._, component))
-    if include_text:
-        extracted_metrics["text"] = docs.text
 
     return [extracted_metrics]
 
