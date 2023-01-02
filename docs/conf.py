@@ -10,13 +10,6 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath(".."))
-sys.path.insert(0, "..")
-sys.path.insert(0, os.path.abspath("../"))
-
 
 from textdescriptives.about import __version__
 
@@ -40,6 +33,10 @@ extensions = [
     "sphinxext.opengraph",
     "sphinx_copybutton",
     "sphinx.ext.githubpages",
+    "sphinxcontrib.autodoc_pydantic",
+    "myst_nb",
+    "IPython.sphinxext.ipython_console_highlighting",
+    "sphinx_design",
 ]
 
 # autodoc_mock_imports = ["textdescriptives"]
@@ -50,7 +47,15 @@ templates_path = ["_templates"]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "**.ipynb_checkpoints"]
+
+# Autodoc Pydantic
+autodoc_pydantic_model_show_json = False
+autodoc_pydantic_model_show_config = False
+autodoc_pydantic_model_show_field_summary = False
+
+# always fail CI pipeline when nb cannot be executed
+nb_execution_raise_on_error = True
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -58,7 +63,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "furo"  # "press", "sphinx_rtd_theme", "furo"
+html_theme = "furo"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -66,6 +71,8 @@ html_theme = "furo"  # "press", "sphinx_rtd_theme", "furo"
 html_static_path = ["_static"]
 
 html_show_sourcelink = True
+
+source_suffix = {".rst": "restructuredtext", ".md": "markdown", ".ipynb": "myst-nb"}
 
 html_context = {
     "display_github": True,  # Add 'Edit on Github' link instead of 'View page source'
