@@ -11,7 +11,6 @@
 [![DOI](https://zenodo.org/badge/236710916.svg)](https://zenodo.org/badge/latestdoi/236710916)
 
 
-
 A Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance. 
 
 # 🔧 Installation
