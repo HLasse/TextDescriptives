@@ -18,6 +18,20 @@ def n_order_coherence(doc: Doc, order: int) -> List[float]:
     Returns:
         A list of floats representing the semantic similarity between sentences
     """
+    if doc.vector.size == 0:
+        raise ValueError(
+            "Sentence vectors are not available. Thus it is not possible to "
+            + "calculate the coherence between sentences. Please add a component "
+            + "that includes word vectors or sentence embeddings."
+            + "See https://spacy.io/usage/vectors-similarity for more details.",
+        )
+    if not doc.has_annotation("SENT_START"):
+        raise ValueError(
+            "A sentence boundary detector has not been run on this Doc, which is "
+            + "required to calculate coherence. Have you added a model with a "
+            + "sentencizer and word vectors to the pipeline?"
+        )
+
     sents = list(doc.sents)
     if len(sents) < order + 1:
         return [np.nan]
@@ -25,14 +39,6 @@ def n_order_coherence(doc: Doc, order: int) -> List[float]:
     for i, sent in enumerate(sents):
         if i == len(sents) - order:
             break
-        # check if sentence vector is empty
-        if sent.vector.size == 0:
-            raise ValueError(
-                "Sentence vectors are not available. Thus it is not possible to "
-                + "calculate the coherence between sentences. Please add a component "
-                + "that includes word vectors or sentence embeddings."
-                + "See https://spacy.io/usage/vectors-similarity for more details.",
-            )
         similarities.append(sent.similarity(sents[i + order]))
     return similarities
 
