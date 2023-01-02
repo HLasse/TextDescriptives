@@ -26,6 +26,7 @@ The following attributes are added to :code:`Doc` objects.:
   second order coherence (keys: "first_order_coherence", "second_order_coherence")
 
 [1] Bedi, G., Carrillo, F., Cecchi, G. A., Slezak, D. F., Sigman, M., Mota, N. B., Ribeiro, S., Javitt, D. C., Copelli, M., & Corcoran, C. M. (2015). Automated analysis of free speech predicts psychosis onset in high-risk youths. Npj Schizophrenia, 1(1), Article 1. https://doi.org/10.1038/npjschz.2015.30
+
 [2] Parola, A., Lin, J. M., Simonsen, A., Bliksted, V., Zhou, Y., Wang, H., Inoue, L., Koelkebeck, K., & Fusaroli, R. (2022). Speech disturbances in schizophrenia: Assessing cross-linguistic generalizability of NLP automated measures of coherence. Schizophrenia Research. https://doi.org/10.1016/j.schres.2022.07.002
 
 

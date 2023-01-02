@@ -38,13 +38,14 @@ please use the discussion Forums.
 .. _GitHub Discussions: https://github.com/HLasse/TextDescriptives/discussions
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Getting Started
    :hidden:
 
    installation
    usingthepackage
    tutorial
+   news
    faq
 
 .. toctree::
