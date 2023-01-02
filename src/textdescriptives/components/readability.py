@@ -1,10 +1,11 @@
 """Calculation of various readability metrics."""
-import warnings
+
 from typing import Callable, Dict
 
 import numpy as np
 from spacy.language import Language
 from spacy.tokens import Doc
+from wasabi import msg
 
 from .descriptive_stats import create_descriptive_stats_component  # noqa
 from .utils import filter_tokens
@@ -157,8 +158,16 @@ class Readability:
         return doc
 
 
-@Language.factory("textdescriptives/readability", assigns=["doc._.readability"])
-def create_readability_component(nlp: Language, name: str) -> Callable[[Doc], Doc]:
+@Language.factory(
+    "textdescriptives/readability",
+    assigns=["doc._.readability"],
+    default_config={"verbose": True},
+)
+def create_readability_component(
+    nlp: Language,
+    name: str,
+    verbose: bool,
+) -> Callable[[Doc], Doc]:
     """Allows Readability to be added to a spaCy pipe using
     nlp.add_pipe("textdescriptives/readability").
 
@@ -173,6 +182,9 @@ def create_readability_component(nlp: Language, name: str) -> Callable[[Doc], Do
             nlp.add_pipe call.
         name (str): name of the component. Can be optionally specified in the
             nlp.add_pipe call, using the name argument.
+        verbose (bool): Toggle to show a message if the
+            "textdescriptives/descriptive_stats" component is added to the pipeline.
+            Defaults to True.
 
     Returns:
         Callable[[Doc], Doc]: The Readability component
@@ -186,8 +198,8 @@ def create_readability_component(nlp: Language, name: str) -> Callable[[Doc], Do
         >>> doc = nlp("This is a test document.")
         >>> doc._.readability
     """
-    if "textdescriptives/descriptive_stats" not in nlp.pipe_names:
-        warnings.warn(
+    if "textdescriptives/descriptive_stats" not in nlp.pipe_names and verbose:
+        msg.info(  # pylint: disable=logging-not-lazy
             "'textdescriptives/descriptive_stats' component is required for"
             + " 'textdescriptives.readability'. Adding to pipe.",
         )
