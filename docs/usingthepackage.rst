@@ -1,7 +1,7 @@
-Using TextDescriptives
+Quick Start
 =======================
 
-Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are *descriptive_stats*, *readability*, *dependency_distance*, *pos_proportions*, *coherence*, and *quality* prefixed with :code:`textdescriptives/`. 
+Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are :code:`descriptive_stats`, :code:`readability`, :code:`dependency_distance`, :code:`pos_proportions`, :code:`coherence`, and :code:`quality` prefixed with :code:`textdescriptives/`. 
 If you want to add all the components you can use the shorthand :code:`textdescriptives/all`.
 
 
@@ -42,10 +42,10 @@ You can control which measures to extract with the *metrics* argument.
    'He felt that his whole life was some kind of dream and he sometimes wondered whose it was and whether they were enjoying it.'])
    td.extract_df(docs, metrics = "dependency_distance")
 
-Using specific components
+Using Specific Components
 =========================
 
-TextDescriptives includes 6 components that can be used individually:*descriptive_stats*, *readability*, *dependency_distance*, *pos_proportions*, *coherence*, and *quality*. 
+TextDescriptives includes 6 components that can be used individually: :code:`descriptive_stats`, :code:`readability`, :code:`dependency_distance`, :code:`pos_proportions`, :code:`coherence`, and :code:`quality`. 
 This can be helpful if you're only interested in e.g. readabiltiy metrics or descriptive statistics and don't to run a dependency parser.
 If you have imported the TextDesriptives package you can add them to a pipe using the standard spaCy syntax.
 
@@ -60,7 +60,7 @@ If you have imported the TextDesriptives package you can add them to a pipe usin
 
 
 
-Available attributes
+Available Attributes
 ====================
 The table below shows the metrics included in TextDecriptives and the attributes they set on spaCy's :code:`Doc`, :code:`Span`, and :code:`Token` objects.
 For more details on each metrics, see the following sections in the documentation.

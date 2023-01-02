@@ -1,11 +1,11 @@
 Installation
 ==================
-To get started using TextDescriptives you can install it using pip by running the following line in your terminal:
+To get started using TextDescriptives you can install it using pip by running the following line in your terminal. Optional dependendices for running the tutorials, buildings docs, running tests, or linting can be installed using the optional dependencies. 
 
 .. code-block::
 
    pip install textdescriptives
-
+   pip install "textdescriptives[style,tests,docs,tutorials]"
 
 Installing from source
 ^^^^^^^^^^^^^^^^^^^^^^^^^
