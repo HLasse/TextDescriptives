@@ -71,4 +71,3 @@ All the tutorials are located in the `docs/tutorials` folder and can also be fou
 [Getting started]: https://hlasse.github.io/TextDescriptives/usingthepackage.html
 [API References]: https://hlasse.github.io/TextDescriptives/index.html
 [News and changelog]: https://hlasse.github.io/TextDescriptives/news.html
-
