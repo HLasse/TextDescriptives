@@ -270,43 +270,11 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">spacy</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/dependency_distance&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/__init__.py:54,</span> in <span class="ni">load</span><span class="nt">(name, vocab, disable, enable, exclude, config)</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span>     <span class="n">name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span>     <span class="o">*</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span>     <span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Config</span><span class="p">]</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">SimpleFrozenDict</span><span class="p">(),</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Language</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Load a spaCy model from an installed package or a local path.</span>
-<span class="g g-Whitespace">     </span><span class="mi">40</span><span class="sd"> </span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span><span class="sd">     name (str): Package name or model path.</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span><span class="sd">     RETURNS (Language): The loaded nlp object.</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">---&gt; </span><span class="mi">54</span>     <span class="k">return</span> <span class="n">util</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span>         <span class="n">name</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>         <span class="n">vocab</span><span class="o">=</span><span class="n">vocab</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">57</span>         <span class="n">disable</span><span class="o">=</span><span class="n">disable</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">58</span>         <span class="n">enable</span><span class="o">=</span><span class="n">enable</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">59</span>         <span class="n">exclude</span><span class="o">=</span><span class="n">exclude</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">60</span>         <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">61</span>     <span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:439,</span> in <span class="ni">load_model</span><span class="nt">(name, vocab, disable, enable, exclude, config)</span>
-<span class="g g-Whitespace">    </span><span class="mi">437</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">OLD_MODEL_SHORTCUTS</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">438</span>     <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">Errors</span><span class="o">.</span><span class="n">E941</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">full</span><span class="o">=</span><span class="n">OLD_MODEL_SHORTCUTS</span><span class="p">[</span><span class="n">name</span><span class="p">]))</span>  <span class="c1"># type: ignore[index]</span>
-<span class="ne">--&gt; </span><span class="mi">439</span> <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">Errors</span><span class="o">.</span><span class="n">E050</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">))</span>
-
-<span class="ne">OSError</span>: [E050] Can&#39;t find model &#39;en_core_web_sm&#39;. It doesn&#39;t seem to be a Python package or a valid path to a data directory.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-C4">ℹ &#39;textdescriptives/descriptive_stats&#39; component is required for</span>
+<span class=" -Color -Color-C4">&#39;textdescriptives.readability&#39;. Adding to pipe.</span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f6429c0ea10&gt;
 </pre></div>
 </div>
 </div>
@@ -439,17 +407,6 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
-      <th>token_length_mean</th>
-      <th>token_length_median</th>
-      <th>token_length_std</th>
-      <th>sentence_length_mean</th>
-      <th>...</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
@@ -458,6 +415,17 @@ Name: label, dtype: int64
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
+      <th>...</th>
+      <th>syllables_per_token_std</th>
+      <th>n_tokens</th>
+      <th>n_unique_tokens</th>
+      <th>proportion_unique_tokens</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
@@ -465,17 +433,6 @@ Name: label, dtype: int64
       <th>0</th>
       <td>ham</td>
       <td>Go until jurong point, crazy.. Available only ...</td>
-      <td>2.119048</td>
-      <td>0.639763</td>
-      <td>0.344877</td>
-      <td>0.064145</td>
-      <td>4.150000</td>
-      <td>5.0</td>
-      <td>1.904600</td>
-      <td>6.666667</td>
-      <td>...</td>
-      <td>92</td>
-      <td>3</td>
       <td>94.318333</td>
       <td>1.760000</td>
       <td>3.1291</td>
@@ -484,22 +441,22 @@ Name: label, dtype: int64
       <td>4.162000</td>
       <td>11.666667</td>
       <td>0.333333</td>
+      <td>...</td>
+      <td>0.433013</td>
+      <td>20</td>
+      <td>20</td>
+      <td>1.000000</td>
+      <td>92</td>
+      <td>3</td>
+      <td>2.119048</td>
+      <td>0.639763</td>
+      <td>0.344877</td>
+      <td>0.064145</td>
     </tr>
     <tr>
       <th>1</th>
       <td>ham</td>
       <td>Ok lar... Joking wif u oni...</td>
-      <td>1.233333</td>
-      <td>0.566667</td>
-      <td>0.533333</td>
-      <td>0.133333</td>
-      <td>3.000000</td>
-      <td>3.0</td>
-      <td>1.527525</td>
-      <td>3.000000</td>
-      <td>...</td>
-      <td>24</td>
-      <td>2</td>
       <td>105.090000</td>
       <td>-0.653333</td>
       <td>NaN</td>
@@ -508,22 +465,22 @@ Name: label, dtype: int64
       <td>-8.026667</td>
       <td>3.000000</td>
       <td>0.000000</td>
+      <td>...</td>
+      <td>0.372678</td>
+      <td>6</td>
+      <td>6</td>
+      <td>1.000000</td>
+      <td>24</td>
+      <td>2</td>
+      <td>1.233333</td>
+      <td>0.566667</td>
+      <td>0.533333</td>
+      <td>0.133333</td>
     </tr>
     <tr>
       <th>2</th>
       <td>spam</td>
       <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
-      <td>2.976891</td>
-      <td>0.094538</td>
-      <td>0.485294</td>
-      <td>0.014706</td>
-      <td>4.392857</td>
-      <td>4.0</td>
-      <td>3.298693</td>
-      <td>14.000000</td>
-      <td>...</td>
-      <td>128</td>
-      <td>2</td>
       <td>92.917857</td>
       <td>3.777143</td>
       <td>NaN</td>
@@ -532,22 +489,22 @@ Name: label, dtype: int64
       <td>7.915714</td>
       <td>28.285714</td>
       <td>2.000000</td>
+      <td>...</td>
+      <td>0.382993</td>
+      <td>28</td>
+      <td>24</td>
+      <td>0.857143</td>
+      <td>128</td>
+      <td>2</td>
+      <td>2.976891</td>
+      <td>0.094538</td>
+      <td>0.485294</td>
+      <td>0.014706</td>
     </tr>
     <tr>
       <th>3</th>
       <td>ham</td>
       <td>U dun say so early hor... U c already then say...</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
-      <td>3.000000</td>
-      <td>3.0</td>
-      <td>1.758098</td>
-      <td>5.500000</td>
-      <td>...</td>
-      <td>39</td>
-      <td>2</td>
       <td>116.652500</td>
       <td>-1.645000</td>
       <td>NaN</td>
@@ -556,22 +513,22 @@ Name: label, dtype: int64
       <td>-3.541818</td>
       <td>14.590909</td>
       <td>0.500000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>11</td>
+      <td>9</td>
+      <td>0.818182</td>
+      <td>39</td>
+      <td>2</td>
+      <td>1.452381</td>
+      <td>0.119048</td>
+      <td>0.535714</td>
+      <td>0.035714</td>
     </tr>
     <tr>
       <th>4</th>
       <td>ham</td>
       <td>Nah I don't think he goes to usf, he lives aro...</td>
-      <td>2.066667</td>
-      <td>0.000000</td>
-      <td>0.400000</td>
-      <td>0.000000</td>
-      <td>3.461538</td>
-      <td>3.0</td>
-      <td>1.598816</td>
-      <td>13.000000</td>
-      <td>...</td>
-      <td>49</td>
-      <td>1</td>
       <td>109.040000</td>
       <td>1.280000</td>
       <td>NaN</td>
@@ -579,6 +536,17 @@ Name: label, dtype: int64
       <td>1.373846</td>
       <td>2.276923</td>
       <td>13.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>13</td>
+      <td>12</td>
+      <td>0.923077</td>
+      <td>49</td>
+      <td>1</td>
+      <td>2.066667</td>
+      <td>0.000000</td>
+      <td>0.400000</td>
       <td>0.000000</td>
     </tr>
   </tbody>
