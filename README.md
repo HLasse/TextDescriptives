@@ -5,7 +5,7 @@
 # TextDescriptives
 
 [![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
-[![github actions pytest](https://github.com/hlasse/textdescriptives/actions/workflows/test_and_release.yml/badge.svg)](https://github.com/hlasse/textdescriptives/actions)
+[![github actions pytest](https://github.com/hlasse/textdescriptives/actions/workflows/release.yml/badge.svg)](https://github.com/hlasse/textdescriptives/actions)
 [![github actions docs](https://github.com/hlasse/textdescriptives/actions/workflows/documentation.yml/badge.svg)](https://hlasse.github.io/TextDescriptives/)
 ![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/hlasse/24ee79064ca9d49616cbc410da65cee2/raw/badge-textdescriptives-pytest-coverage.json)
 [![DOI](https://zenodo.org/badge/236710916.svg)](https://zenodo.org/badge/latestdoi/236710916)
