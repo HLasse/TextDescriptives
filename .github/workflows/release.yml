@@ -4,6 +4,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_run:
+    workflows: ["Tests"]
+    types:
+      - completed
 
 jobs:
   release:
