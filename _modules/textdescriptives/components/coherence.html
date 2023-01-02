@@ -169,16 +169,17 @@
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html">Using TextDescriptives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#using-specific-components">Using specific components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#available-attributes">Available attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#using-specific-components">Using Specific Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../readability.html">Readability</a></li>
@@ -243,6 +244,20 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A list of floats representing the semantic similarity between sentences</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Sentence vectors are not available. Thus it is not possible to &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;calculate the coherence between sentences. Please add a component &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;that includes word vectors or sentence embeddings.&quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;See https://spacy.io/usage/vectors-similarity for more details.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">doc</span><span class="o">.</span><span class="n">has_annotation</span><span class="p">(</span><span class="s2">&quot;SENT_START&quot;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;A sentence boundary detector has not been run on this Doc, which is &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;required to calculate coherence. Have you added a model with a &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;sentencizer and word vectors to the pipeline?&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
     <span class="n">sents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sents</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
@@ -250,14 +265,6 @@
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sent</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sents</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">sents</span><span class="p">)</span> <span class="o">-</span> <span class="n">order</span><span class="p">:</span>
             <span class="k">break</span>
-        <span class="c1"># check if sentence vector is empty</span>
-        <span class="k">if</span> <span class="n">sent</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Sentence vectors are not available. Thus it is not possible to &quot;</span>
-                <span class="o">+</span> <span class="s2">&quot;calculate the coherence between sentences. Please add a component &quot;</span>
-                <span class="o">+</span> <span class="s2">&quot;that includes word vectors or sentence embeddings.&quot;</span>
-                <span class="o">+</span> <span class="s2">&quot;See https://spacy.io/usage/vectors-similarity for more details.&quot;</span><span class="p">,</span>
-            <span class="p">)</span>
         <span class="n">similarities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sent</span><span class="o">.</span><span class="n">similarity</span><span class="p">(</span><span class="n">sents</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">order</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">similarities</span>
 
@@ -301,8 +308,14 @@
         <span class="n">second_order_coherence</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_second_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 
         <span class="c1"># get mean of coherence values</span>
-        <span class="n">first_order_coherence_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">first_order_coherence</span><span class="p">)</span>
-        <span class="n">second_order_coherence_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">second_order_coherence</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_order_coherence</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">first_order_coherence_mean</span> <span class="o">=</span> <span class="n">first_order_coherence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">first_order_coherence_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">first_order_coherence</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">second_order_coherence</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">second_order_coherence_mean</span> <span class="o">=</span> <span class="n">second_order_coherence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">second_order_coherence_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">second_order_coherence</span><span class="p">)</span>
 
         <span class="c1"># set attributes</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="p">,</span> <span class="s2">&quot;first_order_coherence_values&quot;</span><span class="p">,</span> <span class="n">first_order_coherence</span><span class="p">)</span>

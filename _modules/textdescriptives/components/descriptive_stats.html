@@ -169,16 +169,17 @@
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html">Using TextDescriptives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#using-specific-components">Using specific components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#available-attributes">Available attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#using-specific-components">Using Specific Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../readability.html">Readability</a></li>
@@ -274,6 +275,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">token_lengths</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">filter_tokens</span><span class="p">(</span><span class="n">doc</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">token_lengths</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;token_length_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;token_length_median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;token_length_std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="p">}</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;token_length_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">token_lengths</span><span class="p">),</span>
             <span class="s2">&quot;token_length_median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">token_lengths</span><span class="p">),</span>
@@ -296,6 +303,12 @@
             <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">sents</span>
         <span class="p">]</span>
         <span class="n">len_sentences</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">tokenized_sentences</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">len_sentences</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;sentence_length_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;sentence_length_median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;sentence_length_std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="p">}</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;sentence_length_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">len_sentences</span><span class="p">),</span>
             <span class="s2">&quot;sentence_length_median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">len_sentences</span><span class="p">),</span>
@@ -311,6 +324,12 @@
 <span class="sd">                syllables_per_token_std</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n_syllables</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_n_syllables</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">n_syllables</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;syllables_per_token_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;syllables_per_token_median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;syllables_per_token_std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="p">}</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;syllables_per_token_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">n_syllables</span><span class="p">),</span>
             <span class="s2">&quot;syllables_per_token_median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">n_syllables</span><span class="p">),</span>
@@ -382,16 +401,17 @@
 
 <span class="sd">    Adding the component to the pipe will add the following attributes to</span>
 <span class="sd">    `Doc` and `Span` objects:</span>
-<span class="sd">        - `doc._.n_sentences`</span>
-<span class="sd">        - `doc._.n_tokens`</span>
-<span class="sd">        - `doc._.token_length`</span>
-<span class="sd">        - `doc._.sentence_length`</span>
-<span class="sd">        - `doc._.syllables`</span>
-<span class="sd">        - `doc._.counts`</span>
-<span class="sd">        - `doc._.descriptive_stats`</span>
-<span class="sd">        - `span._.token_length`</span>
-<span class="sd">        - `span._.counts`</span>
-<span class="sd">        - `span._.descriptive_stats`</span>
+
+<span class="sd">    - `doc._.n_sentences`</span>
+<span class="sd">    - `doc._.n_tokens`</span>
+<span class="sd">    - `doc._.token_length`</span>
+<span class="sd">    - `doc._.sentence_length`</span>
+<span class="sd">    - `doc._.syllables`</span>
+<span class="sd">    - `doc._.counts`</span>
+<span class="sd">    - `doc._.descriptive_stats`</span>
+<span class="sd">    - `span._.token_length`</span>
+<span class="sd">    - `span._.counts`</span>
+<span class="sd">    - `span._.descriptive_stats`</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        nlp (Language): spaCy language object, does not need to be specified in the</span>

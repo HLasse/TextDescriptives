@@ -4,23 +4,26 @@ Descriptive Statistics
 The *descriptive_stats* component extracts a number of descriptive statistics. 
 The following attributes are added:
 
-* ._.counts (:code:`Doc` & :code:`Span`) 
-  
+* :code:`{Doc/Span}._.counts`
+
   *  Number of tokens.
   *  Number of unique tokens.
   *  Proportion unique tokens.
   *  Number of characters.
-* ._.sentence_length(:code:`Doc`)
+
+* :code:`{Doc/Span}._.sentence_length`
 
   * Mean sentence length.
   * Median sentence length.
   * Std of sentence length.
-* ._.syllables(:code:`Doc`)
+
+* :code:`{Doc/Span}._.syllables`
 
   * Mean number of syllables per token.
   * Median number of syllables per token.
   * Std of number of syllables per token.
-* ._.token_length(:code:`Doc` & :code:`Span`) 
+
+* :code:`{Doc/Span}._.token_length`
   
   * Mean token length.
   * Median token length.

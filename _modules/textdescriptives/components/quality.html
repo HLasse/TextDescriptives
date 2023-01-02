@@ -169,16 +169,17 @@
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html">Using TextDescriptives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#using-specific-components">Using specific components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#available-attributes">Available attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#using-specific-components">Using Specific Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../readability.html">Readability</a></li>
@@ -882,10 +883,12 @@
 <span class="sd">    nlp.add_pipe(&quot;textdescriptives/quality&quot;).</span>
 
 <span class="sd">    Adding this component to a pipeline sets the following attributes:</span>
+
 <span class="sd">    - {Span/Doc}._.quality</span>
 <span class="sd">    - {Span/Doc}._.passed_quality_check</span>
 
 <span class="sd">    It also sets:</span>
+
 <span class="sd">    - {Span/Doc}._.lines</span>
 <span class="sd">    - {Span/Doc}._.paragraphs</span>
 
@@ -896,12 +899,12 @@
 <span class="sd">    out low quality text from large text corpora.</span>
 
 <span class="sd">    References:</span>
-<span class="sd">    [1] Rae, J. W., Borgeaud, S., Cai, T., Millican, K., Hoffmann, J., Song, F., ... &amp;</span>
-<span class="sd">        Irving, G. (2021). Scaling language models: Methods, analysis &amp; insights from</span>
-<span class="sd">        training gopher. arXiv preprint arXiv:2112.11446.</span>
-<span class="sd">    [2] Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., ... &amp;</span>
-<span class="sd">        Liu, P. J. (2020). Exploring the limits of transfer learning with a unified</span>
-<span class="sd">        text-to-text transformer. J. Mach. Learn. Res., 21(140), 1-67.</span>
+<span class="sd">    - [1] Rae, J. W., Borgeaud, S., Cai, T., Millican, K., Hoffmann, J., Song, F., ... &amp;</span>
+<span class="sd">    Irving, G. (2021). Scaling language models: Methods, analysis &amp; insights from</span>
+<span class="sd">    training gopher. arXiv preprint arXiv:2112.11446.</span>
+<span class="sd">    - [2] Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., ... &amp;</span>
+<span class="sd">    Liu, P. J. (2020). Exploring the limits of transfer learning with a unified</span>
+<span class="sd">    text-to-text transformer. J. Mach. Learn. Res., 21(140), 1-67.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        nlp (Language): spaCy language object, does not need to be specified in the</span>

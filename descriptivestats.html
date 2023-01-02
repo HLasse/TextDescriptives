@@ -7,8 +7,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="descriptivestats.html" />
 <meta property="og:site_name" content="textdescriptives" />
-<meta property="og:description" content="The descriptive_stats component extracts a number of descriptive statistics. The following attributes are added:._.counts ( Doc& Span)- Number of tokens., Number of unique tokens., Proportion uniqu..." />
-<meta name="description" content="The descriptive_stats component extracts a number of descriptive statistics. The following attributes are added:._.counts ( Doc& Span)- Number of tokens., Number of unique tokens., Proportion uniqu..." />
+<meta property="og:description" content="The descriptive_stats component extracts a number of descriptive statistics. The following attributes are added:{Doc/Span}._.counts- Number of tokens., Number of unique tokens., Proportion unique t..." />
+<meta name="description" content="The descriptive_stats component extracts a number of descriptive statistics. The following attributes are added:{Doc/Span}._.counts- Number of tokens., Number of unique tokens., Proportion unique t..." />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Readability" href="readability.html" /><link rel="prev" title="Frequently Asked Questions" href="faq.html" />
 
     <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
@@ -176,16 +176,17 @@
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Using TextDescriptives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using specific components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using Specific Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
 <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
@@ -235,7 +236,7 @@
 <p>The <em>descriptive_stats</em> component extracts a number of descriptive statistics.
 The following attributes are added:</p>
 <ul class="simple">
-<li><p>._.counts (<code class="code docutils literal notranslate"><span class="pre">Doc</span></code> &amp; <code class="code docutils literal notranslate"><span class="pre">Span</span></code>)</p>
+<li><p><code class="code docutils literal notranslate"><span class="pre">{Doc/Span}._.counts</span></code></p>
 <ul>
 <li><p>Number of tokens.</p></li>
 <li><p>Number of unique tokens.</p></li>
@@ -243,21 +244,21 @@ The following attributes are added:</p>
 <li><p>Number of characters.</p></li>
 </ul>
 </li>
-<li><p>._.sentence_length(<code class="code docutils literal notranslate"><span class="pre">Doc</span></code>)</p>
+<li><p><code class="code docutils literal notranslate"><span class="pre">{Doc/Span}._.sentence_length</span></code></p>
 <ul>
 <li><p>Mean sentence length.</p></li>
 <li><p>Median sentence length.</p></li>
 <li><p>Std of sentence length.</p></li>
 </ul>
 </li>
-<li><p>._.syllables(<code class="code docutils literal notranslate"><span class="pre">Doc</span></code>)</p>
+<li><p><code class="code docutils literal notranslate"><span class="pre">{Doc/Span}._.syllables</span></code></p>
 <ul>
 <li><p>Mean number of syllables per token.</p></li>
 <li><p>Median number of syllables per token.</p></li>
 <li><p>Std of number of syllables per token.</p></li>
 </ul>
 </li>
-<li><p>._.token_length(<code class="code docutils literal notranslate"><span class="pre">Doc</span></code> &amp; <code class="code docutils literal notranslate"><span class="pre">Span</span></code>)</p>
+<li><p><code class="code docutils literal notranslate"><span class="pre">{Doc/Span}._.token_length</span></code></p>
 <ul>
 <li><p>Mean token length.</p></li>
 <li><p>Median token length.</p></li>
@@ -339,8 +340,7 @@ The following attributes are added:</p>
 nlp.add_pipe(“textdescriptives/descriptive_stats”).</p>
 <p>Adding the component to the pipe will add the following attributes to
 <cite>Doc</cite> and <cite>Span</cite> objects:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p><cite>doc._.n_sentences</cite></p></li>
 <li><p><cite>doc._.n_tokens</cite></p></li>
 <li><p><cite>doc._.token_length</cite></p></li>
@@ -352,7 +352,6 @@ nlp.add_pipe(“textdescriptives/descriptive_stats”).</p>
 <li><p><cite>span._.counts</cite></p></li>
 <li><p><cite>span._.descriptive_stats</cite></p></li>
 </ul>
-</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

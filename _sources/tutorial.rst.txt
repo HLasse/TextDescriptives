@@ -6,7 +6,7 @@ listed below. Each tutorial is also a Jupyter notebook which you can download an
 locally.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Tutorials
 
    tutorials/introductory_tutorial.ipynb

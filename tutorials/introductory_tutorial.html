@@ -9,7 +9,7 @@
 <meta property="og:site_name" content="textdescriptives" />
 <meta property="og:description" content="TextDescriptives lets you quickly and easily calculate a large variety of statistics and metrics from texts. The package includes a number of components that make it easy to only spend time extract..." />
 <meta name="description" content="TextDescriptives lets you quickly and easily calculate a large variety of statistics and metrics from texts. The package includes a number of components that make it easy to only spend time extract..." />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Frequently Asked Questions" href="../faq.html" /><link rel="prev" title="Tutorials" href="../tutorial.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="News and Changelog" href="../news.html" /><link rel="prev" title="Tutorials" href="../tutorial.html" />
 
     <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
         <title>Introductory Tutorial - textdescriptives 2.0.0 documentation</title>
@@ -176,16 +176,17 @@
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usingthepackage.html">Using TextDescriptives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usingthepackage.html#using-specific-components">Using specific components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usingthepackage.html#available-attributes">Available attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usingthepackage.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usingthepackage.html#using-specific-components">Using Specific Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorial.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Introductory Tutorial</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../readability.html">Readability</a></li>
@@ -239,8 +240,8 @@
 <p>The package includes a number of components that make it easy to only spend time extracting exactly the metrics you care about.</p>
 <p>This tutorial introduces some of components available in TextDescriptives and how you can use them to quickly analyse a text corpus.
 For more information on the components, see the <a class="reference external" href="https://hlasse.github.io/TextDescriptives/">documentation</a>.</p>
-<section id="sms-dataset">
-<h2>SMS dataset<a class="headerlink" href="#sms-dataset" title="Permalink to this heading">#</a></h2>
+<section id="exploratory-data-analysis">
+<h2>Exploratory Data Analysis<a class="headerlink" href="#exploratory-data-analysis" title="Permalink to this heading">#</a></h2>
 <p>In this tutorial we’ll use TextDescriptives to get a quick overview of the <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection">SMS Spam Collection Data Set</a>.
 The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <p>To start, let’s load a <code class="docutils literal notranslate"><span class="pre">spacy</span></code> pipeline and add some components to it.</p>
@@ -249,7 +250,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">textdescriptives</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>textdescriptives<span class="o">[</span>tutorials<span class="o">]</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;textdescriptives[tutorials]&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -262,6 +263,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
 <span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
 <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+
 <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
 <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/dependency_distance&quot;</span><span class="p">)</span>
 </pre></div>
@@ -274,8 +276,8 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">spacy</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/dependency_distance&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/dependency_distance&quot;</span><span class="p">)</span>
 
 <span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/__init__.py:54,</span> in <span class="ni">load</span><span class="nt">(name, vocab, disable, enable, exclude, config)</span>
 <span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
@@ -396,10 +398,7 @@ Name: label, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="c1"># muting a bunch of numpy warnings due to very short texts</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">include_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">include_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -440,25 +439,25 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
       <th>token_length_mean</th>
       <th>token_length_median</th>
       <th>token_length_std</th>
       <th>sentence_length_mean</th>
-      <th>sentence_length_median</th>
-      <th>sentence_length_std</th>
-      <th>syllables_per_token_mean</th>
-      <th>syllables_per_token_median</th>
       <th>...</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
+      <th>flesch_reading_ease</th>
+      <th>flesch_kincaid_grade</th>
       <th>smog</th>
       <th>gunning_fog</th>
       <th>automated_readability_index</th>
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
@@ -466,120 +465,120 @@ Name: label, dtype: int64
       <th>0</th>
       <td>ham</td>
       <td>Go until jurong point, crazy.. Available only ...</td>
+      <td>2.119048</td>
+      <td>0.639763</td>
+      <td>0.344877</td>
+      <td>0.064145</td>
       <td>4.150000</td>
       <td>5.0</td>
       <td>1.904600</td>
       <td>6.666667</td>
-      <td>5.0</td>
-      <td>2.357023</td>
-      <td>1.250000</td>
-      <td>1.0</td>
       <td>...</td>
+      <td>92</td>
+      <td>3</td>
+      <td>94.318333</td>
+      <td>1.760000</td>
       <td>3.1291</td>
       <td>2.666667</td>
       <td>1.449833</td>
       <td>4.162000</td>
       <td>11.666667</td>
       <td>0.333333</td>
-      <td>2.119048</td>
-      <td>0.639763</td>
-      <td>0.344877</td>
-      <td>0.064145</td>
     </tr>
     <tr>
       <th>1</th>
       <td>ham</td>
       <td>Ok lar... Joking wif u oni...</td>
+      <td>1.233333</td>
+      <td>0.566667</td>
+      <td>0.533333</td>
+      <td>0.133333</td>
       <td>3.000000</td>
       <td>3.0</td>
       <td>1.527525</td>
       <td>3.000000</td>
-      <td>3.0</td>
-      <td>1.000000</td>
-      <td>1.166667</td>
-      <td>1.0</td>
       <td>...</td>
+      <td>24</td>
+      <td>2</td>
+      <td>105.090000</td>
+      <td>-0.653333</td>
       <td>NaN</td>
       <td>1.200000</td>
       <td>-5.800000</td>
       <td>-8.026667</td>
       <td>3.000000</td>
       <td>0.000000</td>
-      <td>1.233333</td>
-      <td>0.566667</td>
-      <td>0.533333</td>
-      <td>0.133333</td>
     </tr>
     <tr>
       <th>2</th>
       <td>spam</td>
       <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
+      <td>2.976891</td>
+      <td>0.094538</td>
+      <td>0.485294</td>
+      <td>0.014706</td>
       <td>4.392857</td>
       <td>4.0</td>
       <td>3.298693</td>
       <td>14.000000</td>
-      <td>14.0</td>
-      <td>2.000000</td>
-      <td>1.178571</td>
-      <td>1.0</td>
       <td>...</td>
+      <td>128</td>
+      <td>2</td>
+      <td>92.917857</td>
+      <td>3.777143</td>
       <td>NaN</td>
       <td>5.600000</td>
       <td>6.260357</td>
       <td>7.915714</td>
       <td>28.285714</td>
       <td>2.000000</td>
-      <td>2.976891</td>
-      <td>0.094538</td>
-      <td>0.485294</td>
-      <td>0.014706</td>
     </tr>
     <tr>
       <th>3</th>
       <td>ham</td>
       <td>U dun say so early hor... U c already then say...</td>
+      <td>1.452381</td>
+      <td>0.119048</td>
+      <td>0.535714</td>
+      <td>0.035714</td>
       <td>3.000000</td>
       <td>3.0</td>
       <td>1.758098</td>
       <td>5.500000</td>
-      <td>5.5</td>
-      <td>0.500000</td>
-      <td>1.000000</td>
-      <td>1.0</td>
       <td>...</td>
+      <td>39</td>
+      <td>2</td>
+      <td>116.652500</td>
+      <td>-1.645000</td>
       <td>NaN</td>
       <td>2.200000</td>
       <td>-4.550000</td>
       <td>-3.541818</td>
       <td>14.590909</td>
       <td>0.500000</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
     </tr>
     <tr>
       <th>4</th>
       <td>ham</td>
       <td>Nah I don't think he goes to usf, he lives aro...</td>
+      <td>2.066667</td>
+      <td>0.000000</td>
+      <td>0.400000</td>
+      <td>0.000000</td>
       <td>3.461538</td>
       <td>3.0</td>
       <td>1.598816</td>
       <td>13.000000</td>
-      <td>13.0</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>1.0</td>
       <td>...</td>
+      <td>49</td>
+      <td>1</td>
+      <td>109.040000</td>
+      <td>1.280000</td>
       <td>NaN</td>
       <td>5.200000</td>
       <td>1.373846</td>
       <td>2.276923</td>
       <td>13.000000</td>
-      <td>0.000000</td>
-      <td>2.066667</td>
-      <td>0.000000</td>
-      <td>0.400000</td>
       <td>0.000000</td>
     </tr>
   </tbody>
@@ -654,12 +653,12 @@ dtype: float64
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../faq.html">
+          <a class="next-page" href="../news.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Frequently Asked Questions</div>
+                <div class="title">News and Changelog</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -705,7 +704,7 @@ dtype: float64
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Introductory Tutorial</a><ul>
-<li><a class="reference internal" href="#sms-dataset">SMS dataset</a></li>
+<li><a class="reference internal" href="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
 <li><a class="reference internal" href="#id1"></a></li>
 </ul>
 </li>

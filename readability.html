@@ -7,8 +7,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="readability.html" />
 <meta property="og:site_name" content="textdescriptives" />
-<meta property="og:description" content="The readability component adds the following readabiltiy metrics under the ._.readability attribute to Doc objects. Gunning-Fog, SMOG, Flesch reading ease, Flesch-Kincaid grade, Automated readabili..." />
-<meta name="description" content="The readability component adds the following readabiltiy metrics under the ._.readability attribute to Doc objects. Gunning-Fog, SMOG, Flesch reading ease, Flesch-Kincaid grade, Automated readabili..." />
+<meta property="og:description" content="The readability component adds the following readabiltiy metrics under the._.readability attribute to Doc objects. Gunning-Fog, SMOG, Flesch reading ease, Flesch-Kincaid grade, Automated readabilit..." />
+<meta name="description" content="The readability component adds the following readabiltiy metrics under the._.readability attribute to Doc objects. Gunning-Fog, SMOG, Flesch reading ease, Flesch-Kincaid grade, Automated readabilit..." />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Dependency Distance" href="dependencydistance.html" /><link rel="prev" title="Descriptive Statistics" href="descriptivestats.html" />
 
     <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
@@ -176,16 +176,17 @@
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Using TextDescriptives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using specific components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using Specific Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Readability</a></li>
@@ -232,7 +233,7 @@
         <article role="main">
           <section id="readability">
 <h1>Readability<a class="headerlink" href="#readability" title="Permalink to this heading">#</a></h1>
-<p>The <em>readability</em> component adds the following readabiltiy metrics under the ._.readability attribute to <code class="code docutils literal notranslate"><span class="pre">Doc</span></code> objects.</p>
+<p>The <em>readability</em> component adds the following readabiltiy metrics under the <code class="code docutils literal notranslate"><span class="pre">._.readability</span></code> attribute to <code class="code docutils literal notranslate"><span class="pre">Doc</span></code> objects.</p>
 <ul class="simple">
 <li><p>Gunning-Fog</p></li>
 <li><p>SMOG</p></li>
@@ -243,7 +244,7 @@
 <li><p>Lix</p></li>
 <li><p>Rix</p></li>
 </ul>
-<p>For specifics of the implementation, refer to the source. The equations are largely derived from the <a class="reference external" href="https://github.com/shivam5992/textstat">textstat</a> library.</p>
+<p>For specifics of the implementation, refer to the source.±</p>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
@@ -295,7 +296,7 @@
 <h2>Component<a class="headerlink" href="#component" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="textdescriptives.components.readability.create_readability_component">
-<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.readability.</span></span><span class="sig-name descname"><span class="pre">create_readability_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#create_readability_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.create_readability_component" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.readability.</span></span><span class="sig-name descname"><span class="pre">create_readability_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#create_readability_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.create_readability_component" title="Permalink to this definition">#</a></dt>
 <dd><p>Allows Readability to be added to a spaCy pipe using
 nlp.add_pipe(“textdescriptives/readability”).</p>
 <p>Readability requires attributes from DescriptiveStatistics and adds
@@ -313,6 +314,9 @@ it to the pipe if it not already loaded.</p>
 nlp.add_pipe call.</p></li>
 <li><p><strong>name</strong> (<em>str</em>) – name of the component. Can be optionally specified in the
 nlp.add_pipe call, using the name argument.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – Toggle to show a message if the
+“textdescriptives/descriptive_stats” component is added to the pipeline.
+Defaults to True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

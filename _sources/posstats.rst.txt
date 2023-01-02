@@ -3,10 +3,11 @@ Part-of-Speech Proportions
 
 The *pos_stats* component adds one attribute to a Doc or Span:
 
-* ._.proportions (:code:`Doc`) 
+* :code:`Doc._.pos_proportions` 
     * Dict of :code:`{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}`. Does not create a key if no tokens in the document fit the POSTAG.
 
-* ._.proportions (:code:`Span`) 
+* :code:`Span._.pos_proportions`
+* 
     * Dict of :code:`{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}`. Does not create a key if no tokens in the document fit the POSTAG.
 
 

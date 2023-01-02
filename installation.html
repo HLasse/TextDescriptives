@@ -7,9 +7,9 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="installation.html" />
 <meta property="og:site_name" content="textdescriptives" />
-<meta property="og:description" content="To get started using TextDescriptives you can install it using pip by running the following line in your terminal: Installing from source: You can also install TextDescriptives directly from source..." />
-<meta name="description" content="To get started using TextDescriptives you can install it using pip by running the following line in your terminal: Installing from source: You can also install TextDescriptives directly from source..." />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Using TextDescriptives" href="usingthepackage.html" /><link rel="prev" title="TextDescriptives" href="index.html" />
+<meta property="og:description" content="To get started using TextDescriptives you can install it using pip by running the following line in your terminal. Optional dependendices for running the tutorials, buildings docs, running tests, o..." />
+<meta name="description" content="To get started using TextDescriptives you can install it using pip by running the following line in your terminal. Optional dependendices for running the tutorials, buildings docs, running tests, o..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Quick Start" href="usingthepackage.html" /><link rel="prev" title="TextDescriptives" href="index.html" />
 
     <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
         <title>Installation - textdescriptives 2.0.0 documentation</title>
@@ -176,16 +176,17 @@
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Using TextDescriptives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using specific components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using Specific Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
@@ -232,20 +233,17 @@
         <article role="main">
           <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
-<p>To get started using TextDescriptives you can install it using pip by running the following line in your terminal:</p>
+<p>To get started using TextDescriptives you can install it using pip by running the following line in your terminal. Optional dependendices for running the tutorials, buildings docs, running tests, or linting can be installed using the optional dependencies.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">textdescriptives</span>
 </pre></div>
 </div>
-<section id="installing-from-source">
-<h2>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this heading">#</a></h2>
-<p>You can also install TextDescriptives directly from source using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">hlasse</span><span class="o">/</span><span class="n">textdescriptives</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">TextDescriptives</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
-</pre></div>
-</div>
-<p>or</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">hlasse</span><span class="o">/</span><span class="n">textdescriptives</span>
+<section id="development-installation">
+<h2>Development Installation<a class="headerlink" href="#development-installation" title="Permalink to this heading">#</a></h2>
+<p>To install TextDescriptives for development, clone the repository and install the
+package using the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">hlasse</span><span class="o">/</span><span class="n">TextDescriptives</span>
+
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;.[style,tests,docs,tutorials]&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -261,7 +259,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Using TextDescriptives</div>
+                <div class="title">Quick Start</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -307,7 +305,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
-<li><a class="reference internal" href="#installing-from-source">Installing from source</a></li>
+<li><a class="reference internal" href="#development-installation">Development Installation</a></li>
 </ul>
 </li>
 </ul>

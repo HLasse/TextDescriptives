@@ -169,16 +169,17 @@
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html">Using TextDescriptives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#using-specific-components">Using specific components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#available-attributes">Available attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#using-specific-components">Using Specific Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../readability.html">Readability</a></li>
@@ -224,12 +225,13 @@
         <article role="main">
           <h1>Source code for textdescriptives.components.readability</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Calculation of various readability metrics.&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
 <span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span>
+<span class="kn">from</span> <span class="nn">wasabi</span> <span class="kn">import</span> <span class="n">msg</span>
 
 <span class="kn">from</span> <span class="nn">.descriptive_stats</span> <span class="kn">import</span> <span class="n">create_descriptive_stats_component</span>  <span class="c1"># noqa</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">filter_tokens</span>
@@ -382,8 +384,16 @@
         <span class="k">return</span> <span class="n">doc</span>
 
 
-<div class="viewcode-block" id="create_readability_component"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.create_readability_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">,</span> <span class="n">assigns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;doc._.readability&quot;</span><span class="p">])</span>
-<span class="k">def</span> <span class="nf">create_readability_component</span><span class="p">(</span><span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
+<div class="viewcode-block" id="create_readability_component"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.create_readability_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span>
+    <span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">,</span>
+    <span class="n">assigns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;doc._.readability&quot;</span><span class="p">],</span>
+    <span class="n">default_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_readability_component</span><span class="p">(</span>
+    <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Allows Readability to be added to a spaCy pipe using</span>
 <span class="sd">    nlp.add_pipe(&quot;textdescriptives/readability&quot;).</span>
 
@@ -398,6 +408,9 @@
 <span class="sd">            nlp.add_pipe call.</span>
 <span class="sd">        name (str): name of the component. Can be optionally specified in the</span>
 <span class="sd">            nlp.add_pipe call, using the name argument.</span>
+<span class="sd">        verbose (bool): Toggle to show a message if the</span>
+<span class="sd">            &quot;textdescriptives/descriptive_stats&quot; component is added to the pipeline.</span>
+<span class="sd">            Defaults to True.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Callable[[Doc], Doc]: The Readability component</span>
@@ -411,8 +424,8 @@
 <span class="sd">        &gt;&gt;&gt; doc = nlp(&quot;This is a test document.&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; doc._.readability</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="s2">&quot;textdescriptives/descriptive_stats&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="p">:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+    <span class="k">if</span> <span class="s2">&quot;textdescriptives/descriptive_stats&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span> <span class="ow">and</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>  <span class="c1"># pylint: disable=logging-not-lazy</span>
             <span class="s2">&quot;&#39;textdescriptives/descriptive_stats&#39; component is required for&quot;</span>
             <span class="o">+</span> <span class="s2">&quot; &#39;textdescriptives.readability&#39;. Adding to pipe.&quot;</span><span class="p">,</span>
         <span class="p">)</span>

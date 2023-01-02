@@ -176,16 +176,17 @@
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Using TextDescriptives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using specific components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using Specific Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
@@ -377,27 +378,27 @@ includes a number of other quality filters and deduplication strategies.</p>
 <span class="sig-prename descclassname"><span class="pre">textdescriptives.components.quality.</span></span><span class="sig-name descname"><span class="pre">create_quality_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_ngram_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_ngram_min_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_n_gram_fraction_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_thresholds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/textdescriptives/components/quality.html#create_quality_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.quality.create_quality_component" title="Permalink to this definition">#</a></dt>
 <dd><p>Allows Quality to be added to a spaCy pipe using
 nlp.add_pipe(“textdescriptives/quality”).</p>
-<p>Adding this component to a pipeline sets the following attributes:
-- {Span/Doc}._.quality
-- {Span/Doc}._.passed_quality_check</p>
-<p>It also sets:
-- {Span/Doc}._.lines
-- {Span/Doc}._.paragraphs</p>
+<p>Adding this component to a pipeline sets the following attributes:</p>
+<ul class="simple">
+<li><p>{Span/Doc}._.quality</p></li>
+<li><p>{Span/Doc}._.passed_quality_check</p></li>
+</ul>
+<p>It also sets:</p>
+<ul class="simple">
+<li><p>{Span/Doc}._.lines</p></li>
+<li><p>{Span/Doc}._.paragraphs</p></li>
+</ul>
 <p>These are used to calculate some of the quality metrics. They can be overwritten if
 you e.g. wish lines to be split on “rn” instead of “n”.</p>
 <p>A large part of the quality metrics were proposed by [1] and [2] for filtering
 out low quality text from large text corpora.</p>
 <p>References:
-[1] Rae, J. W., Borgeaud, S., Cai, T., Millican, K., Hoffmann, J., Song, F., … &amp;</p>
-<blockquote>
-<div><p>Irving, G. (2021). Scaling language models: Methods, analysis &amp; insights from
-training gopher. arXiv preprint arXiv:2112.11446.</p>
-</div></blockquote>
-<dl class="simple">
-<dt>[2] Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., … &amp;</dt><dd><p>Liu, P. J. (2020). Exploring the limits of transfer learning with a unified
+- [1] Rae, J. W., Borgeaud, S., Cai, T., Millican, K., Hoffmann, J., Song, F., … &amp;
+Irving, G. (2021). Scaling language models: Methods, analysis &amp; insights from
+training gopher. arXiv preprint arXiv:2112.11446.
+- [2] Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., … &amp;
+Liu, P. J. (2020). Exploring the limits of transfer learning with a unified
 text-to-text transformer. J. Mach. Learn. Res., 21(140), 1-67.</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

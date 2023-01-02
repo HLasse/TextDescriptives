@@ -7,8 +7,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="posstats.html" />
 <meta property="og:site_name" content="textdescriptives" />
-<meta property="og:description" content="The pos_stats component adds one attribute to a Doc or Span:-._.proportions ( Doc),- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. Does not create a key if no tokens in the..." />
-<meta name="description" content="The pos_stats component adds one attribute to a Doc or Span:-._.proportions ( Doc),- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. Does not create a key if no tokens in the..." />
+<meta property="og:description" content="The pos_stats component adds one attribute to a Doc or Span:- Doc._.pos_proportions,- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. Does not create a key if no tokens in th..." />
+<meta name="description" content="The pos_stats component adds one attribute to a Doc or Span:- Doc._.pos_proportions,- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. Does not create a key if no tokens in th..." />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Quality" href="quality.html" /><link rel="prev" title="Dependency Distance" href="dependencydistance.html" />
 
     <!-- Generated with Sphinx 6.0.0 and Furo 2022.12.07 -->
@@ -176,16 +176,17 @@
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Using TextDescriptives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using specific components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#using-specific-components">Using Specific Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Package References</span></p>
+<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
@@ -235,18 +236,16 @@
 <p>The <em>pos_stats</em> component adds one attribute to a Doc or Span:</p>
 <ul class="simple">
 <li><dl class="simple">
-<dt>._.proportions (<code class="code docutils literal notranslate"><span class="pre">Doc</span></code>)</dt><dd><ul>
+<dt><code class="code docutils literal notranslate"><span class="pre">Doc._.pos_proportions</span></code></dt><dd><ul>
 <li><p>Dict of <code class="code docutils literal notranslate"><span class="pre">{pos_prop_POSTAG:</span> <span class="pre">proportion</span> <span class="pre">of</span> <span class="pre">all</span> <span class="pre">tokens</span> <span class="pre">tagged</span> <span class="pre">with</span> <span class="pre">POSTAG}</span></code>. Does not create a key if no tokens in the document fit the POSTAG.</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>._.proportions (<code class="code docutils literal notranslate"><span class="pre">Span</span></code>)</dt><dd><ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Span._.pos_proportions</span></code></p></li>
+<li><ul>
 <li><p>Dict of <code class="code docutils literal notranslate"><span class="pre">{pos_prop_POSTAG:</span> <span class="pre">proportion</span> <span class="pre">of</span> <span class="pre">all</span> <span class="pre">tokens</span> <span class="pre">tagged</span> <span class="pre">with</span> <span class="pre">POSTAG}</span></code>. Does not create a key if no tokens in the document fit the POSTAG.</p></li>
 </ul>
-</dd>
-</dl>
 </li>
 </ul>
 <section id="usage">
