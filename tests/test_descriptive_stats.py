@@ -6,6 +6,8 @@ from textdescriptives.components import DescriptiveStatistics  # noqa: F401
 
 from .books import flatland, oliver_twist, secret_garden
 
+import warnings
+
 
 @pytest.fixture(scope="function")
 def nlp():
@@ -85,11 +87,15 @@ def test_counts(nlp):
 
 @pytest.mark.parametrize("text", ["", "#"])
 def test_descriptive_edge(text, nlp):
-    doc = nlp(text)
-    assert doc._.token_length
-    assert doc._.sentence_length
-    assert doc._.syllables
-    assert doc._.counts
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+
+        doc = nlp(text)
+
+        assert doc._.token_length
+        assert doc._.sentence_length
+        assert doc._.syllables
+        assert doc._.counts
 
 
 def test_descriptive_multi_process(nlp):

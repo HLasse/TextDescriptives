@@ -1,7 +1,9 @@
 import numpy as np
 import pytest
 import spacy
+
 import textdescriptives as td  # noqa: F401
+import warnings
 
 
 @pytest.fixture(scope="function")
@@ -82,3 +84,10 @@ def test_coherence_blank_pipe():
     with pytest.raises(ValueError) as e:
         doc = nlp(text)  # noqa F841
     assert "Sentence vectors are not available" in str(e.value)
+
+
+def test_no_warnings(nlp):
+    # check that it does not raise a warning
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")  # raise error is warning is raised
+        doc = nlp("hello there!")  # noqa F841

@@ -18,6 +18,7 @@ from .books import (
     secret_garden,
 )
 import textdescriptives as td  # noqa: F401
+import warnings
 
 
 @pytest.fixture(scope="function")
@@ -45,12 +46,16 @@ def test_readability(nlp):
 )
 def test_readability_edge(text, expected, nlp):
     doc = nlp(text)
-    if np.isnan(expected):
-        for v in doc._.readability.values():
-            assert np.isnan(v)
-    else:
-        for v in doc._.readability.values():
-            assert v == expected
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+
+        if np.isnan(expected):
+            for v in doc._.readability.values():
+                assert np.isnan(v)
+        else:
+            for v in doc._.readability.values():
+                assert v == expected
 
 
 @pytest.mark.parametrize(

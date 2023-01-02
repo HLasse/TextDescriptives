@@ -49,6 +49,12 @@ class DescriptiveStatistics:
         """
 
         token_lengths = [len(token) for token in filter_tokens(doc)]
+        if not token_lengths:
+            return {
+                "token_length_mean": np.nan,
+                "token_length_median": np.nan,
+                "token_length_std": np.nan,
+            }
         return {
             "token_length_mean": np.mean(token_lengths),
             "token_length_median": np.median(token_lengths),
@@ -71,6 +77,12 @@ class DescriptiveStatistics:
             for sent in doc.sents
         ]
         len_sentences = [len(sentence) for sentence in tokenized_sentences]
+        if not len_sentences:
+            return {
+                "sentence_length_mean": np.nan,
+                "sentence_length_median": np.nan,
+                "sentence_length_std": np.nan,
+            }
         return {
             "sentence_length_mean": np.mean(len_sentences),
             "sentence_length_median": np.median(len_sentences),
@@ -86,6 +98,12 @@ class DescriptiveStatistics:
                 syllables_per_token_std
         """
         n_syllables = doc._._n_syllables
+        if not n_syllables:
+            return {
+                "syllables_per_token_mean": np.nan,
+                "syllables_per_token_median": np.nan,
+                "syllables_per_token_std": np.nan,
+            }
         return {
             "syllables_per_token_mean": np.mean(n_syllables),
             "syllables_per_token_median": np.median(n_syllables),

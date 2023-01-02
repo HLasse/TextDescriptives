@@ -76,8 +76,14 @@ class Coherence:
         second_order_coherence = self._second_order_coherence(doc)
 
         # get mean of coherence values
-        first_order_coherence_mean = np.nanmean(first_order_coherence)
-        second_order_coherence_mean = np.nanmean(second_order_coherence)
+        if len(first_order_coherence) < 2:
+            first_order_coherence_mean = first_order_coherence[0]
+        else:
+            first_order_coherence_mean = np.nanmean(first_order_coherence)
+        if len(second_order_coherence) < 2:
+            second_order_coherence_mean = second_order_coherence[0]
+        else:
+            second_order_coherence_mean = np.nanmean(second_order_coherence)
 
         # set attributes
         setattr(doc._, "first_order_coherence_values", first_order_coherence)
