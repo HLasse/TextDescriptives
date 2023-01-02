@@ -55,7 +55,7 @@ jobs:
       - name: Pytest coverage comment
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
         id: coverage-comment
-        uses: MishaKav/pytest-coverage-comment@v1.1.39
+        uses: MishaKav/pytest-coverage-comment@v1.1.41
         with:
           pytest-coverage-path: ./pytest-coverage.txt
 
