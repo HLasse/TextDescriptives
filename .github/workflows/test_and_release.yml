@@ -89,7 +89,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          token: ${{ secrets.RELEASE }}
 
       - name: Python Semantic Release
         uses: relekang/python-semantic-release@v7.32.0

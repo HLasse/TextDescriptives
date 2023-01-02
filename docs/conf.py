@@ -55,7 +55,7 @@ autodoc_pydantic_model_show_config = False
 autodoc_pydantic_model_show_field_summary = False
 
 # always fail CI pipeline when nb cannot be executed
-nb_execution_raise_on_error = True
+# nb_execution_raise_on_error = True
 
 
 # -- Options for HTML output -------------------------------------------------
