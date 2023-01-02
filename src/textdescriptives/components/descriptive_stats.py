@@ -175,16 +175,17 @@ def create_descriptive_stats_component(
 
     Adding the component to the pipe will add the following attributes to
     `Doc` and `Span` objects:
-        - `doc._.n_sentences`
-        - `doc._.n_tokens`
-        - `doc._.token_length`
-        - `doc._.sentence_length`
-        - `doc._.syllables`
-        - `doc._.counts`
-        - `doc._.descriptive_stats`
-        - `span._.token_length`
-        - `span._.counts`
-        - `span._.descriptive_stats`
+
+    - `doc._.n_sentences`
+    - `doc._.n_tokens`
+    - `doc._.token_length`
+    - `doc._.sentence_length`
+    - `doc._.syllables`
+    - `doc._.counts`
+    - `doc._.descriptive_stats`
+    - `span._.token_length`
+    - `span._.counts`
+    - `span._.descriptive_stats`
 
     Args:
         nlp (Language): spaCy language object, does not need to be specified in the

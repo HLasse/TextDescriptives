@@ -657,10 +657,12 @@ def create_quality_component(
     nlp.add_pipe("textdescriptives/quality").
 
     Adding this component to a pipeline sets the following attributes:
+
     - {Span/Doc}._.quality
     - {Span/Doc}._.passed_quality_check
 
     It also sets:
+
     - {Span/Doc}._.lines
     - {Span/Doc}._.paragraphs
 
