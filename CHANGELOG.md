@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.3 (2023-01-02)
+### Fix
+* Semantic version test ([`733ae89`](https://github.com/HLasse/TextDescriptives/commit/733ae898969322b3a214e841de41885f235815dc))
+
 ## v2.0.2 (2023-01-02)
 ### Fix
 * Add setup.py ([`7ab6aed`](https://github.com/HLasse/TextDescriptives/commit/7ab6aedae39943781d75025e9ae8e403ad9ece6a))
