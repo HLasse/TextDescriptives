@@ -1,7 +1,7 @@
 Readability
 --------------------
 
-The *readability* component adds the following readabiltiy metrics under the ._.readability attribute to :code:`Doc` objects.
+The *readability* component adds the following readabiltiy metrics under the :code:`._.readability` attribute to :code:`Doc` objects.
 
 * Gunning-Fog
 * SMOG
@@ -12,7 +12,7 @@ The *readability* component adds the following readabiltiy metrics under the ._.
 * Lix
 * Rix
 
-For specifics of the implementation, refer to the source. The equations are largely derived from the `textstat <https://github.com/shivam5992/textstat>`_ library.
+For specifics of the implementation, refer to the source.±
 
 Usage
 ~~~~~~

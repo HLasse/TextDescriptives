@@ -673,12 +673,12 @@ def create_quality_component(
     out low quality text from large text corpora.
 
     References:
-    [1] Rae, J. W., Borgeaud, S., Cai, T., Millican, K., Hoffmann, J., Song, F., ... &
-        Irving, G. (2021). Scaling language models: Methods, analysis & insights from
-        training gopher. arXiv preprint arXiv:2112.11446.
-    [2] Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., ... &
-        Liu, P. J. (2020). Exploring the limits of transfer learning with a unified
-        text-to-text transformer. J. Mach. Learn. Res., 21(140), 1-67.
+    - [1] Rae, J. W., Borgeaud, S., Cai, T., Millican, K., Hoffmann, J., Song, F., ... &
+    Irving, G. (2021). Scaling language models: Methods, analysis & insights from
+    training gopher. arXiv preprint arXiv:2112.11446.
+    - [2] Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., ... &
+    Liu, P. J. (2020). Exploring the limits of transfer learning with a unified
+    text-to-text transformer. J. Mach. Learn. Res., 21(140), 1-67.
 
     Args:
         nlp (Language): spaCy language object, does not need to be specified in the
