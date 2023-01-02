@@ -29,7 +29,7 @@ def n_order_coherence(doc: Doc, order: int) -> List[float]:
         raise ValueError(
             "A sentence boundary detector has not been run on this Doc, which is "
             + "required to calculate coherence. Have you added a model with a "
-            + "sentencizer and word vectors to the pipeline?"
+            + "sentencizer and word vectors to the pipeline?",
         )
 
     sents = list(doc.sents)
