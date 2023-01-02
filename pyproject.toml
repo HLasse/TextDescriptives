@@ -117,9 +117,13 @@ exclude_lines = [
 ]
 
 [tool.semantic_release]
+branch = "main"
 version_variable = [
     "pyproject.toml:version"
 ]
+upload_to_pypi = true
+upload_to_release = true
+
 
 [tool.ruff]
 exclude = [
