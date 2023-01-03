@@ -119,9 +119,6 @@ version_variable = [
     "pyproject.toml:version"
 ]
 build_command = "python -m pip install build; python -m build"
-upload_to_pypi = true
-upload_to_release = true
-
 
 [tool.ruff]
 exclude = [
