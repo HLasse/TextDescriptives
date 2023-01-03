@@ -15,7 +15,7 @@ jobs:
 
     # This allows a subsequently queued workflow run to interrupt previous runs
     concurrency:
-      group: "${{ github.workflow }} - ${{ matrix.os }} @ ${{ github.ref }}"
+      group: "${{ github.workflow }} - ${{ matrix.python-version}} - ${{ matrix.os }} @ ${{ github.ref }}"
       cancel-in-progress: true
 
     steps:
