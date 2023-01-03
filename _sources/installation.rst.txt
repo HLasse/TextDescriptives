@@ -17,3 +17,9 @@ package using the following commands:
    git clone https://github.com/hlasse/TextDescriptives
 
    pip install -e ".[style,tests,docs,tutorials]"
+   
+   # pip install specific dependencies for each
+   # as not e.g. links currently can't be included in extra
+   # dependencies
+   pip install -r tests/requirements.txt
+   pip install -r docs/tutorials/requirements.txt
