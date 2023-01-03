@@ -15,7 +15,7 @@ jobs:
 
     # This allows a subsequently queued workflow run to interrupt previous runs
     concurrency:
-      group: "${{ github.workflow }} - ${{ matrix.os }} @ ${{ github.ref }}"
+      group: "${{ github.workflow }} - ${{ matrix.python-version}} - ${{ matrix.os }} @ ${{ github.ref }}"
       cancel-in-progress: true
 
     steps:
@@ -32,7 +32,12 @@ jobs:
         shell: bash
         run: |
           python -m pip install --upgrade pip
+          # Assumes the package have the tests extra
           pip install ".[tests]"
+          # if there is a ./tests/requirements.txt file then install it
+          if [ -f ./tests/requirements.txt ]; then
+            pip install -r ./tests/requirements.txt
+          fi
 
       - name: Run and write pytest
         shell: bash
@@ -43,7 +48,13 @@ jobs:
       - name: Install dependencies for notebooks
         shell: bash
         run: |
+          # Assumes the package have the tutorials extra
           pip install ".[tutorials]"
+          # if there is a tutorials requirements.txt file then install it
+          if [ -f ./tests/requirements.txt ]; then
+            pip install -r ./docs/tutorials/requirements.txt
+          fi
+
 
       - name: Convert and run notebooks
         shell: bash
