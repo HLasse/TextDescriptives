@@ -1,5 +1,4 @@
-"""About textdescriptives, version number is specified in the setup.cfg
-file."""
+"""About textdescriptives, version number is specified in the setup.cfg file."""
 
 # if python >= 3.8, use importlib.metadata otherwise use pkg_resources
 try:
