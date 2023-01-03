@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.10 (2023-01-03)
+### Fix
+* Correct pypi api token ([`da723f1`](https://github.com/HLasse/TextDescriptives/commit/da723f1f7ccc69a056814ab807f6b0fe9a2a4f20))
+
 ## v2.0.9 (2023-01-03)
 ### Fix
 * Sem ver ([`365de7a`](https://github.com/HLasse/TextDescriptives/commit/365de7a0de40f72a084bab0da5dd1a976ce3858a))
