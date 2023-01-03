@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.8 (2023-01-03)
+### Fix
+* Ci for sem ver ([`6762803`](https://github.com/HLasse/TextDescriptives/commit/6762803fa1a4e61b6dcdc7b059d6cf03e54f8c1a))
+
 ## v2.0.7 (2023-01-03)
 ### Fix
 * Semantic release(!?) ([`2d9a4d2`](https://github.com/HLasse/TextDescriptives/commit/2d9a4d2d58943f93886e182d54a35c343a9241bf))
