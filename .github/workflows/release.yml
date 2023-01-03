@@ -33,7 +33,7 @@ jobs:
           token: ${{ secrets.RELEASE }}
 
       - name: Python Semantic Release
-        uses: relekang/python-semantic-release@v7.32.0
+        uses: relekang/python-semantic-release@v7.32.2
         with:
           git_committer_name: release-bot
           github_token: ${{ secrets.RELEASE }}
