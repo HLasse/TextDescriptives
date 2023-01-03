@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.4 (2023-01-03)
+### Fix
+* Testing semantic release ([`95bbadc`](https://github.com/HLasse/TextDescriptives/commit/95bbadc040d64bbf6c1d3579b9ad44f9fe0a2459))
+
 ## v2.0.3 (2023-01-02)
 ### Fix
 * Semantic version test ([`733ae89`](https://github.com/HLasse/TextDescriptives/commit/733ae898969322b3a214e841de41885f235815dc))
