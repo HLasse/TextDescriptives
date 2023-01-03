@@ -1,0 +1,5 @@
+# only for requirements which can't be specified in the pyproject.toml file
+# e.g. links to wheels which is not allowed in pyproject.toml on pypi
+
+# spacy pipeline
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.2.0/en_core_web_sm-3.2.0.tar.gz

@@ -1,15 +1,29 @@
 name: Release
 on:
+  # uncomment the following to only release on push to main
+  # this is not recommended as it will not release if the tests fail
+  # however it is faster and can be used for testing
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches:
+      - main
+  # uncomment the following to only release on a successful workflow run
+  # this is recommended as it will only release if the tests pass
+  # this however cause you to test twice which might be not be ideal
+  # if you oncomment this
+  # workflow_run:
+  #   workflows: ["Tests"]
+  #   types:
+  #     - completed
 
 jobs:
   release:
     runs-on: ubuntu-latest
     concurrency: release
 
+    # if the workflow run was successful and the branch is main:
+    # only uncomment this if you uncomment the workflow_run above
+    # if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main' }}
+    # only uncomment this if you run on push to main
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       # Checkout action is required for token to persist
@@ -21,11 +35,12 @@ jobs:
       - name: Python Semantic Release
         uses: relekang/python-semantic-release@v7.32.0
         with:
+          git_committer_name: release-bot
           github_token: ${{ secrets.RELEASE }}
-          # Remember to copy the [semantic_release] section from setup.cfg
+          # Remember to copy the [semantic_release] section from pyproject.toml
           # as well
           # To enable pypi,
-          # 1) Set upload_to_pypi to true in setup.cfg and
+          # 1) Set upload_to_pypi to true in  pyproject.toml and
           # 2) Set the pypi_token in the repo
           # 3) Uncomment the two lines below
           repository_username: __token__
