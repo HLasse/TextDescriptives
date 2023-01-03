@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.6 (2023-01-03)
+### Fix
+* Semantic versioning automatic upload ([`54f9e95`](https://github.com/HLasse/TextDescriptives/commit/54f9e956330157d458d0851f8d040b01899503c7))
+
 ## v2.0.5 (2023-01-03)
 ### Fix
 * Testing semantic release ([`fcd797b`](https://github.com/HLasse/TextDescriptives/commit/fcd797bd81a4e5fbc7d162d4d8530f6898ea4b1a))
