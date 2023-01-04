@@ -104,33 +104,15 @@ def extract_df(
     return pd.DataFrame(extract_dict(docs, metrics, include_text))
 
 
-def extract_metrics(
-    text: Union[str, List[str]],
-    spacy_model=None,
-    lang: str = None,
-    metrics: Optional[Iterable[str]] = None,
-    spacy_model_size: str = "lg",
-) -> pd.DataFrame:
-    """Extract metrics from a text or a list of texts to a Pandas dataframe.
-
+def download_spacy_model(lang: str, size: str) -> str:
+    """Download a large spacy model for a given language.
 
     Args:
-        text (Union[str, List[str]]): A text or a list of texts.
-        spacy_model (spacy.lang, optional): The spacy model to use. If not set,
-            will download one based on lang. We recommend always using `spacy_model`
-            and downloading the model beforehand to have more control over the
-            model as well as to avoid versioning issues. Defaults to None.
-        lang (str, optional): Language of the text. If lang is set and no spacy
-            model is provided, will automatically download and use a spacy
-            model for the language. Defaults to None.
-        metrics (List[str]): Which metrics to extract.
-            One or more of ["descriptive_stats", "readability",
-            "dependency_distance", "pos_stats", "coherence", "quality"]. If None,
-            will extract all metrics from textdescriptives. Defaults to None.
-        spacy_model_size (str, optional): Size of the spacy model to download.
+        lang (str): Language to download a model for.
+        size (str): Size of the model to download. One of "sm", "md", "lg", "trf".
 
     Returns:
-        pd.DataFrame: DataFrame with a row for each text and column for each metric.
+        str: Name of the downloaded model.
     """
     if isinstance(metrics, str):
         metrics = [metrics]
@@ -161,7 +143,6 @@ def extract_metrics(
     _clean_doc_extensions(metrics=metrics)
 
     return df
-
 
 def load_spacy_model(
     spacy_model: Optional[str],
@@ -208,15 +189,32 @@ def load_spacy_model(
     return spacy.load(spacy_model)
 
 
-def download_spacy_model(lang: str, size: str) -> str:
-    """Download a large spacy model for a given language.
+def extract_metrics(
+    text: Union[str, List[str]],
+    spacy_model=None,
+    lang: str = None,
+    metrics: Optional[Iterable[str]] = None,
+    spacy_model_size: str = "lg",
+) -> pd.DataFrame:
+    """Extract metrics from a text or a list of texts to a Pandas dataframe.
 
     Args:
-        lang (str): Language to download a model for.
-        size (str): Size of the model to download. One of "sm", "md", "lg", "trf".
+        text (Union[str, List[str]]): A text or a list of texts.
+        spacy_model (spacy.lang, optional): The spacy model to use. If not set,
+            will download one based on lang. We recommend always using `spacy_model`
+            and downloading the model beforehand to have more control over the
+            model as well as to avoid versioning issues. Defaults to None.
+        lang (str, optional): Language of the text. If lang is set and no spacy
+            model is provided, will automatically download and use a spacy
+            model for the language. Defaults to None.
+        metrics (List[str]): Which metrics to extract.
+            One or more of ["descriptive_stats", "readability",
+            "dependency_distance", "pos_stats", "coherence", "quality"]. If None,
+            will extract all metrics from textdescriptives. Defaults to None.
+        spacy_model_size (str, optional): Size of the spacy model to download.
 
     Returns:
-        str: Name of the downloaded model.
+        pd.DataFrame: DataFrame with a row for each text and column for each metric.
     """
     data_source = "news" if lang != "en" else "web"
     spacy_model = f"{lang}_core_{data_source}_{size}"
@@ -234,3 +232,25 @@ def _clean_doc_extensions(metrics: Iterable[str]) -> None:
         assigns = get_assigns(metric)
         for assigned in assigns:
             Doc.remove_extension(assigned)
+=======
+    if isinstance(metrics, str):
+        metrics = [metrics]
+
+    if spacy_model is None and lang is None:
+        raise ValueError("Either a spacy model or a language must be provided.")
+
+    if metrics is None:
+        metrics = get_valid_metrics()
+
+    # load spacy model if any component requires it
+    nlp = load_spacy_model(spacy_model, lang, metrics, spacy_model_size)
+
+    # add pipeline components
+    for component in metrics:
+        nlp.add_pipe(f"textdescriptives/{component}")
+
+    if isinstance(text, str):
+        text = [text]
+    docs = nlp.pipe(text)
+
+    return extract_df(docs)
