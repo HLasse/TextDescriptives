@@ -139,6 +139,7 @@ dmypy.json
 .DStore
 
 .vscode
+# Paper rendering
 paper/paper_quarto_files/*
 paper/_extensions/*
 paper/arxiv.sty
