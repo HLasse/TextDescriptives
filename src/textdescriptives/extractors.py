@@ -8,7 +8,7 @@ from spacy import Language
 from spacy.tokens import Doc
 from wasabi import msg
 
-from textdescriptives.utils import get_valid_metrics
+from textdescriptives.utils import get_assigns, get_valid_metrics
 
 
 def __get_quality(doc: Doc) -> dict:
@@ -142,7 +142,12 @@ def extract_metrics(
         metrics = get_valid_metrics()
 
     # load spacy model if any component requires it
-    nlp = load_spacy_model(spacy_model, lang, metrics, spacy_model_size)
+    nlp = load_spacy_model(
+        spacy_model=spacy_model,
+        lang=lang,
+        metrics=metrics,
+        spacy_model_size=spacy_model_size,
+    )
 
     # add pipeline components
     for component in metrics:
@@ -152,7 +157,10 @@ def extract_metrics(
         text = [text]
     docs = nlp.pipe(text)
 
-    return extract_df(docs)
+    df = extract_df(docs)
+    _clean_doc_extensions(metrics=metrics)
+
+    return df
 
 
 def load_spacy_model(
@@ -217,3 +225,12 @@ def download_spacy_model(lang: str, size: str) -> str:
         return spacy_model
     spacy.cli.download(spacy_model)
     return spacy_model
+
+
+def _clean_doc_extensions(metrics: Iterable[str]) -> None:
+    """Remove doc extensions added by textdescriptives. This is necesarry to avoid
+    errors if running `extract_metrics` multiple times with different metrics"""
+    for metric in metrics:
+        assigns = get_assigns(metric)
+        for assigned in assigns:
+            Doc.remove_extension(assigned)

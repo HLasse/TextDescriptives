@@ -154,8 +154,9 @@ class DescriptiveStatistics:
 @Language.factory(
     "textdescriptives/descriptive_stats",
     assigns=[
-        "doc._.n_sentences",
-        "doc._.n_tokens",
+        "doc._._n_sentences",
+        "doc._._n_tokens",
+        "doc._._n_syllables",
         "doc._.token_length",
         "doc._.sentence_length",
         "doc._.syllables",

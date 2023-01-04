@@ -140,3 +140,17 @@ def test_extract_model_not_needed():
         lang="en",
     )
     assert "n_tokens" in df.columns
+
+
+def test_extract_metrics_twice():
+    text = "Just a small test"
+    df = td.extract_metrics(
+        text,
+        metrics="coherence",
+        lang="en",
+    )
+    df2 = td.extract_metrics(
+        text,
+        metrics="descriptive_stats",
+        lang="en",
+    )
