@@ -226,8 +226,11 @@ def extract_metrics(
 
 
 def _clean_doc_extensions(metrics: Iterable[str]) -> None:
-    """Remove doc extensions added by textdescriptives. This is necesarry to avoid
-    errors if running `extract_metrics` multiple times with different metrics"""
+    """Remove doc extensions added by textdescriptives.
+
+    This is necesarry to avoid errors if running `extract_metrics`
+    multiple times with different metrics
+    """
     for metric in metrics:
         assigns = get_assigns(metric)
         for assigned in assigns:
