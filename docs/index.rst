@@ -47,6 +47,7 @@ please use the discussion Forums.
    tutorial
    news
    faq
+   paper
 
 .. toctree::
    :maxdepth: 2
