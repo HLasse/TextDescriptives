@@ -162,6 +162,8 @@ class DescriptiveStatistics:
         "doc._.syllables",
         "doc._.counts",
         "doc._.descriptive_stats",
+        "span._._n_tokens",
+        "span._._n_syllables",
         "span._.token_length",
         "span._.counts",
         "span._.descriptive_stats",

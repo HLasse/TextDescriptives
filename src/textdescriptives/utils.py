@@ -5,8 +5,8 @@ import pandas as pd
 from spacy import Language
 
 
-def get_assigns(metric: str) -> List[str]:
-    """Get columns for a given metric.
+def get_doc_assigns(metric: str) -> List[str]:
+    """Get doc extension attributes for a given metric.
 
     Args:
         metric (str): Metric to get columns for
@@ -17,6 +17,32 @@ def get_assigns(metric: str) -> List[str]:
         col[6:]
         for col in Language.get_factory_meta(f"textdescriptives/{metric}").assigns
         if col.startswith("doc._.")
+    ]
+
+
+def get_span_assigns(metric: str) -> List[str]:
+    """Get span extension attributes for a given metric.
+
+    Args:
+        metric (str): Metric to get columns for
+    """
+    return [
+        col[7:]
+        for col in Language.get_factory_meta(f"textdescriptives/{metric}").assigns
+        if col.startswith("span._.")
+    ]
+
+
+def get_token_assigns(metric: str) -> List[str]:
+    """Get token extension attributes for a given metric.
+
+    Args:
+        metric (str): Metric to get columns for
+    """
+    return [
+        col[8:]
+        for col in Language.get_factory_meta(f"textdescriptives/{metric}").assigns
+        if col.startswith("token._.")
     ]
 
 

@@ -110,9 +110,11 @@ def test_extract_with_lang():
 @pytest.mark.parametrize(
     "text",
     [
-        "This is just a cute little text. Actually, it's two sentences. No, it's three",
+        "This is just a cute little text. Actually, it's two sentences. "
+        + "No, it's three",
         [
-            "This is just a cute little text. Actually, it's two sentences. No, it's three.",
+            "This is just a cute little text. Actually, it's two sentences. "
+            + "No, it's three.",
             "Two documents in this bad boy. Let's see how it works.",
         ],
     ],
@@ -133,6 +135,24 @@ def test_extract_similar_extract_df(text):
     assert df.equals(df2)
 
 
+def test_extract_df_then_extract_metric():
+    text = [
+        "This is just a cute little text. Actually, it's two sentences. "
+        + "No, it's three.",
+        "Two documents in this bad boy. Let's see how it works.",
+    ]
+    nlp = spacy.load("en_core_web_sm")
+    nlp.add_pipe("textdescriptives/coherence")
+    docs = nlp.pipe(text)
+    td.extract_df(docs)
+
+    td.extract_metrics(
+        text,
+        spacy_model="en_core_web_sm",
+        metrics="quality",
+    )
+
+
 def test_extract_model_not_needed():
     df = td.extract_metrics(
         "This is just a cute little text. Actually, it's two sentences.",
@@ -144,13 +164,13 @@ def test_extract_model_not_needed():
 
 def test_extract_metrics_twice():
     text = "Just a small test"
-    df = td.extract_metrics(
-        text,
-        metrics="coherence",
-        lang="en",
-    )
-    df2 = td.extract_metrics(
+    td.extract_metrics(
         text,
         metrics="descriptive_stats",
+        lang="en",
+    )
+    td.extract_metrics(
+        text,
+        metrics="pos_proportions",
         lang="en",
     )

@@ -1,5 +1,5 @@
 """Utility functions for calculating various text descriptives."""
-from typing import Any, Callable, Union
+from typing import Union
 
 from pyphen import Pyphen
 from spacy.tokens import Doc, Span, Token
@@ -37,41 +37,3 @@ def n_syllables(doc: Doc):
         return max(1, word_hyphenated.count("-") + 1)
 
     return [count_syl(token) for token in filter_tokens(doc)]
-
-
-def span_getter_to_token_getter(
-    span_getter: Callable[[Span], Any],
-) -> Callable[[Token], Any]:
-    """Converts a span getter to a token getter.
-
-    Args:
-        span_getter (Callable[[Span], Any]):
-            The span getter function.
-
-    Returns:
-        Callable[[Token], Any]: The token getter function.
-    """
-
-    def token_getter(token):
-        return span_getter(token.doc[token.i : token.i + 1])
-
-    return token_getter
-
-
-def span_getter_to_doc_getter(
-    span_getter: Callable[[Span], Any],
-) -> Callable[[Doc], Any]:
-    """Converts a span getter to a document getter.
-
-    Args:
-        span_getter (Callable[[Span], Any]):
-            The span getter function.
-
-    Returns:
-        Callable[[Doc], Any]: The document getter function.
-    """
-
-    def doc_getter(doc):
-        return span_getter(doc[:])
-
-    return doc_getter

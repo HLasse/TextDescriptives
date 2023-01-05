@@ -1,14 +1,19 @@
 """Extract metrics as Pandas DataFrame."""
-from typing import Any, Dict, Iterable, List, Optional, Union
+from typing import Any, Dict, Iterable, List, Optional, Type, Union
 
 import pandas as pd
 import spacy
 import spacy.cli
 from spacy import Language
-from spacy.tokens import Doc
+from spacy.tokens import Doc, Span, Token
 from wasabi import msg
 
-from textdescriptives.utils import get_assigns, get_valid_metrics
+from textdescriptives.utils import (
+    get_doc_assigns,
+    get_span_assigns,
+    get_token_assigns,
+    get_valid_metrics,
+)
 
 
 def __get_quality(doc: Doc) -> dict:
@@ -114,35 +119,14 @@ def download_spacy_model(lang: str, size: str) -> str:
     Returns:
         str: Name of the downloaded model.
     """
-    if isinstance(metrics, str):
-        metrics = [metrics]
+    data_source = "news" if lang != "en" else "web"
+    spacy_model = f"{lang}_core_{data_source}_{size}"
+    # don't download if model already exists
+    if spacy_model in spacy.cli.info()["pipelines"]:  # type: ignore
+        return spacy_model
+    spacy.cli.download(spacy_model)
+    return spacy_model
 
-    if spacy_model is None and lang is None:
-        raise ValueError("Either a spacy model or a language must be provided.")
-
-    if metrics is None:
-        metrics = get_valid_metrics()
-
-    # load spacy model if any component requires it
-    nlp = load_spacy_model(
-        spacy_model=spacy_model,
-        lang=lang,
-        metrics=metrics,
-        spacy_model_size=spacy_model_size,
-    )
-
-    # add pipeline components
-    for component in metrics:
-        nlp.add_pipe(f"textdescriptives/{component}")
-
-    if isinstance(text, str):
-        text = [text]
-    docs = nlp.pipe(text)
-
-    df = extract_df(docs)
-    _clean_doc_extensions(metrics=metrics)
-
-    return df
 
 def load_spacy_model(
     spacy_model: Optional[str],
@@ -165,8 +149,14 @@ def load_spacy_model(
         Language: a spacy pipeline
     """
 
-    metrics_requiring_spacy_model = {"dependency_distance", "pos_stats", "coherence"}
-    # if no spacy model is necesarry for the metrics, return a blank model for the language
+    metrics_requiring_spacy_model = {
+        "dependency_distance",
+        "pos_stats",
+        "coherence",
+        "pos_proportions",
+    }
+    # if no spacy model is necesarry for the metrics, return a blank model
+    # for the language
     if not bool(metrics_requiring_spacy_model.intersection(metrics)):
         if lang is not None:
             return spacy.blank(lang)
@@ -189,10 +179,37 @@ def load_spacy_model(
     return spacy.load(spacy_model)
 
 
+def _remove_spacy_extension(
+    language: Union[Type[Doc], Type[Span], Type[Token]],
+    extension: str,
+) -> None:
+    """Remove spacy extension from a Language object if it exists."""
+    if language.has_extension(extension):
+        language.remove_extension(extension)
+
+
+def _remove_textdescriptives_extensions() -> None:
+    """Remove spacy extensions added by textdescriptives.
+
+    This is necessary to avoid errors if running `extract_metrics`
+    multiple times with different metrics
+    """
+    for metric in get_valid_metrics():
+        doc_assigns = get_doc_assigns(metric)
+        for assigned in doc_assigns:
+            _remove_spacy_extension(language=Doc, extension=assigned)
+        span_assigns = get_span_assigns(metric)
+        for assigned in span_assigns:
+            _remove_spacy_extension(language=Span, extension=assigned)
+        token_assings = get_token_assigns(metric)
+        for assigned in token_assings:
+            _remove_spacy_extension(language=Token, extension=assigned)
+
+
 def extract_metrics(
     text: Union[str, List[str]],
-    spacy_model=None,
-    lang: str = None,
+    spacy_model: Optional[Language] = None,
+    lang: Optional[str] = None,
     metrics: Optional[Iterable[str]] = None,
     spacy_model_size: str = "lg",
 ) -> pd.DataFrame:
@@ -216,23 +233,6 @@ def extract_metrics(
     Returns:
         pd.DataFrame: DataFrame with a row for each text and column for each metric.
     """
-    data_source = "news" if lang != "en" else "web"
-    spacy_model = f"{lang}_core_{data_source}_{size}"
-    # don't download if model already exists
-    if spacy_model in spacy.cli.info()["pipelines"]:
-        return spacy_model
-    spacy.cli.download(spacy_model)
-    return spacy_model
-
-
-def _clean_doc_extensions(metrics: Iterable[str]) -> None:
-    """Remove doc extensions added by textdescriptives. This is necesarry to avoid
-    errors if running `extract_metrics` multiple times with different metrics"""
-    for metric in metrics:
-        assigns = get_assigns(metric)
-        for assigned in assigns:
-            Doc.remove_extension(assigned)
-=======
     if isinstance(metrics, str):
         metrics = [metrics]
 
@@ -242,8 +242,16 @@ def _clean_doc_extensions(metrics: Iterable[str]) -> None:
     if metrics is None:
         metrics = get_valid_metrics()
 
+    # remove previously set metrics to avoid conflicts
+    _remove_textdescriptives_extensions()
+
     # load spacy model if any component requires it
-    nlp = load_spacy_model(spacy_model, lang, metrics, spacy_model_size)
+    nlp = load_spacy_model(
+        spacy_model=spacy_model,
+        lang=lang,
+        metrics=metrics,
+        spacy_model_size=spacy_model_size,
+    )
 
     # add pipeline components
     for component in metrics:
