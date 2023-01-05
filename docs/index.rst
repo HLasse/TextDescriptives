@@ -51,7 +51,7 @@ please use the discussion Forums.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Compoents
+   :caption: Components
    :hidden:
 
    descriptivestats
@@ -60,6 +60,7 @@ please use the discussion Forums.
    posstats
    quality
    coherence
+   extractors
 
 
 .. toctree::

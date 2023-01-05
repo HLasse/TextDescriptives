@@ -1,7 +1,29 @@
 Quick Start
 =======================
 
-Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are :code:`descriptive_stats`, :code:`readability`, :code:`dependency_distance`, :code:`pos_proportions`, :code:`coherence`, and :code:`quality` prefixed with :code:`textdescriptives/`. 
+
+Use :code:`extract_metrics` to quickly extract your desired metrics. Available metrics are :code:`["descriptive_stats", "readability", "dependency_distance", "pos_proportions", "coherence", "quality]`
+
+Set the :code:`spacy_model` parameter to specify which spaCy model to use, otherwise, TextDescriptives will auto-download an appropriate one based on :code:`lang`. If :code:`lang` is set, :code:`spacy_model` is not necessary and vice versa.
+
+Specify which metrics to extract in the `metrics` argument. `None` extracts all metrics. 
+
+.. code-block:: python
+
+   import textdescriptives as td
+
+   text = "The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it."
+   # will automatically download ´en_core_web_lg´ and extract all metrics
+   df = td.extract_metrics(text=text, lang="en")
+
+   # specify spaCy model and which metrics to extract
+   df = td.extract_metrics(text=text, spacy_model="en_core_web_sm", metrics=["readability", "coherence"])
+
+
+Usage with spaCy
+------------------
+
+To integrate with other spaCy pipelines, import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are :code:`descriptive_stats`, :code:`readability`, :code:`dependency_distance`, :code:`pos_proportions`, :code:`coherence`, and :code:`quality` prefixed with :code:`textdescriptives/`. 
 If you want to add all the components you can use the shorthand :code:`textdescriptives/all`.
 
 
