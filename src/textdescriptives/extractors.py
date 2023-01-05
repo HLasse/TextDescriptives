@@ -155,7 +155,7 @@ def load_spacy_model(
         "coherence",
         "pos_proportions",
     }
-    # if no spacy model is necesarry for the metrics, return a blank model
+    # if no spacy model is necessary for the metrics, return a blank model
     # for the language
     if not bool(metrics_requiring_spacy_model.intersection(metrics)):
         if lang is not None:
@@ -208,7 +208,7 @@ def _remove_textdescriptives_extensions() -> None:
 
 def extract_metrics(
     text: Union[str, List[str]],
-    spacy_model: Optional[Language] = None,
+    spacy_model: Optional[str] = None,
     lang: Optional[str] = None,
     metrics: Optional[Iterable[str]] = None,
     spacy_model_size: str = "lg",
@@ -217,7 +217,7 @@ def extract_metrics(
 
     Args:
         text (Union[str, List[str]]): A text or a list of texts.
-        spacy_model (spacy.lang, optional): The spacy model to use. If not set,
+        spacy_model (str, optional): The spacy model to use. If not set,
             will download one based on lang. We recommend always using `spacy_model`
             and downloading the model beforehand to have more control over the
             model as well as to avoid versioning issues. Defaults to None.
