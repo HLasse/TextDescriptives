@@ -1,5 +1,5 @@
 ---
-title: 'TextDescriptives: A Python package for calculating a large variety of statistics from text'
+title: 'TextDescriptives: A Python package for calculating a large variety of metrics from text'
 tags:
   - Python
   - natural language processing
@@ -24,7 +24,7 @@ affiliations:
 date: 16 December 2022
 bibliography: paper.bib
 ---
-# TextDescriptives: A Python package for calculating a large variety of statistics from text
+# TextDescriptives: A Python package for calculating a large variety of metrics from text
 
 # Summary
 
@@ -38,7 +38,7 @@ Computational text analysis is a broad term that refers to the process of analyz
 
 `TextDescriptives` seeks to unify the extraction of document-level metrics, in a modular fashion. The integration with spaCy allows the user to seamlessly integrate `TextDescriptives` in existing pipelines as well as giving the `TextDescriptives` package access to model-based metrics such as dependency graphs and part-of-speech tags. The ease of use and the variety of available metrics allows researchers and practitioners to extend the granularity of their analyses within a tested and validated framework.
 
-Implementations of the majority of the metrics included in `TextDescriptives` exist, but none as feature complete. The `textstat` library [@ward_textstat_2022] implements the same readability metrics, however, each metric has to be extracted one at a time with no interface for multiple extractions. `spacy-readability` [@holtzscher_spacy-readability_2019] adds readability metrics to `spaCy` pipelines, but does not work for new versions of `spaCy` (>=3.0.0). The `textacy` [@dewilde_textacy_2021] package has some overlap with `TextDescriptives`, but with a different focus. `TextDescriptives` focuses on document-level metrics, and includes a large number of metrics not included in `textacy` (dependency distance, coherence, (pseudo) perplexity, and quality), whereas `textacy` includes components for preprocessing, information extraction, and visualization that are outside the scope of `TextDescriptives`. What sets `TextDescriptives` apart is the easy access to document-level metrics through a simple user-facing API and exhaustive documentation. 
+Implementations of the majority of the metrics included in `TextDescriptives` exist, but none as feature complete. The `textstat` library [@ward_textstat_2022] implements the same readability metrics, however, each metric has to be extracted one at a time with no interface for multiple extractions. `spacy-readability` [@holtzscher_spacy-readability_2019] adds readability metrics to `spaCy` pipelines, but does not work for new versions of `spaCy` (>=3.0.0). The `textacy` [@dewilde_textacy_2021] package has some overlap with `TextDescriptives`, but with a different focus. `TextDescriptives` focuses on document-level metrics, and includes a large number of metrics not included in `textacy` (dependency distance, coherence, and quality), whereas `textacy` includes components for preprocessing, information extraction, and visualization that are outside the scope of `TextDescriptives`. What sets `TextDescriptives` apart is the easy access to document-level metrics through a simple user-facing API and exhaustive documentation. 
 
 
 # Features & Functionality
