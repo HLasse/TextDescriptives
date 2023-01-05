@@ -174,3 +174,13 @@ def test_extract_metrics_twice():
         metrics="pos_proportions",
         lang="en",
     )
+
+
+def test_extract_metrics_multiple_metrics():
+    df = td.extract_metrics(
+        "This is just a cute little text. Actually, it's two sentences.",
+        metrics=["readability", "dependency_distance"],
+        spacy_model="en_core_web_sm",
+    )
+    assert "lix" in df.columns
+    assert "dependency_distance_mean" in df.columns
