@@ -64,8 +64,9 @@ All the tutorials are located in the `docs/tutorials` folder and can also be fou
 | 😎 **[Tutorials]**               | Detailed tutorials on how to make the most of TextDescriptives                        |
 | 📰 **[News and changelog]** | New additions, changes and version history.                                 |
 | 🎛 **[API References]**     | The detailed reference for TextDescriptive's API. Including function documentation |
+| 📄 **[Paper]** | The preprint of the textdescriptives paper. | 
 
-
+[Paper]: https://arxiv.org/abs/2301.02057
 [Tutorials]: https://hlasse.github.io/TextDescriptives/tutorial.html
 [Getting started]: https://hlasse.github.io/TextDescriptives/usingthepackage.html
 [API References]: https://hlasse.github.io/TextDescriptives/index.html
