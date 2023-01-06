@@ -186,7 +186,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
+<p class="caption" role="heading"><span class="caption-text">Components</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../readability.html">Readability</a></li>
@@ -194,6 +194,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quality.html">Quality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../coherence.html">Coherence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractors.html">Extractor</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -240,50 +241,90 @@
 <p>The package includes a number of components that make it easy to only spend time extracting exactly the metrics you care about.</p>
 <p>This tutorial introduces some of components available in TextDescriptives and how you can use them to quickly analyse a text corpus.
 For more information on the components, see the <a class="reference external" href="https://hlasse.github.io/TextDescriptives/">documentation</a>.</p>
-<section id="exploratory-data-analysis">
-<h2>Exploratory Data Analysis<a class="headerlink" href="#exploratory-data-analysis" title="Permalink to this heading">#</a></h2>
+<section id="using-textdescriptives">
+<h2>Using TextDescriptives<a class="headerlink" href="#using-textdescriptives" title="Permalink to this heading">#</a></h2>
 <p>In this tutorial we’ll use TextDescriptives to get a quick overview of the <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection">SMS Spam Collection Data Set</a>.
 The dataset contains 5572 SMS messages categorized as ham or spam.</p>
-<p>To start, let’s load a <code class="docutils literal notranslate"><span class="pre">spacy</span></code> pipeline and add some components to it.</p>
+<p>To start, let’s load a dataset and get a bit familiar with it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">textdescriptives</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;textdescriptives[tutorials]&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id1">
-<h2><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
-<span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
-<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
 
-<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
-<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/dependency_distance&quot;</span><span class="p">)</span>
+<span class="c1"># download spaCy model</span>
+<span class="o">!</span>python<span class="w"> </span>-m<span class="w"> </span>spacy<span class="w"> </span>download<span class="w"> </span>en_core_web_sm
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-C4">ℹ &#39;textdescriptives/descriptive_stats&#39; component is required for</span>
-<span class=" -Color -Color-C4">&#39;textdescriptives.readability&#39;. Adding to pipe.</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Defaulting to user installation because normal site-packages is not writeable
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7fb9ed0d11e0&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting en-core-web-sm==3.2.0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.2.0/en_core_web_sm-3.2.0-py3-none-any.whl (13.9 MB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/13.9 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.1/13.9 MB</span> <span class=" -Color -Color-Red">2.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:07</span>
+     ━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">2.3/13.9 MB</span> <span class=" -Color -Color-Red">33.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━ <span class=" -Color -Color-Green">9.5/13.9 MB</span> <span class=" -Color -Color-Red">91.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">13.9/13.9 MB</span> <span class=" -Color -Color-Red">219.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">13.9/13.9 MB</span> <span class=" -Color -Color-Red">119.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: spacy&lt;3.3.0,&gt;=3.2.0 in /home/runner/.local/lib/python3.10/site-packages (from en-core-web-sm==3.2.0) (3.2.5)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: langcodes&lt;4.0.0,&gt;=3.2.0 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (3.3.0)
+Requirement already satisfied: pathy&gt;=0.3.5 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (0.10.1)
+Requirement already satisfied: spacy-loggers&lt;2.0.0,&gt;=1.0.0 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (1.0.4)
+Requirement already satisfied: wasabi&lt;1.1.0,&gt;=0.8.1 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (0.10.1)
+Requirement already satisfied: typer&lt;0.5.0,&gt;=0.3.0 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (0.4.2)
+Requirement already satisfied: tqdm&lt;5.0.0,&gt;=4.38.0 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (4.64.1)
+Requirement already satisfied: smart-open&lt;7.0.0,&gt;=5.2.1 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (6.3.0)
+Requirement already satisfied: spacy-legacy&lt;3.1.0,&gt;=3.0.8 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (3.0.11)
+Requirement already satisfied: catalogue&lt;2.1.0,&gt;=2.0.6 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (2.0.8)
+Requirement already satisfied: requests&lt;3.0.0,&gt;=2.13.0 in /usr/lib/python3/dist-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (2.25.1)
+Requirement already satisfied: packaging&gt;=20.0 in /usr/local/lib/python3.10/dist-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (22.0)
+Requirement already satisfied: preshed&lt;3.1.0,&gt;=3.0.2 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (3.0.8)
+Requirement already satisfied: numpy&gt;=1.15.0 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (1.23.5)
+Requirement already satisfied: blis&lt;0.8.0,&gt;=0.4.0 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (0.7.9)
+Requirement already satisfied: jinja2 in /usr/lib/python3/dist-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (3.0.3)
+Requirement already satisfied: pydantic!=1.8,!=1.8.1,&lt;1.9.0,&gt;=1.7.4 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (1.8.2)
+Requirement already satisfied: cymem&lt;2.1.0,&gt;=2.0.2 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (2.0.7)
+Requirement already satisfied: setuptools in /usr/lib/python3/dist-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (59.6.0)
+Requirement already satisfied: srsly&lt;3.0.0,&gt;=2.4.1 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (2.4.5)
+Requirement already satisfied: murmurhash&lt;1.1.0,&gt;=0.28.0 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (1.0.9)
+Requirement already satisfied: thinc&lt;8.1.0,&gt;=8.0.12 in /home/runner/.local/lib/python3.10/site-packages (from spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (8.0.17)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: typing-extensions&gt;=3.7.4.3 in /home/runner/.local/lib/python3.10/site-packages (from pydantic!=1.8,!=1.8.1,&lt;1.9.0,&gt;=1.7.4-&gt;spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (4.4.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: click&lt;9.0.0,&gt;=7.1.1 in /usr/lib/python3/dist-packages (from typer&lt;0.5.0,&gt;=0.3.0-&gt;spacy&lt;3.3.0,&gt;=3.2.0-&gt;en-core-web-sm==3.2.0) (8.0.3)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-C2">✔ Download and installation successful</span>
+You can now load the package via spacy.load(&#39;en_core_web_sm&#39;)
 </pre></div>
 </div>
 </div>
 </div>
-<p>From now on, whenever we pass a document through the spacy pipeline (<code class="docutils literal notranslate"><span class="pre">nlp</span></code>), TextDescriptives will add readability and dependency distance metrics to the document.</p>
-<p>Let’s load the data and pass it through the pipeline.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">textdescriptives.utils</span> <span class="kn">import</span> <span class="n">load_sms_data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+
+<span class="kn">from</span> <span class="nn">textdescriptives.utils</span> <span class="kn">import</span> <span class="n">load_sms_data</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">load_sms_data</span><span class="p">()</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -357,6 +398,219 @@ Name: label, dtype: int64
 </div>
 </div>
 </div>
+<section id="the-easy-way-extract-metrics-with-extract-metrics">
+<h3>The easy way: Extract metrics with <code class="docutils literal notranslate"><span class="pre">extract_metrics</span></code><a class="headerlink" href="#the-easy-way-extract-metrics-with-extract-metrics" title="Permalink to this heading">#</a></h3>
+<p>Let’s extract readability and dependency distance metrics using the <code class="docutils literal notranslate"><span class="pre">extract_metrics</span></code> function, which handles a lot of boilerplate spaCy code for us. If haven’t used spacy before, you can set the parameter <code class="docutils literal notranslate"><span class="pre">lang</span></code> to the language of your text  instead of specifying <code class="docutils literal notranslate"><span class="pre">spacy_model</span></code> - then TextDescriptives will automatically download and use an appropriate model for you.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># assumes you have downloaded the ´en_core_web_model´</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_metrics</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">],</span> <span class="n">spacy_model</span><span class="o">=</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;readability&quot;</span><span class="p">,</span> <span class="s2">&quot;dependency_distance&quot;</span><span class="p">])</span>
+<span class="c1"># alternatively, you can specify the language and (optionally) the model size</span>
+<span class="c1"># metrics = td.extract_metrics(text=df[&quot;message&quot;], lang=&quot;en&quot;, spacy_model_size=&quot;sm&quot;, metrics=[&quot;readability, dependency_distance&quot;])</span>
+
+<span class="c1"># join the metrics to the original dataframe to get the label</span>
+<span class="n">metrics_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]))</span>
+<span class="n">metrics_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-C4">ℹ &#39;textdescriptives/descriptive_stats&#39; component is required for</span>
+<span class=" -Color -Color-C4">&#39;textdescriptives.readability&#39;. Adding to pipe.</span>
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>message</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
+      <th>flesch_reading_ease</th>
+      <th>flesch_kincaid_grade</th>
+      <th>smog</th>
+      <th>gunning_fog</th>
+      <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
+      <th>syllables_per_token_std</th>
+      <th>n_tokens</th>
+      <th>n_unique_tokens</th>
+      <th>proportion_unique_tokens</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ham</td>
+      <td>Go until jurong point, crazy.. Available only ...</td>
+      <td>2.119048</td>
+      <td>0.639763</td>
+      <td>0.344877</td>
+      <td>0.064145</td>
+      <td>94.318333</td>
+      <td>1.760000</td>
+      <td>3.1291</td>
+      <td>2.666667</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>2.357023</td>
+      <td>1.250000</td>
+      <td>1.0</td>
+      <td>0.433013</td>
+      <td>20</td>
+      <td>20</td>
+      <td>1.000000</td>
+      <td>92</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ham</td>
+      <td>Ok lar... Joking wif u oni...</td>
+      <td>1.233333</td>
+      <td>0.566667</td>
+      <td>0.533333</td>
+      <td>0.133333</td>
+      <td>105.090000</td>
+      <td>-0.653333</td>
+      <td>NaN</td>
+      <td>1.200000</td>
+      <td>...</td>
+      <td>3.0</td>
+      <td>1.000000</td>
+      <td>1.166667</td>
+      <td>1.0</td>
+      <td>0.372678</td>
+      <td>6</td>
+      <td>6</td>
+      <td>1.000000</td>
+      <td>24</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>spam</td>
+      <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
+      <td>2.976891</td>
+      <td>0.094538</td>
+      <td>0.485294</td>
+      <td>0.014706</td>
+      <td>92.917857</td>
+      <td>3.777143</td>
+      <td>NaN</td>
+      <td>5.600000</td>
+      <td>...</td>
+      <td>14.0</td>
+      <td>2.000000</td>
+      <td>1.178571</td>
+      <td>1.0</td>
+      <td>0.382993</td>
+      <td>28</td>
+      <td>24</td>
+      <td>0.857143</td>
+      <td>128</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ham</td>
+      <td>U dun say so early hor... U c already then say...</td>
+      <td>1.452381</td>
+      <td>0.119048</td>
+      <td>0.535714</td>
+      <td>0.035714</td>
+      <td>116.652500</td>
+      <td>-1.645000</td>
+      <td>NaN</td>
+      <td>2.200000</td>
+      <td>...</td>
+      <td>5.5</td>
+      <td>0.500000</td>
+      <td>1.000000</td>
+      <td>1.0</td>
+      <td>0.000000</td>
+      <td>11</td>
+      <td>9</td>
+      <td>0.818182</td>
+      <td>39</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ham</td>
+      <td>Nah I don't think he goes to usf, he lives aro...</td>
+      <td>2.066667</td>
+      <td>0.000000</td>
+      <td>0.400000</td>
+      <td>0.000000</td>
+      <td>109.040000</td>
+      <td>1.280000</td>
+      <td>NaN</td>
+      <td>5.200000</td>
+      <td>...</td>
+      <td>13.0</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>1.0</td>
+      <td>0.000000</td>
+      <td>13</td>
+      <td>12</td>
+      <td>0.923077</td>
+      <td>49</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 28 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="the-configurable-way-add-pipes-to-spacy">
+<h3>The configurable way: Add pipes to spaCy<a class="headerlink" href="#the-configurable-way-add-pipes-to-spacy" title="Permalink to this heading">#</a></h3>
+<p>If you want to use the component as part of a larger analysis with spaCy, simply add the pipeline components to an already initialized spaCy pipeline and use <code class="docutils literal notranslate"><span class="pre">extract_df</span></code> on the <code class="docutils literal notranslate"><span class="pre">Doc</span></code> object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/dependency_distance&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-C4">ℹ &#39;textdescriptives/descriptive_stats&#39; component is required for</span>
+<span class=" -Color -Color-C4">&#39;textdescriptives.readability&#39;. Adding to pipe.</span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7ff3a8ee43a0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>From now on, whenever we pass a document through the spacy pipeline (<code class="docutils literal notranslate"><span class="pre">nlp</span></code>), TextDescriptives will add readability and dependency distance metrics to the document.</p>
+<p>Let’s load the data and pass it through the pipeline.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">])</span>
@@ -366,7 +620,8 @@ Name: label, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">include_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># extract the metrics as a dataframe</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">include_text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -374,15 +629,8 @@ Name: label, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># join the metrics to the original dataframe</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>That’s all we need to do! Let’s take a look at the dataframe and the metrics we have calculated</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">spacy_pipe_metrics_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<span class="n">spacy_pipe_metrics_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -407,14 +655,14 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
       <th>gunning_fog</th>
-      <th>automated_readability_index</th>
-      <th>coleman_liau_index</th>
-      <th>lix</th>
-      <th>rix</th>
       <th>...</th>
       <th>sentence_length_median</th>
       <th>sentence_length_std</th>
@@ -433,14 +681,14 @@ Name: label, dtype: int64
       <th>0</th>
       <td>ham</td>
       <td>Go until jurong point, crazy.. Available only ...</td>
+      <td>2.119048</td>
+      <td>0.639763</td>
+      <td>0.344877</td>
+      <td>0.064145</td>
       <td>94.318333</td>
       <td>1.760000</td>
       <td>3.1291</td>
       <td>2.666667</td>
-      <td>1.449833</td>
-      <td>4.162000</td>
-      <td>11.666667</td>
-      <td>0.333333</td>
       <td>...</td>
       <td>5.0</td>
       <td>2.357023</td>
@@ -457,14 +705,14 @@ Name: label, dtype: int64
       <th>1</th>
       <td>ham</td>
       <td>Ok lar... Joking wif u oni...</td>
+      <td>1.233333</td>
+      <td>0.566667</td>
+      <td>0.533333</td>
+      <td>0.133333</td>
       <td>105.090000</td>
       <td>-0.653333</td>
       <td>NaN</td>
       <td>1.200000</td>
-      <td>-5.800000</td>
-      <td>-8.026667</td>
-      <td>3.000000</td>
-      <td>0.000000</td>
       <td>...</td>
       <td>3.0</td>
       <td>1.000000</td>
@@ -481,14 +729,14 @@ Name: label, dtype: int64
       <th>2</th>
       <td>spam</td>
       <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
+      <td>2.976891</td>
+      <td>0.094538</td>
+      <td>0.485294</td>
+      <td>0.014706</td>
       <td>92.917857</td>
       <td>3.777143</td>
       <td>NaN</td>
       <td>5.600000</td>
-      <td>6.260357</td>
-      <td>7.915714</td>
-      <td>28.285714</td>
-      <td>2.000000</td>
       <td>...</td>
       <td>14.0</td>
       <td>2.000000</td>
@@ -505,14 +753,14 @@ Name: label, dtype: int64
       <th>3</th>
       <td>ham</td>
       <td>U dun say so early hor... U c already then say...</td>
+      <td>1.452381</td>
+      <td>0.119048</td>
+      <td>0.535714</td>
+      <td>0.035714</td>
       <td>116.652500</td>
       <td>-1.645000</td>
       <td>NaN</td>
       <td>2.200000</td>
-      <td>-4.550000</td>
-      <td>-3.541818</td>
-      <td>14.590909</td>
-      <td>0.500000</td>
       <td>...</td>
       <td>5.5</td>
       <td>0.500000</td>
@@ -529,14 +777,14 @@ Name: label, dtype: int64
       <th>4</th>
       <td>ham</td>
       <td>Nah I don't think he goes to usf, he lives aro...</td>
+      <td>2.066667</td>
+      <td>0.000000</td>
+      <td>0.400000</td>
+      <td>0.000000</td>
       <td>109.040000</td>
       <td>1.280000</td>
       <td>NaN</td>
       <td>5.200000</td>
-      <td>1.373846</td>
-      <td>2.276923</td>
-      <td>13.000000</td>
-      <td>0.000000</td>
       <td>...</td>
       <td>13.0</td>
       <td>0.000000</td>
@@ -554,11 +802,28 @@ Name: label, dtype: int64
 <p>5 rows × 28 columns</p>
 </div></div></div>
 </div>
-<p>Let’s do some quick exploratory data analysis to get a sense of the data</p>
+<p>That’s it! Let’s assure ourselves that the dataframes are identical.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics_df</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">spacy_pipe_metrics_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exploratory-data-analysis">
+<h2>Exploratory Data Analysis<a class="headerlink" href="#exploratory-data-analysis" title="Permalink to this heading">#</a></h2>
+<p>With the metrics extracted, let’s do some quick exploratory data analysis to get a sense of the data</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;lix&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;lix&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">metrics_df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -573,9 +838,9 @@ Name: label, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># encode the label as a boolean</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ham&quot;</span>
+<span class="n">metrics_df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metrics_df</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ham&quot;</span>
 <span class="c1"># compute the correlation between all metrics and the label</span>
-<span class="n">metrics_correlations</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">abs</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">metrics_correlations</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">metrics_df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">abs</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">metrics_correlations</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -603,7 +868,7 @@ dtype: float64
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">metric</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">metrics_correlations</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">3</span><span class="p">]):</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">metrics_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -672,8 +937,12 @@ dtype: float64
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Introductory Tutorial</a><ul>
+<li><a class="reference internal" href="#using-textdescriptives">Using TextDescriptives</a><ul>
+<li><a class="reference internal" href="#the-easy-way-extract-metrics-with-extract-metrics">The easy way: Extract metrics with <code class="docutils literal notranslate"><span class="pre">extract_metrics</span></code></a></li>
+<li><a class="reference internal" href="#the-configurable-way-add-pipes-to-spacy">The configurable way: Add pipes to spaCy</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
-<li><a class="reference internal" href="#id1"></a></li>
 </ul>
 </li>
 </ul>

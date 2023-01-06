@@ -7,8 +7,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="usingthepackage.html" />
 <meta property="og:site_name" content="textdescriptives" />
-<meta property="og:description" content="Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are descriptive_stats, readability, dependency_distance, pos_proportions, coherenc..." />
-<meta name="description" content="Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are descriptive_stats, readability, dependency_distance, pos_proportions, coherenc..." />
+<meta property="og:description" content="Use extract_metrics to quickly extract your desired metrics. Available metrics are[&quot;descriptive_stats&quot;, &quot;readability&quot;, &quot;dependency_distance&quot;, &quot;pos_proportions&quot;, &quot;coherence&quot;, &quot;quality] Set the spacy..." />
+<meta name="description" content="Use extract_metrics to quickly extract your desired metrics. Available metrics are[&quot;descriptive_stats&quot;, &quot;readability&quot;, &quot;dependency_distance&quot;, &quot;pos_proportions&quot;, &quot;coherence&quot;, &quot;quality] Set the spacy..." />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tutorials" href="tutorial.html" /><link rel="prev" title="Installation" href="installation.html" />
 
     <!-- Generated with Sphinx 6.1.1 and Furo 2022.12.07 -->
@@ -150,7 +150,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -186,7 +186,7 @@
 <li class="toctree-l1"><a class="reference internal" href="news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
+<p class="caption" role="heading"><span class="caption-text">Components</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
@@ -194,6 +194,7 @@
 <li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quality.html">Quality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="coherence.html">Coherence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extractors.html">Extractor</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -225,7 +226,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -233,7 +234,22 @@
         <article role="main">
           <section id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading">#</a></h1>
-<p>Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are <code class="code docutils literal notranslate"><span class="pre">descriptive_stats</span></code>, <code class="code docutils literal notranslate"><span class="pre">readability</span></code>, <code class="code docutils literal notranslate"><span class="pre">dependency_distance</span></code>, <code class="code docutils literal notranslate"><span class="pre">pos_proportions</span></code>, <code class="code docutils literal notranslate"><span class="pre">coherence</span></code>, and <code class="code docutils literal notranslate"><span class="pre">quality</span></code> prefixed with <code class="code docutils literal notranslate"><span class="pre">textdescriptives/</span></code>.
+<p>Use <code class="code docutils literal notranslate"><span class="pre">extract_metrics</span></code> to quickly extract your desired metrics. Available metrics are <code class="code docutils literal notranslate"><span class="pre">[&quot;descriptive_stats&quot;,</span> <span class="pre">&quot;readability&quot;,</span> <span class="pre">&quot;dependency_distance&quot;,</span> <span class="pre">&quot;pos_proportions&quot;,</span> <span class="pre">&quot;coherence&quot;,</span> <span class="pre">&quot;quality]</span></code></p>
+<p>Set the <code class="code docutils literal notranslate"><span class="pre">spacy_model</span></code> parameter to specify which spaCy model to use, otherwise, TextDescriptives will auto-download an appropriate one based on <code class="code docutils literal notranslate"><span class="pre">lang</span></code>. If <code class="code docutils literal notranslate"><span class="pre">lang</span></code> is set, <code class="code docutils literal notranslate"><span class="pre">spacy_model</span></code> is not necessary and vice versa.</p>
+<p>Specify which metrics to extract in the <code class="code docutils literal notranslate"><span class="pre">metrics</span></code> argument. <code class="code docutils literal notranslate"><span class="pre">None</span></code> extracts all metrics.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.&quot;</span>
+<span class="c1"># will automatically download the relevant model (´en_core_web_lg´) and extract all metrics</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_metrics</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># specify spaCy model and which metrics to extract</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_metrics</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">spacy_model</span><span class="o">=</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;readability&quot;</span><span class="p">,</span> <span class="s2">&quot;coherence&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<section id="usage-with-spacy">
+<h2>Usage with spaCy<a class="headerlink" href="#usage-with-spacy" title="Permalink to this heading">#</a></h2>
+<p>To integrate with other spaCy pipelines, import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are <code class="code docutils literal notranslate"><span class="pre">descriptive_stats</span></code>, <code class="code docutils literal notranslate"><span class="pre">readability</span></code>, <code class="code docutils literal notranslate"><span class="pre">dependency_distance</span></code>, <code class="code docutils literal notranslate"><span class="pre">pos_proportions</span></code>, <code class="code docutils literal notranslate"><span class="pre">coherence</span></code>, and <code class="code docutils literal notranslate"><span class="pre">quality</span></code> prefixed with <code class="code docutils literal notranslate"><span class="pre">textdescriptives/</span></code>.
 If you want to add all the components you can use the shorthand <code class="code docutils literal notranslate"><span class="pre">textdescriptives/all</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
 <span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
@@ -265,6 +281,7 @@ If you want to add all the components you can use the shorthand <code class="cod
 <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="s2">&quot;dependency_distance&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
 </section>
 <section id="using-specific-components">
 <h1>Using Specific Components<a class="headerlink" href="#using-specific-components" title="Permalink to this heading">#</a></h1>
@@ -406,8 +423,29 @@ For more details on each metrics, see the following sections in the documentatio
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Quick Start</a><ul>
+<li><a class="reference internal" href="#usage-with-spacy">Usage with spaCy</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-specific-components">Using Specific Components</a></li>
+<li><a class="reference internal" href="#available-attributes">Available Attributes</a></li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

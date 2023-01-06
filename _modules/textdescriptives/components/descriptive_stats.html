@@ -179,7 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../news.html">News and Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Compoents</span></p>
+<p class="caption" role="heading"><span class="caption-text">Components</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../readability.html">Readability</a></li>
@@ -187,6 +187,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quality.html">Quality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../coherence.html">Coherence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extractors.html">Extractor</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hlasse/TextDescriptives">GitHub Repository</a></li>
@@ -380,13 +381,16 @@
 <div class="viewcode-block" id="create_descriptive_stats_component"><a class="viewcode-back" href="../../../descriptivestats.html#textdescriptives.components.descriptive_stats.create_descriptive_stats_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span>
     <span class="s2">&quot;textdescriptives/descriptive_stats&quot;</span><span class="p">,</span>
     <span class="n">assigns</span><span class="o">=</span><span class="p">[</span>
-        <span class="s2">&quot;doc._.n_sentences&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;doc._.n_tokens&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;doc._._n_sentences&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;doc._._n_tokens&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;doc._._n_syllables&quot;</span><span class="p">,</span>
         <span class="s2">&quot;doc._.token_length&quot;</span><span class="p">,</span>
         <span class="s2">&quot;doc._.sentence_length&quot;</span><span class="p">,</span>
         <span class="s2">&quot;doc._.syllables&quot;</span><span class="p">,</span>
         <span class="s2">&quot;doc._.counts&quot;</span><span class="p">,</span>
         <span class="s2">&quot;doc._.descriptive_stats&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;span._._n_tokens&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;span._._n_syllables&quot;</span><span class="p">,</span>
         <span class="s2">&quot;span._.token_length&quot;</span><span class="p">,</span>
         <span class="s2">&quot;span._.counts&quot;</span><span class="p">,</span>
         <span class="s2">&quot;span._.descriptive_stats&quot;</span><span class="p">,</span>
