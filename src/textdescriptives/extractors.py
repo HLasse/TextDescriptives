@@ -1,19 +1,13 @@
 """Extract metrics as Pandas DataFrame."""
-from typing import Any, Dict, Iterable, List, Optional, Type, Union
+from typing import Any, Dict, Iterable, List, Optional, Union
 
 import pandas as pd
-import spacy
-import spacy.cli
-from spacy import Language
-from spacy.tokens import Doc, Span, Token
+from spacy.tokens import Doc
 from wasabi import msg
 
 from textdescriptives.utils import (
     _create_spacy_pipeline,
     _remove_textdescriptives_extensions,
-    get_doc_assigns,
-    get_span_assigns,
-    get_token_assigns,
     get_valid_metrics,
 )
 
@@ -145,7 +139,7 @@ def extract_metrics(
     if spacy_model is not None and lang is not None:
         msg.info(
             "Both a spacy model and a language were provided. "
-            + "Will use the spacy model and ignore language."
+            + "Will use the spacy model and ignore language.",
         )
 
     if metrics is None:
