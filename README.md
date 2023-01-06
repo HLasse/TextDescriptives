@@ -34,8 +34,8 @@ Specify which metrics to extract in the `metrics` argument. `None` extracts all 
 import textdescriptives as td
 
 text = "The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it."
-# will automatically download ´en_core_web_lg´ and extract all metrics
-df = td.extract_metrics(text=text, lang="en")
+# will automatically download the relevant model (´en_core_web_lg´) and extract all metrics
+df = td.extract_metrics(text=text, lang="en", metrics=None)
 
 # specify spaCy model and which metrics to extract
 df = td.extract_metrics(text=text, spacy_model="en_core_web_sm", metrics=["readability", "coherence"])
