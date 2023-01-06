@@ -46,6 +46,9 @@ class TextDescriptives:
         "doc._.first_order_coherence_values",
         "doc._.second_order_coherence_values",
         "doc._.passed_quality_check",
+        "doc._._n_sentences",
+        "doc._._n_tokens",
+        "doc._._n_syllables",
     ],  # intentionally not assigning span attributes
 )
 def create_textdescriptives_component(nlp: Language, name: str):

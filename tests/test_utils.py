@@ -18,4 +18,3 @@ def test_get_columns():
         columns_.update(columns)
     columns_all = td.get_doc_assigns("all")
     assert set(columns_all) == columns_
-    assert set(columns_all) == columns_
