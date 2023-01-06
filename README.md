@@ -8,8 +8,7 @@
 [![github actions pytest](https://github.com/hlasse/textdescriptives/actions/workflows/tests.yml/badge.svg)](https://github.com/hlasse/textdescriptives/actions)
 [![github actions docs](https://github.com/hlasse/textdescriptives/actions/workflows/documentation.yml/badge.svg)](https://hlasse.github.io/TextDescriptives/)
 ![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/hlasse/24ee79064ca9d49616cbc410da65cee2/raw/badge-textdescriptives-pytest-coverage.json)
-[![DOI](https://zenodo.org/badge/236710916.svg)](https://zenodo.org/badge/latestdoi/236710916)
-
+[![arXiv](https://img.shields.io/badge/arXiv-2301.02057-b31b1b.svg)](https://arxiv.org/abs/2301.02057)
 
 A Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance. 
 
@@ -64,7 +63,7 @@ All the tutorials are located in the `docs/tutorials` folder and can also be fou
 | 😎 **[Tutorials]**               | Detailed tutorials on how to make the most of TextDescriptives                        |
 | 📰 **[News and changelog]** | New additions, changes and version history.                                 |
 | 🎛 **[API References]**     | The detailed reference for TextDescriptive's API. Including function documentation |
-| 📄 **[Paper]** | The preprint of the textdescriptives paper. | 
+| 📄 **[Paper]** | The preprint of the TextDescriptives paper. | 
 
 [Paper]: https://arxiv.org/abs/2301.02057
 [Tutorials]: https://hlasse.github.io/TextDescriptives/tutorial.html
