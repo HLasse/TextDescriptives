@@ -2,7 +2,7 @@ import pytest
 import spacy
 
 import textdescriptives as td
-from textdescriptives.extractors import download_spacy_model, load_spacy_model
+from textdescriptives.utils import _create_spacy_pipeline, _download_spacy_model
 
 # pylint: disable=missing-function-docstring
 
@@ -65,11 +65,11 @@ def test_extract_df_only_pos():
 
 @pytest.mark.parametrize("lang", ["en", "da"])
 def test_download_spacy_model(lang):
-    download_spacy_model(lang=lang, size="sm")
+    _download_spacy_model(lang=lang, size="sm")
 
 
 def test_load_spacy_model():
-    nlp = load_spacy_model(
+    nlp = _create_spacy_pipeline(
         spacy_model=None,
         lang="en",
         metrics=["descriptive_stats", "readability", "coherence"],
@@ -79,7 +79,7 @@ def test_load_spacy_model():
 
 
 def test_load_spacy_model_blank():
-    nlp = load_spacy_model(
+    nlp = _create_spacy_pipeline(
         spacy_model=None,
         lang="en",
         metrics=["descriptive_stats"],
