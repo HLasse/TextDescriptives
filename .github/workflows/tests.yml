@@ -60,7 +60,7 @@ jobs:
         shell: bash
         run: |
           jupyter nbconvert --to python ./docs/tutorials/*.ipynb
-          for f in docs/tutorials/*.py; do python "$f"; done
+          for f in docs/tutorials/*.py; do ipython "$f"; done
 
       # if it is run on ubuntu-latest, python 3.9, then create the badge
       - name: Pytest coverage comment
