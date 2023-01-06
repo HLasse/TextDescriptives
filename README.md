@@ -19,12 +19,33 @@ A Python library for calculating a large variety of statistics from text(s) usin
 
 * Version 2.0 out with a new API, a new component, updated documentation, and tutorials! Components are now called by "`textdescriptives/{metric_name}`. New `coherence` component for calculating the semantic coherence between sentences. See the [documentation](https://github.com/HLasse/TextDescriptives) for tutorials and more information!  
 
+
+
 # ⚡ Quick Start
 
-Import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are *descriptive_stats*, *readability*, *dependency_distance*, *pos_proportions*, *coherence*, and *quality* prefixed with `textdescriptives/`. 
+Use `extract_metrics` to quickly extract your desired metrics. Available metrics are `["descriptive_stats", "readability", "dependency_distance", "pos_proportions", "coherence", "quality]`
+
+Set the `spacy_model` parameter to specify which spaCy model to use, otherwise, TextDescriptives will auto-download an appropriate one based on `lang`. If `lang` is set, `spacy_model` is not necessary and vice versa.
+
+Specify which metrics to extract in the `metrics` argument. `None` extracts all metrics. 
+
+```py
+import textdescriptives as td
+
+text = "The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it."
+# will automatically download the relevant model (´en_core_web_lg´) and extract all metrics
+df = td.extract_metrics(text=text, lang="en", metrics=None)
+
+# specify spaCy model and which metrics to extract
+df = td.extract_metrics(text=text, spacy_model="en_core_web_sm", metrics=["readability", "coherence"])
+```
+
+
+## Usage with spaCy
+
+To integrate with other spaCy pipelines, import the library and add the component(s) to your pipeline using the standard spaCy syntax. Available components are *descriptive_stats*, *readability*, *dependency_distance*, *pos_proportions*, *coherence*, and *quality* prefixed with `textdescriptives/`. 
 
 If you want to add all components you can use the shorthand `textdescriptives/all`.
-
 
 ```py
 import spacy
@@ -38,7 +59,7 @@ doc._.readability
 doc._.token_length
 ```
 
-TextDescriptives includes convenience functions for extracting metrics to a Pandas DataFrame or a dictionary.
+TextDescriptives includes convenience functions for extracting metrics from a `Doc` to a Pandas DataFrame or a dictionary.
 
 ```py
 td.extract_dict(doc)

@@ -1,5 +1,8 @@
 default_stages: [commit, push]
 
+ci:
+  autofix_prs: false
+
 repos:
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.3.1
