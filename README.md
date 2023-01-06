@@ -10,7 +10,7 @@
 ![github coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/hlasse/24ee79064ca9d49616cbc410da65cee2/raw/badge-textdescriptives-pytest-coverage.json)
 [![arXiv](https://img.shields.io/badge/arXiv-2301.02057-b31b1b.svg)](https://arxiv.org/abs/2301.02057)
 
-A Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance. 
+A Python library for calculating a large variety of metrics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance. 
 
 # 🔧 Installation
 `pip install textdescriptives`
