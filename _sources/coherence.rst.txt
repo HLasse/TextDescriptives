@@ -44,7 +44,7 @@ Usage
   # all attributes are stored as a dict in the ._.coherence attribute
   doc._.coherence
 
-  # first and second order coherence values are also added as seperate attributes
+  # first and second order coherence values are also added as separate attributes
   # note that the first/first two sentences do not have any values for first/second order
   # coherence, respectively, as they require 1 or 2 sentences to average over
   doc._.first_order_coherence_values
