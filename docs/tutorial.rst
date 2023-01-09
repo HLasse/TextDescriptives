@@ -10,4 +10,5 @@ locally.
    :caption: Tutorials
 
    tutorials/introductory_tutorial.ipynb
+   tutorials/filter_corpus_using_quality.ipynb
 
