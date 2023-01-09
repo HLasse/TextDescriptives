@@ -612,8 +612,6 @@ class Quality:
         """Set required extensions."""
 
         for ext_name, span_getter in self.extensions.items():
-            # doc_getter = span_getter_to_doc_getter(span_getter)
-
             if not Span.has_extension(ext_name) or self.force is True:
                 Span.set_extension(ext_name, getter=span_getter, force=True)
             if not Doc.has_extension(ext_name) or self.force is True:
