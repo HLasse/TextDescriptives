@@ -34,6 +34,13 @@ please use the discussion Forums.
 +------------------------------+-------------------------+
 
 
+Citation
+^^^^^^^^^^^^^^^^^^^^^^^^
+If you use TextDescriptives in your research, please cite the following preprint:
+`TextDescriptives: A Python package for calculating a large variety of statistics from text <https://arxiv.org/abs/2301.02057>`__.
+
+
+
 .. _GitHub Issue Tracker: https://github.com/HLasse/TextDescriptives/issues
 .. _GitHub Discussions: https://github.com/HLasse/TextDescriptives/discussions
 
@@ -50,7 +57,7 @@ please use the discussion Forums.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Compoents
+   :caption: Components
    :hidden:
 
    descriptivestats
@@ -59,6 +66,7 @@ please use the discussion Forums.
    posstats
    quality
    coherence
+   extractors
 
 
 .. toctree::

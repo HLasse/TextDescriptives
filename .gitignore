@@ -139,3 +139,15 @@ dmypy.json
 .DStore
 
 .vscode
+# Paper rendering
+paper/paper_quarto_files/*
+paper/_extensions/*
+paper/arxiv.sty
+paper/orcidlink.sty
+paper/paper_quarto.fdb_latexmk
+paper/paper_quarto.tex
+paper/paper_quarto.fls
+paper/paper_quarto.aux
+paper/paper.tex
+paper/paper_quarto.pdf
+paper/paper_quarto.html

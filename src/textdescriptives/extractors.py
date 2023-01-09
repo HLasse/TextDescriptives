@@ -1,10 +1,15 @@
 """Extract metrics as Pandas DataFrame."""
-from typing import Any, Dict, Iterable, List, Union
+from typing import Any, Dict, Iterable, List, Optional, Union
 
 import pandas as pd
 from spacy.tokens import Doc
+from wasabi import msg
 
-from textdescriptives.utils import get_valid_metrics
+from textdescriptives.utils import (
+    _create_spacy_pipeline,
+    _remove_textdescriptives_extensions,
+    get_valid_metrics,
+)
 
 
 def __get_quality(doc: Doc) -> dict:
@@ -88,7 +93,7 @@ def extract_df(
         docs (Union[Iterable[Doc],  Doc]): An iterable of spaCy Docs or a single Doc
         metrics (Union[list[str], str], optional): Which metrics to extract.
                 One or more of ["descriptive_stats", "readability",
-                "dependency_distance", "pos_stats", "all"]. Defaults to None in which
+                "dependency_distance", "pos_stats"]. Defaults to None in which
                 case it will extract metrics for which a pipeline compoenent has been
                 set.
         include_text (bool, optional): Whether to add a column containing the text.
@@ -98,3 +103,65 @@ def extract_df(
         pd.DataFrame: DataFrame with a row for each doc and column for each metric.
     """
     return pd.DataFrame(extract_dict(docs, metrics, include_text))
+
+
+def extract_metrics(
+    text: Union[str, List[str]],
+    lang: Optional[str] = None,
+    metrics: Optional[Iterable[str]] = None,
+    spacy_model: Optional[str] = None,
+    spacy_model_size: str = "lg",
+) -> pd.DataFrame:
+    """Extract metrics from a text or a list of texts to a Pandas dataframe.
+
+    Args:
+        text (Union[str, List[str]]): A text or a list of texts.
+        spacy_model (str, optional): The spacy model to use. If not set,
+            will download one based on lang. Defaults to None.
+        lang (str, optional): Language of the text. If lang is set and no spacy
+            model is provided, will automatically download and use a spacy
+            model for the language. Defaults to None.
+        metrics (List[str]): Which metrics to extract.
+            One or more of ["descriptive_stats", "readability",
+            "dependency_distance", "pos_stats", "coherence", "quality"]. If None,
+            will extract all metrics from textdescriptives. Defaults to None.
+        spacy_model_size (str, optional): Size of the spacy model to download.
+
+    Returns:
+        pd.DataFrame: DataFrame with a row for each text and column for each metric.
+    """
+    if isinstance(metrics, str):
+        metrics = [metrics]
+
+    if spacy_model is None and lang is None:
+        raise ValueError("Either a spacy model or a language must be provided.")
+
+    if spacy_model is not None and lang is not None:
+        msg.info(
+            "Both a spacy model and a language were provided. "
+            + "Will use the spacy model and ignore language.",
+        )
+
+    if metrics is None:
+        metrics = get_valid_metrics()
+
+    # remove previously set metrics to avoid conflicts
+    _remove_textdescriptives_extensions()
+
+    # load spacy model if any component requires it
+    nlp = _create_spacy_pipeline(
+        spacy_model=spacy_model,
+        lang=lang,
+        metrics=metrics,
+        spacy_model_size=spacy_model_size,
+    )
+
+    # add pipeline components
+    for component in metrics:
+        nlp.add_pipe(f"textdescriptives/{component}")
+
+    if isinstance(text, str):
+        text = [text]
+    docs = nlp.pipe(text)
+
+    return extract_df(docs)

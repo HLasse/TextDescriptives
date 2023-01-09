@@ -41,7 +41,7 @@ Does this package run on X?
 
 This package is intended to run on all major OS, this includes Windows (latest version), MacOS (latest) and the latest version of Linux (Ubuntu). 
 Similarly it also tested on python 3.7, 3.8, and 3.9.
-Please note these are only the systems this package is being actively tested on, if you run on a similar system (e.g. an earlier version of Linux) DaCy
+Please note these are only the systems this package is being actively tested on, if you run on a similar system (e.g. an earlier version of Linux) this package
 will likely run there as well, if not please create an issue.
 
 How is the documentation generated?
