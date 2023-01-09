@@ -69,6 +69,7 @@ jobs:
         uses: MishaKav/pytest-coverage-comment@v1.1.39
         with:
           pytest-coverage-path: ./pytest-coverage.txt
+          github-token: ${{ secrets.PYTEST_COVERAGE }}
 
       - name: Check the output coverage
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
