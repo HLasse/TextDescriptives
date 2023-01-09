@@ -20,10 +20,12 @@ class QualityThresholds(BaseModel):
         + "at least 2 stop words, but no upper limit.",
     )
     alpha_ratio: Interval = Field(
-        (0.8, None),
-        description="A Range for the alpha ratio. Default: (0.8, None), i.e. at "
-        + r"least 80% of tokens contain at least one alphabetic character, but no "
-        + "upper limit.",
+        (0.6, None),
+        description="A Range for the alpha ratio. Default: (0.6, None), i.e. at "
+        + r"least 60% of tokens contain at least one alphabetic character, but no "
+        + "upper limit. Note this is lowered from the original 0.8 to account for a"
+        + "different definition of word boundaries. E.g. in spaCy a punctuation is"
+        + "not a part of a word.",
     )
     mean_word_length: Interval = Field(
         (3, 10),
@@ -499,11 +501,14 @@ class Quality:
 
         self.set_extensions()
 
-    def quality_getter(self, span: Span) -> Dict[str, Union[float, int, bool]]:
+    def quality_getter(
+        self,
+        span: Union[Span, Doc],
+    ) -> Dict[str, Union[float, int, bool]]:
         """Apply quality functions to doc.
 
         Args:
-            span (Span): spaCy span object
+            span (Union[Span, Doc]): spaCy span or doc object
 
         Returns:
             Dict[str, Union[float, int, bool]]: dictionary of quality metrics
@@ -521,6 +526,15 @@ class Quality:
             else:
                 quality[name] = getter(span)  # type: ignore
         return quality
+
+    def set_quality(self, doc: Doc) -> None:
+        """Set the quality attribute on a doc.
+
+        Args:
+            doc (Doc): spaCy doc object
+        """
+        doc._.quality = self.quality_getter(doc)
+        doc._.passed_quality_check = self.passed_quality_thresholds(doc)
 
     @staticmethod
     def is_within_range(rangetuple: Interval, value: float) -> bool:
@@ -614,11 +628,16 @@ class Quality:
         for ext_name, span_getter in self.extensions.items():
             if not Span.has_extension(ext_name) or self.force is True:
                 Span.set_extension(ext_name, getter=span_getter, force=True)
-            if not Doc.has_extension(ext_name) or self.force is True:
-                Doc.set_extension(ext_name, getter=span_getter, force=True)
+            if ext_name == "quality":
+                if not Doc.has_extension(ext_name) or self.force is True:
+                    Doc.set_extension(ext_name, default=None, force=True)
+            else:
+                if not Doc.has_extension(ext_name) or self.force is True:
+                    Doc.set_extension(ext_name, getter=span_getter, force=True)
 
     def __call__(self, doc: Doc):
         """Run the pipeline component."""
+        self.set_quality(doc)
         return doc
 
 
