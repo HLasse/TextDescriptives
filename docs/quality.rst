@@ -92,7 +92,8 @@ If you want to specify the thresholds for the quality metrics, you can do so by 
         contains_lorem_ipsum=False
     )
 
-    nlp.add_pipe("textdescriptives.quality", config={"quality_thresholds": thresholds.dict()})
+    quality_pipe = nlp.add_pipe("textdescriptives.quality")
+    quality_pipe.set_quality_thresholds(thresholds)  # update the quality thresholds
     doc = nlp("The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.")
 
     # all attributes are stored as a dict in the ._.quality attribute
