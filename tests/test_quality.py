@@ -210,14 +210,14 @@ def test_quality_component_with_config(nlp: spacy.Language):
         contains={"lorem ipsum": False},
     )
 
-    nlp.add_pipe(
+    quality_pipe = nlp.add_pipe(
         "textdescriptives/quality",
         config={
             "symbols": ["."],
-            "quality_thresholds": quality_thresholds.dict(),
             "force": True,
         },
     )
+    quality_pipe.set_quality_thresholds(quality_thresholds)
 
     doc = nlp("This is a test. This is a test. This is a test.")
     assert doc._.quality["n_stop_words"] == 9
@@ -261,7 +261,7 @@ def test_quality_multi_process(nlp):
         "A couple of texts here, yeah yeah yeah.",
         "This is a second text, no repetition what so ever.",
     ]
-
+    nlp.add_pipe("textdescriptives/quality", config={"force": True})
     docs = nlp.pipe(texts, n_process=2)
     for doc in docs:
         assert doc._.quality

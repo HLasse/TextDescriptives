@@ -20,9 +20,9 @@ class QualityThresholds(BaseModel):
         + "at least 2 stop words, but no upper limit.",
     )
     alpha_ratio: Interval = Field(
-        (0.6, None),
-        description="A Range for the alpha ratio. Default: (0.6, None), i.e. at "
-        + r"least 60% of tokens contain at least one alphabetic character, but no "
+        (0.7, None),
+        description="A Range for the alpha ratio. Default: (0.7, None), i.e. at "
+        + r"least 70% of tokens contain at least one alphabetic character, but no "
         + "upper limit. Note this is lowered from the original 0.8 to account for a"
         + "different definition of word boundaries. E.g. in spaCy a punctuation is"
         + "not a part of a word.",
@@ -635,6 +635,14 @@ class Quality:
                 if not Doc.has_extension(ext_name) or self.force is True:
                     Doc.set_extension(ext_name, getter=span_getter, force=True)
 
+    def set_quality_thresholds(self, thresholds: QualityThresholds) -> None:
+        """Sets the quality thresholds.
+
+        Args:
+            thresholds (QualityThresholds): The desired quality thresholds.
+        """
+        self.quality_thresholds = thresholds
+
     def __call__(self, doc: Doc):
         """Run the pipeline component."""
         self.set_quality(doc)
@@ -656,7 +664,6 @@ class Quality:
         "top_ngram_min_count": 3,
         "duplicate_n_gram_fraction_range": [5, 10],
         "force": True,
-        "quality_thresholds": None,
     },
 )
 def create_quality_component(
@@ -667,7 +674,6 @@ def create_quality_component(
     top_ngram_range: Tuple[int, int],
     top_ngram_min_count: int,
     duplicate_n_gram_fraction_range: Tuple[int, int],
-    quality_thresholds: Optional[dict] = None,
     force: bool = True,
 ) -> Callable[[Doc], Doc]:
     """Allows Quality to be added to a spaCy pipe using
@@ -712,12 +718,6 @@ def create_quality_component(
             be considered a top n-gram. Defaults to 3.
         duplicate_n_gram_fraction_range (Tuple[int]): range of n-grams to
             calculate the proportion of duplicate n-grams. Defaults to [5, 10].
-        quality_thresholds (Optional[dict]): A dictionary object containing the
-            thresholds indicated by either an interval (Tuple) or a boolean. We
-            recommend using the QualityThresholds class to create this dictionary by
-            calling QualityThresholds(...).dict(). This ensures that all the thresholds
-            are validated. Defaults to None in which case the default for
-            QualityThresholds is used.
         force (bool): whether to overwrite existing extensions. Defaults to True.
 
 
@@ -735,13 +735,6 @@ def create_quality_component(
         >>> # check whether the document passed the quality thresholds
         >>> doc._.passed_quality_check
     """
-    # recons quality_thresholds since it needs to be json serializable for the config
-    # in the nlp.add_pipe call
-    if quality_thresholds is not None:
-        quality_thresholds_ = QualityThresholds(**quality_thresholds)
-    else:
-        quality_thresholds_ = None
-
     return Quality(
         nlp,
         name=name,
@@ -750,6 +743,6 @@ def create_quality_component(
         top_ngram_range=top_ngram_range,
         top_ngram_min_count=top_ngram_min_count,
         duplicate_n_gram_fraction_range=duplicate_n_gram_fraction_range,
-        quality_thresholds=quality_thresholds_,
+        quality_thresholds=None,
         force=force,
     )
