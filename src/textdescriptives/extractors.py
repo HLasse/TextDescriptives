@@ -14,7 +14,7 @@ from textdescriptives.utils import (
 
 def __get_quality(doc: Doc) -> dict:
     """Get quality metrics as well as boolean indicator for passing filters."""
-    return {**doc._.quality, "passed_quality_check": doc._.passed_quality_check}
+    return doc._.quality.to_flat_value_dict()
 
 
 def __get_descriptive_stats_dict(doc: Doc) -> dict:

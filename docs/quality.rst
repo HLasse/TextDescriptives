@@ -71,26 +71,27 @@ If you want to specify the thresholds for the quality metrics, you can do so by 
 
     # set thresholds for quality metrics (these are just the default)
     thresholds = QualityThresholds(
-        n_stop_words=(2, None),
-        alpha_ratio=(0.8, None),
-        mean_word_length=(3, 10),
-        doc_length= (10, 100_000),
-        symbol_hashtag_to_word_ratio=(None, 0.1),
+        n_stop_words=(2, None),   # at least 2 stop words, no upper bound
+        alpha_ratio=(0.7, None),
+        mean_word_length=(3, 10),  # mean word length between 3 and 10 characters
+        doc_length=(10, 100000),
+        symbol_to_word_ratio={"#": (None, 0.1)},
         proportion_ellipsis=(None, 0.3),
         proportion_bullet_points=(None, 0.8),
+        contains={"lorem ipsum": False},
         duplicate_line_chr_fraction=(None, 0.2),
         duplicate_paragraph_chr_fraction=(None, 0.2),
-        duplicate_5gram_chr_fraction=(None, 0.15),
-        duplicate_6gram_chr_fraction=(None, 0.14),
-        duplicate_7gram_chr_fraction=(None, 0.13),
-        duplicate_8gram_chr_fraction=(None, 0.12),
-        duplicate_9gram_chr_fraction=(None, 0.11),
-        duplicate_10gram_chr_fraction=(None, 0.1),
-        top_2gram_chr_fraction=(None, 0.20),
-        top_3gram_chr_fraction=(None, 0.18),
-        top_4gram_chr_fraction=(None, 0.16),
-        contains_lorem_ipsum=False
+        duplicate_ngram_chr_fraction={
+            "5": (None, 0.15),
+            "6": (None, 0.14),
+            "7": (None, 0.13),
+            "8": (None, 0.12),
+            "9": (None, 0.11),
+            "10": (None, 0.1),
+        },
+        top_ngram_chr_fraction={"2": (None, 0.2), "3": (None, 0.18), "4": (None, 0.16)},
     )
+
 
     quality_pipe = nlp.add_pipe("textdescriptives.quality")
     quality_pipe.set_quality_thresholds(thresholds)  # update the quality thresholds
@@ -113,5 +114,6 @@ Component
 Data Classes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. autopydantic_model:: textdescriptives.components.quality.QualityThresholds
-
+.. autopydantic_model:: textdescriptives.components.quality_data_classes.QualityThresholds
+.. autopydantic_model:: textdescriptives.components.quality_data_classes.QualityOutput
+.. autopydantic_model:: textdescriptives.components.quality_data_classes.ThresholdsOutput
