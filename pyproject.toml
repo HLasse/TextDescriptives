@@ -71,6 +71,7 @@ tutorials = [
     "jupyter",
     "seaborn",
     "matplotlib",
+    "datasets>=2.8.0,<2.9.0",
 ]
 
 [project.readme]

@@ -1,107 +1,12 @@
 """Component for calculating quality metrics."""
 from collections import Counter, defaultdict
-from functools import partial
 from typing import Callable, Dict, List, Optional, Tuple, Union
 
 import numpy as np
-from pydantic import BaseModel, Field
 from spacy.language import Language
 from spacy.tokens import Doc, Span
 
-Interval = Tuple[Optional[float], Optional[float]]
-
-
-class QualityThresholds(BaseModel):
-    """Thresholds for quality metrics."""
-
-    n_stop_words: Interval = Field(
-        (2, None),
-        description="A Range for the number of stop words. Default: (2, None), i.e. "
-        + "at least 2 stop words, but no upper limit.",
-    )
-    alpha_ratio: Interval = Field(
-        (0.8, None),
-        description="A Range for the alpha ratio. Default: (0.8, None), i.e. at "
-        + r"least 80% of tokens contain at least one alphabetic character, but no "
-        + "upper limit.",
-    )
-    mean_word_length: Interval = Field(
-        (3, 10),
-        description="A Range for the mean word length. Default: (3, 10), i.e. between"
-        + " 3 and 10 characters.",
-    )
-    doc_length: Interval = Field(
-        (10, 100_000),
-        description="A Range for the document length. Default: (10, 100_000), i.e."
-        + " between 10 and 100_000 characters.",
-    )
-    symbol_to_word_ratio: Dict[str, Interval] = Field(
-        {"#": (None, 0.1)},
-        description="A dict of symbols and the allowed range for the "
-        + r"symbol-to-word-ratio. The symbol-to-word-ratio is the ratio between symbol"
-        + "occurrence and word occurrence. Defaults to {'#': (None, 0.1)} i.e. no lower"
-        + r" limit, but there must at most be a ratio of 0.1 between the number of of "
-        + "words and hashtags. i.e. if we have 100 words the symbol should appear no "
-        + "more than 10 times. Values not in the dict are not checked.",
-    )
-    proportion_ellipsis: Interval = Field(
-        (None, 0.3),
-        description="A Range for the proportion of lines which end with ellipsis. "
-        + "Default: (None, 0.3), "
-        + r"i.e. no lower limit, but at most 30% of lines end with an ellipsis.",
-    )
-    proportion_bullet_points: Interval = Field(
-        (None, 0.8),
-        description="A Range for the proportion lines which start with a bullet "
-        + r"points. Default: (None, 0.8), i.e. no lower limit, but at most 80% of lines"
-        + " start with a bullet point.",
-    )
-    contains: Dict[str, bool] = Field(
-        {"lorem ipsum": False},
-        description="A dictionary of strings and whether they should be contained in "
-        + "the document. Default: {'lorem ipsum': False}, i.e. the document should not"
-        + " contain the string 'lorem ipsum'.",
-    )
-    duplicate_line_chr_fraction: Interval = Field(
-        (None, 0.2),
-        description="A Range for the duplicate line character fraction. Default: "
-        + r"(None, 0.2), i.e. no lower limit, but at most 20% of characters are"
-        + " duplicates.",
-    )
-    duplicate_paragraph_chr_fraction: Interval = Field(
-        (None, 0.2),
-        description="A Range for the duplicate paragraph character fraction. Default:"
-        + r" (None, 0.2), i.e. no lower limit, but at most 20% of characters are "
-        + "duplicates.",
-    )
-    duplicate_ngram_chr_fraction: Dict[str, Interval] = Field(
-        {
-            "5": (None, 0.15),
-            "6": (None, 0.14),
-            "7": (None, 0.13),
-            "8": (None, 0.12),
-            "9": (None, 0.11),
-            "10": (None, 0.1),
-        },
-        description="A dictionary of n-gram lengths and the allowed range for the "
-        + "duplicate n-gram character fraction. Default: {5: (None, 0.15), 6: (None, "
-        + "0.14), 7: (None, 0.13), 8: (None, 0.12), 9: (None, 0.11), 10: (None, 0.1)}, "
-        + r"i.e. no lower limit, but at most 15% of characters are duplicates for "
-        + r"5-grams, 14% for 6-grams, 13% for 7-grams, 12% for 8-grams, 11% for 9-grams"
-        + r" and 10% for 10-grams.",
-    )
-    top_ngram_chr_fraction: Dict[str, Interval] = Field(
-        {
-            "2": (None, 0.2),
-            "3": (None, 0.18),
-            "4": (None, 0.16),
-        },
-        description="A dictionary of n-gram lengths and the allowed range for the "
-        + "top n-gram character fraction. Default: {2: (None, 0.2), 3: (None, 0.18)"
-        + r", 4: (None, 0.16)}, i.e. no lower limit, but at most 20% of characters "
-        + r"are contained within a duplicate for 2-grams, 18% for 3-grams and 16% "
-        + "for 4-grams.",
-    )
+from .quality_data_classes import QualityOutput, QualityThresholds, ThresholdsOutput
 
 
 def n_stop_words(span: Union[Doc, Span]) -> int:
@@ -461,7 +366,28 @@ class Quality:
             quality_thresholds = QualityThresholds()
         self.quality_thresholds = quality_thresholds
 
-        self.getters = {
+        self.set_extensions()
+
+    def quality_setter(
+        self,
+        span: Union[Span, Doc],
+    ) -> QualityOutput:
+        """Apply quality functions to doc.
+
+        Args:
+            span (Union[Span, Doc]): spaCy span or doc object
+
+        Returns:
+            QualityOutput: The quality metrics
+        """
+        threshold = self.quality_thresholds
+
+        thresholds_outputs: Dict[
+            str,
+            Union[Dict[str, ThresholdsOutput], ThresholdsOutput],
+        ] = {}
+        # filter with only one threshold
+        getters = {
             # heuristic quality filters
             "n_stop_words": n_stop_words,
             "alpha_ratio": alpha_ratio,
@@ -472,155 +398,136 @@ class Quality:
             # text repetition
             "duplicate_line_chr_fraction": duplicate_line_chr_fraction,
             "duplicate_paragraph_chr_fraction": duplicate_paragraph_chr_fraction,
-            "duplicate_ngram_chr_fraction": partial(
-                duplicate_ngram_fraction,
-                ngram_range=duplicate_n_gram_fraction_range,
-            ),
-            "top_ngram_chr_fraction": partial(
-                top_ngram_chr_fraction,
-                ngram_range=top_ngram_range,
-                min_count=top_ngram_min_count,
-            ),
         }
-        # add symbol to word ratio
-        for symbol in symbols:
-            self.getters[f"symbol_{symbol}_to_word_ratio"] = partial(
-                symbol_to_word_ratio,
-                symbol=symbol,
+
+        for name, getter in getters.items():
+            thresholds_outputs[name] = ThresholdsOutput(
+                value=getter(span),  # type: ignore
+                threshold=getattr(threshold, name),
             )
-        # add contains
-        for string in contains:
-            self.getters[f"contains_{string}"] = partial(contains_string, string=string)
 
-        self.extensions = {
-            "passed_quality_check": self.passed_quality_thresholds,
-            "quality": self.quality_getter,
+        thresholds_outputs["contains"] = {
+            string: ThresholdsOutput(
+                value=contains_string(span, string),
+                threshold=threshold.contains.get(string, None),
+            )
+            for string in self.contains
+        }
+        thresholds_outputs["symbol_to_word_ratio"] = {
+            symbol: ThresholdsOutput(
+                value=symbol_to_word_ratio(span, symbol),
+                threshold=threshold.symbol_to_word_ratio.get(symbol, None),
+            )
+            for symbol in self.symbols
         }
 
-        self.set_extensions()
-
-    def quality_getter(self, span: Span) -> Dict[str, Union[float, int, bool]]:
-        """Apply quality functions to doc.
-
-        Args:
-            span (Span): spaCy span object
-
-        Returns:
-            Dict[str, Union[float, int, bool]]: dictionary of quality metrics
-        """
-        quality = {}
-        for name, getter in self.getters.items():
-            if name == "top_ngram_chr_fraction":
-                chr_frac = getter(span)  # type: ignore
-                for n_gram, frac in chr_frac.items():
-                    quality[f"top_{n_gram}-gram_chr_fraction"] = frac
-            elif name == "duplicate_ngram_chr_fraction":
-                chr_frac = getter(span)  # type: ignore
-                for n_gram, frac in chr_frac.items():
-                    quality[f"duplicate_{n_gram}-gram_chr_fraction"] = frac
-            else:
-                quality[name] = getter(span)  # type: ignore
-        return quality
-
-    @staticmethod
-    def is_within_range(rangetuple: Interval, value: float) -> bool:
-        """Check if a value is within a range tuple. If one of the values in
-        the range tuple is None it is considered to be unbounded.
-
-        Args:
-            rangetuple (Interval): range tuple
-            value (float): value to check
-
-        Returns:
-            bool: True if value is within range
-        """
-        return (rangetuple[0] is None or rangetuple[0] <= value) and (
-            rangetuple[1] is None or value <= rangetuple[1]
+        chr_frac = top_ngram_chr_fraction(
+            span,
+            ngram_range=self.top_ngram_range,
+            min_count=self.top_ngram_min_count,
         )
 
-    def passed_quality_thresholds(self, span: Span) -> bool:
-        """Checks whether a span passed the quality thresholds."""
-        quality = span._.quality
-        qt = self.quality_thresholds
+        thresholds_outputs["top_ngram_chr_fraction"] = {
+            str(n_gram): ThresholdsOutput(
+                value=frac,
+                threshold=threshold.top_ngram_chr_fraction.get(
+                    str(n_gram),
+                    (None, None),
+                ),
+            )
+            for n_gram, frac in chr_frac.items()
+        }
 
-        # heuristic quality filters
-        if not self.is_within_range(qt.n_stop_words, quality["n_stop_words"]):
-            return False
-        if not self.is_within_range(qt.alpha_ratio, quality["alpha_ratio"]):
-            return False
-        if not self.is_within_range(qt.mean_word_length, quality["mean_word_length"]):
-            return False
-        if not self.is_within_range(qt.doc_length, quality["doc_length"]):
-            return False
-        if not self.is_within_range(
-            qt.proportion_ellipsis,
-            quality["proportion_ellipsis"],
-        ):
-            return False
-        if not self.is_within_range(
-            qt.proportion_bullet_points,
-            quality["proportion_bullet_points"],
-        ):
-            return False
+        duplicate_ngram_chr_fraction = duplicate_ngram_fraction(
+            span,
+            ngram_range=self.duplicate_n_gram_fraction_range,
+        )
+        thresholds_outputs["duplicate_ngram_chr_fraction"] = {
+            str(n_gram): ThresholdsOutput(
+                value=frac,
+                threshold=threshold.duplicate_ngram_chr_fraction.get(
+                    str(n_gram),
+                    (None, None),
+                ),
+            )
+            for n_gram, frac in duplicate_ngram_chr_fraction.items()
+        }
 
-        for symbol in self.symbols:
-            if symbol in qt.symbol_to_word_ratio:
-                if not self.is_within_range(
-                    qt.symbol_to_word_ratio[symbol],
-                    quality[f"symbol_{symbol}_to_word_ratio"],
-                ):
-                    return False
+        return QualityOutput(**thresholds_outputs)
 
-        for string in self.contains:
-            if string in qt.contains and (
-                qt.contains[string] is not quality[f"contains_{string}"]
-            ):
-                return False
+    def quality_getter(self, span: Union[Span, Doc]) -> QualityOutput:
+        """Get quality metrics from doc.
 
-        # text repetition
-        if not self.is_within_range(
-            qt.duplicate_line_chr_fraction,
-            quality["duplicate_line_chr_fraction"],
-        ):
-            return False
-        if not self.is_within_range(
-            qt.duplicate_paragraph_chr_fraction,
-            quality["duplicate_paragraph_chr_fraction"],
-        ):
-            return False
+        Args:
+            span (Union[Span, Doc]): spaCy span or doc object
 
-        for ngram in qt.duplicate_ngram_chr_fraction:
-            key = f"duplicate_{ngram}-gram_chr_fraction"
-            if key in quality:
-                if not self.is_within_range(
-                    qt.duplicate_ngram_chr_fraction[ngram],
-                    quality[key],
-                ):
-                    return False
+        Returns:
+            QualityOutput: The quality metrics
+        """
+        if not hasattr(span._, "_quality"):
+            return self.quality_setter(span)
+        return QualityOutput(**span._._quality)
 
-        for n_gram in qt.top_ngram_chr_fraction:
-            if n_gram in quality:
-                if not self.is_within_range(
-                    qt.top_ngram_chr_fraction[n_gram],
-                    quality[n_gram],
-                ):
-                    return False
+    def set_quality(self, doc: Doc) -> None:
+        """Set the quality attribute on a doc.
 
-        return True
+        Args:
+            doc (Doc): spaCy doc object
+        """
+        # to allow the variable to json serializable we convert it to json
+        # it is then converted back into a quality output object in the getter
+
+        doc._._quality = self.quality_setter(doc).dict()
+        doc._.passed_quality_check = self.passed_quality_thresholds(doc)
+
+    def passed_quality_thresholds(self, span: Union[Span, Doc]) -> bool:
+        """Check if a span passes the quality thresholds.
+
+        Args:
+            span (Union[Span, Doc]): spaCy span or doc object
+
+        Returns:
+            bool: True if span passes quality thresholds
+        """
+        quality_output = self.quality_getter(span)
+        return quality_output.passed
 
     def set_extensions(self):
         """Set required extensions."""
 
-        for ext_name, span_getter in self.extensions.items():
-            # doc_getter = span_getter_to_doc_getter(span_getter)
+        ext_name = "passed_quality_check"
+        if not Span.has_extension(ext_name) or self.force is True:
+            Span.set_extension(
+                ext_name,
+                getter=self.passed_quality_thresholds,
+                force=True,
+            )
+        if not Doc.has_extension(ext_name) or self.force is True:
+            Doc.set_extension(
+                ext_name,
+                getter=self.passed_quality_thresholds,
+                force=True,
+            )
 
-            if not Span.has_extension(ext_name) or self.force is True:
-                Span.set_extension(ext_name, getter=span_getter, force=True)
-            if not Doc.has_extension(ext_name) or self.force is True:
-                Doc.set_extension(ext_name, getter=span_getter, force=True)
+        ext_name = "quality"
+        if not Doc.has_extension(ext_name) or self.force is True:
+            Doc.set_extension(ext_name, getter=self.quality_getter, force=True)
+            Doc.set_extension("_" + ext_name, default=None, force=True)
+        if not Span.has_extension(ext_name) or self.force is True:
+            Span.set_extension(ext_name, getter=self.quality_getter, force=True)
+            Span.set_extension("_" + ext_name, default=None, force=True)
+
+    def set_quality_thresholds(self, thresholds: QualityThresholds) -> None:
+        """Sets the quality thresholds.
+
+        Args:
+            thresholds (QualityThresholds): The desired quality thresholds.
+        """
+        self.quality_thresholds = thresholds
 
     def __call__(self, doc: Doc):
         """Run the pipeline component."""
+        self.set_quality(doc)
         return doc
 
 
@@ -639,7 +546,6 @@ class Quality:
         "top_ngram_min_count": 3,
         "duplicate_n_gram_fraction_range": [5, 10],
         "force": True,
-        "quality_thresholds": None,
     },
 )
 def create_quality_component(
@@ -650,7 +556,6 @@ def create_quality_component(
     top_ngram_range: Tuple[int, int],
     top_ngram_min_count: int,
     duplicate_n_gram_fraction_range: Tuple[int, int],
-    quality_thresholds: Optional[dict] = None,
     force: bool = True,
 ) -> Callable[[Doc], Doc]:
     """Allows Quality to be added to a spaCy pipe using
@@ -695,12 +600,6 @@ def create_quality_component(
             be considered a top n-gram. Defaults to 3.
         duplicate_n_gram_fraction_range (Tuple[int]): range of n-grams to
             calculate the proportion of duplicate n-grams. Defaults to [5, 10].
-        quality_thresholds (Optional[dict]): A dictionary object containing the
-            thresholds indicated by either an interval (Tuple) or a boolean. We
-            recommend using the QualityThresholds class to create this dictionary by
-            calling QualityThresholds(...).dict(). This ensures that all the thresholds
-            are validated. Defaults to None in which case the default for
-            QualityThresholds is used.
         force (bool): whether to overwrite existing extensions. Defaults to True.
 
 
@@ -718,13 +617,6 @@ def create_quality_component(
         >>> # check whether the document passed the quality thresholds
         >>> doc._.passed_quality_check
     """
-    # recons quality_thresholds since it needs to be json serializable for the config
-    # in the nlp.add_pipe call
-    if quality_thresholds is not None:
-        quality_thresholds_ = QualityThresholds(**quality_thresholds)
-    else:
-        quality_thresholds_ = None
-
     return Quality(
         nlp,
         name=name,
@@ -733,6 +625,6 @@ def create_quality_component(
         top_ngram_range=top_ngram_range,
         top_ngram_min_count=top_ngram_min_count,
         duplicate_n_gram_fraction_range=duplicate_n_gram_fraction_range,
-        quality_thresholds=quality_thresholds_,
+        quality_thresholds=None,
         force=force,
     )
