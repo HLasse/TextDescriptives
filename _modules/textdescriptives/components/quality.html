@@ -174,6 +174,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html">Filtering corpora using Quality</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../news.html">News and Changelog</a></li>
@@ -227,108 +228,13 @@
           <h1>Source code for textdescriptives.components.quality</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Component for calculating quality metrics.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
 <span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span>
 
-<span class="n">Interval</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>
-
-
-<div class="viewcode-block" id="QualityThresholds"><a class="viewcode-back" href="../../../quality.html#textdescriptives.components.quality.QualityThresholds">[docs]</a><span class="k">class</span> <span class="nc">QualityThresholds</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Thresholds for quality metrics.&quot;&quot;&quot;</span>
-
-    <span class="n">n_stop_words</span><span class="p">:</span> <span class="n">Interval</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A Range for the number of stop words. Default: (2, None), i.e. &quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;at least 2 stop words, but no upper limit.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">alpha_ratio</span><span class="p">:</span> <span class="n">Interval</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A Range for the alpha ratio. Default: (0.8, None), i.e. at &quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;least 80</span><span class="si">% o</span><span class="s2">f tokens contain at least one alphabetic character, but no &quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;upper limit.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">mean_word_length</span><span class="p">:</span> <span class="n">Interval</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A Range for the mean word length. Default: (3, 10), i.e. between&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot; 3 and 10 characters.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">doc_length</span><span class="p">:</span> <span class="n">Interval</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100_000</span><span class="p">),</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A Range for the document length. Default: (10, 100_000), i.e.&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot; between 10 and 100_000 characters.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">symbol_to_word_ratio</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Interval</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">{</span><span class="s2">&quot;#&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)},</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A dict of symbols and the allowed range for the &quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;symbol-to-word-ratio. The symbol-to-word-ratio is the ratio between symbol&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;occurrence and word occurrence. Defaults to {&#39;#&#39;: (None, 0.1)} i.e. no lower&quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; limit, but there must at most be a ratio of 0.1 between the number of of &quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;words and hashtags. i.e. if we have 100 words the symbol should appear no &quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;more than 10 times. Values not in the dict are not checked.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">proportion_ellipsis</span><span class="p">:</span> <span class="n">Interval</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A Range for the proportion of lines which end with ellipsis. &quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;Default: (None, 0.3), &quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;i.e. no lower limit, but at most 30</span><span class="si">% o</span><span class="s2">f lines end with an ellipsis.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">proportion_bullet_points</span><span class="p">:</span> <span class="n">Interval</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A Range for the proportion lines which start with a bullet &quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;points. Default: (None, 0.8), i.e. no lower limit, but at most 80</span><span class="si">% o</span><span class="s2">f lines&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot; start with a bullet point.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">contains</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">{</span><span class="s2">&quot;lorem ipsum&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A dictionary of strings and whether they should be contained in &quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;the document. Default: {&#39;lorem ipsum&#39;: False}, i.e. the document should not&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot; contain the string &#39;lorem ipsum&#39;.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">duplicate_line_chr_fraction</span><span class="p">:</span> <span class="n">Interval</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A Range for the duplicate line character fraction. Default: &quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;(None, 0.2), i.e. no lower limit, but at most 20</span><span class="si">% o</span><span class="s2">f characters are&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot; duplicates.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">duplicate_paragraph_chr_fraction</span><span class="p">:</span> <span class="n">Interval</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A Range for the duplicate paragraph character fraction. Default:&quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; (None, 0.2), i.e. no lower limit, but at most 20</span><span class="si">% o</span><span class="s2">f characters are &quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;duplicates.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">duplicate_ngram_chr_fraction</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Interval</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;5&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">),</span>
-            <span class="s2">&quot;6&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">),</span>
-            <span class="s2">&quot;7&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.13</span><span class="p">),</span>
-            <span class="s2">&quot;8&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">),</span>
-            <span class="s2">&quot;9&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">),</span>
-            <span class="s2">&quot;10&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-        <span class="p">},</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A dictionary of n-gram lengths and the allowed range for the &quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;duplicate n-gram character fraction. Default: {5: (None, 0.15), 6: (None, &quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;0.14), 7: (None, 0.13), 8: (None, 0.12), 9: (None, 0.11), 10: (None, 0.1)}, &quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;i.e. no lower limit, but at most 15</span><span class="si">% o</span><span class="s2">f characters are duplicates for &quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;5-grams, 14</span><span class="si">% f</span><span class="s2">or 6-grams, 13</span><span class="si">% f</span><span class="s2">or 7-grams, 12</span><span class="si">% f</span><span class="s2">or 8-grams, 11</span><span class="si">% f</span><span class="s2">or 9-grams&quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; and 10</span><span class="si">% f</span><span class="s2">or 10-grams.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">top_ngram_chr_fraction</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Interval</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
-            <span class="s2">&quot;3&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">),</span>
-            <span class="s2">&quot;4&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">),</span>
-        <span class="p">},</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A dictionary of n-gram lengths and the allowed range for the &quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;top n-gram character fraction. Default: {2: (None, 0.2), 3: (None, 0.18)&quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;, 4: (None, 0.16)}, i.e. no lower limit, but at most 20</span><span class="si">% o</span><span class="s2">f characters &quot;</span>
-        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;are contained within a duplicate for 2-grams, 18</span><span class="si">% f</span><span class="s2">or 3-grams and 16% &quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;for 4-grams.&quot;</span><span class="p">,</span>
-    <span class="p">)</span></div>
+<span class="kn">from</span> <span class="nn">.quality_data_classes</span> <span class="kn">import</span> <span class="n">QualityOutput</span><span class="p">,</span> <span class="n">QualityThresholds</span><span class="p">,</span> <span class="n">ThresholdsOutput</span>
 
 
 <span class="k">def</span> <span class="nf">n_stop_words</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -688,7 +594,28 @@
             <span class="n">quality_thresholds</span> <span class="o">=</span> <span class="n">QualityThresholds</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span> <span class="o">=</span> <span class="n">quality_thresholds</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">getters</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_extensions</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">quality_setter</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QualityOutput</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply quality functions to doc.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            span (Union[Span, Doc]): spaCy span or doc object</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            QualityOutput: The quality metrics</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span>
+
+        <span class="n">thresholds_outputs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span>
+            <span class="nb">str</span><span class="p">,</span>
+            <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ThresholdsOutput</span><span class="p">],</span> <span class="n">ThresholdsOutput</span><span class="p">],</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># filter with only one threshold</span>
+        <span class="n">getters</span> <span class="o">=</span> <span class="p">{</span>
             <span class="c1"># heuristic quality filters</span>
             <span class="s2">&quot;n_stop_words&quot;</span><span class="p">:</span> <span class="n">n_stop_words</span><span class="p">,</span>
             <span class="s2">&quot;alpha_ratio&quot;</span><span class="p">:</span> <span class="n">alpha_ratio</span><span class="p">,</span>
@@ -699,155 +626,136 @@
             <span class="c1"># text repetition</span>
             <span class="s2">&quot;duplicate_line_chr_fraction&quot;</span><span class="p">:</span> <span class="n">duplicate_line_chr_fraction</span><span class="p">,</span>
             <span class="s2">&quot;duplicate_paragraph_chr_fraction&quot;</span><span class="p">:</span> <span class="n">duplicate_paragraph_chr_fraction</span><span class="p">,</span>
-            <span class="s2">&quot;duplicate_ngram_chr_fraction&quot;</span><span class="p">:</span> <span class="n">partial</span><span class="p">(</span>
-                <span class="n">duplicate_ngram_fraction</span><span class="p">,</span>
-                <span class="n">ngram_range</span><span class="o">=</span><span class="n">duplicate_n_gram_fraction_range</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="s2">&quot;top_ngram_chr_fraction&quot;</span><span class="p">:</span> <span class="n">partial</span><span class="p">(</span>
-                <span class="n">top_ngram_chr_fraction</span><span class="p">,</span>
-                <span class="n">ngram_range</span><span class="o">=</span><span class="n">top_ngram_range</span><span class="p">,</span>
-                <span class="n">min_count</span><span class="o">=</span><span class="n">top_ngram_min_count</span><span class="p">,</span>
-            <span class="p">),</span>
         <span class="p">}</span>
-        <span class="c1"># add symbol to word ratio</span>
-        <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">getters</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;symbol_</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2">_to_word_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
-                <span class="n">symbol_to_word_ratio</span><span class="p">,</span>
-                <span class="n">symbol</span><span class="o">=</span><span class="n">symbol</span><span class="p">,</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">getter</span> <span class="ow">in</span> <span class="n">getters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">thresholds_outputs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ThresholdsOutput</span><span class="p">(</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">getter</span><span class="p">(</span><span class="n">span</span><span class="p">),</span>  <span class="c1"># type: ignore</span>
+                <span class="n">threshold</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">threshold</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span>
             <span class="p">)</span>
-        <span class="c1"># add contains</span>
-        <span class="k">for</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">contains</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">getters</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;contains_</span><span class="si">{</span><span class="n">string</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">contains_string</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="n">string</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;passed_quality_check&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">passed_quality_thresholds</span><span class="p">,</span>
-            <span class="s2">&quot;quality&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_getter</span><span class="p">,</span>
+        <span class="n">thresholds_outputs</span><span class="p">[</span><span class="s2">&quot;contains&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">string</span><span class="p">:</span> <span class="n">ThresholdsOutput</span><span class="p">(</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">contains_string</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="n">string</span><span class="p">),</span>
+                <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="o">.</span><span class="n">contains</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains</span>
+        <span class="p">}</span>
+        <span class="n">thresholds_outputs</span><span class="p">[</span><span class="s2">&quot;symbol_to_word_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">symbol</span><span class="p">:</span> <span class="n">ThresholdsOutput</span><span class="p">(</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">symbol_to_word_ratio</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="n">symbol</span><span class="p">),</span>
+                <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="o">.</span><span class="n">symbol_to_word_ratio</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span>
         <span class="p">}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_extensions</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">quality_getter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="n">Span</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply quality functions to doc.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            span (Span): spaCy span object</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            Dict[str, Union[float, int, bool]]: dictionary of quality metrics</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">quality</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">getter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;top_ngram_chr_fraction&quot;</span><span class="p">:</span>
-                <span class="n">chr_frac</span> <span class="o">=</span> <span class="n">getter</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-                <span class="k">for</span> <span class="n">n_gram</span><span class="p">,</span> <span class="n">frac</span> <span class="ow">in</span> <span class="n">chr_frac</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="n">quality</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;top_</span><span class="si">{</span><span class="n">n_gram</span><span class="si">}</span><span class="s2">-gram_chr_fraction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frac</span>
-            <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;duplicate_ngram_chr_fraction&quot;</span><span class="p">:</span>
-                <span class="n">chr_frac</span> <span class="o">=</span> <span class="n">getter</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-                <span class="k">for</span> <span class="n">n_gram</span><span class="p">,</span> <span class="n">frac</span> <span class="ow">in</span> <span class="n">chr_frac</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="n">quality</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;duplicate_</span><span class="si">{</span><span class="n">n_gram</span><span class="si">}</span><span class="s2">-gram_chr_fraction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frac</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">quality</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">getter</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-        <span class="k">return</span> <span class="n">quality</span>
-
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">is_within_range</span><span class="p">(</span><span class="n">rangetuple</span><span class="p">:</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if a value is within a range tuple. If one of the values in</span>
-<span class="sd">        the range tuple is None it is considered to be unbounded.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            rangetuple (Interval): range tuple</span>
-<span class="sd">            value (float): value to check</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            bool: True if value is within range</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">rangetuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">rangetuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">value</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
-            <span class="n">rangetuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="n">rangetuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">chr_frac</span> <span class="o">=</span> <span class="n">top_ngram_chr_fraction</span><span class="p">(</span>
+            <span class="n">span</span><span class="p">,</span>
+            <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">top_ngram_range</span><span class="p">,</span>
+            <span class="n">min_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">top_ngram_min_count</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">passed_quality_thresholds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="n">Span</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks whether a span passed the quality thresholds.&quot;&quot;&quot;</span>
-        <span class="n">quality</span> <span class="o">=</span> <span class="n">span</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">quality</span>
-        <span class="n">qt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span>
+        <span class="n">thresholds_outputs</span><span class="p">[</span><span class="s2">&quot;top_ngram_chr_fraction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">n_gram</span><span class="p">):</span> <span class="n">ThresholdsOutput</span><span class="p">(</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">frac</span><span class="p">,</span>
+                <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="o">.</span><span class="n">top_ngram_chr_fraction</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">n_gram</span><span class="p">),</span>
+                    <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">n_gram</span><span class="p">,</span> <span class="n">frac</span> <span class="ow">in</span> <span class="n">chr_frac</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
 
-        <span class="c1"># heuristic quality filters</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_within_range</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">n_stop_words</span><span class="p">,</span> <span class="n">quality</span><span class="p">[</span><span class="s2">&quot;n_stop_words&quot;</span><span class="p">]):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_within_range</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">alpha_ratio</span><span class="p">,</span> <span class="n">quality</span><span class="p">[</span><span class="s2">&quot;alpha_ratio&quot;</span><span class="p">]):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_within_range</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">mean_word_length</span><span class="p">,</span> <span class="n">quality</span><span class="p">[</span><span class="s2">&quot;mean_word_length&quot;</span><span class="p">]):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_within_range</span><span class="p">(</span><span class="n">qt</span><span class="o">.</span><span class="n">doc_length</span><span class="p">,</span> <span class="n">quality</span><span class="p">[</span><span class="s2">&quot;doc_length&quot;</span><span class="p">]):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_within_range</span><span class="p">(</span>
-            <span class="n">qt</span><span class="o">.</span><span class="n">proportion_ellipsis</span><span class="p">,</span>
-            <span class="n">quality</span><span class="p">[</span><span class="s2">&quot;proportion_ellipsis&quot;</span><span class="p">],</span>
-        <span class="p">):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_within_range</span><span class="p">(</span>
-            <span class="n">qt</span><span class="o">.</span><span class="n">proportion_bullet_points</span><span class="p">,</span>
-            <span class="n">quality</span><span class="p">[</span><span class="s2">&quot;proportion_bullet_points&quot;</span><span class="p">],</span>
-        <span class="p">):</span>
-            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">duplicate_ngram_chr_fraction</span> <span class="o">=</span> <span class="n">duplicate_ngram_fraction</span><span class="p">(</span>
+            <span class="n">span</span><span class="p">,</span>
+            <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">duplicate_n_gram_fraction_range</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">thresholds_outputs</span><span class="p">[</span><span class="s2">&quot;duplicate_ngram_chr_fraction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">n_gram</span><span class="p">):</span> <span class="n">ThresholdsOutput</span><span class="p">(</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">frac</span><span class="p">,</span>
+                <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="o">.</span><span class="n">duplicate_ngram_chr_fraction</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">n_gram</span><span class="p">),</span>
+                    <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">n_gram</span><span class="p">,</span> <span class="n">frac</span> <span class="ow">in</span> <span class="n">duplicate_ngram_chr_fraction</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
 
-        <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">qt</span><span class="o">.</span><span class="n">symbol_to_word_ratio</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_within_range</span><span class="p">(</span>
-                    <span class="n">qt</span><span class="o">.</span><span class="n">symbol_to_word_ratio</span><span class="p">[</span><span class="n">symbol</span><span class="p">],</span>
-                    <span class="n">quality</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;symbol_</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2">_to_word_ratio&quot;</span><span class="p">],</span>
-                <span class="p">):</span>
-                    <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">QualityOutput</span><span class="p">(</span><span class="o">**</span><span class="n">thresholds_outputs</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">qt</span><span class="o">.</span><span class="n">contains</span> <span class="ow">and</span> <span class="p">(</span>
-                <span class="n">qt</span><span class="o">.</span><span class="n">contains</span><span class="p">[</span><span class="n">string</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">quality</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;contains_</span><span class="si">{</span><span class="n">string</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
-            <span class="p">):</span>
-                <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">def</span> <span class="nf">quality_getter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">QualityOutput</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get quality metrics from doc.</span>
 
-        <span class="c1"># text repetition</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_within_range</span><span class="p">(</span>
-            <span class="n">qt</span><span class="o">.</span><span class="n">duplicate_line_chr_fraction</span><span class="p">,</span>
-            <span class="n">quality</span><span class="p">[</span><span class="s2">&quot;duplicate_line_chr_fraction&quot;</span><span class="p">],</span>
-        <span class="p">):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_within_range</span><span class="p">(</span>
-            <span class="n">qt</span><span class="o">.</span><span class="n">duplicate_paragraph_chr_fraction</span><span class="p">,</span>
-            <span class="n">quality</span><span class="p">[</span><span class="s2">&quot;duplicate_paragraph_chr_fraction&quot;</span><span class="p">],</span>
-        <span class="p">):</span>
-            <span class="k">return</span> <span class="kc">False</span>
+<span class="sd">        Args:</span>
+<span class="sd">            span (Union[Span, Doc]): spaCy span or doc object</span>
 
-        <span class="k">for</span> <span class="n">ngram</span> <span class="ow">in</span> <span class="n">qt</span><span class="o">.</span><span class="n">duplicate_ngram_chr_fraction</span><span class="p">:</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;duplicate_</span><span class="si">{</span><span class="n">ngram</span><span class="si">}</span><span class="s2">-gram_chr_fraction&quot;</span>
-            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">quality</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_within_range</span><span class="p">(</span>
-                    <span class="n">qt</span><span class="o">.</span><span class="n">duplicate_ngram_chr_fraction</span><span class="p">[</span><span class="n">ngram</span><span class="p">],</span>
-                    <span class="n">quality</span><span class="p">[</span><span class="n">key</span><span class="p">],</span>
-                <span class="p">):</span>
-                    <span class="k">return</span> <span class="kc">False</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            QualityOutput: The quality metrics</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">span</span><span class="o">.</span><span class="n">_</span><span class="p">,</span> <span class="s2">&quot;_quality&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_setter</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">QualityOutput</span><span class="p">(</span><span class="o">**</span><span class="n">span</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_quality</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">n_gram</span> <span class="ow">in</span> <span class="n">qt</span><span class="o">.</span><span class="n">top_ngram_chr_fraction</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">n_gram</span> <span class="ow">in</span> <span class="n">quality</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_within_range</span><span class="p">(</span>
-                    <span class="n">qt</span><span class="o">.</span><span class="n">top_ngram_chr_fraction</span><span class="p">[</span><span class="n">n_gram</span><span class="p">],</span>
-                    <span class="n">quality</span><span class="p">[</span><span class="n">n_gram</span><span class="p">],</span>
-                <span class="p">):</span>
-                    <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">def</span> <span class="nf">set_quality</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the quality attribute on a doc.</span>
 
-        <span class="k">return</span> <span class="kc">True</span>
+<span class="sd">        Args:</span>
+<span class="sd">            doc (Doc): spaCy doc object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># to allow the variable to json serializable we convert it to json</span>
+        <span class="c1"># it is then converted back into a quality output object in the getter</span>
+
+        <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_setter</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">passed_quality_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">passed_quality_thresholds</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">passed_quality_thresholds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if a span passes the quality thresholds.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            span (Union[Span, Doc]): spaCy span or doc object</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if span passes quality thresholds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">quality_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_getter</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">quality_output</span><span class="o">.</span><span class="n">passed</span>
 
     <span class="k">def</span> <span class="nf">set_extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set required extensions.&quot;&quot;&quot;</span>
 
-        <span class="k">for</span> <span class="n">ext_name</span><span class="p">,</span> <span class="n">span_getter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="c1"># doc_getter = span_getter_to_doc_getter(span_getter)</span>
+        <span class="n">ext_name</span> <span class="o">=</span> <span class="s2">&quot;passed_quality_check&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
+                <span class="n">ext_name</span><span class="p">,</span>
+                <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">passed_quality_thresholds</span><span class="p">,</span>
+                <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
+                <span class="n">ext_name</span><span class="p">,</span>
+                <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">passed_quality_thresholds</span><span class="p">,</span>
+                <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-                <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">span_getter</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-                <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">span_getter</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ext_name</span> <span class="o">=</span> <span class="s2">&quot;quality&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">quality_getter</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">ext_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">quality_getter</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">ext_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_quality_thresholds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thresholds</span><span class="p">:</span> <span class="n">QualityThresholds</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the quality thresholds.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            thresholds (QualityThresholds): The desired quality thresholds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span> <span class="o">=</span> <span class="n">thresholds</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_quality</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">doc</span>
 
 
@@ -866,7 +774,6 @@
         <span class="s2">&quot;top_ngram_min_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
         <span class="s2">&quot;duplicate_n_gram_fraction_range&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
         <span class="s2">&quot;force&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;quality_thresholds&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">)</span>
 <span class="k">def</span> <span class="nf">create_quality_component</span><span class="p">(</span>
@@ -877,7 +784,6 @@
     <span class="n">top_ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
     <span class="n">top_ngram_min_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">duplicate_n_gram_fraction_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
-    <span class="n">quality_thresholds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Allows Quality to be added to a spaCy pipe using</span>
@@ -922,12 +828,6 @@
 <span class="sd">            be considered a top n-gram. Defaults to 3.</span>
 <span class="sd">        duplicate_n_gram_fraction_range (Tuple[int]): range of n-grams to</span>
 <span class="sd">            calculate the proportion of duplicate n-grams. Defaults to [5, 10].</span>
-<span class="sd">        quality_thresholds (Optional[dict]): A dictionary object containing the</span>
-<span class="sd">            thresholds indicated by either an interval (Tuple) or a boolean. We</span>
-<span class="sd">            recommend using the QualityThresholds class to create this dictionary by</span>
-<span class="sd">            calling QualityThresholds(...).dict(). This ensures that all the thresholds</span>
-<span class="sd">            are validated. Defaults to None in which case the default for</span>
-<span class="sd">            QualityThresholds is used.</span>
 <span class="sd">        force (bool): whether to overwrite existing extensions. Defaults to True.</span>
 
 
@@ -945,13 +845,6 @@
 <span class="sd">        &gt;&gt;&gt; # check whether the document passed the quality thresholds</span>
 <span class="sd">        &gt;&gt;&gt; doc._.passed_quality_check</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># recons quality_thresholds since it needs to be json serializable for the config</span>
-    <span class="c1"># in the nlp.add_pipe call</span>
-    <span class="k">if</span> <span class="n">quality_thresholds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">quality_thresholds_</span> <span class="o">=</span> <span class="n">QualityThresholds</span><span class="p">(</span><span class="o">**</span><span class="n">quality_thresholds</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">quality_thresholds_</span> <span class="o">=</span> <span class="kc">None</span>
-
     <span class="k">return</span> <span class="n">Quality</span><span class="p">(</span>
         <span class="n">nlp</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
@@ -960,7 +853,7 @@
         <span class="n">top_ngram_range</span><span class="o">=</span><span class="n">top_ngram_range</span><span class="p">,</span>
         <span class="n">top_ngram_min_count</span><span class="o">=</span><span class="n">top_ngram_min_count</span><span class="p">,</span>
         <span class="n">duplicate_n_gram_fraction_range</span><span class="o">=</span><span class="n">duplicate_n_gram_fraction_range</span><span class="p">,</span>
-        <span class="n">quality_thresholds</span><span class="o">=</span><span class="n">quality_thresholds_</span><span class="p">,</span>
+        <span class="n">quality_thresholds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
     <span class="p">)</span></div>
 </pre></div>

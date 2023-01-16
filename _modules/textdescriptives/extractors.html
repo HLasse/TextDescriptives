@@ -174,6 +174,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../usingthepackage.html#available-attributes">Available Attributes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/filter_corpus_using_quality.html">Filtering corpora using Quality</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../news.html">News and Changelog</a></li>
@@ -241,7 +242,7 @@
 
 <span class="k">def</span> <span class="nf">__get_quality</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get quality metrics as well as boolean indicator for passing filters.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">quality</span><span class="p">,</span> <span class="s2">&quot;passed_quality_check&quot;</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">passed_quality_check</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">to_flat_value_dict</span><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">__get_descriptive_stats_dict</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
