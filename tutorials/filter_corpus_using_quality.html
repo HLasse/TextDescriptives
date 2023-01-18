@@ -281,7 +281,7 @@ your text corpora.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "b4a47a4750014ee08369742b21ad407e"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "c2d04c2e14e5415ba8d0b1402d5091d2"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "3d6be99967af47a8afc4191603261bfd"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "6a85a259840d4afa8ae33e1bb0dcd3d5"}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -368,20 +368,8 @@ Okay so to those of you that were very helpful this is not to you but for those 
 <span class="ne">--&gt; </span><span class="mi">480</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">_quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_setter</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
 <span class="g g-Whitespace">    </span><span class="mi">481</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">passed_quality_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">passed_quality_thresholds</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 
-<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/components/quality.py:424,</span> in <span class="ni">Quality.quality_setter</span><span class="nt">(self, span)</span>
-<span class="g g-Whitespace">    </span><span class="mi">409</span> <span class="n">thresholds_outputs</span><span class="p">[</span><span class="s2">&quot;contains&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-<span class="g g-Whitespace">    </span><span class="mi">410</span>     <span class="n">string</span><span class="p">:</span> <span class="n">ThresholdsOutput</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">411</span>         <span class="n">value</span><span class="o">=</span><span class="n">contains_string</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="n">string</span><span class="p">),</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">414</span>     <span class="k">for</span> <span class="n">string</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains</span>
-<span class="g g-Whitespace">    </span><span class="mi">415</span> <span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">416</span> <span class="n">thresholds_outputs</span><span class="p">[</span><span class="s2">&quot;symbol_to_word_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-<span class="g g-Whitespace">    </span><span class="mi">417</span>     <span class="n">symbol</span><span class="p">:</span> <span class="n">ThresholdsOutput</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">418</span>         <span class="n">value</span><span class="o">=</span><span class="n">symbol_to_word_ratio</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="n">symbol</span><span class="p">),</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">421</span>     <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span>
-<span class="g g-Whitespace">    </span><span class="mi">422</span> <span class="p">}</span>
-<span class="ne">--&gt; </span><span class="mi">424</span> <span class="n">chr_frac</span> <span class="o">=</span> <span class="n">top_ngram_chr_fraction</span><span class="p">(</span>
+<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/components/quality.py:441,</span> in <span class="ni">Quality.quality_setter</span><span class="nt">(self, span)</span>
+<span class="g g-Whitespace">    </span><span class="mi">424</span> <span class="n">chr_frac</span> <span class="o">=</span> <span class="n">top_ngram_chr_fraction</span><span class="p">(</span>
 <span class="g g-Whitespace">    </span><span class="mi">425</span>     <span class="n">span</span><span class="p">,</span>
 <span class="g g-Whitespace">    </span><span class="mi">426</span>     <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">top_ngram_range</span><span class="p">,</span>
 <span class="g g-Whitespace">    </span><span class="mi">427</span>     <span class="n">min_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">top_ngram_min_count</span><span class="p">,</span>
@@ -392,26 +380,44 @@ Okay so to those of you that were very helpful this is not to you but for those 
    <span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="nn">    438     for n_gram, frac</span> in <span class="ni">chr_frac.items</span><span class="nt">()</span>
 <span class="g g-Whitespace">    </span><span class="mi">439</span> <span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">441</span> <span class="n">duplicate_ngram_chr_fraction</span> <span class="o">=</span> <span class="n">duplicate_ngram_fraction</span><span class="p">(</span>
+<span class="ne">--&gt; </span><span class="mi">441</span> <span class="n">duplicate_ngram_chr_fraction</span> <span class="o">=</span> <span class="n">duplicate_ngram_fraction</span><span class="p">(</span>
 <span class="g g-Whitespace">    </span><span class="mi">442</span>     <span class="n">span</span><span class="p">,</span>
 <span class="g g-Whitespace">    </span><span class="mi">443</span>     <span class="n">ngram_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">duplicate_n_gram_fraction_range</span><span class="p">,</span>
 <span class="g g-Whitespace">    </span><span class="mi">444</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">445</span> <span class="n">thresholds_outputs</span><span class="p">[</span><span class="s2">&quot;duplicate_ngram_chr_fraction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">446</span>     <span class="nb">str</span><span class="p">(</span><span class="n">n_gram</span><span class="p">):</span> <span class="n">ThresholdsOutput</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">447</span>         <span class="n">value</span><span class="o">=</span><span class="n">frac</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="nn">    453     for n_gram, frac</span> in <span class="ni">duplicate_ngram_chr_fraction.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">454</span> <span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">456</span> <span class="k">return</span> <span class="n">QualityOutput</span><span class="p">(</span><span class="o">**</span><span class="n">thresholds_outputs</span><span class="p">)</span>
 
-<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/components/quality.py:303,</span> in <span class="ni">top_ngram_chr_fraction</span><span class="nt">(span, ngram_range, min_count)</span>
-<span class="g g-Whitespace">    </span><span class="mi">300</span> <span class="k">if</span> <span class="n">chr_len</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">301</span>     <span class="k">return</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ngram_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ngram_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)}</span>
-<span class="ne">--&gt; </span><span class="mi">303</span> <span class="n">ngram_counter</span> <span class="o">=</span> <span class="n">span_ngrams</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="n">ngram_range</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span> <span class="n">top_ngram_chr_frac</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">    </span><span class="mi">305</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ngram_counter</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">306</span>     <span class="c1"># find the top n-gram</span>
+<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/components/quality.py:259,</span> in <span class="ni">duplicate_ngram_fraction</span><span class="nt">(span, ngram_range)</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span> <span class="k">if</span> <span class="n">chr_len</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">258</span>     <span class="k">return</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ngram_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ngram_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)}</span>
+<span class="ne">--&gt; </span><span class="mi">259</span> <span class="n">shingles_count</span> <span class="o">=</span> <span class="n">span_ngrams</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="n">ngram_range</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span> <span class="n">duplicate_chr_fraction</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="g g-Whitespace">    </span><span class="mi">261</span> <span class="k">for</span> <span class="n">ngram_size</span><span class="p">,</span> <span class="n">ngrams</span> <span class="ow">in</span> <span class="n">shingles_count</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span>     <span class="c1"># create a boolean array of the same length as the text</span>
+<span class="g g-Whitespace">    </span><span class="mi">263</span>     <span class="c1"># where True indicates that the token is a duplicate</span>
 
-<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/components/quality.py:233,</span> in <span class="ni">span_ngrams</span><span class="nt">(span, ngram_range)</span>
-<span class="g g-Whitespace">    </span><span class="mi">231</span>             <span class="n">ngram</span> <span class="o">=</span> <span class="n">ngram_span</span><span class="o">.</span><span class="n">text</span>
-<span class="g g-Whitespace">    </span><span class="mi">232</span>             <span class="n">shingles_count</span><span class="p">[</span><span class="n">ngram_size</span><span class="p">][</span><span class="n">ngram</span><span class="p">][</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># type: ignore</span>
-<span class="ne">--&gt; </span><span class="mi">233</span>             <span class="n">shingles_count</span><span class="p">[</span><span class="n">ngram_size</span><span class="p">][</span><span class="n">ngram</span><span class="p">][</span><span class="s2">&quot;span&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
-<span class="g g-Whitespace">    </span><span class="mi">234</span>                 <span class="n">ngram_span</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">235</span>             <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">236</span> <span class="k">return</span> <span class="n">shingles_count</span>
+<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/components/quality.py:230,</span> in <span class="ni">span_ngrams</span><span class="nt">(span, ngram_range)</span>
+<span class="g g-Whitespace">    </span><span class="mi">228</span> <span class="n">end</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">ngram_size</span>
+<span class="g g-Whitespace">    </span><span class="mi">229</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">end</span> <span class="o">&gt;</span> <span class="n">max_len</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">230</span>     <span class="n">ngram_span</span> <span class="o">=</span> <span class="n">span</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">231</span>     <span class="n">ngram</span> <span class="o">=</span> <span class="n">ngram_span</span><span class="o">.</span><span class="n">text</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span>     <span class="n">shingles_count</span><span class="p">[</span><span class="n">ngram_size</span><span class="p">][</span><span class="n">ngram</span><span class="p">][</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># type: ignore</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/tokens/doc.pyx:478,</span> in <span class="ni">spacy.tokens.doc.Doc.__getitem__</span><span class="nt">()</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1244,</span> in <span class="ni">normalize_slice</span><span class="nt">(length, start, stop, step)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1240</span>             <span class="n">new_excs</span><span class="p">[</span><span class="n">new_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_value</span>
+<span class="g g-Whitespace">   </span><span class="mi">1241</span>     <span class="k">return</span> <span class="n">new_excs</span>
+<span class="ne">-&gt; </span><span class="mi">1244</span> <span class="k">def</span> <span class="nf">normalize_slice</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1245</span>     <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">1246</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1247</span>     <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">step</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">step</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1248</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">Errors</span><span class="o">.</span><span class="n">E057</span><span class="p">)</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
