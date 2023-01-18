@@ -357,230 +357,172 @@ Name: label, dtype: int64
 <span class=" -Color -Color-C4">&#39;textdescriptives.readability&#39;. Adding to pipe.</span>
 </pre></div>
 </div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># assumes you have downloaded the ´en_core_web_model´</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_metrics</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">],</span> <span class="n">spacy_model</span><span class="o">=</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;readability&quot;</span><span class="p">,</span> <span class="s2">&quot;dependency_distance&quot;</span><span class="p">])</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># alternatively, you can specify the language and (optionally) the model size</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># metrics = td.extract_metrics(text=df[&quot;message&quot;], lang=&quot;en&quot;, spacy_model_size=&quot;sm&quot;, metrics=[&quot;readability, dependency_distance&quot;])</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># join the metrics to the original dataframe to get the label</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">metrics_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]))</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/extractors.py:167,</span> in <span class="ni">extract_metrics</span><span class="nt">(text, lang, metrics, spacy_model, spacy_model_size)</span>
-<span class="g g-Whitespace">    </span><span class="mi">164</span>     <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">165</span> <span class="n">docs</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">167</span> <span class="k">return</span> <span class="n">extract_df</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/extractors.py:105,</span> in <span class="ni">extract_df</span><span class="nt">(docs, metrics, include_text)</span>
-<span class="g g-Whitespace">     </span><span class="mi">84</span> <span class="k">def</span> <span class="nf">extract_df</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="n">docs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">],</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="n">metrics</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="n">include_text</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">89</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Extract calculated metrics from a spaCy Doc object or a generator of</span>
-<span class="g g-Whitespace">     </span><span class="mi">90</span><span class="sd">     Docs from nlp.pipe to a Pandas DataFrame.</span>
-<span class="g g-Whitespace">     </span><span class="mi">91</span><span class="sd"> </span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">103</span><span class="sd">         pd.DataFrame: DataFrame with a row for each doc and column for each metric.</span>
-<span class="g g-Whitespace">    </span><span class="mi">104</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">105</span>     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">include_text</span><span class="p">))</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/extractors.py:52,</span> in <span class="ni">extract_dict</span><span class="nt">(docs, metrics, include_text)</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Extract calculated metrics from a spaCy Doc or an iterable of Docs to a</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span><span class="sd"> list of dictionaries.</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span><span class="sd"> </span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span><span class="sd">     List[Dict[str, Any]]: List of dictionaries for each Doc with extracted metrics.</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">51</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">52</span>     <span class="k">return</span> <span class="p">[</span><span class="n">extract_dict</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">include_text</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">]</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="c1"># extract textdescriptive metrics from the list of spacy Language factory</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span> <span class="n">valid_metrics</span> <span class="o">=</span> <span class="n">get_valid_metrics</span><span class="p">()</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/textdescriptives/extractors.py:52,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Extract calculated metrics from a spaCy Doc or an iterable of Docs to a</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span><span class="sd"> list of dictionaries.</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span><span class="sd"> </span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span><span class="sd">     List[Dict[str, Any]]: List of dictionaries for each Doc with extracted metrics.</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">51</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">Doc</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">52</span>     <span class="k">return</span> <span class="p">[</span><span class="n">extract_dict</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">include_text</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">]</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="c1"># extract textdescriptive metrics from the list of spacy Language factory</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span> <span class="n">valid_metrics</span> <span class="o">=</span> <span class="n">get_valid_metrics</span><span class="p">()</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/language.py:1575,</span> in <span class="ni">Language.pipe</span><span class="nt">(self, texts, as_tuples, batch_size, disable, component_cfg, n_process)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1573</span>     <span class="k">for</span> <span class="n">pipe</span> <span class="ow">in</span> <span class="n">pipes</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1574</span>         <span class="n">docs</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1575</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1576</span>     <span class="k">yield</span> <span class="n">doc</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1608,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1606</span>     <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1607</span>         <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1608</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1609</span>     <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1610</span>         <span class="n">doc</span> <span class="o">=</span> <span class="n">proc</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1608,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1606</span>     <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1607</span>         <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1608</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1609</span>     <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1610</span>         <span class="n">doc</span> <span class="o">=</span> <span class="n">proc</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1608,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1606</span>     <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1607</span>         <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1608</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1609</span>     <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1610</span>         <span class="n">doc</span> <span class="o">=</span> <span class="n">proc</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/util.py:1598,</span> in <span class="ni">_pipe</span><span class="nt">(docs, proc, name, default_error_handler, kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1590</span> <span class="k">def</span> <span class="nf">_pipe</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1591</span>     <span class="n">docs</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">],</span>
-<span class="g g-Whitespace">   </span><span class="mi">1592</span>     <span class="n">proc</span><span class="p">:</span> <span class="s2">&quot;Pipe&quot;</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1595</span>     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-<span class="g g-Whitespace">   </span><span class="mi">1596</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s2">&quot;Doc&quot;</span><span class="p">]:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1597</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">proc</span><span class="p">,</span> <span class="s2">&quot;pipe&quot;</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1598</span>         <span class="k">yield from</span> <span class="n">proc</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1599</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1600</span>         <span class="c1"># We added some args for pipe that __call__ doesn&#39;t expect.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1601</span>         <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/pipeline/transition_parser.pyx:236,</span> in <span class="ni">pipe</span><span class="nt">()</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/pipeline/transition_parser.pyx:250,</span> in <span class="ni">spacy.pipeline.transition_parser.Parser.predict</span><span class="nt">()</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/pipeline/transition_parser.pyx:265,</span> in <span class="ni">spacy.pipeline.transition_parser.Parser.greedy_parse</span><span class="nt">()</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/model.py:315,</span> in <span class="ni">Model.predict</span><span class="nt">(self, X)</span>
-<span class="g g-Whitespace">    </span><span class="mi">311</span> <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">InT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OutT</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">312</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Call the model&#39;s `forward` function with `is_train=False`, and return</span>
-<span class="g g-Whitespace">    </span><span class="mi">313</span><span class="sd">     only the output, instead of the `(output, callback)` tuple.</span>
-<span class="g g-Whitespace">    </span><span class="mi">314</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">315</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/ml/tb_framework.py:33,</span> in <span class="ni">forward</span><span class="nt">(model, X, is_train)</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">33</span>     <span class="n">step_model</span> <span class="o">=</span> <span class="n">ParserStepModel</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">34</span>         <span class="n">X</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span>         <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>         <span class="n">unseen_classes</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;unseen_classes&quot;</span><span class="p">],</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span>         <span class="n">train</span><span class="o">=</span><span class="n">is_train</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span>         <span class="n">has_upper</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;has_upper&quot;</span><span class="p">],</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span>     <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span>     <span class="k">return</span> <span class="n">step_model</span><span class="p">,</span> <span class="n">step_model</span><span class="o">.</span><span class="n">finish_steps</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/spacy/ml/parser_model.pyx:216,</span> in <span class="ni">spacy.ml.parser_model.ParserStepModel.__init__</span><span class="nt">()</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/model.py:291,</span> in <span class="ni">Model.__call__</span><span class="nt">(self, X, is_train)</span>
-<span class="g g-Whitespace">    </span><span class="mi">288</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">InT</span><span class="p">,</span> <span class="n">is_train</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">OutT</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">289</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Call the model&#39;s `forward` function, returning the output and a</span>
-<span class="g g-Whitespace">    </span><span class="mi">290</span><span class="sd">     callback to compute the gradients via backpropagation.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">291</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/layers/chain.py:54,</span> in <span class="ni">forward</span><span class="nt">(model, X, is_train)</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">54</span>     <span class="n">Y</span><span class="p">,</span> <span class="n">inc_layer_grad</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="n">callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inc_layer_grad</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>     <span class="n">X</span> <span class="o">=</span> <span class="n">Y</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/model.py:291,</span> in <span class="ni">Model.__call__</span><span class="nt">(self, X, is_train)</span>
-<span class="g g-Whitespace">    </span><span class="mi">288</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">InT</span><span class="p">,</span> <span class="n">is_train</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">OutT</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">289</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Call the model&#39;s `forward` function, returning the output and a</span>
-<span class="g g-Whitespace">    </span><span class="mi">290</span><span class="sd">     callback to compute the gradients via backpropagation.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">291</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/layers/chain.py:54,</span> in <span class="ni">forward</span><span class="nt">(model, X, is_train)</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">54</span>     <span class="n">Y</span><span class="p">,</span> <span class="n">inc_layer_grad</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="n">callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inc_layer_grad</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>     <span class="n">X</span> <span class="o">=</span> <span class="n">Y</span>
-
-    <span class="p">[</span><span class="o">...</span> <span class="n">skipping</span> <span class="n">similar</span> <span class="n">frames</span><span class="p">:</span> <span class="n">Model</span><span class="o">.</span><span class="fm">__call__</span> <span class="n">at</span> <span class="n">line</span> <span class="mi">291</span> <span class="p">(</span><span class="mi">1</span> <span class="n">times</span><span class="p">)]</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/layers/chain.py:54,</span> in <span class="ni">forward</span><span class="nt">(model, X, is_train)</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">54</span>     <span class="n">Y</span><span class="p">,</span> <span class="n">inc_layer_grad</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="n">callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inc_layer_grad</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>     <span class="n">X</span> <span class="o">=</span> <span class="n">Y</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/model.py:291,</span> in <span class="ni">Model.__call__</span><span class="nt">(self, X, is_train)</span>
-<span class="g g-Whitespace">    </span><span class="mi">288</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">InT</span><span class="p">,</span> <span class="n">is_train</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">OutT</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">289</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Call the model&#39;s `forward` function, returning the output and a</span>
-<span class="g g-Whitespace">    </span><span class="mi">290</span><span class="sd">     callback to compute the gradients via backpropagation.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">291</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/layers/with_array.py:30,</span> in <span class="ni">forward</span><span class="nt">(model, Xseq, is_train)</span>
-<span class="g g-Whitespace">     </span><span class="mi">28</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">Model</span><span class="p">[</span><span class="n">SeqT</span><span class="p">,</span> <span class="n">SeqT</span><span class="p">],</span> <span class="n">Xseq</span><span class="p">:</span> <span class="n">SeqT</span><span class="p">,</span> <span class="n">is_train</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Xseq</span><span class="p">,</span> <span class="n">Ragged</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">30</span>         <span class="k">return</span> <span class="n">_ragged_forward</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span>             <span class="n">cast</span><span class="p">(</span><span class="n">Model</span><span class="p">[</span><span class="n">Ragged</span><span class="p">,</span> <span class="n">Ragged</span><span class="p">],</span> <span class="n">model</span><span class="p">),</span> <span class="n">cast</span><span class="p">(</span><span class="n">Ragged</span><span class="p">,</span> <span class="n">Xseq</span><span class="p">),</span> <span class="n">is_train</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span>         <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">33</span>     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Xseq</span><span class="p">,</span> <span class="n">Padded</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">34</span>         <span class="k">return</span> <span class="n">_padded_forward</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span>             <span class="n">cast</span><span class="p">(</span><span class="n">Model</span><span class="p">[</span><span class="n">Padded</span><span class="p">,</span> <span class="n">Padded</span><span class="p">],</span> <span class="n">model</span><span class="p">),</span> <span class="n">cast</span><span class="p">(</span><span class="n">Padded</span><span class="p">,</span> <span class="n">Xseq</span><span class="p">),</span> <span class="n">is_train</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>         <span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/layers/with_array.py:89,</span> in <span class="ni">_ragged_forward</span><span class="nt">(model, Xr, is_train)</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span> <span class="k">def</span> <span class="nf">_ragged_forward</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="n">model</span><span class="p">:</span> <span class="n">Model</span><span class="p">[</span><span class="n">Ragged</span><span class="p">,</span> <span class="n">Ragged</span><span class="p">],</span> <span class="n">Xr</span><span class="p">:</span> <span class="n">Ragged</span><span class="p">,</span> <span class="n">is_train</span><span class="p">:</span> <span class="nb">bool</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Ragged</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span>     <span class="n">layer</span><span class="p">:</span> <span class="n">Model</span><span class="p">[</span><span class="n">ArrayXd</span><span class="p">,</span> <span class="n">ArrayXd</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="ne">---&gt; </span><span class="mi">89</span>     <span class="n">Y</span><span class="p">,</span> <span class="n">get_dX</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">Xr</span><span class="o">.</span><span class="n">dataXd</span><span class="p">,</span> <span class="n">is_train</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">91</span>     <span class="k">def</span> <span class="nf">backprop</span><span class="p">(</span><span class="n">dYr</span><span class="p">:</span> <span class="n">Ragged</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Ragged</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">92</span>         <span class="k">return</span> <span class="n">Ragged</span><span class="p">(</span><span class="n">get_dX</span><span class="p">(</span><span class="n">dYr</span><span class="o">.</span><span class="n">dataXd</span><span class="p">),</span> <span class="n">dYr</span><span class="o">.</span><span class="n">lengths</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/model.py:291,</span> in <span class="ni">Model.__call__</span><span class="nt">(self, X, is_train)</span>
-<span class="g g-Whitespace">    </span><span class="mi">288</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">InT</span><span class="p">,</span> <span class="n">is_train</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">OutT</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">289</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Call the model&#39;s `forward` function, returning the output and a</span>
-<span class="g g-Whitespace">    </span><span class="mi">290</span><span class="sd">     callback to compute the gradients via backpropagation.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">291</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/layers/chain.py:54,</span> in <span class="ni">forward</span><span class="nt">(model, X, is_train)</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">54</span>     <span class="n">Y</span><span class="p">,</span> <span class="n">inc_layer_grad</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="n">callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inc_layer_grad</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>     <span class="n">X</span> <span class="o">=</span> <span class="n">Y</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/model.py:291,</span> in <span class="ni">Model.__call__</span><span class="nt">(self, X, is_train)</span>
-<span class="g g-Whitespace">    </span><span class="mi">288</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">InT</span><span class="p">,</span> <span class="n">is_train</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">OutT</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">289</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Call the model&#39;s `forward` function, returning the output and a</span>
-<span class="g g-Whitespace">    </span><span class="mi">290</span><span class="sd">     callback to compute the gradients via backpropagation.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">291</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/layers/chain.py:54,</span> in <span class="ni">forward</span><span class="nt">(model, X, is_train)</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">54</span>     <span class="n">Y</span><span class="p">,</span> <span class="n">inc_layer_grad</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="n">callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inc_layer_grad</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>     <span class="n">X</span> <span class="o">=</span> <span class="n">Y</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/model.py:291,</span> in <span class="ni">Model.__call__</span><span class="nt">(self, X, is_train)</span>
-<span class="g g-Whitespace">    </span><span class="mi">288</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">InT</span><span class="p">,</span> <span class="n">is_train</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">OutT</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">289</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Call the model&#39;s `forward` function, returning the output and a</span>
-<span class="g g-Whitespace">    </span><span class="mi">290</span><span class="sd">     callback to compute the gradients via backpropagation.&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">291</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.10/site-packages/thinc/layers/maxout.py:49,</span> in <span class="ni">forward</span><span class="nt">(model, X, is_train)</span>
-<span class="g g-Whitespace">     </span><span class="mi">47</span> <span class="n">W</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">48</span> <span class="n">W</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">reshape2f</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">nO</span> <span class="o">*</span> <span class="n">nP</span><span class="p">,</span> <span class="n">nI</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">49</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">gemm</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">trans2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span> <span class="n">Y</span> <span class="o">+=</span> <span class="n">model</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">reshape1f</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">nO</span> <span class="o">*</span> <span class="n">nP</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">51</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">reshape3f</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nO</span><span class="p">,</span> <span class="n">nP</span><span class="p">)</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
-</pre></div>
-</div>
-</div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>message</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
+      <th>token_length_mean</th>
+      <th>token_length_median</th>
+      <th>token_length_std</th>
+      <th>sentence_length_mean</th>
+      <th>...</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
+      <th>flesch_reading_ease</th>
+      <th>flesch_kincaid_grade</th>
+      <th>smog</th>
+      <th>gunning_fog</th>
+      <th>automated_readability_index</th>
+      <th>coleman_liau_index</th>
+      <th>lix</th>
+      <th>rix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ham</td>
+      <td>Go until jurong point, crazy.. Available only ...</td>
+      <td>2.333333</td>
+      <td>0.833333</td>
+      <td>0.388889</td>
+      <td>0.055556</td>
+      <td>4.150000</td>
+      <td>5.0</td>
+      <td>1.904600</td>
+      <td>10.0</td>
+      <td>...</td>
+      <td>92</td>
+      <td>2</td>
+      <td>90.935000</td>
+      <td>3.060000</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>3.116500</td>
+      <td>5.642000</td>
+      <td>15.000000</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ham</td>
+      <td>Ok lar... Joking wif u oni...</td>
+      <td>1.333333</td>
+      <td>0.666667</td>
+      <td>0.433333</td>
+      <td>0.233333</td>
+      <td>3.000000</td>
+      <td>3.0</td>
+      <td>1.527525</td>
+      <td>3.0</td>
+      <td>...</td>
+      <td>24</td>
+      <td>2</td>
+      <td>105.090000</td>
+      <td>-0.653333</td>
+      <td>NaN</td>
+      <td>1.2</td>
+      <td>-5.800000</td>
+      <td>-8.026667</td>
+      <td>3.000000</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>spam</td>
+      <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
+      <td>2.516807</td>
+      <td>0.659664</td>
+      <td>0.521008</td>
+      <td>0.050420</td>
+      <td>4.392857</td>
+      <td>4.0</td>
+      <td>3.298693</td>
+      <td>14.0</td>
+      <td>...</td>
+      <td>128</td>
+      <td>2</td>
+      <td>92.917857</td>
+      <td>3.777143</td>
+      <td>NaN</td>
+      <td>5.6</td>
+      <td>6.260357</td>
+      <td>7.915714</td>
+      <td>28.285714</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ham</td>
+      <td>U dun say so early hor... U c already then say...</td>
+      <td>1.452381</td>
+      <td>0.119048</td>
+      <td>0.535714</td>
+      <td>0.035714</td>
+      <td>3.000000</td>
+      <td>3.0</td>
+      <td>1.758098</td>
+      <td>5.5</td>
+      <td>...</td>
+      <td>39</td>
+      <td>2</td>
+      <td>116.652500</td>
+      <td>-1.645000</td>
+      <td>NaN</td>
+      <td>2.2</td>
+      <td>-4.550000</td>
+      <td>-3.541818</td>
+      <td>14.590909</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ham</td>
+      <td>Nah I don't think he goes to usf, he lives aro...</td>
+      <td>2.066667</td>
+      <td>0.000000</td>
+      <td>0.400000</td>
+      <td>0.000000</td>
+      <td>3.461538</td>
+      <td>3.0</td>
+      <td>1.598816</td>
+      <td>13.0</td>
+      <td>...</td>
+      <td>49</td>
+      <td>1</td>
+      <td>109.040000</td>
+      <td>1.280000</td>
+      <td>NaN</td>
+      <td>5.2</td>
+      <td>1.373846</td>
+      <td>2.276923</td>
+      <td>13.000000</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 28 columns</p>
+</div></div></div>
 </div>
 </section>
 <section id="the-configurable-way-add-pipes-to-spacy">
@@ -611,7 +553,7 @@ Name: label, dtype: int64
 <span class=" -Color -Color-C4">&#39;textdescriptives.readability&#39;. Adding to pipe.</span>
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x126b7e0b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7ff81c38ece0&gt;
 </pre></div>
 </div>
 </div>
@@ -662,6 +604,17 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
+      <th>token_length_mean</th>
+      <th>token_length_median</th>
+      <th>token_length_std</th>
+      <th>sentence_length_mean</th>
+      <th>...</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
@@ -670,17 +623,6 @@ Name: label, dtype: int64
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
-      <th>...</th>
-      <th>syllables_per_token_std</th>
-      <th>n_tokens</th>
-      <th>n_unique_tokens</th>
-      <th>proportion_unique_tokens</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
@@ -688,6 +630,17 @@ Name: label, dtype: int64
       <th>0</th>
       <td>ham</td>
       <td>Go until jurong point, crazy.. Available only ...</td>
+      <td>2.333333</td>
+      <td>0.833333</td>
+      <td>0.388889</td>
+      <td>0.055556</td>
+      <td>4.150000</td>
+      <td>5.0</td>
+      <td>1.904600</td>
+      <td>10.0</td>
+      <td>...</td>
+      <td>92</td>
+      <td>2</td>
       <td>90.935000</td>
       <td>3.060000</td>
       <td>NaN</td>
@@ -696,22 +649,22 @@ Name: label, dtype: int64
       <td>5.642000</td>
       <td>15.000000</td>
       <td>0.5</td>
-      <td>...</td>
-      <td>0.433013</td>
-      <td>20</td>
-      <td>20</td>
-      <td>1.000000</td>
-      <td>92</td>
-      <td>2</td>
-      <td>2.333333</td>
-      <td>0.833333</td>
-      <td>0.388889</td>
-      <td>0.055556</td>
     </tr>
     <tr>
       <th>1</th>
       <td>ham</td>
       <td>Ok lar... Joking wif u oni...</td>
+      <td>1.333333</td>
+      <td>0.666667</td>
+      <td>0.433333</td>
+      <td>0.233333</td>
+      <td>3.000000</td>
+      <td>3.0</td>
+      <td>1.527525</td>
+      <td>3.0</td>
+      <td>...</td>
+      <td>24</td>
+      <td>2</td>
       <td>105.090000</td>
       <td>-0.653333</td>
       <td>NaN</td>
@@ -720,22 +673,22 @@ Name: label, dtype: int64
       <td>-8.026667</td>
       <td>3.000000</td>
       <td>0.0</td>
-      <td>...</td>
-      <td>0.372678</td>
-      <td>6</td>
-      <td>6</td>
-      <td>1.000000</td>
-      <td>24</td>
-      <td>2</td>
-      <td>1.333333</td>
-      <td>0.666667</td>
-      <td>0.433333</td>
-      <td>0.233333</td>
     </tr>
     <tr>
       <th>2</th>
       <td>spam</td>
       <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
+      <td>2.516807</td>
+      <td>0.659664</td>
+      <td>0.521008</td>
+      <td>0.050420</td>
+      <td>4.392857</td>
+      <td>4.0</td>
+      <td>3.298693</td>
+      <td>14.0</td>
+      <td>...</td>
+      <td>128</td>
+      <td>2</td>
       <td>92.917857</td>
       <td>3.777143</td>
       <td>NaN</td>
@@ -744,22 +697,22 @@ Name: label, dtype: int64
       <td>7.915714</td>
       <td>28.285714</td>
       <td>2.0</td>
-      <td>...</td>
-      <td>0.382993</td>
-      <td>28</td>
-      <td>24</td>
-      <td>0.857143</td>
-      <td>128</td>
-      <td>2</td>
-      <td>2.516807</td>
-      <td>0.659664</td>
-      <td>0.521008</td>
-      <td>0.050420</td>
     </tr>
     <tr>
       <th>3</th>
       <td>ham</td>
       <td>U dun say so early hor... U c already then say...</td>
+      <td>1.452381</td>
+      <td>0.119048</td>
+      <td>0.535714</td>
+      <td>0.035714</td>
+      <td>3.000000</td>
+      <td>3.0</td>
+      <td>1.758098</td>
+      <td>5.5</td>
+      <td>...</td>
+      <td>39</td>
+      <td>2</td>
       <td>116.652500</td>
       <td>-1.645000</td>
       <td>NaN</td>
@@ -768,22 +721,22 @@ Name: label, dtype: int64
       <td>-3.541818</td>
       <td>14.590909</td>
       <td>0.5</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>11</td>
-      <td>9</td>
-      <td>0.818182</td>
-      <td>39</td>
-      <td>2</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
     </tr>
     <tr>
       <th>4</th>
       <td>ham</td>
       <td>Nah I don't think he goes to usf, he lives aro...</td>
+      <td>2.066667</td>
+      <td>0.000000</td>
+      <td>0.400000</td>
+      <td>0.000000</td>
+      <td>3.461538</td>
+      <td>3.0</td>
+      <td>1.598816</td>
+      <td>13.0</td>
+      <td>...</td>
+      <td>49</td>
+      <td>1</td>
       <td>109.040000</td>
       <td>1.280000</td>
       <td>NaN</td>
@@ -792,17 +745,6 @@ Name: label, dtype: int64
       <td>2.276923</td>
       <td>13.000000</td>
       <td>0.0</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>13</td>
-      <td>12</td>
-      <td>0.923077</td>
-      <td>49</td>
-      <td>1</td>
-      <td>2.066667</td>
-      <td>0.000000</td>
-      <td>0.400000</td>
-      <td>0.000000</td>
     </tr>
   </tbody>
 </table>
@@ -817,7 +759,7 @@ Name: label, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
 </div>
@@ -838,7 +780,7 @@ Name: label, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/b8dbc15cc82cfd4c288e978519025c32b2526292b7903d9c66a1f818ee3a2971.png" src="../_images/b8dbc15cc82cfd4c288e978519025c32b2526292b7903d9c66a1f818ee3a2971.png" />
+<img alt="../_images/7d98c4433f98573b60c0aff3d89fba606e7eeff9a9c3972c2fd81d33fd7be10d.png" src="../_images/7d98c4433f98573b60c0aff3d89fba606e7eeff9a9c3972c2fd81d33fd7be10d.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -880,7 +822,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a89ae13c47c32d2eb9502ad221846fa31f8d4c298a4490cee224378e033e2574.png" src="../_images/a89ae13c47c32d2eb9502ad221846fa31f8d4c298a4490cee224378e033e2574.png" />
+<img alt="../_images/a74e5392d47d0691106a1190e9de12a386d1bb5d9ccadbb4045574bd63596874.png" src="../_images/a74e5392d47d0691106a1190e9de12a386d1bb5d9ccadbb4045574bd63596874.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found the distributions of e.g. the standard deviation of token length, the number of characters, and the number of unique tokens to be distributed differently between the actual SMS’s and spam.</p>
