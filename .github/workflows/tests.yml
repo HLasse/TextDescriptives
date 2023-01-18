@@ -78,16 +78,4 @@ jobs:
           echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
           echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
 
-      # and if it is a push to main then create the badge
-      - name: Create the Badge
-        if: ${{ github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
-        uses: schneegans/dynamic-badges-action@v1.6.0
-        with:
-          auth: ${{ secrets.PYTEST_COVERAGE }}
-          gistID: 24ee79064ca9d49616cbc410da65cee2
-          filename: badge-textdescriptives-pytest-coverage.json
-          label: Coverage
-          message: ${{ steps.coverage-comment.outputs.coverage }}
-          color: ${{ steps.coverage-comment.outputs.color }}
-          namedLogo: python
 
