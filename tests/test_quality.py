@@ -4,12 +4,14 @@ from typing import List, Tuple
 
 import pytest
 import spacy
+
 import textdescriptives as td
 from textdescriptives.components.quality import (
     alpha_ratio,
     duplicate_ngram_fraction,
     mean_word_length,
     n_stop_words,
+    oov_ratio,
     proportion_bullet_points,
     proportion_ellipsis,
     symbol_to_word_ratio,
@@ -190,6 +192,7 @@ def test_quality_component(nlp: spacy.Language):
     assert quality.duplicate_ngram_chr_fraction["5"] == 1
     assert abs(quality.top_ngram_chr_fraction["2"].value - 0.44) < 0.01
     assert doc._.passed_quality_check is False
+    assert quality.oov_ratio.value is None
     assert quality.passed is False
 
 
@@ -266,3 +269,12 @@ def test_quality_multi_process(nlp):
     docs = nlp.pipe(texts, n_process=2)
     for doc in docs:
         assert doc._.quality
+
+@pytest.mark.parametrize("vocab", [None, {"This", "is", "a", "test"}])
+def test_oov_ratio(vocab):
+    """Test the oov_ratio function."""
+    nlp = spacy.load("en_core_web_md")
+    doc = nlp("This is a test")
+    assert oov_ratio(doc, vocab) == 0
+    doc = nlp("This is a nonwrod")
+    assert oov_ratio(doc, vocab) == 0.25

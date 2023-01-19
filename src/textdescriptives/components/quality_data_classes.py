@@ -24,11 +24,13 @@ class ThresholdsOutput(BaseModel):
         extra = Extra.forbid
 
     threshold: Union[Interval, bool, None]
-    value: float
+    value: Union[float, None]
 
     @property
     def passed(self) -> bool:
         """Return True if the value is within the thresholds."""
+        if self.value is None:
+            return True
         if self.threshold is None:
             return True
         if isinstance(self.threshold, bool):
@@ -151,6 +153,11 @@ class QualityThresholds(BaseModel):
         + r"are contained within a duplicate for 2-grams, 18% for 3-grams and 16% "
         + "for 4-grams.",
     )
+    oov_ratio: Interval = Field(
+        (None, 0.2),
+        description="A range for the out-of-vocabulary ratio. Default: (None, 0.2)"
+        + r" i.e. no lower limit, but at most 20% of words are out-of-vocabulary.",
+    )
 
 
 class QualityOutput(BaseModel):
@@ -211,6 +218,10 @@ class QualityOutput(BaseModel):
         ...,
         description="The thresholds output for the top n-gram character fraction.",
     )
+    oov_ratio: ThresholdsOutput = Field(
+        ...,
+        description="The thresholds output for the out-of-vocabulary ratio.",
+    )
 
     @property
     def passed(self) -> bool:
@@ -232,6 +243,7 @@ class QualityOutput(BaseModel):
                 self.duplicate_paragraph_chr_fraction.passed,
                 all(v.passed for v in self.duplicate_ngram_chr_fraction.values()),
                 all(v.passed for v in self.top_ngram_chr_fraction.values()),
+                self.oov_ratio.passed,
             ],
         )
 
