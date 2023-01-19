@@ -377,17 +377,6 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
-      <th>token_length_mean</th>
-      <th>token_length_median</th>
-      <th>token_length_std</th>
-      <th>sentence_length_mean</th>
-      <th>...</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
@@ -396,6 +385,17 @@ Name: label, dtype: int64
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
+      <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
+      <th>syllables_per_token_std</th>
+      <th>n_tokens</th>
+      <th>n_unique_tokens</th>
+      <th>proportion_unique_tokens</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
     </tr>
   </thead>
   <tbody>
@@ -403,17 +403,6 @@ Name: label, dtype: int64
       <th>0</th>
       <td>ham</td>
       <td>Go until jurong point, crazy.. Available only ...</td>
-      <td>2.333333</td>
-      <td>0.833333</td>
-      <td>0.388889</td>
-      <td>0.055556</td>
-      <td>4.150000</td>
-      <td>5.0</td>
-      <td>1.904600</td>
-      <td>10.0</td>
-      <td>...</td>
-      <td>92</td>
-      <td>2</td>
       <td>90.935000</td>
       <td>3.060000</td>
       <td>NaN</td>
@@ -422,22 +411,22 @@ Name: label, dtype: int64
       <td>5.642000</td>
       <td>15.000000</td>
       <td>0.5</td>
+      <td>...</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>1.250000</td>
+      <td>1.0</td>
+      <td>0.433013</td>
+      <td>20</td>
+      <td>20</td>
+      <td>1.000000</td>
+      <td>92</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>1</th>
       <td>ham</td>
       <td>Ok lar... Joking wif u oni...</td>
-      <td>1.333333</td>
-      <td>0.666667</td>
-      <td>0.433333</td>
-      <td>0.233333</td>
-      <td>3.000000</td>
-      <td>3.0</td>
-      <td>1.527525</td>
-      <td>3.0</td>
-      <td>...</td>
-      <td>24</td>
-      <td>2</td>
       <td>105.090000</td>
       <td>-0.653333</td>
       <td>NaN</td>
@@ -446,22 +435,22 @@ Name: label, dtype: int64
       <td>-8.026667</td>
       <td>3.000000</td>
       <td>0.0</td>
+      <td>...</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.166667</td>
+      <td>1.0</td>
+      <td>0.372678</td>
+      <td>6</td>
+      <td>6</td>
+      <td>1.000000</td>
+      <td>24</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>2</th>
       <td>spam</td>
       <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
-      <td>2.516807</td>
-      <td>0.659664</td>
-      <td>0.521008</td>
-      <td>0.050420</td>
-      <td>4.392857</td>
-      <td>4.0</td>
-      <td>3.298693</td>
-      <td>14.0</td>
-      <td>...</td>
-      <td>128</td>
-      <td>2</td>
       <td>92.917857</td>
       <td>3.777143</td>
       <td>NaN</td>
@@ -470,22 +459,22 @@ Name: label, dtype: int64
       <td>7.915714</td>
       <td>28.285714</td>
       <td>2.0</td>
+      <td>...</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>1.178571</td>
+      <td>1.0</td>
+      <td>0.382993</td>
+      <td>28</td>
+      <td>24</td>
+      <td>0.857143</td>
+      <td>128</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>3</th>
       <td>ham</td>
       <td>U dun say so early hor... U c already then say...</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
-      <td>3.000000</td>
-      <td>3.0</td>
-      <td>1.758098</td>
-      <td>5.5</td>
-      <td>...</td>
-      <td>39</td>
-      <td>2</td>
       <td>116.652500</td>
       <td>-1.645000</td>
       <td>NaN</td>
@@ -494,22 +483,22 @@ Name: label, dtype: int64
       <td>-3.541818</td>
       <td>14.590909</td>
       <td>0.5</td>
+      <td>...</td>
+      <td>5.5</td>
+      <td>0.5</td>
+      <td>1.000000</td>
+      <td>1.0</td>
+      <td>0.000000</td>
+      <td>11</td>
+      <td>9</td>
+      <td>0.818182</td>
+      <td>39</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>4</th>
       <td>ham</td>
       <td>Nah I don't think he goes to usf, he lives aro...</td>
-      <td>2.066667</td>
-      <td>0.000000</td>
-      <td>0.400000</td>
-      <td>0.000000</td>
-      <td>3.461538</td>
-      <td>3.0</td>
-      <td>1.598816</td>
-      <td>13.0</td>
-      <td>...</td>
-      <td>49</td>
-      <td>1</td>
       <td>109.040000</td>
       <td>1.280000</td>
       <td>NaN</td>
@@ -518,6 +507,17 @@ Name: label, dtype: int64
       <td>2.276923</td>
       <td>13.000000</td>
       <td>0.0</td>
+      <td>...</td>
+      <td>13.0</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>1.0</td>
+      <td>0.000000</td>
+      <td>13</td>
+      <td>12</td>
+      <td>0.923077</td>
+      <td>49</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -553,7 +553,7 @@ Name: label, dtype: int64
 <span class=" -Color -Color-C4">&#39;textdescriptives.readability&#39;. Adding to pipe.</span>
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f9af454a5f0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7fa3f37c92d0&gt;
 </pre></div>
 </div>
 </div>
@@ -604,17 +604,6 @@ Name: label, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
-      <th>token_length_mean</th>
-      <th>token_length_median</th>
-      <th>token_length_std</th>
-      <th>sentence_length_mean</th>
-      <th>...</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
@@ -623,6 +612,17 @@ Name: label, dtype: int64
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
+      <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
+      <th>syllables_per_token_std</th>
+      <th>n_tokens</th>
+      <th>n_unique_tokens</th>
+      <th>proportion_unique_tokens</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
     </tr>
   </thead>
   <tbody>
@@ -630,17 +630,6 @@ Name: label, dtype: int64
       <th>0</th>
       <td>ham</td>
       <td>Go until jurong point, crazy.. Available only ...</td>
-      <td>2.333333</td>
-      <td>0.833333</td>
-      <td>0.388889</td>
-      <td>0.055556</td>
-      <td>4.150000</td>
-      <td>5.0</td>
-      <td>1.904600</td>
-      <td>10.0</td>
-      <td>...</td>
-      <td>92</td>
-      <td>2</td>
       <td>90.935000</td>
       <td>3.060000</td>
       <td>NaN</td>
@@ -649,22 +638,22 @@ Name: label, dtype: int64
       <td>5.642000</td>
       <td>15.000000</td>
       <td>0.5</td>
+      <td>...</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>1.250000</td>
+      <td>1.0</td>
+      <td>0.433013</td>
+      <td>20</td>
+      <td>20</td>
+      <td>1.000000</td>
+      <td>92</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>1</th>
       <td>ham</td>
       <td>Ok lar... Joking wif u oni...</td>
-      <td>1.333333</td>
-      <td>0.666667</td>
-      <td>0.433333</td>
-      <td>0.233333</td>
-      <td>3.000000</td>
-      <td>3.0</td>
-      <td>1.527525</td>
-      <td>3.0</td>
-      <td>...</td>
-      <td>24</td>
-      <td>2</td>
       <td>105.090000</td>
       <td>-0.653333</td>
       <td>NaN</td>
@@ -673,22 +662,22 @@ Name: label, dtype: int64
       <td>-8.026667</td>
       <td>3.000000</td>
       <td>0.0</td>
+      <td>...</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.166667</td>
+      <td>1.0</td>
+      <td>0.372678</td>
+      <td>6</td>
+      <td>6</td>
+      <td>1.000000</td>
+      <td>24</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>2</th>
       <td>spam</td>
       <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
-      <td>2.516807</td>
-      <td>0.659664</td>
-      <td>0.521008</td>
-      <td>0.050420</td>
-      <td>4.392857</td>
-      <td>4.0</td>
-      <td>3.298693</td>
-      <td>14.0</td>
-      <td>...</td>
-      <td>128</td>
-      <td>2</td>
       <td>92.917857</td>
       <td>3.777143</td>
       <td>NaN</td>
@@ -697,22 +686,22 @@ Name: label, dtype: int64
       <td>7.915714</td>
       <td>28.285714</td>
       <td>2.0</td>
+      <td>...</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>1.178571</td>
+      <td>1.0</td>
+      <td>0.382993</td>
+      <td>28</td>
+      <td>24</td>
+      <td>0.857143</td>
+      <td>128</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>3</th>
       <td>ham</td>
       <td>U dun say so early hor... U c already then say...</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
-      <td>3.000000</td>
-      <td>3.0</td>
-      <td>1.758098</td>
-      <td>5.5</td>
-      <td>...</td>
-      <td>39</td>
-      <td>2</td>
       <td>116.652500</td>
       <td>-1.645000</td>
       <td>NaN</td>
@@ -721,22 +710,22 @@ Name: label, dtype: int64
       <td>-3.541818</td>
       <td>14.590909</td>
       <td>0.5</td>
+      <td>...</td>
+      <td>5.5</td>
+      <td>0.5</td>
+      <td>1.000000</td>
+      <td>1.0</td>
+      <td>0.000000</td>
+      <td>11</td>
+      <td>9</td>
+      <td>0.818182</td>
+      <td>39</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>4</th>
       <td>ham</td>
       <td>Nah I don't think he goes to usf, he lives aro...</td>
-      <td>2.066667</td>
-      <td>0.000000</td>
-      <td>0.400000</td>
-      <td>0.000000</td>
-      <td>3.461538</td>
-      <td>3.0</td>
-      <td>1.598816</td>
-      <td>13.0</td>
-      <td>...</td>
-      <td>49</td>
-      <td>1</td>
       <td>109.040000</td>
       <td>1.280000</td>
       <td>NaN</td>
@@ -745,6 +734,17 @@ Name: label, dtype: int64
       <td>2.276923</td>
       <td>13.000000</td>
       <td>0.0</td>
+      <td>...</td>
+      <td>13.0</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>1.0</td>
+      <td>0.000000</td>
+      <td>13</td>
+      <td>12</td>
+      <td>0.923077</td>
+      <td>49</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
