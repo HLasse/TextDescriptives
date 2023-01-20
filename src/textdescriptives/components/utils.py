@@ -1,8 +1,10 @@
 """Utility functions for calculating various text descriptives."""
 from typing import Union
 
-from pyphen import Pyphen
 from spacy.tokens import Doc, Span, Token
+from wasabi import msg
+
+pyphen_warning_raised = False
 
 
 def filter_tokens(doc: Union[Doc, Span]):
@@ -30,6 +32,17 @@ def n_tokens(doc: Union[Doc, Span]):
 def n_syllables(doc: Doc):
     """Return number of syllables per token."""
 
+    try:
+        from pyphen import Pyphen
+    except ImportError:
+        if pyphen_warning_raised:
+            return None
+        msg.warn(
+            "Pyphen which is used to calculate n_syllables is not installed."
+            + "n_syllables will be set to None. To install pyphen with textdescriptives"
+            + "run: pip install textdescriptives[all]",
+        )
+        return None
     dic = Pyphen(lang=doc.lang_)
 
     def count_syl(token: Token):
