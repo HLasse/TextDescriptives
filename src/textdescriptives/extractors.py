@@ -39,9 +39,9 @@ def extract_dict(
         docs (Union[Iterable[Doc],  Doc]): An iterable of spaCy Docs or a single Doc
         metrics (Union[list[str], str, None], optional): Which metrics to extract.
                 One or more of ["descriptive_stats", "readability",
-                "dependency_distance", "pos_stats", "all"]. Defaults to None in which
-                case it will extract metrics for which a pipeline compoenent has been
-                set.
+                "dependency_distance", "pos_stats", "information_theory"].
+                Defaults to None in which case it will extract metrics for which a
+                pipeline compoenent has been set.
         include_text (bool, optional): Whether to add an entry containing the text.
             Defaults to True.
 
@@ -72,11 +72,13 @@ def extract_dict(
         extracted_metrics["text"] = docs.text
     for component in metrics:
         if component == "quality":
-            extracted_metrics.update(__get_quality(docs))
+            metric = __get_quality(docs)
         elif component == "descriptive_stats":
-            extracted_metrics.update(__get_descriptive_stats_dict(docs))
+            metric = __get_descriptive_stats_dict(docs)
         else:
-            extracted_metrics.update(getattr(docs._, component))
+            metric = getattr(docs._, component)
+        if metric:
+            extracted_metrics.update(metric)
 
     return [extracted_metrics]
 

@@ -51,7 +51,7 @@ You can control which measures to extract with the *metrics* argument.
 
 .. code-block:: python
 
-   td.extract_df(doc, metrics = ["descriptive_stats", "readability", "dependency_distance", "pos_proportions", "coherence", "quality"])
+   td.extract_df(doc, metrics = ["descriptive_stats", "readability", "dependency_distance", "pos_proportions", "coherence", "quality", "information_theory"])
 
 .. note::
    By default, the :code:`extract_X` functions adds a column containing the text. You can change this behaviour by setting :code:`include_text = False`.
@@ -101,10 +101,18 @@ For more details on each metrics, see the following sections in the documentatio
    ":code:`Doc._.coherence`","`coherence`","Dict containing the first and second order coherence scores for the Doc."
    ":code:`Doc._.quality`","`quality`","Dict containing the quality scores for the Doc."
    ":code:`Doc._.passed_quality_check`","`quality`","Boolean indicator of whether the doc passed the quality check."
+   ":code:`Doc._.information_theory`","`information_theory`","Dict containing the information theory scores for the Doc."
+   ":code:`Doc._.entropy`","`information_theory`","The entropy score for the Doc as a float."
+   ":code:`Doc._.perplexity`","`information_theory`","The perplexity score for the Doc as a float."
+   ":code:`Doc._.per_word_perplexity`","`information_theory`","The per-word perplexity score for the Doc as a float."
    ":code:`Span._.token_length`","`descriptive_stats`","Dict containing mean, median, and std of token length in the span."
    ":code:`Span._.counts`","`descriptive_stats`","Dict containing the number of tokens, number of unique tokens, proportion unique tokens, and number of characters in the span."
    ":code:`Span._.dependency_distance`","`dependency_distance`","Dict containing the mean dependency distance and proportion adjacent dependency relations in the Doc."
    ":code:`Span._.quality`","`quality`","Dict containing the quality scores for the Span."
+   ":code:`Span._.entropy`","`information_theory`","The entropy score for the Span as a float."
+   ":code:`Span._.perplexity`","`information_theory`","The perplexity score for the Span as a float."
+   ":code:`Span._.per_word_perplexity`","`information_theory`","The per-word perplexity score for the Span as a float."
    ":code:`Token._.dependency_distance`","`dependency_distance`","Dict containing the dependency distance and whether the head word is adjacent for a Token."
+
    
    
