@@ -24,7 +24,7 @@ def set_lexeme_prob_table(vocab: Vocab, verbose: bool = True):
 
 
 def entropy(log_probs=np.ndarray) -> float:
-    """Calculated the shannon entropy based on log probs."""
+    """Calculates the Shannon entropy based on log probs."""
     return -np.sum(np.exp(log_probs) * log_probs)
 
 
@@ -58,7 +58,7 @@ def perplexity_getter(doc: Union[Doc, Span]) -> float:
 
 
 def per_word_perplexity_getter(doc: Union[Doc, Span]) -> float:
-    """Calculates the per word perplexity of a documents."""
+    """Calculates the per word perplexity of a document."""
 
     if hasattr(doc._, "perplexity"):
         perplexity = doc._.perplexity
@@ -137,7 +137,7 @@ class InformationTheory:
 )
 def create_information_theory_component(nlp: Language, name: str) -> InformationTheory:
     """
-    Allows InformationTheory compoentn to be added to the spaCy pipeline using the
+    Allows the InformationTheory component to be added to the spaCy pipeline using the
     command: `nlp.add_pipe('textdescriptives/information_theory')`
 
     It also set the following attributes on the document and span:
