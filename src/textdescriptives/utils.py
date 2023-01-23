@@ -169,4 +169,3 @@ def _create_spacy_pipeline(
         msg.info(f"No spacy model provided. Inferring spacy model for {lang}.")
         spacy_model = _download_spacy_model(lang=lang, size=spacy_model_size)
     return spacy.load(spacy_model)
-

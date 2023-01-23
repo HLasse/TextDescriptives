@@ -3,8 +3,6 @@ from typing import Any, Dict, Optional, Tuple, Union
 
 from pydantic import BaseModel, Extra, Field
 
-from textdescriptives.utils import all_true_or_none
-
 Interval = Tuple[Optional[float], Optional[float]]
 
 
