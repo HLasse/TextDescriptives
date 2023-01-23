@@ -231,23 +231,23 @@ class QualityOutput(BaseModel):
         Returns:
             bool: Whether all thresholds have been passed.
         """
-        return all_true_or_none(
-            [
-                self.n_stop_words.passed,
-                self.alpha_ratio.passed,
-                self.mean_word_length.passed,
-                self.doc_length.passed,
-                all(v.passed for v in self.symbol_to_word_ratio.values()),
-                self.proportion_ellipsis.passed,
-                self.proportion_bullet_points.passed,
-                all(v.passed for v in self.contains.values()),
-                self.duplicate_line_chr_fraction.passed,
-                self.duplicate_paragraph_chr_fraction.passed,
-                all(v.passed for v in self.duplicate_ngram_chr_fraction.values()),
-                all(v.passed for v in self.top_ngram_chr_fraction.values()),
-                self.oov_ratio.passed,
-            ],
-        )
+        passed_or_none = [
+            self.n_stop_words.passed,
+            self.alpha_ratio.passed,
+            self.mean_word_length.passed,
+            self.doc_length.passed,
+            all(v.passed for v in self.symbol_to_word_ratio.values()),
+            self.proportion_ellipsis.passed,
+            self.proportion_bullet_points.passed,
+            all(v.passed for v in self.contains.values()),
+            self.duplicate_line_chr_fraction.passed,
+            self.duplicate_paragraph_chr_fraction.passed,
+            all(v.passed for v in self.duplicate_ngram_chr_fraction.values()),
+            all(v.passed for v in self.top_ngram_chr_fraction.values()),
+            self.oov_ratio.passed,
+        ]
+
+        return all(i is None or i for i in passed_or_none)
 
     def __repr_str__(self, join_str: str) -> str:
         return join_str.join(
