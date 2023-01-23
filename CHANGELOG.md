@@ -2,6 +2,18 @@
 
 <!--next-version-placeholder-->
 
+## v2.3.0 (2023-01-23)
+### Feature
+* Added information theoretic features ([`076c638`](https://github.com/HLasse/TextDescriptives/commit/076c638d3fa8109a2de924d686959c456f548c96))
+
+### Fix
+* Fix error caused by running all tests at once ([`5e46202`](https://github.com/HLasse/TextDescriptives/commit/5e46202f9bc939c07c55405487fb81f6d713546a))
+
+### Documentation
+* Added information metrics to docs ([`15bb255`](https://github.com/HLasse/TextDescriptives/commit/15bb255828ac7c15dc834b5976e7047126533541))
+* Added update timer and fail on timeout ([`0d39b2e`](https://github.com/HLasse/TextDescriptives/commit/0d39b2ef3cabeb93c93d925e3af53b9e5ee9365f))
+* Fixed tutorial to not download model ([`42589f6`](https://github.com/HLasse/TextDescriptives/commit/42589f6f453ea9e1d5be7e9cbe868e9baade32a4))
+
 ## v2.2.0 (2023-01-16)
 ### Feature
 * Added QualityOutput ([`c0fb63c`](https://github.com/HLasse/TextDescriptives/commit/c0fb63c671ed1e4ccbe75afa4fb3301104a1ad0e))
