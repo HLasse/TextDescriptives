@@ -72,11 +72,13 @@ def extract_dict(
         extracted_metrics["text"] = docs.text
     for component in metrics:
         if component == "quality":
-            extracted_metrics.update(__get_quality(docs))
+            metric = __get_quality(docs)
         elif component == "descriptive_stats":
-            extracted_metrics.update(__get_descriptive_stats_dict(docs))
+            metric = __get_descriptive_stats_dict(docs)
         else:
-            extracted_metrics.update(getattr(docs._, component))
+            metric = getattr(docs._, component)
+        if metric:
+            extracted_metrics.update(metric)
 
     return [extracted_metrics]
 

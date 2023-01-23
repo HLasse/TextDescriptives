@@ -1,5 +1,6 @@
 import pytest
 import spacy
+
 import textdescriptives as td
 from textdescriptives.components.information_theory import (
     entropy_getter,
@@ -7,6 +8,7 @@ from textdescriptives.components.information_theory import (
     perplexity_getter,
     set_lexeme_prob_table,
 )
+from textdescriptives.utils import _remove_textdescriptives_extensions
 
 
 @pytest.fixture
@@ -31,6 +33,7 @@ def test_unigram_information_metrics(nlp):  # noqa F811
 
 
 def test_extract_df(nlp):  # noqa F811
+    _remove_textdescriptives_extensions()
     nlp.add_pipe("textdescriptives/information_theory")
     doc = nlp("This is a very likely sentence.")
 
