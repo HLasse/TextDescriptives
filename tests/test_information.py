@@ -26,10 +26,6 @@ def test_unigram_information_metrics(nlp):  # noqa F811
     assert perplexity_getter(doc1) > perplexity_getter(doc2)
     assert per_word_perplexity_getter(doc1) > per_word_perplexity_getter(doc2)
     assert entropy_getter(doc1) > entropy_getter(doc2)
-    assert doc1[0].prob != -20, "lexeme_prob table not loaded."
-    assert perplexity_getter(doc1) > perplexity_getter(doc2)
-    assert per_word_perplexity_getter(doc1) > per_word_perplexity_getter(doc2)
-    assert entropy_getter(doc1) > entropy_getter(doc2)
 
 
 def test_extract_df(nlp):  # noqa F811
