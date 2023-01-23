@@ -272,6 +272,7 @@ def test_quality_multi_process(nlp):
     for doc in docs:
         assert doc._.quality
 
+
 @pytest.mark.parametrize("vocab", [None, {"This", "is", "a", "test"}])
 def test_oov_ratio(vocab):
     """Test the oov_ratio function."""

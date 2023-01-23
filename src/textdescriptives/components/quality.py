@@ -1,6 +1,5 @@
 """Component for calculating quality metrics."""
 from collections import Counter, defaultdict
-from functools import partial
 from typing import Callable, Dict, List, Mapping, Optional, Tuple, Union
 
 import numpy as np
@@ -637,10 +636,10 @@ def create_quality_component(
         duplicate_n_gram_fraction_range (Tuple[int]): range of n-grams to
             calculate the proportion of duplicate n-grams. Defaults to [5, 10].
         vocab (Optional[Mapping]): vocabulary to use for calculating the
-            out-of-vocabulary ratio (`oov_ratio`). If None, will use the vocabulary of the
-            spaCy model. Note, that small spaCy models do not have a vocabulary.
-            The attribute will only be set if the vocabulary is not None or
-            the spaCy model is medium or large.
+            out-of-vocabulary ratio (`oov_ratio`). If None, will use the vocabulary
+            of the spaCy model. Note, that small spaCy models do not have a
+            vocabulary. The attribute will only be set if the vocabulary is not
+            None or the spaCy model is medium or large.
         force (bool): whether to overwrite existing extensions. Defaults to True.
 
 

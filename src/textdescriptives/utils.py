@@ -171,7 +171,7 @@ def _create_spacy_pipeline(
     return spacy.load(spacy_model)
 
 
-def all_true_or_none(x: Iterable[bool]) -> bool:
+def all_true_or_none(x: Iterable[Optional[bool]]) -> bool:
     """Check if all elements in an iterable are True or None.
 
     Args:
