@@ -195,6 +195,7 @@
 <li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quality.html">Quality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="coherence.html">Coherence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="information_theory.html">Information Theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extractors.html">Extractor</a></li>
 </ul>
 <ul>
@@ -269,7 +270,7 @@ If you want to add all the components you can use the shorthand <code class="cod
 </pre></div>
 </div>
 <p>You can control which measures to extract with the <em>metrics</em> argument.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;descriptive_stats&quot;</span><span class="p">,</span> <span class="s2">&quot;readability&quot;</span><span class="p">,</span> <span class="s2">&quot;dependency_distance&quot;</span><span class="p">,</span> <span class="s2">&quot;pos_proportions&quot;</span><span class="p">,</span> <span class="s2">&quot;coherence&quot;</span><span class="p">,</span> <span class="s2">&quot;quality&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;descriptive_stats&quot;</span><span class="p">,</span> <span class="s2">&quot;readability&quot;</span><span class="p">,</span> <span class="s2">&quot;dependency_distance&quot;</span><span class="p">,</span> <span class="s2">&quot;pos_proportions&quot;</span><span class="p">,</span> <span class="s2">&quot;coherence&quot;</span><span class="p">,</span> <span class="s2">&quot;quality&quot;</span><span class="p">,</span> <span class="s2">&quot;information_theory&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -356,6 +357,22 @@ For more details on each metrics, see the following sections in the documentatio
 <td><p><cite>quality</cite></p></td>
 <td><p>Boolean indicator of whether the doc passed the quality check.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">Doc._.information_theory</span></code></p></td>
+<td><p><cite>information_theory</cite></p></td>
+<td><p>Dict containing the information theory scores for the Doc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">Doc._.entropy</span></code></p></td>
+<td><p><cite>information_theory</cite></p></td>
+<td><p>The entropy score for the Doc as a float.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">Doc._.perplexity</span></code></p></td>
+<td><p><cite>information_theory</cite></p></td>
+<td><p>The perplexity score for the Doc as a float.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">Doc._.per_word_perplexity</span></code></p></td>
+<td><p><cite>information_theory</cite></p></td>
+<td><p>The per-word perplexity score for the Doc as a float.</p></td>
+</tr>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">Span._.token_length</span></code></p></td>
 <td><p><cite>descriptive_stats</cite></p></td>
 <td><p>Dict containing mean, median, and std of token length in the span.</p></td>
@@ -372,7 +389,19 @@ For more details on each metrics, see the following sections in the documentatio
 <td><p><cite>quality</cite></p></td>
 <td><p>Dict containing the quality scores for the Span.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">Token._.dependency_distance</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">Span._.entropy</span></code></p></td>
+<td><p><cite>information_theory</cite></p></td>
+<td><p>The entropy score for the Span as a float.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">Span._.perplexity</span></code></p></td>
+<td><p><cite>information_theory</cite></p></td>
+<td><p>The perplexity score for the Span as a float.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">Span._.per_word_perplexity</span></code></p></td>
+<td><p><cite>information_theory</cite></p></td>
+<td><p>The per-word perplexity score for the Span as a float.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">Token._.dependency_distance</span></code></p></td>
 <td><p><cite>dependency_distance</cite></p></td>
 <td><p>Dict containing the dependency distance and whether the head word is adjacent for a Token.</p></td>
 </tr>

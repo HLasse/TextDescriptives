@@ -3,16 +3,16 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<meta property="og:title" content="TextDescriptives" />
+<meta property="og:title" content="Information Theory" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="index.html" />
+<meta property="og:url" content="information_theory.html" />
 <meta property="og:site_name" content="textdescriptives" />
-<meta property="og:description" content="TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several d..." />
-<meta name="description" content="TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several d..." />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation" href="installation.html" />
+<meta property="og:description" content="The information_theory component calculates information theoretic measures derived from the text. These include:{doc/span}._.entropy: the Shannon entropy of the text using the token.prob as the pro..." />
+<meta name="description" content="The information_theory component calculates information theoretic measures derived from the text. These include:{doc/span}._.entropy: the Shannon entropy of the text using the token.prob as the pro..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Extractor" href="extractors.html" /><link rel="prev" title="Coherence" href="coherence.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
-        <title>textdescriptives 2.2.0 documentation</title>
+        <title>Information Theory - textdescriptives 2.2.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -139,7 +139,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">textdescriptives 2.2.0 documentation</div></a>
+      <a href="index.html"><div class="brand">textdescriptives 2.2.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -159,7 +159,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="_static/icon.png" alt="Light Logo"/>
@@ -188,14 +188,14 @@
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Components</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="descriptivestats.html">Descriptive Statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readability.html">Readability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependencydistance.html">Dependency Distance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quality.html">Quality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="coherence.html">Coherence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="information_theory.html">Information Theory</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Information Theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extractors.html">Extractor</a></li>
 </ul>
 <ul>
@@ -234,62 +234,100 @@
           </label>
         </div>
         <article role="main">
-          <section id="textdescriptives">
-<h1>TextDescriptives<a class="headerlink" href="#textdescriptives" title="Permalink to this heading">#</a></h1>
-<a class="reference external image-reference" href="https://github.com/hlasse/textdescriptives"><img alt="https://img.shields.io/github/stars/hlasse/textdescriptives.svg?style=social&amp;label=Star&amp;maxAge=2592000" src="https://img.shields.io/github/stars/hlasse/textdescriptives.svg?style=social&amp;label=Star&amp;maxAge=2592000" /></a>
-<p>TextDescriptives is Python library for calculating a large variety of statistics from text(s) using spaCy v.3 pipeline components and extensions.
-TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance.</p>
-<p>The documentation is organized in two parts:</p>
+          <section id="information-theory">
+<h1>Information Theory<a class="headerlink" href="#information-theory" title="Permalink to this heading">#</a></h1>
+<p>The <cite>information_theory</cite> component calculates information theoretic measures derived
+from the text. These include:</p>
 <ul class="simple">
-<li><p><strong>Getting Started</strong> contains the installation instructions, guides, and tutorials on how to use the package.</p></li>
-<li><p><strong>Package References</strong> contains the documentation of each public class and function.</p></li>
+<li><p><cite>{doc/span}._.entropy</cite>: the Shannon entropy of the text using the <cite>token.prob</cite> as the probability
+of each token. Entropy is defined as <span class="math notranslate nohighlight">\(H(X) = -\sum_{i=1}^n p(x_i) \log_e p(x_i)\)</span>. Where <span class="math notranslate nohighlight">\(p(x_i)\)</span> is the probability of the token <span class="math notranslate nohighlight">\(x_i\)</span>.</p></li>
+<li><p><cite>{doc/span}._.perplexity</cite>: the perplexity of the text. perplexity is a measurement of how well a
+probability distribution or probability model predicts a sample. Perplexity is defined as <span class="math notranslate nohighlight">\(PPL(X) = e^{-H(X)}\)</span>, where <span class="math notranslate nohighlight">\(H(X)\)</span> is the entropy of the text.</p></li>
+<li><p><cite>{doc/span}._.per_word_perplexity</cite>: The perplexity of the text, divided by the number of words. Can se considered the length normalized perplexity.</p></li>
 </ul>
-<section id="where-to-ask-questions">
-<h2>Where to ask questions?<a class="headerlink" href="#where-to-ask-questions" title="Permalink to this heading">#</a></h2>
-<p>To ask report issues or request features, please use the
-<a class="reference external" href="https://github.com/HLasse/TextDescriptives/issues">GitHub Issue Tracker</a>.
-Questions related to SpaCy are kindly referred to the SpaCy GitHub or forum. Otherwise,
-please use the discussion Forums.</p>
+<p>These information theoretic measures is for example often used to describe the complexity of a text.
+The higher the entropy, the more complex the text is.
+Similarly, one could imagine filtering text based on the per word perplexity given the assumption that
+highly surprising text is in fact non-coherent text pieces.</p>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">from</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="n">td</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_lg&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/information_theory&quot;</span><span class="p">)</span>
+
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;This is a simple text&quot;</span><span class="p">)</span>
+
+<span class="c1"># extract perplexity</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">perplexity</span>
+
+<span class="c1"># extract entropy</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">entropy</span>
+
+<span class="c1"># extract all metrics to a dataframe</span>
+<span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="table-wrapper docutils container">
 <table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>text</p></th>
+<th class="head"><p>entropy</p></th>
+<th class="head"><p>perplexity</p></th>
+<th class="head"><p>per_word_perplexity</p></th>
+</tr>
+</thead>
 <tbody>
-<tr class="row-odd"><td><p>Type</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><strong>Bug Reports</strong></p></td>
-<td><p><a class="reference external" href="https://github.com/HLasse/TextDescriptives/issues">GitHub Issue Tracker</a></p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Feature Requests &amp; Ideas</strong></p></td>
-<td><p><a class="reference external" href="https://github.com/HLasse/TextDescriptives/issues">GitHub Issue Tracker</a></p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Usage Questions</strong></p></td>
-<td><p><a class="reference external" href="https://github.com/HLasse/TextDescriptives/discussions">GitHub Discussions</a></p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>General Discussion</strong></p></td>
-<td><p><a class="reference external" href="https://github.com/HLasse/TextDescriptives/discussions">GitHub Discussions</a></p></td>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>This is a very likely sentence.</p></td>
+<td><p>0.288195</p></td>
+<td><p>1.334017</p></td>
+<td><p>0.190574</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
-<section id="citation">
-<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this heading">#</a></h2>
-<p>If you use TextDescriptives in your research, please cite the following preprint:
-<a class="reference external" href="https://arxiv.org/abs/2301.02057">TextDescriptives: A Python package for calculating a large variety of statistics from text</a>.</p>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-</section>
-</section>
-<section id="indices-and-search">
-<h1>Indices and search<a class="headerlink" href="#indices-and-search" title="Permalink to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="component">
+<h2>Component<a class="headerlink" href="#component" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="textdescriptives.components.information_theory.create_information_theory_component">
+<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.information_theory.</span></span><span class="sig-name descname"><span class="pre">create_information_theory_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">InformationTheory</span></span></span><a class="reference internal" href="_modules/textdescriptives/components/information_theory.html#create_information_theory_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.information_theory.create_information_theory_component" title="Permalink to this definition">#</a></dt>
+<dd><p>Allows the InformationTheory component to be added to the spaCy pipeline using the
+command: <cite>nlp.add_pipe(‘textdescriptives/information_theory’)</cite></p>
+<p>It also set the following attributes on the document and span:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<li><p>{Doc/Span}._.entropy: The shannon entropy of the document.</p></li>
+<li><p>{Doc/Span}._.perplexity: The perplexity of the document.</p></li>
+<li><p>{Doc/Span}._.per_word_perplexity: The per word perplexity of the document.</p></li>
+<li><dl class="simple">
+<dt>{Doc/Span}._.information_theory: A dictionary with the</dt><dd><p>keys: entropy, perplexity, and per_word_perplexity.</p>
+</dd>
+</dl>
+</li>
 </ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nlp</strong> (<em>-</em>) – The spaCy Language object.</p></li>
+<li><p><strong>name</strong> (<em>-</em>) – The name of the component.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s1">&#39;en_core_web_lg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s1">&#39;textdescriptives/information_theory&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;This is a sentence.&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">information_theory</span>
+<span class="go">{&#39;entropy&#39;: ...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
 </section>
 
         </article>
@@ -297,16 +335,26 @@ please use the discussion Forums.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="installation.html">
+          <a class="next-page" href="extractors.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Installation</div>
+                <div class="title">Extractor</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          
+          <a class="prev-page" href="coherence.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Coherence</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -337,14 +385,14 @@ please use the discussion Forums.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">TextDescriptives</a><ul>
-<li><a class="reference internal" href="#where-to-ask-questions">Where to ask questions?</a></li>
-<li><a class="reference internal" href="#citation">Citation</a><ul>
+<li><a class="reference internal" href="#">Information Theory</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#component">Component</a><ul>
+<li><a class="reference internal" href="#textdescriptives.components.information_theory.create_information_theory_component"><code class="docutils literal notranslate"><span class="pre">create_information_theory_component()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#indices-and-search">Indices and search</a></li>
 </ul>
 
           </div>
@@ -361,5 +409,6 @@ please use the discussion Forums.</p>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/design-tabs.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>

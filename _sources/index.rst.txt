@@ -66,6 +66,7 @@ If you use TextDescriptives in your research, please cite the following preprint
    posstats
    quality
    coherence
+   information_theory
    extractors
 
 

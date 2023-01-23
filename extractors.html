@@ -9,7 +9,7 @@
 <meta property="og:site_name" content="textdescriptives" />
 <meta property="og:description" content="The extractors are used to extract the features from the document. extract_metrics is meant to be called on raw texts, whereas extract_df and extract_dict work on spaCy documents ( Doc). API:" />
 <meta name="description" content="The extractors are used to extract the features from the document. extract_metrics is meant to be called on raw texts, whereas extract_df and extract_dict work on spaCy documents ( Doc). API:" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Coherence" href="coherence.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Information Theory" href="information_theory.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>Extractor - textdescriptives 2.2.0 documentation</title>
@@ -195,6 +195,7 @@
 <li class="toctree-l1"><a class="reference internal" href="posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quality.html">Quality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="coherence.html">Coherence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="information_theory.html">Information Theory</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Extractor</a></li>
 </ul>
 <ul>
@@ -305,9 +306,9 @@ list of dictionaries.</p>
 <li><p><strong>docs</strong> (<em>Union</em><em>[</em><em>Iterable</em><em>[</em><em>Doc</em><em>]</em><em>,  </em><em>Doc</em><em>]</em>) – An iterable of spaCy Docs or a single Doc</p></li>
 <li><p><strong>metrics</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Which metrics to extract.
 One or more of [“descriptive_stats”, “readability”,
-“dependency_distance”, “pos_stats”, “all”]. Defaults to None in which
-case it will extract metrics for which a pipeline compoenent has been
-set.</p></li>
+“dependency_distance”, “pos_stats”, “information_theory”].
+Defaults to None in which case it will extract metrics for which a
+pipeline compoenent has been set.</p></li>
 <li><p><strong>include_text</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to add an entry containing the text.
 Defaults to True.</p></li>
 </ul>
@@ -330,14 +331,14 @@ Defaults to True.</p></li>
         
         <div class="related-pages">
           
-          <a class="prev-page" href="coherence.html">
+          <a class="prev-page" href="information_theory.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Coherence</div>
+                <div class="title">Information Theory</div>
                 
               </div>
             </a>

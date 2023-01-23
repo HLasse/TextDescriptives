@@ -188,6 +188,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../posstats.html">Part-of-Speech Proportions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quality.html">Quality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../coherence.html">Coherence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../information_theory.html">Information Theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../extractors.html">Extractor</a></li>
 </ul>
 <ul>
@@ -267,9 +268,9 @@
 <span class="sd">        docs (Union[Iterable[Doc],  Doc]): An iterable of spaCy Docs or a single Doc</span>
 <span class="sd">        metrics (Union[list[str], str, None], optional): Which metrics to extract.</span>
 <span class="sd">                One or more of [&quot;descriptive_stats&quot;, &quot;readability&quot;,</span>
-<span class="sd">                &quot;dependency_distance&quot;, &quot;pos_stats&quot;, &quot;all&quot;]. Defaults to None in which</span>
-<span class="sd">                case it will extract metrics for which a pipeline compoenent has been</span>
-<span class="sd">                set.</span>
+<span class="sd">                &quot;dependency_distance&quot;, &quot;pos_stats&quot;, &quot;information_theory&quot;].</span>
+<span class="sd">                Defaults to None in which case it will extract metrics for which a</span>
+<span class="sd">                pipeline compoenent has been set.</span>
 <span class="sd">        include_text (bool, optional): Whether to add an entry containing the text.</span>
 <span class="sd">            Defaults to True.</span>
 
@@ -300,11 +301,13 @@
         <span class="n">extracted_metrics</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">docs</span><span class="o">.</span><span class="n">text</span>
     <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">component</span> <span class="o">==</span> <span class="s2">&quot;quality&quot;</span><span class="p">:</span>
-            <span class="n">extracted_metrics</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">__get_quality</span><span class="p">(</span><span class="n">docs</span><span class="p">))</span>
+            <span class="n">metric</span> <span class="o">=</span> <span class="n">__get_quality</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">component</span> <span class="o">==</span> <span class="s2">&quot;descriptive_stats&quot;</span><span class="p">:</span>
-            <span class="n">extracted_metrics</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">__get_descriptive_stats_dict</span><span class="p">(</span><span class="n">docs</span><span class="p">))</span>
+            <span class="n">metric</span> <span class="o">=</span> <span class="n">__get_descriptive_stats_dict</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">extracted_metrics</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">docs</span><span class="o">.</span><span class="n">_</span><span class="p">,</span> <span class="n">component</span><span class="p">))</span>
+            <span class="n">metric</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">docs</span><span class="o">.</span><span class="n">_</span><span class="p">,</span> <span class="n">component</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">metric</span><span class="p">:</span>
+            <span class="n">extracted_metrics</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="p">[</span><span class="n">extracted_metrics</span><span class="p">]</span></div>
 
