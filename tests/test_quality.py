@@ -212,6 +212,7 @@ def test_quality_component_with_config(nlp: spacy.Language):
         top_ngram_chr_fraction={2: (None, 0.6), 3: (None, 0.6)},
         duplicate_ngram_chr_fraction={},
         contains={"lorem ipsum": False},
+        oov_ratio=(None, 0.3),
     )
 
     quality_pipe = nlp.add_pipe(
@@ -234,6 +235,7 @@ def test_quality_component_with_config(nlp: spacy.Language):
     assert doc._.quality.duplicate_ngram_chr_fraction["8"] == 1
     assert abs(doc._.quality.top_ngram_chr_fraction["3"].value - 0.57) < 0.01
     assert doc._.passed_quality_check is True
+    assert doc._.quality.oov_ratio.value is None
 
 
 @pytest.mark.parametrize(
@@ -278,3 +280,10 @@ def test_oov_ratio(vocab):
     assert oov_ratio(doc, vocab) == 0
     doc = nlp("This is a nonwrod")
     assert oov_ratio(doc, vocab) == 0.25
+
+
+def test_oov_ratio_small_model():
+    nlp = spacy.load("en_core_web_sm")
+    nlp.add_pipe("textdescriptives/quality")
+    doc = nlp("This is a test")
+    assert doc._.quality.oov_ratio.value is None

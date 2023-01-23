@@ -3,6 +3,8 @@ from typing import Any, Dict, Optional, Tuple, Union
 
 from pydantic import BaseModel, Extra, Field
 
+from textdescriptives.utils import all_true_or_none
+
 Interval = Tuple[Optional[float], Optional[float]]
 
 
@@ -27,10 +29,10 @@ class ThresholdsOutput(BaseModel):
     value: Union[float, None]
 
     @property
-    def passed(self) -> bool:
+    def passed(self) -> Optional[bool]:
         """Return True if the value is within the thresholds."""
         if self.value is None:
-            return True
+            return None
         if self.threshold is None:
             return True
         if isinstance(self.threshold, bool):
@@ -229,7 +231,7 @@ class QualityOutput(BaseModel):
         Returns:
             bool: Whether all thresholds have been passed.
         """
-        return all(
+        return all_true_or_none(
             [
                 self.n_stop_words.passed,
                 self.alpha_ratio.passed,

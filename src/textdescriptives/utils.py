@@ -169,3 +169,15 @@ def _create_spacy_pipeline(
         msg.info(f"No spacy model provided. Inferring spacy model for {lang}.")
         spacy_model = _download_spacy_model(lang=lang, size=spacy_model_size)
     return spacy.load(spacy_model)
+
+
+def all_true_or_none(x: Iterable[bool]) -> bool:
+    """Check if all elements in an iterable are True or None.
+
+    Args:
+        x (Iterable[bool]): Iterable to check
+
+    Returns:
+        bool: True if all elements are True or None, False otherwise.
+    """
+    return all([i is None or i for i in x])
