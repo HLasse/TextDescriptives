@@ -20,7 +20,7 @@ repos:
       - id: add-trailing-comma
 
   - repo: https://github.com/PyCQA/docformatter
-    rev: v1.5.1
+    rev: v1.6.0.rc1
     hooks:
       - id: docformatter
         args: [--in-place]
@@ -32,7 +32,7 @@ repos:
         args: [--line-length, "88"]
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.223
+    rev: v0.0.231
     hooks:
       - id: ruff
 
