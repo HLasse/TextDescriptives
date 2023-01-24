@@ -494,7 +494,6 @@ class Quality:
 
     def set_extensions(self):
         """Set required extensions."""
-
         ext_name = "passed_quality_check"
         if not Span.has_extension(ext_name) or self.force is True:
             Span.set_extension(
