@@ -273,14 +273,20 @@ def test_quality_multi_process(nlp):
         assert doc._.quality
 
 
-@pytest.mark.parametrize("vocab", [None, {"This", "is", "a", "test"}])
-def test_oov_ratio(vocab):
+@pytest.mark.parametrize(
+    "text,expected,vocab",
+    [
+        ("This is a test", 0, None),
+        ("This is a nonwrod", 0.25, None),
+        ("This is a test", 0, {"This", "is", "a", "test"}),
+        ("This is a nonwrod", 0.25, {"This", "is", "a", "test"}),
+    ],
+)
+def test_oov_ratio(text, expected, vocab):
     """Test the oov_ratio function."""
     nlp = spacy.load("en_core_web_md")
-    doc = nlp("This is a test")
-    assert oov_ratio(doc, vocab) == 0
-    doc = nlp("This is a nonwrod")
-    assert oov_ratio(doc, vocab) == 0.25
+    doc = nlp(text)
+    assert oov_ratio(doc, vocab) == expected
 
 
 def test_oov_ratio_small_model():
