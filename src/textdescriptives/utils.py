@@ -8,6 +8,21 @@ from spacy.tokens import Doc, Span, Token
 from wasabi import msg
 
 
+def get_valid_metrics() -> set:
+    """Get valid metrics for extractor.
+
+    Returns:
+        set: Set of valid metrics
+    """
+
+    # extract textdescriptive components from the list of spacy Language factory
+    return {
+        k.split("/")[1]
+        for k in Language.factories.keys()
+        if k.startswith("textdescriptives")
+    }
+
+
 def get_doc_assigns(metric: str) -> List[str]:
     """Get doc extension attributes for a given metric.
 
@@ -16,6 +31,15 @@ def get_doc_assigns(metric: str) -> List[str]:
     """
     # extract the assign names from the factory meta (this assumes that the doc._.
     # only includes elements which are also extracted as a part of the dataframe.
+    if metric == "all":
+        return [
+            col[6:]
+            for component in get_valid_metrics()
+            for col in Language.get_factory_meta(
+                f"textdescriptives/{component}",
+            ).assigns
+            if col.startswith("doc._.")
+        ]
     return [
         col[6:]
         for col in Language.get_factory_meta(f"textdescriptives/{metric}").assigns
@@ -47,21 +71,6 @@ def get_token_assigns(metric: str) -> List[str]:
         for col in Language.get_factory_meta(f"textdescriptives/{metric}").assigns
         if col.startswith("token._.")
     ]
-
-
-def get_valid_metrics() -> set:
-    """Get valid metrics for extractor.
-
-    Returns:
-        set: Set of valid metrics
-    """
-
-    # extract textdescriptive components from the list of spacy Language factory
-    return {
-        k.split("/")[1]
-        for k in Language.factories.keys()
-        if k.startswith("textdescriptives")
-    }
 
 
 def load_sms_data():

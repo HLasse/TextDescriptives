@@ -28,29 +28,7 @@ class TextDescriptives:
         return doc
 
 
-@Language.factory(
-    "textdescriptives/all",
-    assigns=[
-        "doc._.readability",
-        "doc._.dependency_distance",
-        "doc._.token_length",
-        "doc._.sentence_length",
-        "doc._.n_sentences",
-        "doc._.n_tokens",
-        "doc._.descriptive_stats",
-        "doc._.pos_proportions",
-        "doc._.quality",
-        "doc._.syllables",
-        "doc._.counts",
-        "doc._.coherence",
-        "doc._.first_order_coherence_values",
-        "doc._.second_order_coherence_values",
-        "doc._.passed_quality_check",
-        "doc._._n_sentences",
-        "doc._._n_tokens",
-        "doc._._n_syllables",
-    ],  # intentionally not assigning span attributes
-)
+@Language.factory("textdescriptives/all")
 def create_textdescriptives_component(nlp: Language, name: str):
     components = [
         k
