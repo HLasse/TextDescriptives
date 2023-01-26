@@ -13,6 +13,7 @@ Heuristic quality metrics:
 * Proportion of bullet points (:code:`proportion_bullet_points`): Proportion of lines in a documents which start with a bullet point.
 * Symbol to word ratio (:code:`symbol_{symbol}_2_word_ratio`): Ratio of specified symbols to words, could e.g. include ratio of hashtags or curly brackets.
 * Contains string (:code:`contains_{string}`): Whether the document contains a specified string. For instance documents containing the string "lorem ipsum".
+* Out of vocabulary ratio (:code:`oov_ratio`): Ratio of out of vocabulary words to total words.
 
 Repetitious text metrics:
 
@@ -90,6 +91,7 @@ If you want to specify the thresholds for the quality metrics, you can do so by 
             "10": (None, 0.1),
         },
         top_ngram_chr_fraction={"2": (None, 0.2), "3": (None, 0.18), "4": (None, 0.16)},
+        oov_ratio=(None, 0.2)
     )
 
 
