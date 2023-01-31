@@ -4,12 +4,14 @@ from typing import List, Tuple
 
 import pytest
 import spacy
+
 import textdescriptives as td
 from textdescriptives.components.quality import (
     alpha_ratio,
     duplicate_ngram_fraction,
     mean_word_length,
     n_stop_words,
+    oov_ratio,
     proportion_bullet_points,
     proportion_ellipsis,
     symbol_to_word_ratio,
@@ -190,6 +192,7 @@ def test_quality_component(nlp: spacy.Language):
     assert quality.duplicate_ngram_chr_fraction["5"] == 1
     assert abs(quality.top_ngram_chr_fraction["2"].value - 0.44) < 0.01
     assert doc._.passed_quality_check is False
+    assert quality.oov_ratio.value is None
     assert quality.passed is False
 
 
@@ -209,6 +212,7 @@ def test_quality_component_with_config(nlp: spacy.Language):
         top_ngram_chr_fraction={2: (None, 0.6), 3: (None, 0.6)},
         duplicate_ngram_chr_fraction={},
         contains={"lorem ipsum": False},
+        oov_ratio=(None, 0.3),
     )
 
     quality_pipe = nlp.add_pipe(
@@ -231,6 +235,7 @@ def test_quality_component_with_config(nlp: spacy.Language):
     assert doc._.quality.duplicate_ngram_chr_fraction["8"] == 1
     assert abs(doc._.quality.top_ngram_chr_fraction["3"].value - 0.57) < 0.01
     assert doc._.passed_quality_check is True
+    assert doc._.quality.oov_ratio.value is None
 
 
 @pytest.mark.parametrize(
@@ -266,3 +271,26 @@ def test_quality_multi_process(nlp):
     docs = nlp.pipe(texts, n_process=2)
     for doc in docs:
         assert doc._.quality
+
+
+@pytest.mark.parametrize(
+    "text,expected,vocab",
+    [
+        ("This is a test", 0, None),
+        ("This is a nonwrod", 0.25, None),
+        ("This is a test", 0, {"This", "is", "a", "test"}),
+        ("This is a nonwrod", 0.25, {"This", "is", "a", "test"}),
+    ],
+)
+def test_oov_ratio(text, expected, vocab):
+    """Test the oov_ratio function."""
+    nlp = spacy.load("en_core_web_md")
+    doc = nlp(text)
+    assert oov_ratio(doc, vocab) == expected
+
+
+def test_oov_ratio_small_model():
+    nlp = spacy.load("en_core_web_sm")
+    nlp.add_pipe("textdescriptives/quality")
+    doc = nlp("This is a test")
+    assert doc._.quality.oov_ratio.value is None

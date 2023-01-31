@@ -1,6 +1,6 @@
 """Component for calculating quality metrics."""
 from collections import Counter, defaultdict
-from typing import Callable, Dict, List, Optional, Tuple, Union
+from typing import Callable, Dict, List, Mapping, Optional, Tuple, Union
 
 import numpy as np
 from spacy.language import Language
@@ -334,6 +334,23 @@ def contains_string(span: Union[Span, Doc], string: str) -> bool:
     return string in span.text
 
 
+def oov_ratio(span: Union[Span, Doc], vocab: Optional[Mapping] = None) -> float:
+    """Calculates the out-of-vocabulary ratio.
+
+    Args:
+        span (Union[Span, Doc]): A spaCy Span or Doc object.
+        vocab (Optional[Mapping], optional): A vocabulary to check against.
+            If None, will use the spaCy vocab. Note that the spaCy vocab
+            is not defined for small models. Defaults to None.
+
+    Returns:
+        float: the out-of-vocabulary ratio
+    """
+    if vocab is None:
+        return len([token for token in span if token.is_oov]) / len(span)
+    return len([token for token in span if token.text not in vocab]) / len(span)
+
+
 class Quality:
     """spaCy component for adding text quality metrics to the `Doc` and `Span`
     objects.
@@ -351,6 +368,7 @@ class Quality:
         top_ngram_range: Tuple[int, int],
         top_ngram_min_count: int,
         duplicate_n_gram_fraction_range: Tuple[int, int],
+        vocab: Optional[Mapping],
         quality_thresholds: Optional[QualityThresholds] = None,
         force: bool = False,
     ):  # noqa: D107
@@ -365,6 +383,7 @@ class Quality:
         if quality_thresholds is None:
             quality_thresholds = QualityThresholds()
         self.quality_thresholds = quality_thresholds
+        self.vocab = vocab
 
         self.set_extensions()
 
@@ -452,6 +471,20 @@ class Quality:
             )
             for n_gram, frac in duplicate_ngram_chr_fraction.items()
         }
+
+        # add oov_ratio if spacy model is not small or has a vocab
+        # vector length is 0 for small models
+        if span.vocab.vectors_length > 0 or self.vocab:
+            value_oov = oov_ratio(span, self.vocab)
+            thresholds_oov = threshold.oov_ratio
+        else:
+            value_oov = None
+            thresholds_oov = (None, None)
+
+        thresholds_outputs["oov_ratio"] = ThresholdsOutput(
+            value=value_oov,
+            threshold=thresholds_oov,
+        )
 
         return QualityOutput(**thresholds_outputs)
 
@@ -545,6 +578,7 @@ class Quality:
         "top_ngram_range": [2, 4],
         "top_ngram_min_count": 3,
         "duplicate_n_gram_fraction_range": [5, 10],
+        "vocab": None,
         "force": True,
     },
 )
@@ -556,6 +590,7 @@ def create_quality_component(
     top_ngram_range: Tuple[int, int],
     top_ngram_min_count: int,
     duplicate_n_gram_fraction_range: Tuple[int, int],
+    vocab: Optional[Mapping],
     force: bool = True,
 ) -> Callable[[Doc], Doc]:
     """Allows Quality to be added to a spaCy pipe using
@@ -600,6 +635,11 @@ def create_quality_component(
             be considered a top n-gram. Defaults to 3.
         duplicate_n_gram_fraction_range (Tuple[int]): range of n-grams to
             calculate the proportion of duplicate n-grams. Defaults to [5, 10].
+        vocab (Optional[Mapping]): vocabulary to use for calculating the
+            out-of-vocabulary ratio (`oov_ratio`). If None, will use the vocabulary
+            of the spaCy model. Note, that small spaCy models do not have a
+            vocabulary. The attribute will only be set if the vocabulary is not
+            None or the spaCy model is medium or large.
         force (bool): whether to overwrite existing extensions. Defaults to True.
 
 
@@ -626,5 +666,6 @@ def create_quality_component(
         top_ngram_min_count=top_ngram_min_count,
         duplicate_n_gram_fraction_range=duplicate_n_gram_fraction_range,
         quality_thresholds=None,
+        vocab=vocab,
         force=force,
     )
