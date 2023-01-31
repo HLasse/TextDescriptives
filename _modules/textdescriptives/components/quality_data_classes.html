@@ -253,11 +253,13 @@
         <span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span>
 
     <span class="n">threshold</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Interval</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-    <span class="n">value</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">passed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">passed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return True if the value is within the thresholds.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
@@ -379,6 +381,11 @@
         <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;, 4: (None, 0.16)}, i.e. no lower limit, but at most 20</span><span class="si">% o</span><span class="s2">f characters &quot;</span>
         <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;are contained within a duplicate for 2-grams, 18</span><span class="si">% f</span><span class="s2">or 3-grams and 16% &quot;</span>
         <span class="o">+</span> <span class="s2">&quot;for 4-grams.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">oov_ratio</span><span class="p">:</span> <span class="n">Interval</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A range for the out-of-vocabulary ratio. Default: (None, 0.2)&quot;</span>
+        <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; i.e. no lower limit, but at most 20</span><span class="si">% o</span><span class="s2">f words are out-of-vocabulary.&quot;</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
@@ -440,6 +447,10 @@
         <span class="o">...</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The thresholds output for the top n-gram character fraction.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
+    <span class="n">oov_ratio</span><span class="p">:</span> <span class="n">ThresholdsOutput</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The thresholds output for the out-of-vocabulary ratio.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">passed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -447,22 +458,23 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: Whether all thresholds have been passed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span>
-            <span class="p">[</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">n_stop_words</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">alpha_ratio</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">mean_word_length</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">doc_length</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
-                <span class="nb">all</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">passed</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol_to_word_ratio</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">proportion_ellipsis</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">proportion_bullet_points</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
-                <span class="nb">all</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">passed</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_line_chr_fraction</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_paragraph_chr_fraction</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
-                <span class="nb">all</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">passed</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_ngram_chr_fraction</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
-                <span class="nb">all</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">passed</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_ngram_chr_fraction</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
-            <span class="p">],</span>
-        <span class="p">)</span>
+        <span class="n">passed_or_none</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_stop_words</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">alpha_ratio</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mean_word_length</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">doc_length</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
+            <span class="nb">all</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">passed</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol_to_word_ratio</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">proportion_ellipsis</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">proportion_bullet_points</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
+            <span class="nb">all</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">passed</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_line_chr_fraction</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_paragraph_chr_fraction</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
+            <span class="nb">all</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">passed</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_ngram_chr_fraction</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
+            <span class="nb">all</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">passed</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_ngram_chr_fraction</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">oov_ratio</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">i</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">passed_or_none</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr_str__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">join_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">join_str</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>

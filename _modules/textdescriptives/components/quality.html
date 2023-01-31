@@ -229,7 +229,7 @@
           <h1>Source code for textdescriptives.components.quality</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Component for calculating quality metrics.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
@@ -563,6 +563,23 @@
     <span class="k">return</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">span</span><span class="o">.</span><span class="n">text</span>
 
 
+<span class="k">def</span> <span class="nf">oov_ratio</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Span</span><span class="p">,</span> <span class="n">Doc</span><span class="p">],</span> <span class="n">vocab</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the out-of-vocabulary ratio.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        span (Union[Span, Doc]): A spaCy Span or Doc object.</span>
+<span class="sd">        vocab (Optional[Mapping], optional): A vocabulary to check against.</span>
+<span class="sd">            If None, will use the spaCy vocab. Note that the spaCy vocab</span>
+<span class="sd">            is not defined for small models. Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: the out-of-vocabulary ratio</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">vocab</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">span</span> <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">is_oov</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">span</span> <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vocab</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>
+
+
 <span class="k">class</span> <span class="nc">Quality</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;spaCy component for adding text quality metrics to the `Doc` and `Span`</span>
 <span class="sd">    objects.</span>
@@ -580,6 +597,7 @@
         <span class="n">top_ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
         <span class="n">top_ngram_min_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">duplicate_n_gram_fraction_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+        <span class="n">vocab</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">],</span>
         <span class="n">quality_thresholds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">QualityThresholds</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>  <span class="c1"># noqa: D107</span>
@@ -594,6 +612,7 @@
         <span class="k">if</span> <span class="n">quality_thresholds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">quality_thresholds</span> <span class="o">=</span> <span class="n">QualityThresholds</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span> <span class="o">=</span> <span class="n">quality_thresholds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vocab</span> <span class="o">=</span> <span class="n">vocab</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_extensions</span><span class="p">()</span>
 
@@ -681,6 +700,20 @@
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">n_gram</span><span class="p">,</span> <span class="n">frac</span> <span class="ow">in</span> <span class="n">duplicate_ngram_chr_fraction</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="p">}</span>
+
+        <span class="c1"># add oov_ratio if spacy model is not small or has a vocab</span>
+        <span class="c1"># vector length is 0 for small models</span>
+        <span class="k">if</span> <span class="n">span</span><span class="o">.</span><span class="n">vocab</span><span class="o">.</span><span class="n">vectors_length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocab</span><span class="p">:</span>
+            <span class="n">value_oov</span> <span class="o">=</span> <span class="n">oov_ratio</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+            <span class="n">thresholds_oov</span> <span class="o">=</span> <span class="n">threshold</span><span class="o">.</span><span class="n">oov_ratio</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">value_oov</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">thresholds_oov</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="n">thresholds_outputs</span><span class="p">[</span><span class="s2">&quot;oov_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ThresholdsOutput</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">value_oov</span><span class="p">,</span>
+            <span class="n">threshold</span><span class="o">=</span><span class="n">thresholds_oov</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">QualityOutput</span><span class="p">(</span><span class="o">**</span><span class="n">thresholds_outputs</span><span class="p">)</span>
 
@@ -774,6 +807,7 @@
         <span class="s2">&quot;top_ngram_range&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
         <span class="s2">&quot;top_ngram_min_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
         <span class="s2">&quot;duplicate_n_gram_fraction_range&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+        <span class="s2">&quot;vocab&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;force&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">)</span>
@@ -785,6 +819,7 @@
     <span class="n">top_ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
     <span class="n">top_ngram_min_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">duplicate_n_gram_fraction_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">vocab</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">],</span>
     <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Allows Quality to be added to a spaCy pipe using</span>
@@ -829,6 +864,11 @@
 <span class="sd">            be considered a top n-gram. Defaults to 3.</span>
 <span class="sd">        duplicate_n_gram_fraction_range (Tuple[int]): range of n-grams to</span>
 <span class="sd">            calculate the proportion of duplicate n-grams. Defaults to [5, 10].</span>
+<span class="sd">        vocab (Optional[Mapping]): vocabulary to use for calculating the</span>
+<span class="sd">            out-of-vocabulary ratio (`oov_ratio`). If None, will use the vocabulary</span>
+<span class="sd">            of the spaCy model. Note, that small spaCy models do not have a</span>
+<span class="sd">            vocabulary. The attribute will only be set if the vocabulary is not</span>
+<span class="sd">            None or the spaCy model is medium or large.</span>
 <span class="sd">        force (bool): whether to overwrite existing extensions. Defaults to True.</span>
 
 
@@ -855,6 +895,7 @@
         <span class="n">top_ngram_min_count</span><span class="o">=</span><span class="n">top_ngram_min_count</span><span class="p">,</span>
         <span class="n">duplicate_n_gram_fraction_range</span><span class="o">=</span><span class="n">duplicate_n_gram_fraction_range</span><span class="p">,</span>
         <span class="n">quality_thresholds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">vocab</span><span class="o">=</span><span class="n">vocab</span><span class="p">,</span>
         <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span>
     <span class="p">)</span></div>
 </pre></div>
