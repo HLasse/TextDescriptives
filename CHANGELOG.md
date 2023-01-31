@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v2.4.0 (2023-01-31)
+### Feature
+* Add out of vocabulary ratio to quality component ([`a1177e5`](https://github.com/HLasse/TextDescriptives/commit/a1177e597de75f31507895540d2e6243dccafe27))
+
+### Documentation
+* Update quality docs with oov_ratio ([`74c22b1`](https://github.com/HLasse/TextDescriptives/commit/74c22b143fae43227feea28f74f19eff439a3240))
+
 ## v2.3.0 (2023-01-23)
 ### Feature
 * Added information theoretic features ([`076c638`](https://github.com/HLasse/TextDescriptives/commit/076c638d3fa8109a2de924d686959c456f548c96))
