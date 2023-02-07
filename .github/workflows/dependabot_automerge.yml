@@ -15,6 +15,12 @@ jobs:
     if: ${{ github.actor == 'dependabot[bot]' || github.actor == 'pre-commit-ci[bot]' }}
 
     steps:
+      - name: Auto approve dependabot PRs
+        if: ${{ github.actor == 'dependabot[bot]' || github.actor == 'pre-commit-ci[bot]' }}
+        uses: hmarr/auto-approve-action@v3.1.0
+        with:
+          github-token: ${{ secrets.DEPENDABOT_AUTOMERGE_TOKEN }}
+          
       # Checkout action is required for token to persist
       - name: Enable auto-merge for Dependabot PRs
         run: gh pr merge --auto --merge "$PR_URL" # Use Github CLI to merge automatically the PR
@@ -22,8 +28,4 @@ jobs:
           PR_URL: ${{github.event.pull_request.html_url}}
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTOMERGE_TOKEN }}
 
-      - name: Auto approve dependabot PRs
-        if: ${{ github.actor == 'dependabot[bot]' || github.actor == 'pre-commit-ci[bot]' }}
-        uses: hmarr/auto-approve-action@v3.1.0
-        with:
-          github-token: ${{ secrets.DEPENDABOT_AUTOMERGE_TOKEN }}
+
