@@ -62,15 +62,6 @@ jobs:
           jupyter nbconvert --to python ./docs/tutorials/*.ipynb
           for f in docs/tutorials/*.py; do ipython "$f"; done
 
-      # if it is run on ubuntu-latest, python 3.9, then create the badge
-      - name: Pytest coverage comment
-        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
-        id: coverage-comment
-        uses: MishaKav/pytest-coverage-comment@v1.1.39
-        with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          github-token: ${{ secrets.PYTEST_COVERAGE }}
-
       - name: Check the output coverage
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
         shell: bash
