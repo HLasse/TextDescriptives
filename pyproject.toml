@@ -33,7 +33,7 @@ keywords = [
 ]
 
 dependencies = [
-    "spacy[lookups]>=3.1.0,<3.5.0",
+    "spacy[lookups]>=3.1.0,<3.6.0",
     "numpy>=1.20.0,<1.25.0",
     "pandas>=1.0.0,<1.6.0",
     "pyphen>=0.11.0,<0.12.0",
