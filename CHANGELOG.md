@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.4.1 (2023-02-08)
+### Fix
+* Change auto-approve event  ([`729836f`](https://github.com/HLasse/TextDescriptives/commit/729836feb76a12507a6a0f703b434ec071124f5f))
+
 ## v2.4.0 (2023-01-31)
 ### Feature
 * Add out of vocabulary ratio to quality component ([`a1177e5`](https://github.com/HLasse/TextDescriptives/commit/a1177e597de75f31507895540d2e6243dccafe27))
