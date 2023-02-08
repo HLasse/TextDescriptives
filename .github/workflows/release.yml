@@ -33,7 +33,7 @@ jobs:
           token: ${{ secrets.RELEASE }}
 
       - name: Python Semantic Release
-        uses: relekang/python-semantic-release@v7.32.2
+        uses: relekang/python-semantic-release@v7.33.1
         with:
           github_token: ${{ secrets.RELEASE }}
           # Remember to copy the [semantic_release] section from pyproject.toml
