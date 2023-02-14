@@ -19,19 +19,19 @@ repos:
     hooks:
       - id: add-trailing-comma
 
-  - repo: https://github.com/PyCQA/docformatter
-    rev: v1.6.0.rc1
-    hooks:
-      - id: docformatter
-        args:
-          [
-            --in-place,
-            --pre-summary-space,
-            --wrap-descriptions,
-            "80",
-            --wrap-summaries,
-            "80",
-          ]
+  # - repo: https://github.com/PyCQA/docformatter
+  #   rev: v1.6.0.rc1
+  #   hooks:
+  #     - id: docformatter
+  #       args:
+  #         [
+  #           --in-place,
+  #           --pre-summary-space,
+  #           --wrap-descriptions,
+  #           "80",
+  #           --wrap-summaries,
+  #           "80",
+  #         ]
 
   - repo: https://github.com/psf/black
     rev: 23.1.0
