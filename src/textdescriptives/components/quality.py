@@ -1,4 +1,4 @@
-"""Component for calculating quality metrics."""
+""" Component for calculating quality metrics."""
 from collections import Counter, defaultdict
 from typing import Callable, Dict, List, Mapping, Optional, Tuple, Union
 
@@ -37,8 +37,8 @@ def mean_word_length(span: Union[Doc, Span]) -> float:
 
 
 def alpha_ratio(span: Union[Doc, Span]) -> float:
-    """The percentage of spacy tokens in this document which contain at leat
-    one alphabetic character.
+    """The percentage of spacy tokens in this document which contain at leat one
+    alphabetic character.
 
     Args:
         span (Union[Doc, Span]): A spaCy Doc or Span object
@@ -527,7 +527,6 @@ class Quality:
 
     def set_extensions(self):
         """Set required extensions."""
-
         ext_name = "passed_quality_check"
         if not Span.has_extension(ext_name) or self.force is True:
             Span.set_extension(

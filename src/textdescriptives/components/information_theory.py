@@ -1,4 +1,4 @@
-"""Calculate the entropy and perplexity of a corpus."""
+""" Calculate the entropy and perplexity of a corpus."""
 
 from typing import Callable, Dict, Union
 
@@ -31,8 +31,8 @@ def entropy(log_probs=np.ndarray) -> float:
 def perplexity(entropy: float) -> float:
     """Calculates the perplexity.
 
-    Calculated as exp(H(p)), where H is the entropy using a base e and p
-    is the probabilites of a given word.
+    Calculated as exp(H(p)), where H is the entropy using a base e and p is the
+    probabilites of a given word.
     """
     return np.exp(entropy)
 
@@ -46,8 +46,8 @@ def entropy_getter(doc: Union[Doc, Span], log_prob_attr: str = "prob") -> float:
 def perplexity_getter(doc: Union[Doc, Span]) -> float:
     """Calculates the perplexity of a doc.
 
-    Calculated as exp(H(p)), where H is the entropy using a base e and p
-    is the probabilites of a given word.
+    Calculated as exp(H(p)), where H is the entropy using a base e and p is the
+    probabilites of a given word.
     """
     # check if it has the attribute entropy
     if hasattr(doc._, "entropy"):
@@ -59,7 +59,6 @@ def perplexity_getter(doc: Union[Doc, Span]) -> float:
 
 def per_word_perplexity_getter(doc: Union[Doc, Span]) -> float:
     """Calculates the per word perplexity of a document."""
-
     if hasattr(doc._, "perplexity"):
         perplexity = doc._.perplexity
     else:
@@ -108,7 +107,6 @@ class InformationTheory:
             ("per_word_perplexity", per_word_perplexity_getter),
             ("information_theory", InformationTheory.dict_getter),
         ]:
-
             set_docspan_extension(
                 ext,
                 getter=getter,  # type: ignore

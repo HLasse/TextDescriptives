@@ -1,4 +1,4 @@
-"""Tests for the quality module."""
+""" Tests for the quality module."""
 
 from typing import List, Tuple
 
@@ -198,7 +198,6 @@ def test_quality_component(nlp: spacy.Language):
 
 def test_quality_component_with_config(nlp: spacy.Language):
     """Test the quality component with config."""
-
     quality_thresholds = td.QualityThresholds(
         n_stop_words=(3, None),
         alpha_ratio=(None, 0.8),

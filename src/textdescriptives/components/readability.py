@@ -1,4 +1,4 @@
-"""Calculation of various readability metrics."""
+""" Calculation of various readability metrics."""
 
 from typing import Callable, Dict
 
@@ -14,8 +14,8 @@ from .utils import filter_tokens
 class Readability:
     """spaCy v.3.0 component for adding readability metrics to `Doc` objects.
 
-    Extracts metrics and returns them as a dictionary as the
-    ._.readability attribute.
+    Extracts metrics and returns them as a dictionary as the ._.readability
+    attribute.
     """
 
     def __init__(self, nlp: Language):
@@ -52,8 +52,8 @@ class Readability:
         return score
 
     def _smog(self, doc: Doc, n_hard_words: int):
-        """Calculate the SMOG index of the document. The equation for the SMOG
-        index is:
+        """Calculate the SMOG index of the document. The equation for the SMOG index
+        is:
 
         1.043( sqrt(30 * (hard words /n sentences)) + 3.1291
 
@@ -115,8 +115,8 @@ class Readability:
         return 0.0588 * lengths - 0.296 * s - 15.8
 
     def _lix(self, doc: Doc, long_words: int):
-        """Calculates the LIX index of the document. The equation for the LIX
-        index is:
+        """Calculates the LIX index of the document. The equation for the LIX index
+        is:
 
         (n_words / n_sentences) + (n_words longer than 6 characters * 100) / n_words
         """
@@ -127,8 +127,8 @@ class Readability:
         return doc._.sentence_length["sentence_length_mean"] + percent_long_words
 
     def _rix(self, doc: Doc, long_words: int):
-        """Calculates the RIX index of the document. The equation for the RIX
-        index is:
+        """Calculates the RIX index of the document. The equation for the RIX index
+        is:
 
         (n_words longer than 6 characters / n_sentences)
         """

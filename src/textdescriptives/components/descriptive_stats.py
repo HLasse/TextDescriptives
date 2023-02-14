@@ -1,4 +1,4 @@
-"""Calculation of descriptive statistics."""
+""" Calculation of descriptive statistics."""
 from typing import Callable, Dict, Union
 
 import numpy as np
@@ -12,13 +12,12 @@ class DescriptiveStatistics:
     """spaCy v.3.0 component that adds attributes with desriptive statistics to
     `Doc` and `Span` objects.
 
-    The attributes relate to token and sentence length, number of
-    syllables, and counts of tokens and sentences.
+    The attributes relate to token and sentence length, number of syllables, and
+    counts of tokens and sentences.
     """
 
     def __init__(self, nlp: Language):
         """Initialise components."""
-
         extensions: Dict[str, Callable] = {
             "_n_sentences": n_sentences,
             "_n_tokens": n_tokens,
@@ -41,13 +40,11 @@ class DescriptiveStatistics:
                 Doc.set_extension(extension_name, getter=getter_fun)
 
     def token_length(self, doc: Union[Doc, Span]) -> dict:
-        """Calculate mean, median and std of token length for a `Doc` or
-        `Span`.
+        """Calculate mean, median and std of token length for a `Doc` or `Span`.
 
         Returns:
             dict: token_length_mean, token_length_median, token_length_std
         """
-
         token_lengths = [len(token) for token in filter_tokens(doc)]
         if not token_lengths:
             return {
@@ -111,8 +108,8 @@ class DescriptiveStatistics:
         }
 
     def counts(self, doc: Union[Doc, Span], ignore_whitespace: bool = True) -> dict:
-        """Calculate counts of tokens, unique tokens, and characters for a
-        `Doc` or `Span`. Adds number of sentences for `Doc` objects.
+        """Calculate counts of tokens, unique tokens, and characters for a `Doc`
+        or `Span`. Adds number of sentences for `Doc` objects.
 
         Args:
             ignore_whitespace: if True, whitespace is not counted as a character when

@@ -1,4 +1,4 @@
-"""Data classes used for the quality component."""
+""" Data classes used for the quality component."""
 from typing import Any, Dict, Optional, Tuple, Union
 
 from pydantic import BaseModel, Extra, Field

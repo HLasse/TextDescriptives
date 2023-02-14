@@ -1,4 +1,4 @@
-"""Calculation of statistics that require a pos-tagger in the pipeline."""
+""" Calculation of statistics that require a pos-tagger in the pipeline."""
 
 from typing import Callable, Counter, Union
 
@@ -26,8 +26,8 @@ class POSProportions:
             Span.set_extension("pos_proportions", getter=self.pos_proportions)
 
     def pos_proportions(self, text: Union[Doc, Span]) -> dict:
-        """Calculates the proportion of tokens in a `Doc`|`Span` that are
-        tagged with each POS tag.
+        """Calculates the proportion of tokens in a `Doc`|`Span` that are tagged
+        with each POS tag.
 
         Returns:
             Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with

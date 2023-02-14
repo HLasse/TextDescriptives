@@ -1,4 +1,4 @@
-"""Calculation of statistics related to dependency distance."""
+""" Calculation of statistics related to dependency distance."""
 from typing import Callable
 
 import numpy as np
@@ -10,10 +10,9 @@ class DependencyDistance:
     """spaCy v.3.0 component that adds attributes to `Doc`, `Span`, and `Token`
     objects relating to dependency distance.
 
-    Dependency distance can be used as a measure of syntactic
-    complexity, and measures the distance from a word to its head word.
-    For `Doc` objects, dependency distance is calculated on the sentence
-    level.
+    Dependency distance can be used as a measure of syntactic complexity, and
+    measures the distance from a word to its head word. For `Doc` objects,
+    dependency distance is calculated on the sentence level.
     """
 
     def __init__(self, nlp: Language):

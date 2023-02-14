@@ -74,9 +74,8 @@ class Coherence:
         """Calculate mean semantic coherence for a `Doc` and set the coherence
         attribute.
 
-        Coherence is calculated by taking the mean of the similarity
-        between sentence embeddings. See the documentation for more
-        details.
+        Coherence is calculated by taking the mean of the similarity between
+        sentence embeddings. See the documentation for more details.
         """
         first_order_coherence = self._first_order_coherence(doc)
         second_order_coherence = self._second_order_coherence(doc)
