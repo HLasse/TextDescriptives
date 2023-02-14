@@ -1,12 +1,12 @@
-"""Adds all components to a spaCy pipeline."""
+""" Adds all components to a spaCy pipeline."""
 from spacy.language import Language
 from spacy.tokens import Doc
 
 
 class TextDescriptives:
-    """Utility spaCy v3.0 component to add all functionality from the
-    TextDescriptives package to a `Doc` objects. See `DescriptiveStatistics`,
-    `Readability`, and `DependencyDistance` for more details.
+    """Utility spaCy v3.0 component to add all functionality from the TextDescriptives
+    package to a `Doc` objects. See `DescriptiveStatistics`, `Readability`, and
+    `DependencyDistance` for more details.
 
     Example:
         >>> import spacy

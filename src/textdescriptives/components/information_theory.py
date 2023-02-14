@@ -1,4 +1,4 @@
-"""Calculate the entropy and perplexity of a corpus."""
+""" Calculate the entropy and perplexity of a corpus."""
 
 from typing import Callable, Dict, Union
 
@@ -31,8 +31,8 @@ def entropy(log_probs=np.ndarray) -> float:
 def perplexity(entropy: float) -> float:
     """Calculates the perplexity.
 
-    Calculated as exp(H(p)), where H is the entropy using a base e and p
-    is the probabilites of a given word.
+    Calculated as exp(H(p)), where H is the entropy using a base e and p is the
+    probabilites of a given word.
     """
     return np.exp(entropy)
 
@@ -46,8 +46,8 @@ def entropy_getter(doc: Union[Doc, Span], log_prob_attr: str = "prob") -> float:
 def perplexity_getter(doc: Union[Doc, Span]) -> float:
     """Calculates the perplexity of a doc.
 
-    Calculated as exp(H(p)), where H is the entropy using a base e and p
-    is the probabilites of a given word.
+    Calculated as exp(H(p)), where H is the entropy using a base e and p is the
+    probabilites of a given word.
     """
     # check if it has the attribute entropy
     if hasattr(doc._, "entropy"):
@@ -82,8 +82,8 @@ def set_docspan_extension(
 
 
 class InformationTheory:
-    """SpaCy component for adding information theoretic metrics such as entropy
-    and perplexity."""
+    """SpaCy component for adding information theoretic metrics such as entropy and
+    perplexity."""
 
     def __init__(self, nlp: Language, name: str, force: bool) -> None:
         self.name = name

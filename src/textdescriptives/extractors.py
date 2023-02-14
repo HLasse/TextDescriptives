@@ -1,4 +1,4 @@
-"""Extract metrics as Pandas DataFrame."""
+""" Extract metrics as Pandas DataFrame."""
 from typing import Any, Dict, Iterable, List, Optional, Union
 
 import pandas as pd
@@ -32,8 +32,8 @@ def extract_dict(
     metrics: Union[List[str], str, None] = None,
     include_text: bool = True,
 ) -> List[Dict[str, Any]]:
-    """Extract calculated metrics from a spaCy Doc or an iterable of Docs to a
-    list of dictionaries.
+    """Extract calculated metrics from a spaCy Doc or an iterable of Docs to a list of
+    dictionaries.
 
     Args:
         docs (Union[Iterable[Doc],  Doc]): An iterable of spaCy Docs or a single Doc
@@ -88,8 +88,8 @@ def extract_df(
     metrics: Union[List[str], str, None] = None,
     include_text: bool = True,
 ) -> pd.DataFrame:
-    """Extract calculated metrics from a spaCy Doc object or a generator of
-    Docs from nlp.pipe to a Pandas DataFrame.
+    """Extract calculated metrics from a spaCy Doc object or a generator of Docs from
+    nlp.pipe to a Pandas DataFrame.
 
     Args:
         docs (Union[Iterable[Doc],  Doc]): An iterable of spaCy Docs or a single Doc

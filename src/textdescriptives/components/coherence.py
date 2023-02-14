@@ -44,8 +44,8 @@ def n_order_coherence(doc: Doc, order: int) -> List[float]:
 
 
 class Coherence:
-    """Spacy v.3.0 component that adds attributes with coherence to `Doc` and
-    `Span` objects."""
+    """Spacy v.3.0 component that adds attributes with coherence to `Doc` and `Span`
+    objects."""
 
     def __init__(self, nlp: Language):
         """Initialise component."""
@@ -60,23 +60,22 @@ class Coherence:
 
     @staticmethod
     def _first_order_coherence(doc: Doc) -> List[float]:
-        """Calculate first order coherence for a `Doc`, i.e. the semantic
-        similarity between consecutive sentences."""
+        """Calculate first order coherence for a `Doc`, i.e. the semantic similarity
+        between consecutive sentences."""
         return n_order_coherence(doc=doc, order=1)
 
     @staticmethod
     def _second_order_coherence(doc: Doc) -> List[float]:
-        """Calculate second order coherence for a `Doc`, i.e. the semantic
-        similarity between sentences that are two sentences apart."""
+        """Calculate second order coherence for a `Doc`, i.e. the semantic similarity
+        between sentences that are two sentences apart."""
         return n_order_coherence(doc, order=2)
 
     def coherence(self, doc: Doc) -> None:
         """Calculate mean semantic coherence for a `Doc` and set the coherence
         attribute.
 
-        Coherence is calculated by taking the mean of the similarity
-        between sentence embeddings. See the documentation for more
-        details.
+        Coherence is calculated by taking the mean of the similarity between sentence
+        embeddings. See the documentation for more details.
         """
         first_order_coherence = self._first_order_coherence(doc)
         second_order_coherence = self._second_order_coherence(doc)

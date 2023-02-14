@@ -1,4 +1,4 @@
-"""Tests for the quality module."""
+""" Tests for the quality module."""
 
 from typing import List, Tuple
 

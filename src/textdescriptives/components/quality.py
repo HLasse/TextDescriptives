@@ -1,4 +1,4 @@
-"""Component for calculating quality metrics."""
+""" Component for calculating quality metrics."""
 from collections import Counter, defaultdict
 from typing import Callable, Dict, List, Mapping, Optional, Tuple, Union
 
@@ -37,8 +37,8 @@ def mean_word_length(span: Union[Doc, Span]) -> float:
 
 
 def alpha_ratio(span: Union[Doc, Span]) -> float:
-    """The percentage of spacy tokens in this document which contain at leat
-    one alphabetic character.
+    """The percentage of spacy tokens in this document which contain at leat one
+    alphabetic character.
 
     Args:
         span (Union[Doc, Span]): A spaCy Doc or Span object
@@ -63,8 +63,7 @@ def proportion_bullet_points(  # pylint: disable=dangerous-default-value
     span: Union[Doc, Span],
     bullet_point: set = {"-", "*"},
 ) -> float:
-    """Calculate the proportion of lines which start with a bullet points in a
-    span.
+    """Calculate the proportion of lines which start with a bullet points in a span.
 
     Args:
         span (Union[Doc, Span]): A spaCy Doc or Span object
@@ -240,9 +239,9 @@ def duplicate_ngram_fraction(
     span: Union[Span, Doc],
     ngram_range: Tuple[int, int],
 ) -> Dict[int, float]:
-    """Calculates the character fraction of duplicate n-gram over the overall
-    text, taking care not to count overlapping n-grams twice. This does not
-    include spaces between the n-grams.
+    """Calculates the character fraction of duplicate n-gram over the overall text,
+    taking care not to count overlapping n-grams twice. This does not include spaces
+    between the n-grams.
 
     Args:
         span (Union[Span, Doc]): A spaCy Span or Doc object.
@@ -352,11 +351,9 @@ def oov_ratio(span: Union[Span, Doc], vocab: Optional[Mapping] = None) -> float:
 
 
 class Quality:
-    """spaCy component for adding text quality metrics to the `Doc` and `Span`
-    objects.
+    """spaCy component for adding text quality metrics to the `Doc` and `Span` objects.
 
-    Extracts metrics and returns them as a dictionary as the ._.quality
-    attribute.
+    Extracts metrics and returns them as a dictionary as the ._.quality attribute.
     """
 
     def __init__(  # pylint: disable=dangerous-default-value

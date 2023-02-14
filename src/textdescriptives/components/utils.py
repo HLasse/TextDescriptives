@@ -1,4 +1,4 @@
-"""Utility functions for calculating various text descriptives."""
+""" Utility functions for calculating various text descriptives."""
 from typing import Union
 
 from pyphen import Pyphen
@@ -8,8 +8,7 @@ from spacy.tokens import Doc, Span, Token
 def filter_tokens(doc: Union[Doc, Span]):
     """Return words in document or span.
 
-    Filters punctuation and words that start with an apostrophe
-    (contractions)
+    Filters punctuation and words that start with an apostrophe (contractions)
     """
     filtered_tokens = [
         word for word in doc if not word.is_punct and "'" not in word.text
