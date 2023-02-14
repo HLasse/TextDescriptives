@@ -28,16 +28,16 @@ repos:
             --in-place,
             --pre-summary-space,
             --wrap-descriptions,
-            "88",
+            "80",
             --wrap-summaries,
-            "88",
+            "80",
           ]
 
   - repo: https://github.com/psf/black
     rev: 23.1.0
     hooks:
       - id: black
-        args: [--line-length, "88"]
+        #args: [--line-length, "88"]
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.0.246

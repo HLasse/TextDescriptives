@@ -4,9 +4,9 @@ from spacy.tokens import Doc
 
 
 class TextDescriptives:
-    """Utility spaCy v3.0 component to add all functionality from the TextDescriptives
-    package to a `Doc` objects. See `DescriptiveStatistics`, `Readability`, and
-    `DependencyDistance` for more details.
+    """Utility spaCy v3.0 component to add all functionality from the
+    TextDescriptives package to a `Doc` objects. See `DescriptiveStatistics`,
+    `Readability`, and `DependencyDistance` for more details.
 
     Example:
         >>> import spacy

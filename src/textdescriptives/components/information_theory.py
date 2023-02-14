@@ -82,8 +82,8 @@ def set_docspan_extension(
 
 
 class InformationTheory:
-    """SpaCy component for adding information theoretic metrics such as entropy and
-    perplexity."""
+    """SpaCy component for adding information theoretic metrics such as entropy
+    and perplexity."""
 
     def __init__(self, nlp: Language, name: str, force: bool) -> None:
         self.name = name

@@ -113,8 +113,8 @@ def _remove_spacy_extension(
 def _remove_textdescriptives_extensions() -> None:
     """Remove spacy extensions added by textdescriptives.
 
-    This is necessary to avoid errors if running `extract_metrics` multiple times with
-    different metrics
+    This is necessary to avoid errors if running `extract_metrics` multiple
+    times with different metrics
     """
     for metric in get_valid_metrics():
         doc_assigns = get_doc_assigns(metric)

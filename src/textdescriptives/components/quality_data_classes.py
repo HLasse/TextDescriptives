@@ -7,9 +7,10 @@ Interval = Tuple[Optional[float], Optional[float]]
 
 
 class ThresholdsOutput(BaseModel):
-    """An output which contains an three items. 1) a thresholds which is either an
-    interval or a accepted boolean value. 2) a value which is the value of the metric.
-    3) a boolean which is True if the value is within the thresholds.
+    """An output which contains an three items. 1) a thresholds which is either
+    an interval or a accepted boolean value. 2) a value which is the value of
+    the metric. 3) a boolean which is True if the value is within the
+    thresholds.
 
     Example:
         >>> t_out = ThresholdsOutput(threshold=(0, 2), value=2)
@@ -256,8 +257,8 @@ class QualityOutput(BaseModel):
         )
 
     def to_flat_value_dict(self) -> Dict[str, Any]:
-        """Creates a flat dictionary representation of the object to allow for easy
-        easy conversion to a pandas DataFrame."""
+        """Creates a flat dictionary representation of the object to allow for
+        easy easy conversion to a pandas DataFrame."""
         flat_dict = {"passed_quality_check": self.passed}
 
         for k, v in self.__dict__.items():

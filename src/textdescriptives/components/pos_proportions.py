@@ -7,8 +7,8 @@ from spacy.tokens import Doc, Span
 
 
 class POSProportions:
-    """spaCy v.3.0 component that adds attributes for POS statistics to `Doc` and
-    `Span` objects."""
+    """spaCy v.3.0 component that adds attributes for POS statistics to `Doc`
+    and `Span` objects."""
 
     def __init__(self, nlp: Language, use_pos: bool):
         """Initialise components.
@@ -26,8 +26,8 @@ class POSProportions:
             Span.set_extension("pos_proportions", getter=self.pos_proportions)
 
     def pos_proportions(self, text: Union[Doc, Span]) -> dict:
-        """Calculates the proportion of tokens in a `Doc`|`Span` that are tagged with
-        each POS tag.
+        """Calculates the proportion of tokens in a `Doc`|`Span` that are tagged
+        with each POS tag.
 
         Returns:
             Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with

@@ -7,12 +7,12 @@ from spacy.tokens import Doc, Span, Token
 
 
 class DependencyDistance:
-    """spaCy v.3.0 component that adds attributes to `Doc`, `Span`, and `Token` objects
-    relating to dependency distance.
+    """spaCy v.3.0 component that adds attributes to `Doc`, `Span`, and `Token`
+    objects relating to dependency distance.
 
-    Dependency distance can be used as a measure of syntactic complexity, and measures
-    the distance from a word to its head word. For `Doc` objects, dependency distance is
-    calculated on the sentence level.
+    Dependency distance can be used as a measure of syntactic complexity, and
+    measures the distance from a word to its head word. For `Doc` objects,
+    dependency distance is calculated on the sentence level.
     """
 
     def __init__(self, nlp: Language):
@@ -25,9 +25,9 @@ class DependencyDistance:
             Doc.set_extension("dependency_distance", getter=self.doc_dependency)
 
     def token_dependency(self, token: Token) -> dict:
-        """Calculate token level dependency distance, i.e. the distance from a token to
-        its head token. Also returns a boolean indicating whether the dependency
-        relation is adjacent to the token.
+        """Calculate token level dependency distance, i.e. the distance from a
+        token to its head token. Also returns a boolean indicating whether the
+        dependency relation is adjacent to the token.
 
         Returns:
             dict: Dictionary with the following keys:
@@ -44,9 +44,9 @@ class DependencyDistance:
         return {"dependency_distance": dep_dist, "adjacent_dependency": ajd_dep}
 
     def span_dependency(self, span: Span) -> dict:
-        """Aggregates token level dependency distance on the span level by taking the
-        mean of the dependency distance and the proportion of adjacent dependency
-        relations.
+        """Aggregates token level dependency distance on the span level by
+        taking the mean of the dependency distance and the proportion of
+        adjacent dependency relations.
 
         Returns:
             dict: Dictionary with the following keys: dependency_distance_mean:
@@ -62,9 +62,9 @@ class DependencyDistance:
         }
 
     def doc_dependency(self, doc: Doc) -> dict:
-        """Aggregates token level dependency distance on the document level by taking
-        the mean of the dependency distance and the proportion of adjacent dependency
-        relations on the sentence level.
+        """Aggregates token level dependency distance on the document level by
+        taking the mean of the dependency distance and the proportion of
+        adjacent dependency relations on the sentence level.
 
         Returns:
             dict: Dictionary with the following keys:
@@ -111,8 +111,9 @@ def create_dependency_distance_component(
     nlp: Language,
     name: str,
 ) -> Callable[[Doc], Doc]:
-    """Create spaCy language factory that allows DependencyDistance attributes to be
-    added to a pipe using nlp.add_pipe("textdescriptives/dependency_distance")
+    """Create spaCy language factory that allows DependencyDistance attributes
+    to be added to a pipe using
+    nlp.add_pipe("textdescriptives/dependency_distance")
 
     Adding this component to a pipeline sets the following attributes:
         - `token._.dependency_distance`
