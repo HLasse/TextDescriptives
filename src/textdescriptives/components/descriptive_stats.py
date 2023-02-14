@@ -18,7 +18,6 @@ class DescriptiveStatistics:
 
     def __init__(self, nlp: Language):
         """Initialise components."""
-
         extensions: Dict[str, Callable] = {
             "_n_sentences": n_sentences,
             "_n_tokens": n_tokens,
@@ -47,7 +46,6 @@ class DescriptiveStatistics:
         Returns:
             dict: token_length_mean, token_length_median, token_length_std
         """
-
         token_lengths = [len(token) for token in filter_tokens(doc)]
         if not token_lengths:
             return {

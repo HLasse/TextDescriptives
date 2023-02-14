@@ -59,7 +59,6 @@ def perplexity_getter(doc: Union[Doc, Span]) -> float:
 
 def per_word_perplexity_getter(doc: Union[Doc, Span]) -> float:
     """Calculates the per word perplexity of a document."""
-
     if hasattr(doc._, "perplexity"):
         perplexity = doc._.perplexity
     else:
@@ -108,7 +107,6 @@ class InformationTheory:
             ("per_word_perplexity", per_word_perplexity_getter),
             ("information_theory", InformationTheory.dict_getter),
         ]:
-
             set_docspan_extension(
                 ext,
                 getter=getter,  # type: ignore

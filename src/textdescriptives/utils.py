@@ -14,7 +14,6 @@ def get_valid_metrics() -> set:
     Returns:
         set: Set of valid metrics
     """
-
     # extract textdescriptive components from the list of spacy Language factory
     return {
         k.split("/")[1]
