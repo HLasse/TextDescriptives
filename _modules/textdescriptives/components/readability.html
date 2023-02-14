@@ -227,7 +227,7 @@
         </div>
         <article role="main">
           <h1>Source code for textdescriptives.components.readability</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Calculation of various readability metrics.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot; Calculation of various readability metrics.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span>
 
@@ -243,8 +243,8 @@
 <span class="k">class</span> <span class="nc">Readability</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;spaCy v.3.0 component for adding readability metrics to `Doc` objects.</span>
 
-<span class="sd">    Extracts metrics and returns them as a dictionary as the</span>
-<span class="sd">    ._.readability attribute.</span>
+<span class="sd">    Extracts metrics and returns them as a dictionary as the ._.readability</span>
+<span class="sd">    attribute.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>
@@ -281,8 +281,8 @@
         <span class="k">return</span> <span class="n">score</span>
 
     <span class="k">def</span> <span class="nf">_smog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">n_hard_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the SMOG index of the document. The equation for the SMOG</span>
-<span class="sd">        index is:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the SMOG index of the document. The equation for the SMOG index</span>
+<span class="sd">        is:</span>
 
 <span class="sd">        1.043( sqrt(30 * (hard words /n sentences)) + 3.1291</span>
 
@@ -344,8 +344,8 @@
         <span class="k">return</span> <span class="mf">0.0588</span> <span class="o">*</span> <span class="n">lengths</span> <span class="o">-</span> <span class="mf">0.296</span> <span class="o">*</span> <span class="n">s</span> <span class="o">-</span> <span class="mf">15.8</span>
 
     <span class="k">def</span> <span class="nf">_lix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">long_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the LIX index of the document. The equation for the LIX</span>
-<span class="sd">        index is:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the LIX index of the document. The equation for the LIX index</span>
+<span class="sd">        is:</span>
 
 <span class="sd">        (n_words / n_sentences) + (n_words longer than 6 characters * 100) / n_words</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -356,8 +356,8 @@
         <span class="k">return</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">sentence_length</span><span class="p">[</span><span class="s2">&quot;sentence_length_mean&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">percent_long_words</span>
 
     <span class="k">def</span> <span class="nf">_rix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">long_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the RIX index of the document. The equation for the RIX</span>
-<span class="sd">        index is:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the RIX index of the document. The equation for the RIX index</span>
+<span class="sd">        is:</span>
 
 <span class="sd">        (n_words longer than 6 characters / n_sentences)</span>
 <span class="sd">        &quot;&quot;&quot;</span>

@@ -227,7 +227,7 @@
         </div>
         <article role="main">
           <h1>Source code for textdescriptives.components.dependency_distance</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Calculation of statistics related to dependency distance.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot; Calculation of statistics related to dependency distance.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -239,10 +239,9 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;spaCy v.3.0 component that adds attributes to `Doc`, `Span`, and `Token`</span>
 <span class="sd">    objects relating to dependency distance.</span>
 
-<span class="sd">    Dependency distance can be used as a measure of syntactic</span>
-<span class="sd">    complexity, and measures the distance from a word to its head word.</span>
-<span class="sd">    For `Doc` objects, dependency distance is calculated on the sentence</span>
-<span class="sd">    level.</span>
+<span class="sd">    Dependency distance can be used as a measure of syntactic complexity, and</span>
+<span class="sd">    measures the distance from a word to its head word. For `Doc` objects,</span>
+<span class="sd">    dependency distance is calculated on the sentence level.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>

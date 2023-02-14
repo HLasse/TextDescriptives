@@ -227,7 +227,7 @@
         </div>
         <article role="main">
           <h1>Source code for textdescriptives.components.information_theory</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Calculate the entropy and perplexity of a corpus.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot; Calculate the entropy and perplexity of a corpus.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -260,8 +260,8 @@
 <span class="k">def</span> <span class="nf">perplexity</span><span class="p">(</span><span class="n">entropy</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the perplexity.</span>
 
-<span class="sd">    Calculated as exp(H(p)), where H is the entropy using a base e and p</span>
-<span class="sd">    is the probabilites of a given word.</span>
+<span class="sd">    Calculated as exp(H(p)), where H is the entropy using a base e and p is the</span>
+<span class="sd">    probabilites of a given word.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">entropy</span><span class="p">)</span>
 
@@ -275,8 +275,8 @@
 <span class="k">def</span> <span class="nf">perplexity_getter</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the perplexity of a doc.</span>
 
-<span class="sd">    Calculated as exp(H(p)), where H is the entropy using a base e and p</span>
-<span class="sd">    is the probabilites of a given word.</span>
+<span class="sd">    Calculated as exp(H(p)), where H is the entropy using a base e and p is the</span>
+<span class="sd">    probabilites of a given word.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># check if it has the attribute entropy</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="p">,</span> <span class="s2">&quot;entropy&quot;</span><span class="p">):</span>
@@ -288,7 +288,6 @@
 
 <span class="k">def</span> <span class="nf">per_word_perplexity_getter</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the per word perplexity of a document.&quot;&quot;&quot;</span>
-
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="p">,</span> <span class="s2">&quot;perplexity&quot;</span><span class="p">):</span>
         <span class="n">perplexity</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">perplexity</span>
     <span class="k">else</span><span class="p">:</span>
@@ -337,7 +336,6 @@
             <span class="p">(</span><span class="s2">&quot;per_word_perplexity&quot;</span><span class="p">,</span> <span class="n">per_word_perplexity_getter</span><span class="p">),</span>
             <span class="p">(</span><span class="s2">&quot;information_theory&quot;</span><span class="p">,</span> <span class="n">InformationTheory</span><span class="o">.</span><span class="n">dict_getter</span><span class="p">),</span>
         <span class="p">]:</span>
-
             <span class="n">set_docspan_extension</span><span class="p">(</span>
                 <span class="n">ext</span><span class="p">,</span>
                 <span class="n">getter</span><span class="o">=</span><span class="n">getter</span><span class="p">,</span>  <span class="c1"># type: ignore</span>

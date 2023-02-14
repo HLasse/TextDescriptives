@@ -227,7 +227,7 @@
         </div>
         <article role="main">
           <h1>Source code for textdescriptives.components.quality</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Component for calculating quality metrics.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot; Component for calculating quality metrics.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -266,8 +266,8 @@
 
 
 <span class="k">def</span> <span class="nf">alpha_ratio</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The percentage of spacy tokens in this document which contain at leat</span>
-<span class="sd">    one alphabetic character.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The percentage of spacy tokens in this document which contain at leat one</span>
+<span class="sd">    alphabetic character.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        span (Union[Doc, Span]): A spaCy Doc or Span object</span>
@@ -756,7 +756,6 @@
 
     <span class="k">def</span> <span class="nf">set_extensions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set required extensions.&quot;&quot;&quot;</span>
-
         <span class="n">ext_name</span> <span class="o">=</span> <span class="s2">&quot;passed_quality_check&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Span</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="n">ext_name</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">Span</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span>
