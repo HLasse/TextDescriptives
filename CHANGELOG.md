@@ -2,6 +2,17 @@
 
 <!--next-version-placeholder-->
 
+## v2.4.3 (2023-03-01)
+### Fix
+* Add descriptive_stats pipe no matter the verbosity ([`3fd3240`](https://github.com/HLasse/TextDescriptives/commit/3fd3240bb5f706da6b882af8129945781021bb80))
+* Change default verbosity of readability component ([`ddfd269`](https://github.com/HLasse/TextDescriptives/commit/ddfd269ae2c0d784b7e06bab0af74cbce293a288))
+* Change verbosity of `lexeme_prob_table` ([`b64631f`](https://github.com/HLasse/TextDescriptives/commit/b64631fee040f08ec50b65ecd0c3a13ffe3d0dde))
+* Automatically download supplied spacy model if not on disk ([`f54a9b6`](https://github.com/HLasse/TextDescriptives/commit/f54a9b61a018c0a77d72be986a2bc22f27a84c44))
+
+### Documentation
+* Change quick start model to lg ([`653fb49`](https://github.com/HLasse/TextDescriptives/commit/653fb49f887941cf6b4afb7566952f836ae0359b))
+* Update readme to use lg model for proper coherence calculation ([`cdd85b7`](https://github.com/HLasse/TextDescriptives/commit/cdd85b7b9de08a94ad43aab14d42293acaf3b910))
+
 ## v2.4.2 (2023-03-01)
 ### Fix
 * Handle case where extension is set, but pipeline is not ([`2ba2dd2`](https://github.com/HLasse/TextDescriptives/commit/2ba2dd210f612974f5279ad8302ee254d5c611b3))
