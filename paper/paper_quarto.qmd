@@ -22,6 +22,15 @@ author:
       - name: Aarhus University
         department: Center for Humanities Computing
         city: Aarhus, Denmark
+  - name: Ludvig Renbo Olsen
+    orcid: 0009-0006-6798-7454
+    affiliations:
+      - name: Aarhus University
+        department: Department of Molecular Medicine
+        city: Aarhus, Denmark
+      - name: Aarhus University
+        department: Department of Clinical Medicine
+        city: Aarhus, Denmark
   - name: Kenneth Enevoldsen
     orcid: 0000-0001-8733-0966
     affiliations:
