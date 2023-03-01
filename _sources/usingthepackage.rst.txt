@@ -17,7 +17,7 @@ Specify which metrics to extract in the :code:`metrics` argument. :code:`None` e
    df = td.extract_metrics(text=text, lang="en", metrics=None)
 
    # specify spaCy model and which metrics to extract
-   df = td.extract_metrics(text=text, spacy_model="en_core_web_sm", metrics=["readability", "coherence"])
+   df = td.extract_metrics(text=text, spacy_model="en_core_web_lg", metrics=["readability", "coherence"])
 
 
 Usage with spaCy

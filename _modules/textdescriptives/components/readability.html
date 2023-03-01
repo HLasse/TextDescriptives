@@ -390,7 +390,7 @@
 <div class="viewcode-block" id="create_readability_component"><a class="viewcode-back" href="../../../readability.html#textdescriptives.components.readability.create_readability_component">[docs]</a><span class="nd">@Language</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span>
     <span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">,</span>
     <span class="n">assigns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;doc._.readability&quot;</span><span class="p">],</span>
-    <span class="n">default_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="n">default_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
 <span class="p">)</span>
 <span class="k">def</span> <span class="nf">create_readability_component</span><span class="p">(</span>
     <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
@@ -427,12 +427,13 @@
 <span class="sd">        &gt;&gt;&gt; doc = nlp(&quot;This is a test document.&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; doc._.readability</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="s2">&quot;textdescriptives/descriptive_stats&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span> <span class="ow">and</span> <span class="n">verbose</span><span class="p">:</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>  <span class="c1"># pylint: disable=logging-not-lazy</span>
-            <span class="s2">&quot;&#39;textdescriptives/descriptive_stats&#39; component is required for&quot;</span>
-            <span class="o">+</span> <span class="s2">&quot; &#39;textdescriptives.readability&#39;. Adding to pipe.&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">nlp</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/descriptive_stats&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;textdescriptives/descriptive_stats&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>  <span class="c1"># pylint: disable=logging-not-lazy</span>
+                <span class="s2">&quot;&#39;textdescriptives/descriptive_stats&#39; component is required for&quot;</span>
+                <span class="o">+</span> <span class="s2">&quot; &#39;textdescriptives.readability&#39;. Adding to pipe.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/descriptive_stats&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Readability</span><span class="p">(</span><span class="n">nlp</span><span class="p">)</span></div>
 </pre></div>
         </article>
