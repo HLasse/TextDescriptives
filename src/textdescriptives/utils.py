@@ -181,7 +181,7 @@ def _create_spacy_pipeline(
     except OSError:
         msg.info(
             f"""The specified spaCy model "{spacy_model}" was not 
-            found on disk. Downloading..."""
+            found on disk. Downloading...""",
         )
         spacy.cli.download(spacy_model)
         return spacy.load(spacy_model)
