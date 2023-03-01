@@ -161,7 +161,7 @@ class Readability:
 @Language.factory(
     "textdescriptives/readability",
     assigns=["doc._.readability"],
-    default_config={"verbose": True},
+    default_config={"verbose": False},
 )
 def create_readability_component(
     nlp: Language,
@@ -198,10 +198,11 @@ def create_readability_component(
         >>> doc = nlp("This is a test document.")
         >>> doc._.readability
     """
-    if "textdescriptives/descriptive_stats" not in nlp.pipe_names and verbose:
-        msg.info(  # pylint: disable=logging-not-lazy
-            "'textdescriptives/descriptive_stats' component is required for"
-            + " 'textdescriptives.readability'. Adding to pipe.",
-        )
-        nlp = nlp.add_pipe("textdescriptives/descriptive_stats")
+    if "textdescriptives/descriptive_stats" not in nlp.pipe_names:
+        if verbose:
+            msg.info(  # pylint: disable=logging-not-lazy
+                "'textdescriptives/descriptive_stats' component is required for"
+                + " 'textdescriptives.readability'. Adding to pipe.",
+            )
+        nlp.add_pipe("textdescriptives/descriptive_stats")
     return Readability(nlp)

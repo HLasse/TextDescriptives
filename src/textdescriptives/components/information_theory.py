@@ -10,7 +10,7 @@ from spacy.vocab import Vocab
 from wasabi import msg
 
 
-def set_lexeme_prob_table(vocab: Vocab, verbose: bool = True):
+def set_lexeme_prob_table(vocab: Vocab, verbose: bool = False):
     """Ensure that the pipeline has a lexeme probability table."""
     if not vocab.lookups.has_table("lexeme_prob"):
         if verbose:
@@ -88,7 +88,7 @@ class InformationTheory:
     def __init__(self, nlp: Language, name: str, force: bool) -> None:
         self.name = name
         self.set_extensions(force=force)
-        set_lexeme_prob_table(nlp.vocab)
+        set_lexeme_prob_table(nlp.vocab, verbose=False)
 
     @staticmethod
     def dict_getter(doc: Union[Doc, Span]) -> Dict[str, float]:

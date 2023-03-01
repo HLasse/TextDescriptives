@@ -176,4 +176,12 @@ def _create_spacy_pipeline(
             )
         msg.info(f"No spacy model provided. Inferring spacy model for {lang}.")
         spacy_model = _download_spacy_model(lang=lang, size=spacy_model_size)
-    return spacy.load(spacy_model)
+    try:
+        return spacy.load(spacy_model)
+    except OSError:
+        msg.info(
+            f"""The specified spaCy model "{spacy_model}" was not 
+            found on disk. Downloading...""",
+        )
+        spacy.cli.download(spacy_model)
+        return spacy.load(spacy_model)
