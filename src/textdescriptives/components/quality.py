@@ -37,8 +37,8 @@ def mean_word_length(span: Union[Doc, Span]) -> float:
 
 
 def alpha_ratio(span: Union[Doc, Span]) -> float:
-    """The percentage of spacy tokens in this document which contain at leat one
-    alphabetic character.
+    """The percentage of spacy tokens in this document which contains at
+    least one alphabetic character.
 
     Args:
         span (Union[Doc, Span]): A spaCy Doc or Span object

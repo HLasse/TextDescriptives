@@ -11,7 +11,7 @@ format:
 author:
   - name: Lasse Hansen
     orcid: 0000-0003-1113-4779
-    corrresponding: true
+    corresponding: true
     affiliations:
       - name: Aarhus University Hospital
         department: Department of Affective Disorders - Psychiatry

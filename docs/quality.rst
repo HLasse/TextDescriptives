@@ -19,8 +19,8 @@ Repetitious text metrics:
 
 * Duplicate lines character fraction (:code:`duplicate_lines_chr_fraction`): Fraction of characters in a document which are contained within duplicate lines.
 * Duplicate paragraphs character fraction (:code:`duplicate_paragraphs_chr_fraction`): Fraction of characters in a document which are contained within duplicate paragraphs.
-* Duplicate n-gram character fraction (:code:`duplicate_{n}_gram_chr_fraction`): Fraction of characters in a document which are contained within duplicate n-grams. For a speciifed n-gram range.
-* Top n-gram character fraction (:code:`top_{n}_gram_chr_fraction`): Fraction of characters in a document which are contained within the top n-grams. For a speciifed n-gram range.
+* Duplicate n-gram character fraction (:code:`duplicate_{n}_gram_chr_fraction`): Fraction of characters in a document which are contained within duplicate n-grams. For a specified n-gram range.
+* Top n-gram character fraction (:code:`top_{n}_gram_chr_fraction`): Fraction of characters in a document which are contained within the top n-grams. For a specified n-gram range.
 
 
 These quality metrics were for example used by

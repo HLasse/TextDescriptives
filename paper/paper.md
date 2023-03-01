@@ -8,7 +8,7 @@ tags:
 authors:
   - name: Lasse Hansen
     orcid: 0000-0003-1113-4779
-    corrresponding: true
+    corresponding: true
     affiliation: "1, 2, 3" # (Multiple affiliations must be quoted)
   - name: Ludvig Renbo Olsen
     orcid: 0009-0006-6798-7454
