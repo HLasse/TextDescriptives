@@ -171,7 +171,7 @@ def test_extract_metrics_twice():
     )
     td.extract_metrics(
         text,
-        metrics="pos_proportions",
+        metrics="coherence",
         lang="en",
     )
 
@@ -184,3 +184,10 @@ def test_extract_metrics_multiple_metrics():
     )
     assert "lix" in df.columns
     assert "dependency_distance_mean" in df.columns
+
+
+def test_extract_metrics_all_metrics():
+    text = "just a little test"
+
+    df = td.extract_metrics(text=text, spacy_model="en_core_web_sm", metrics=None)
+    assert "n_tokens" in df.columns
