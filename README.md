@@ -23,7 +23,7 @@ A Python library for calculating a large variety of metrics from text(s) using s
 
 # ⚡ Quick Start
 
-Use `extract_metrics` to quickly extract your desired metrics. To see availalbe methods you can simply run:
+Use `extract_metrics` to quickly extract your desired metrics. To see available methods you can simply run:
 ```python
 import textdescriptives as td
 td.get_valid_metrics()
@@ -80,7 +80,7 @@ td.extract_df(doc)
 # 📖 Documentation
 
 TextDescriptives has a detailed documentation as well as a series of Jupyter notebook tutorials.
-All the tutorials are located in the `docs/tutorials` folder and can also be found on the documentation webiste.
+All the tutorials are located in the `docs/tutorials` folder and can also be found on the documentation website.
 
 
 | Documentation              |                                                                                    |

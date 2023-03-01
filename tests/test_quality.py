@@ -250,7 +250,7 @@ def test_quality_component_with_config(nlp: spacy.Language):
             "This is repitious text, This is repitious text, This is repitious text.",
             False,
         ),
-        ("This test has many symobls #!@#$%^&*()_+.", False),
+        ("This test has many symbols #!@#$%^&*()_+.", False),
         ("- this is a text of \n - bullet points", False),
     ],
 )

@@ -53,7 +53,7 @@
 
 ### Fix
 * Remove previously assigned extensions before extracting new metrics ([`1a7ca00`](https://github.com/HLasse/TextDescriptives/commit/1a7ca00559f1db0060cfcb0d0a120a1948d697c7))
-* Remove doc extension instead of pipe component. TODO double check all assings are correct ([`bc32d47`](https://github.com/HLasse/TextDescriptives/commit/bc32d479da59bfb438bb860795ca56e02fc60196))
+* Remove doc extension instead of pipe component. TODO double check all assigns are correct ([`bc32d47`](https://github.com/HLasse/TextDescriptives/commit/bc32d479da59bfb438bb860795ca56e02fc60196))
 
 ### Documentation
 * Add arxiv badge to readme ([`7b57aea`](https://github.com/HLasse/TextDescriptives/commit/7b57aeac655d56b21eac96e6a17c9a6c9c16831a))

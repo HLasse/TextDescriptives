@@ -32,7 +32,7 @@ def perplexity(entropy: float) -> float:
     """Calculates the perplexity.
 
     Calculated as exp(H(p)), where H is the entropy using a base e and p is the
-    probabilites of a given word.
+    probabilities of a given word.
     """
     return np.exp(entropy)
 
@@ -47,7 +47,7 @@ def perplexity_getter(doc: Union[Doc, Span]) -> float:
     """Calculates the perplexity of a doc.
 
     Calculated as exp(H(p)), where H is the entropy using a base e and p is the
-    probabilites of a given word.
+    probabilities of a given word.
     """
     # check if it has the attribute entropy
     if hasattr(doc._, "entropy") and doc._.entropy is not None:

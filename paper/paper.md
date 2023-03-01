@@ -8,7 +8,7 @@ tags:
 authors:
   - name: Lasse Hansen
     orcid: 0000-0003-1113-4779
-    corrresponding: true
+    corresponding: true
     affiliation: "1, 2, 3" # (Multiple affiliations must be quoted)
   - name: Kenneth Enevoldsen
     orcid: 0000-0001-8733-0966
