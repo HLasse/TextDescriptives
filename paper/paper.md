@@ -10,6 +10,9 @@ authors:
     orcid: 0000-0003-1113-4779
     corrresponding: true
     affiliation: "1, 2, 3" # (Multiple affiliations must be quoted)
+  - name: Ludvig Renbo Olsen
+    orcid: 0009-0006-6798-7454
+    affiliation: "4, 2"
   - name: Kenneth Enevoldsen
     orcid: 0000-0001-8733-0966
     affiliation: "2, 3"
@@ -21,7 +24,9 @@ affiliations:
    index: 2
  - name: Center for Humanities Computing, Aarhus University, Aarhus, Denmark
    index: 3
-date: 16 December 2022
+ - name: Department of Molecular Medicine (MOMO), Aarhus University, Aarhus, Denmark
+   index: 4
+date: 1 March 2023
 bibliography: paper.bib
 ---
 # TextDescriptives: A Python package for calculating a large variety of metrics from text
@@ -65,5 +70,5 @@ The package is mainly targeted at NLP researchers and practitioners. In particul
 
 
 # Acknowledgements
-The authors thank the [contributors](https://github.com/HLasse/TextDescriptives/graphs/contributors) of the package including Ludvig Olsen, for his work on the early versions of `TextDescriptives`, Martin Bernstorff for his work on the part-of-speech component, and Frida Hæstrup and Roberta Rocca for important fixes. The authors would also like to Dan Sattrup Nielsen for helpful reviews on early iterations of the text quality implementations.
+The authors thank the [contributors](https://github.com/HLasse/TextDescriptives/graphs/contributors) of the package including Martin Bernstorff for his work on the part-of-speech component, and Frida Hæstrup and Roberta Rocca for important fixes. The authors would also like to Dan Sattrup Nielsen for helpful reviews on early iterations of the text quality implementations.
 
