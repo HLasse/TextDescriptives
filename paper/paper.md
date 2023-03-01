@@ -70,5 +70,5 @@ The package is mainly targeted at NLP researchers and practitioners. In particul
 
 
 # Acknowledgements
-The authors thank the [contributors](https://github.com/HLasse/TextDescriptives/graphs/contributors) of the package including Ludvig Olsen, for his work on the early versions of `TextDescriptives`, Martin Bernstorff for his work on the part-of-speech component, and Frida Hæstrup and Roberta Rocca for important fixes. The authors would also like to Dan Sattrup Nielsen for helpful reviews on early iterations of the text quality implementations.
+The authors thank the [contributors](https://github.com/HLasse/TextDescriptives/graphs/contributors) of the package including Martin Bernstorff for his work on the part-of-speech component, and Frida Hæstrup and Roberta Rocca for important fixes. The authors would also like to Dan Sattrup Nielsen for helpful reviews on early iterations of the text quality implementations.
 
