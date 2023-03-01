@@ -161,7 +161,7 @@ class Readability:
 @Language.factory(
     "textdescriptives/readability",
     assigns=["doc._.readability"],
-    default_config={"verbose": True},
+    default_config={"verbose": False},
 )
 def create_readability_component(
     nlp: Language,
