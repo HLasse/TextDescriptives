@@ -159,8 +159,11 @@ def extract_metrics(
     )
 
     # add pipeline components
-    for component in metrics:
-        nlp.add_pipe(f"textdescriptives/{component}")
+    if "all" in metrics:
+        nlp.add_pipe("textdescriptives/all")
+    else:
+        for component in metrics:
+            nlp.add_pipe(f"textdescriptives/{component}")
 
     if isinstance(text, str):
         text = [text]

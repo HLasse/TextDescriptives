@@ -50,7 +50,7 @@ def perplexity_getter(doc: Union[Doc, Span]) -> float:
     probabilites of a given word.
     """
     # check if it has the attribute entropy
-    if hasattr(doc._, "entropy"):
+    if hasattr(doc._, "entropy") and doc._.entropy is not None:
         entropy = doc._.entropy
     else:
         entropy = entropy_getter(doc)
@@ -59,7 +59,7 @@ def perplexity_getter(doc: Union[Doc, Span]) -> float:
 
 def per_word_perplexity_getter(doc: Union[Doc, Span]) -> float:
     """Calculates the per word perplexity of a document."""
-    if hasattr(doc._, "perplexity"):
+    if hasattr(doc._, "perplexity") and doc._.perplexity is not None:
         perplexity = doc._.perplexity
     else:
         perplexity = perplexity_getter(doc)
