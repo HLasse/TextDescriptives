@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v2.4.2 (2023-03-01)
+### Fix
+* Handle case where extension is set, but pipeline is not ([`2ba2dd2`](https://github.com/HLasse/TextDescriptives/commit/2ba2dd210f612974f5279ad8302ee254d5c611b3))
+* `extract_metrics` failing if `metrics=None` ([`6bfe6b0`](https://github.com/HLasse/TextDescriptives/commit/6bfe6b0ed74a7e490587878ea06ac2b9f3a9900a))
+
 ## v2.4.1 (2023-02-08)
 ### Fix
 * Change auto-approve event  ([`729836f`](https://github.com/HLasse/TextDescriptives/commit/729836feb76a12507a6a0f703b434ec071124f5f))
