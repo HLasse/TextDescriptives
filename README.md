@@ -42,7 +42,7 @@ text = "The world is changed. I feel it in the water. I feel it in the earth. I 
 df = td.extract_metrics(text=text, lang="en", metrics=None)
 
 # specify spaCy model and which metrics to extract
-df = td.extract_metrics(text=text, spacy_model="en_core_web_sm", metrics=["readability", "coherence"])
+df = td.extract_metrics(text=text, spacy_model="en_core_web_lg", metrics=["readability", "coherence"])
 ```
 
 
