@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
-        <title>textdescriptives.components.information_theory - textdescriptives 2.4.1 documentation</title>
+        <title>textdescriptives.components.information_theory - textdescriptives 2.4.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -132,7 +132,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">textdescriptives 2.4.1 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">textdescriptives 2.4.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -279,7 +279,7 @@
 <span class="sd">    probabilites of a given word.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># check if it has the attribute entropy</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="p">,</span> <span class="s2">&quot;entropy&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="p">,</span> <span class="s2">&quot;entropy&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">entropy</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">entropy</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">entropy</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">entropy</span> <span class="o">=</span> <span class="n">entropy_getter</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
@@ -288,7 +288,7 @@
 
 <span class="k">def</span> <span class="nf">per_word_perplexity_getter</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Doc</span><span class="p">,</span> <span class="n">Span</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the per word perplexity of a document.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="p">,</span> <span class="s2">&quot;perplexity&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="p">,</span> <span class="s2">&quot;perplexity&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">perplexity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">perplexity</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">perplexity</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">perplexity</span> <span class="o">=</span> <span class="n">perplexity_getter</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
