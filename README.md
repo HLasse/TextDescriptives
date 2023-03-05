@@ -55,6 +55,7 @@ If you want to add all components you can use the shorthand `textdescriptives/al
 ```py
 import spacy
 import textdescriptives as td
+# load your favourite spacy model (remember to install it first using e.g. `python -m spacy download en_core_web_sm`)
 nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe("textdescriptives/all") 
 doc = nlp("The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.")
