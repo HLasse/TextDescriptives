@@ -11,7 +11,7 @@ To run the tests, you should clone the repository, then install the package usin
 .. code-block::
    
    pip install -e .[style,tests]
-
+   pip install -r tests/requirements.txt
 
 This will install the required dependencies for running test as well as packages for linting. These are specified in the :code:`pyproject.toml` file.
 Following this installation you can run the test suite using:
