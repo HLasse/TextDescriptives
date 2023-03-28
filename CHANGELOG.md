@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v2.4.4 (2023-03-28)
+### Fix
+* Add .zenodo.json ([`3cc463c`](https://github.com/HLasse/TextDescriptives/commit/3cc463c5bcc236bb5c49fc51eaba0b419d84ffcc))
+
+### Documentation
+* Add test requirements to faq ([`1550de7`](https://github.com/HLasse/TextDescriptives/commit/1550de7c4815779f53cc8ba260ddedcdbf8f0358))
+
 ## v2.4.3 (2023-03-01)
 ### Fix
 * Add descriptive_stats pipe no matter the verbosity ([`3fd3240`](https://github.com/HLasse/TextDescriptives/commit/3fd3240bb5f706da6b882af8129945781021bb80))
