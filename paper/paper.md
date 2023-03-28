@@ -29,7 +29,6 @@ affiliations:
 date: 1 March 2023
 bibliography: paper.bib
 ---
-# TextDescriptives: A Python package for calculating a large variety of metrics from text
 
 # Summary
 

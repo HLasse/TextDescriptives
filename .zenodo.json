@@ -1,0 +1,32 @@
+{
+    "creators": [
+        {
+            "affiliation": "Aarhus University Hospital",
+            "name": "Hansen, Lasse",
+            "orcid": "0000-0003-1113-4779"
+        },
+        {
+            "affiliation": "Aarhus University",
+            "name": "Renbo Olsen, Ludvig",
+            "orcid": "0009-0006-6798-7454"
+        },
+        {
+            "affiliation": "Aarhus University",
+            "name": "Enevoldsen, Kenneth",
+            "orcid": "0000-0001-8733-0966"
+        }
+    ],
+    "description": "A Python library for calculating a large variety of metrics from text",
+    "keywords": [
+        "Python",
+        "NLP",
+        "spacy",
+        "readability",
+        "feature extraction",
+        "natural language processing"
+    ],
+    "license": {
+        "id": "Apache-2.0"
+    },
+    "title": "TextDescriptives: A Python package for calculating a large variety of metrics from text"
+}

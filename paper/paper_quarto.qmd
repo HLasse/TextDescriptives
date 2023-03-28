@@ -51,8 +51,6 @@ keywords:
 bibliography: paper.bib
 ---
 
-# TextDescriptives: A Python package for calculating a large variety of metrics from text
-
 # Summary
 
 Natural language processing (NLP) tasks often require a thorough understanding and description of the corpus. Document-level metrics can be used to identify low-quality data, assess outliers, or understand differences between groups. Further, text metrics have long been used in fields such as the digital humanities where e.g. metrics of text complexity are commonly used to analyse, understand and compare text corpora. However, extracting complex metrics can be an error-prone process and is rarely rigorously tested in research implementations. This can lead to subtle differences between implementations and reduces the reproducibility of scientific results.
