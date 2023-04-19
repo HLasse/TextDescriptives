@@ -345,7 +345,11 @@ Name: label, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># assumes you have downloaded the ´en_core_web_model´</span>
-<span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_metrics</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">],</span> <span class="n">spacy_model</span><span class="o">=</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;readability&quot;</span><span class="p">,</span> <span class="s2">&quot;dependency_distance&quot;</span><span class="p">])</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">extract_metrics</span><span class="p">(</span>
+    <span class="n">text</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">],</span>
+    <span class="n">spacy_model</span><span class="o">=</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">,</span>
+    <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;readability&quot;</span><span class="p">,</span> <span class="s2">&quot;dependency_distance&quot;</span><span class="p">],</span>
+<span class="p">)</span>
 <span class="c1"># alternatively, you can specify the language and (optionally) the model size</span>
 <span class="c1"># metrics = td.extract_metrics(text=df[&quot;message&quot;], lang=&quot;en&quot;, spacy_model_size=&quot;sm&quot;, metrics=[&quot;readability, dependency_distance&quot;])</span>
 
@@ -548,7 +552,7 @@ Name: label, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f8588e70880&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f616d4203d0&gt;
 </pre></div>
 </div>
 </div>
@@ -767,6 +771,7 @@ Name: label, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;lix&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">metrics_df</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -784,7 +789,9 @@ Name: label, dtype: int64
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># encode the label as a boolean</span>
 <span class="n">metrics_df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metrics_df</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ham&quot;</span>
 <span class="c1"># compute the correlation between all metrics and the label</span>
-<span class="n">metrics_correlations</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">metrics_df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">abs</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">metrics_correlations</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">metrics_df</span><span class="p">[</span><span class="s2">&quot;is_ham&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+    <span class="n">key</span><span class="o">=</span><span class="nb">abs</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
 <span class="n">metrics_correlations</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -810,7 +817,8 @@ dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot a kde plot for the top 3 metrics</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">metric</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">metrics_correlations</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">3</span><span class="p">]):</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">metrics_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </pre></div>

@@ -575,9 +575,12 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        float: the out-of-vocabulary ratio</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">len_span</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">len_span</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
     <span class="k">if</span> <span class="n">vocab</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">span</span> <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">is_oov</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">span</span> <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vocab</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">span</span> <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">is_oov</span><span class="p">])</span> <span class="o">/</span> <span class="n">len_span</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">span</span> <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vocab</span><span class="p">])</span> <span class="o">/</span> <span class="n">len_span</span>
 
 
 <span class="k">class</span> <span class="nc">Quality</span><span class="p">:</span>

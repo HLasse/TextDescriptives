@@ -73,13 +73,13 @@
     "from datasets import load_dataset\n",
     "\n",
     "# stream in the dataset\n",
-    "dataset = load_dataset(\"mc4\", \"en\", streaming = True, split = \"train\")\n",
+    "dataset = load_dataset(\"mc4\", \"en\", streaming=True, split=\"train\")\n",
     "\n",
     "# download the first 1 000\n",
     "dataset = dataset.take(1000)\n",
     "\n",
     "# extract the text\n",
-    "texts = [sample [\"text\"] for sample in dataset]\n"
+    "texts = [sample[\"text\"] for sample in dataset]"
    ]
   },
   {
@@ -98,7 +98,7 @@
    ],
    "source": [
     "# let us look at the first part (400 characters) of the first text\n",
-    "print(texts[0][:400])\n"
+    "print(texts[0][:400])"
    ]
   },
   {
@@ -313,7 +313,9 @@
     }
    ],
    "source": [
-    "print(f\"A total of {len(docs)} texts were processed and {len(filtered_texts)} passed the quality check.\")"
+    "print(\n",
+    "    f\"A total of {len(docs)} texts were processed and {len(filtered_texts)} passed the quality check.\"\n",
+    ")"
    ]
   },
   {
@@ -332,18 +334,20 @@
    "outputs": [],
    "source": [
     "new_thresholds = td.QualityThresholds(\n",
-    "    n_stop_words=(2, None), # at least 2 stop words, no upper bound\n",
-    "    alpha_ratio= (0.7, None),\n",
-    "    mean_word_length= (3, 10), # mean word length between 3 and 10 characters\n",
-    "    doc_length = (10, 100_000),\n",
-    "    symbol_to_word_ratio = {}, # don't filter based on symbol to word ratio.\n",
-    "    proportion_ellipsis = (None, 0.3),\n",
-    "    proportion_bullet_points = (None, 0.8),\n",
-    "    contains = {\"lorem ipsum\": False}, # remove texts which contain the string \"lorem ipsum\"\n",
-    "    duplicate_line_chr_fraction = (None, 0.2),\n",
-    "    duplicate_paragraph_chr_fraction = (None, 0.2),\n",
-    "    duplicate_ngram_chr_fraction = {}, # don't filter based on duplicate n-grams\n",
-    "    top_ngram_chr_fraction = {\"2\": (None, 0.2), \"3\": (None, 0.18), \"4\": (None, 0.16)}\n",
+    "    n_stop_words=(2, None),  # at least 2 stop words, no upper bound\n",
+    "    alpha_ratio=(0.7, None),\n",
+    "    mean_word_length=(3, 10),  # mean word length between 3 and 10 characters\n",
+    "    doc_length=(10, 100_000),\n",
+    "    symbol_to_word_ratio={},  # don't filter based on symbol to word ratio.\n",
+    "    proportion_ellipsis=(None, 0.3),\n",
+    "    proportion_bullet_points=(None, 0.8),\n",
+    "    contains={\n",
+    "        \"lorem ipsum\": False\n",
+    "    },  # remove texts which contain the string \"lorem ipsum\"\n",
+    "    duplicate_line_chr_fraction=(None, 0.2),\n",
+    "    duplicate_paragraph_chr_fraction=(None, 0.2),\n",
+    "    duplicate_ngram_chr_fraction={},  # don't filter based on duplicate n-grams\n",
+    "    top_ngram_chr_fraction={\"2\": (None, 0.2), \"3\": (None, 0.18), \"4\": (None, 0.16)},\n",
     ")\n",
     "\n",
     "# overwrite the existing thresholds\n",
@@ -771,7 +775,9 @@
     "# 1. Crease a blank spaCy model with a sentencizer as that's the only component required for the quality metrics\n",
     "nlp = spacy.blank(\"da\")\n",
     "nlp.add_pipe(\"sentencizer\")\n",
-    "nlp.max_length = 2000000  # as some of the documents are quite long we can increase the max length\n",
+    "nlp.max_length = (\n",
+    "    2000000  # as some of the documents are quite long we can increase the max length\n",
+    ")\n",
     "# however it might be worth filtering out these documents beforehand for very very long documents.\n",
     "\n",
     "# 2. Add the textdescriptives pipeline\n",
@@ -859,7 +865,7 @@
    "source": [
     "legal_doc = legal_docs[0]\n",
     "\n",
-    "print(legal_doc[:100]) # print the first 100 tokens\n",
+    "print(legal_doc[:100])  # print the first 100 tokens\n",
     "print(\"----\")\n",
     "print(\"This passed the quality filter:\")\n",
     "legal_doc._.passed_quality_check"
@@ -917,7 +923,7 @@
    "outputs": [],
    "source": [
     "# 4. Filter out the documents that do not pass the quality\n",
-    "legal_docs_filtered = [doc for doc in legal_docs if doc._.passed_quality_check]\n"
+    "legal_docs_filtered = [doc for doc in legal_docs if doc._.passed_quality_check]"
    ]
   },
   {
@@ -934,7 +940,9 @@
     }
    ],
    "source": [
-    "print(f\"We had a total of {len(legal['text'])} which we filtered down to {len(legal_docs_filtered)}.\")"
+    "print(\n",
+    "    f\"We had a total of {len(legal['text'])} which we filtered down to {len(legal_docs_filtered)}.\"\n",
+    ")"
    ]
   },
   {
@@ -974,10 +982,12 @@
    "source": [
     "import seaborn as sns\n",
     "\n",
+    "\n",
     "def get_duplicate_10_gram_fraction(doc):\n",
     "    quality = doc._.quality\n",
     "    duplicate_10_gram_fraction = quality.duplicate_ngram_chr_fraction[\"10\"]\n",
     "    return duplicate_10_gram_fraction.value\n",
+    "\n",
     "\n",
     "duplicate_10_gram_fraction = [get_duplicate_10_gram_fraction(doc) for doc in legal_docs]\n",
     "sns.histplot(duplicate_10_gram_fraction)"
@@ -1097,6 +1107,7 @@
    ],
    "source": [
     "import matplotlib.pyplot as plt\n",
+    "\n",
     "# histogram\n",
     "sns.histplot(news_alpha_ratio, label=\"News\", alpha=0.5, binwidth=0.05)\n",
     "sns.histplot(alpha_ratio, label=\"Legal\", alpha=0.5, binwidth=0.05)\n",
