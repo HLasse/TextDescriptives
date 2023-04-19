@@ -2,6 +2,15 @@
 
 <!--next-version-placeholder-->
 
+## v2.4.5 (2023-04-19)
+### Fix
+* Dep dist. test ([`a3b54a6`](https://github.com/HLasse/TextDescriptives/commit/a3b54a6b3e3d57acc140b0f9afd72406a88104f8))
+* Coherence model now handles empty strings as intended ([`abfa507`](https://github.com/HLasse/TextDescriptives/commit/abfa5071ba075f25ff8c170f5cee4f84ef648ea5))
+* Dep distance test ([`2bed2c1`](https://github.com/HLasse/TextDescriptives/commit/2bed2c194b98062aad66d6ca0985fb92af6be977))
+
+### Documentation
+* Added demo to docs ([`6121eeb`](https://github.com/HLasse/TextDescriptives/commit/6121eebc0a125e68979591f6c585d19fae70746b))
+
 ## v2.4.4 (2023-03-28)
 ### Fix
 * Add .zenodo.json ([`3cc463c`](https://github.com/HLasse/TextDescriptives/commit/3cc463c5bcc236bb5c49fc51eaba0b419d84ffcc))
