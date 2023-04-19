@@ -9,6 +9,7 @@
 [![github actions docs](https://github.com/hlasse/textdescriptives/actions/workflows/documentation.yml/badge.svg)](https://hlasse.github.io/TextDescriptives/)
 [![arXiv](https://img.shields.io/badge/arXiv-2301.02057-b31b1b.svg)](https://arxiv.org/abs/2301.02057)
 [![status](https://joss.theoj.org/papers/06447337ee61969b5a64de484199df24/status.svg)](https://joss.theoj.org/papers/06447337ee61969b5a64de484199df24)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://huggingface.co/spaces/HLasse/textdescriptives)
 
 A Python library for calculating a large variety of metrics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance. 
 
@@ -17,6 +18,7 @@ A Python library for calculating a large variety of metrics from text(s) using s
 
 # 📰 News
 
+* We now have a TextDescriptives-powered web-app so you can extract and downloads metrics without a single line of code! Check it out [here](https://huggingface.co/spaces/HLasse/textdescriptives)
 * Version 2.0 out with a new API, a new component, updated documentation, and tutorials! Components are now called by "`textdescriptives/{metric_name}`. New `coherence` component for calculating the semantic coherence between sentences. See the [documentation](https://github.com/HLasse/TextDescriptives) for tutorials and more information!  
 
 
