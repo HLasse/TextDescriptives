@@ -18,6 +18,10 @@ def n_order_coherence(doc: Doc, order: int) -> List[float]:
     Returns:
         A list of floats representing the semantic similarity between sentences
     """
+    sents = list(doc.sents)
+    if len(sents) < order + 1:
+        return [np.nan]
+
     if doc.vector.size == 0:
         raise ValueError(
             "Sentence vectors are not available. Thus it is not possible to "
@@ -32,9 +36,6 @@ def n_order_coherence(doc: Doc, order: int) -> List[float]:
             + "sentencizer and word vectors to the pipeline?",
         )
 
-    sents = list(doc.sents)
-    if len(sents) < order + 1:
-        return [np.nan]
     similarities: List[float] = []
     for i, sent in enumerate(sents):
         if i == len(sents) - order:

@@ -346,9 +346,12 @@ def oov_ratio(span: Union[Span, Doc], vocab: Optional[Mapping] = None) -> float:
     Returns:
         float: the out-of-vocabulary ratio
     """
+    len_span = len(span)
+    if len_span == 0:
+        return 0.0
     if vocab is None:
-        return len([token for token in span if token.is_oov]) / len(span)
-    return len([token for token in span if token.text not in vocab]) / len(span)
+        return len([token for token in span if token.is_oov]) / len_span
+    return len([token for token in span if token.text not in vocab]) / len_span
 
 
 class Quality:

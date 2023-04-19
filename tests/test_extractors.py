@@ -186,8 +186,10 @@ def test_extract_metrics_multiple_metrics():
     assert "dependency_distance_mean" in df.columns
 
 
-def test_extract_metrics_all_metrics():
-    text = "just a little test"
-
+@pytest.mark.parametrize(
+    "text",
+    ["just a little test", ""],
+)
+def test_extract_metrics_all_metrics(text: str):
     df = td.extract_metrics(text=text, spacy_model="en_core_web_sm", metrics=None)
     assert "n_tokens" in df.columns
