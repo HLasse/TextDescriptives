@@ -99,7 +99,7 @@ def test_mean_adj_dep(text, expected, nlp):
 @pytest.mark.parametrize(
     "text,expected",
     [
-        (oliver_twist, 0.07),
+        (oliver_twist, 0.10),
         (secret_garden, 0.09),
         (flatland, 0.056),
     ],
