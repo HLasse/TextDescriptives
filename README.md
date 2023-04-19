@@ -89,6 +89,7 @@ All the tutorials are located in the `docs/tutorials` folder and can also be fou
 | Documentation              |                                                                                    |
 | -------------------------- | ---------------------------------------------------------------------------------- |
 | 📚 **[Getting started]**    | Guides and instructions on how to use TextDescriptives and its features.           |
+| 👩‍💻 **[Demo]**               | A live demo of TextDescriptives.                                                   |
 | 😎 **[Tutorials]**          | Detailed tutorials on how to make the most of TextDescriptives                     |
 | 📰 **[News and changelog]** | New additions, changes and version history.                                        |
 | 🎛 **[API References]**     | The detailed reference for TextDescriptive's API. Including function documentation |
@@ -99,3 +100,4 @@ All the tutorials are located in the `docs/tutorials` folder and can also be fou
 [Getting started]: https://hlasse.github.io/TextDescriptives/usingthepackage.html
 [API References]: https://hlasse.github.io/TextDescriptives/index.html
 [News and changelog]: https://hlasse.github.io/TextDescriptives/news.html
+[Demo]: https://huggingface.co/spaces/HLasse/textdescriptives
