@@ -55,7 +55,7 @@ class POSProportions:
     assigns=["doc._.pos_proportions", "span._.pos_proportions"],
     default_config={"use_pos": True},
 )
-def create_pos_stats_component(
+def create_pos_proportions_component(
     nlp: Language,
     name: str,
     use_pos: bool,
