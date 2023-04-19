@@ -268,7 +268,7 @@
 <span class="sd">        docs (Union[Iterable[Doc],  Doc]): An iterable of spaCy Docs or a single Doc</span>
 <span class="sd">        metrics (Union[list[str], str, None], optional): Which metrics to extract.</span>
 <span class="sd">                One or more of [&quot;descriptive_stats&quot;, &quot;readability&quot;,</span>
-<span class="sd">                &quot;dependency_distance&quot;, &quot;pos_stats&quot;, &quot;information_theory&quot;].</span>
+<span class="sd">                &quot;dependency_distance&quot;, &quot;pos_proportions&quot;, &quot;information_theory&quot;].</span>
 <span class="sd">                Defaults to None in which case it will extract metrics for which a</span>
 <span class="sd">                pipeline compoenent has been set.</span>
 <span class="sd">        include_text (bool, optional): Whether to add an entry containing the text.</span>
@@ -324,7 +324,7 @@
 <span class="sd">        docs (Union[Iterable[Doc],  Doc]): An iterable of spaCy Docs or a single Doc</span>
 <span class="sd">        metrics (Union[list[str], str], optional): Which metrics to extract.</span>
 <span class="sd">                One or more of [&quot;descriptive_stats&quot;, &quot;readability&quot;,</span>
-<span class="sd">                &quot;dependency_distance&quot;, &quot;pos_stats&quot;]. Defaults to None in which</span>
+<span class="sd">                &quot;dependency_distance&quot;, &quot;pos_proportions&quot;]. Defaults to None in which</span>
 <span class="sd">                case it will extract metrics for which a pipeline compoenent has been</span>
 <span class="sd">                set.</span>
 <span class="sd">        include_text (bool, optional): Whether to add a column containing the text.</span>
@@ -354,7 +354,7 @@
 <span class="sd">            model for the language. Defaults to None.</span>
 <span class="sd">        metrics (List[str]): Which metrics to extract.</span>
 <span class="sd">            One or more of [&quot;descriptive_stats&quot;, &quot;readability&quot;,</span>
-<span class="sd">            &quot;dependency_distance&quot;, &quot;pos_stats&quot;, &quot;coherence&quot;, &quot;quality&quot;]. If None,</span>
+<span class="sd">            &quot;dependency_distance&quot;, &quot;pos_proportions&quot;, &quot;coherence&quot;, &quot;quality&quot;]. If None,</span>
 <span class="sd">            will extract all metrics from textdescriptives. Defaults to None.</span>
 <span class="sd">        spacy_model_size (str, optional): Size of the spacy model to download.</span>
 

@@ -256,7 +256,7 @@ model is provided, will automatically download and use a spacy
 model for the language. Defaults to None.</p></li>
 <li><p><strong>metrics</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Which metrics to extract.
 One or more of [“descriptive_stats”, “readability”,
-“dependency_distance”, “pos_stats”, “coherence”, “quality”]. If None,
+“dependency_distance”, “pos_proportions”, “coherence”, “quality”]. If None,
 will extract all metrics from textdescriptives. Defaults to None.</p></li>
 <li><p><strong>spacy_model_size</strong> (<em>str</em><em>, </em><em>optional</em>) – Size of the spacy model to download.</p></li>
 </ul>
@@ -281,7 +281,7 @@ from nlp.pipe to a Pandas DataFrame.</p>
 <li><p><strong>docs</strong> (<em>Union</em><em>[</em><em>Iterable</em><em>[</em><em>Doc</em><em>]</em><em>,  </em><em>Doc</em><em>]</em>) – An iterable of spaCy Docs or a single Doc</p></li>
 <li><p><strong>metrics</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Which metrics to extract.
 One or more of [“descriptive_stats”, “readability”,
-“dependency_distance”, “pos_stats”]. Defaults to None in which
+“dependency_distance”, “pos_proportions”]. Defaults to None in which
 case it will extract metrics for which a pipeline compoenent has been
 set.</p></li>
 <li><p><strong>include_text</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to add a column containing the text.
@@ -308,7 +308,7 @@ list of dictionaries.</p>
 <li><p><strong>docs</strong> (<em>Union</em><em>[</em><em>Iterable</em><em>[</em><em>Doc</em><em>]</em><em>,  </em><em>Doc</em><em>]</em>) – An iterable of spaCy Docs or a single Doc</p></li>
 <li><p><strong>metrics</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Which metrics to extract.
 One or more of [“descriptive_stats”, “readability”,
-“dependency_distance”, “pos_stats”, “information_theory”].
+“dependency_distance”, “pos_proportions”, “information_theory”].
 Defaults to None in which case it will extract metrics for which a
 pipeline compoenent has been set.</p></li>
 <li><p><strong>include_text</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to add an entry containing the text.
