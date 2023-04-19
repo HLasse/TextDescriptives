@@ -76,7 +76,7 @@ def test_coherence_blank_pipe():
     # check that an exception is raised
     with pytest.raises(ValueError) as e:
         doc = nlp(text)  # noqa F841
-    assert "Sentence vectors are not available" in str(e.value)
+    assert "sentence boundary detector has not been" in str(e.value)
 
     # add a sentencizer
     nlp.add_pipe("sentencizer", before="textdescriptives/coherence")

@@ -252,6 +252,7 @@ def test_quality_component_with_config(nlp: spacy.Language):
         ),
         ("This test has many symbols #!@#$%^&*()_+.", False),
         ("- this is a text of \n - bullet points", False),
+        ("", False),  # test that it handles empty strings
     ],
 )
 def test_passed_quality_check(text: str, passed: bool, nlp: spacy.Language):
