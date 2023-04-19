@@ -151,7 +151,7 @@ def _create_spacy_pipeline(
 
     metrics_requiring_spacy_model = {
         "dependency_distance",
-        "pos_stats",
+        "pos_proportions",
         "coherence",
         "pos_proportions",
     }
