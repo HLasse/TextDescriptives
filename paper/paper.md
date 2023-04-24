@@ -48,15 +48,19 @@ Implementations of the majority of the metrics included in `TextDescriptives` ex
 # Features & Functionality
 
 `TextDescriptives` is a Python package and provides the following `spaCy` pipeline components:
-`textdescriptives.descriptive_stats`: Calculates the total number of tokens, number of unique tokens, number of characters, and the proportion of unique tokens, as well as the mean, median, and standard deviation of token length, sentence length, and the number of syllables per token.
-`textdescriptives.readability`: Calculates the Gunning-Fog index, the SMOG index, Flesch reading ease, Flesch-Kincaid grade, the Automated Readability Index, the Coleman-Liau index, the Lix score, and the Rix score.
-`textdescriptives.dependency_distance`: Calculates the mean and standard deviation of the dependency distance (the average distance between a word and its head word), and the mean and the standard deviation of the proportion adjacent dependency relations on the sentence level. 
-`textdescriptives.pos_proportions`: Calculates the proportions of all part-of-speech tags in the documents. 
-`textdescriptives.coherence`: Calculates the first- and second-order coherence of the document based on word embedding similarity between sentences.
-`textdescriptives.quality`: Calculates the text-quality metrics proposed in @rae_scaling_2022 and @raffel_exploring_2020. These measures can be used for filtering out low-quality text prior to model training or text analysis. These include heuristics such as the number of stop words, ratio of words containing alphabetic characters, proportion of lines ending with an ellipsis, proportion of lines starting with a bullet point, ratio of symbols to words, and whether the document contains a specified string (e.g. “lorem ipsum”), as well as repetitious text metrics such as the proportion of lines that are duplicates, the proportion of paragraphs in a document that are duplicates, the proportion of n-gram duplicates, and the proportion of characters in a document that are contained within the top n-grams. 
+
+- `textdescriptives.descriptive_stats`: Calculates the total number of tokens, number of unique tokens, number of characters, and the proportion of unique tokens, as well as the mean, median, and standard deviation of token length, sentence length, and the number of syllables per token.
+- `textdescriptives.readability`: Calculates the Gunning-Fog index, the SMOG index, Flesch reading ease, Flesch-Kincaid grade, the Automated Readability Index, the Coleman-Liau index, the Lix score, and the Rix score.
+-`textdescriptives.dependency_distance`: Calculates the mean and standard deviation of the dependency distance (the average distance between a word and its head word), and the mean and the standard deviation of the proportion adjacent dependency relations on the sentence level. 
+- `textdescriptives.pos_proportions`: Calculates the proportions of all part-of-speech tags in the documents. 
+- `textdescriptives.coherence`: Calculates the first- and second-order coherence of the document based on word embedding similarity between sentences.
+- `textdescriptives.information_theory`: Calculates the Shannon entropy and the perplexitiy of the documents.
+- `textdescriptives.quality`: Calculates the text-quality metrics proposed in @rae_scaling_2022 and @raffel_exploring_2020. These measures can be used for filtering out low-quality text prior to model training or text analysis. These include heuristics such as the number of stop words, ratio of words containing alphabetic characters, proportion of lines ending with an ellipsis, proportion of lines starting with a bullet point, ratio of symbols to words, and whether the document contains a specified string (e.g. “lorem ipsum”), as well as repetitious text metrics such as the proportion of lines that are duplicates, the proportion of paragraphs in a document that are duplicates, the proportion of n-gram duplicates, and the proportion of characters in a document that are contained within the top n-grams. 
 
 
-All the components can be added to an existing `spaCy` pipeline with a single line of code, and jointly extracted to a dataframe or dictionary with a single call to `textdescriptives.extract_{df|dict}(doc)`.
+All the components can be added to an existing `spaCy` pipeline with a single line of code, and jointly extracted to a dataframe or dictionary with a single call to `textdescriptives.extract_{df|dict}(doc)`. 
+
+To assist users who lack coding experience and to showcase the tool's capabilities, the core features of TextDescriptives are available as a web app on [https://huggingface.co/spaces/HLasse/textdescriptives](https://huggingface.co/spaces/HLasse/textdescriptives). With the web app, users can extract metrics from their own texts and download the results in a .csv file format.
 
 # Example Use Cases
 
