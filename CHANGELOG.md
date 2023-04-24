@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.4.6 (2023-04-24)
+### Fix
+* Bump version ([`b59cdd1`](https://github.com/HLasse/TextDescriptives/commit/b59cdd17379c7c8460accccbb569283a1f2c8717))
+
 ## v2.4.5 (2023-04-19)
 ### Fix
 * Dep dist. test ([`a3b54a6`](https://github.com/HLasse/TextDescriptives/commit/a3b54a6b3e3d57acc140b0f9afd72406a88104f8))
