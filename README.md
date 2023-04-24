@@ -79,7 +79,6 @@ td.extract_df(doc)
 
 
 
-
 # 📖 Documentation
 
 TextDescriptives has a detailed documentation as well as a series of Jupyter notebook tutorials.
