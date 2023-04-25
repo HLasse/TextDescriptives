@@ -1,33 +1,44 @@
-# This CITATION.cff file was generated with cffinit.
-# Visit https://bit.ly/cffinit to generate yours today!
-
-cff-version: 1.2.0
-title: "TextDescriptives: A Python package for calculating a large variety of statistics from text"
-message: "If you use this software, please cite it as below."
-type: software
+cff-version: "1.2.0"
 authors:
+- family-names: Hansen
+  given-names: Lasse
+  orcid: "https://orcid.org/0000-0003-1113-4779"
+- family-names: Olsen
+  given-names: Ludvig Renbo
+  orcid: "https://orcid.org/0009-0006-6798-7454"
+- family-names: Enevoldsen
+  given-names: Kenneth
+  orcid: "https://orcid.org/0000-0001-8733-0966"
+contact:
+- family-names: Hansen
+  given-names: Lasse
+  orcid: "https://orcid.org/0000-0003-1113-4779"
+doi: 10.5281/zenodo.7858731
+message: If you use this software, please cite our article in the
+  Journal of Open Source Software.
+preferred-citation:
+  authors:
   - family-names: Hansen
     given-names: Lasse
     orcid: "https://orcid.org/0000-0003-1113-4779"
+  - family-names: Olsen
+    given-names: Ludvig Renbo
+    orcid: "https://orcid.org/0009-0006-6798-7454"
   - family-names: Enevoldsen
     given-names: Kenneth
     orcid: "https://orcid.org/0000-0001-8733-0966"
-url: "https://github.com/HLasse/TextDescriptives"
-version: 2.4.3
-date-released: "2020-01-28"
-preferred-citation:
+  date-published: 2023-04-25
+  doi: 10.21105/joss.05153
+  issn: 2475-9066
+  issue: 84
+  journal: Journal of Open Source Software
+  publisher:
+    name: Open Journals
+  start: 5153
+  title: "TextDescriptives: A Python package for calculating a large
+    variety of metrics from text"
   type: article
-  authors:
-    - family-names: Hansen
-      given-names: Lasse
-      orcid: "https://orcid.org/0000-0003-1113-4779"
-    - family-names: Renbo Olsen
-      given-names: Ludvig
-      orcid: "https://orcid.org/0009-0006-6798-7454"
-    - family-names: Enevoldsen
-      given-names: Kenneth
-      orcid: "https://orcid.org/0000-0001-8733-0966"
-  doi: "10.48550/arxiv.2301.02057"
-  journal: arXiv
-  title: "TextDescriptives: A Python package for calculating a large variety of metrics from text"
-  year: 2023
+  url: "https://joss.theoj.org/papers/10.21105/joss.05153"
+  volume: 8
+title: "TextDescriptives: A Python package for calculating a large
+  variety of metrics from text"
