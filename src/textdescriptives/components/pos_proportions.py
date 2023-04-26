@@ -2,6 +2,7 @@
 
 from typing import Callable, Counter, Union
 
+import numpy as np
 from spacy.language import Language
 from spacy.tokens import Doc, Span
 
@@ -69,10 +70,11 @@ class POSProportions:
             pos_counts.update([token.pos_ for token in text])
         else:
             pos_counts.update([token.tag_ for token in text])
+        len_text = len(text)
         return {
             # subtract 1 from count to account for the instantiation of the counter
-            f"pos_prop_{tag}": (count - 1) / len(text)
-            for tag, count in pos_counts.items()
+            f"pos_prop_{tag}": (count - 1) / len(text) if len_text > 0 else np.nan
+            for tag, count in pos_counts.items() 
         }
 
     def __call__(self, doc):
@@ -125,4 +127,5 @@ def create_pos_proportions_component(
             + "a spaCy model which includes a 'tagger' or an 'attribute ruler' "
             + "component.",
         )
+    return POSProportions(nlp, use_pos=use_pos, add_all_tags=add_all_tags)
     return POSProportions(nlp, use_pos=use_pos, add_all_tags=add_all_tags)
