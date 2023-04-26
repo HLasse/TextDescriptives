@@ -74,7 +74,7 @@ class POSProportions:
         return {
             # subtract 1 from count to account for the instantiation of the counter
             f"pos_prop_{tag}": (count - 1) / len(text) if len_text > 0 else np.nan
-            for tag, count in pos_counts.items() 
+            for tag, count in pos_counts.items()
         }
 
     def __call__(self, doc):
