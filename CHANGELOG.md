@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.5.1 (2023-04-26)
+### Fix
+* Don't subtract 1 from counts if `add_all_tags` is False ([`02b61a6`](https://github.com/HLasse/TextDescriptives/commit/02b61a6358764af5901891e002bc4e3771c777c6))
+
 ## v2.5.0 (2023-04-26)
 ### Feature
 * Add proportions of all pos tags ([`664c0e8`](https://github.com/HLasse/TextDescriptives/commit/664c0e886a4ff075ea15ec08c9acf1e76a785477))
