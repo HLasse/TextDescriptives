@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v2.5.0 (2023-04-26)
+### Feature
+* Add proportions of all pos tags ([`664c0e8`](https://github.com/HLasse/TextDescriptives/commit/664c0e886a4ff075ea15ec08c9acf1e76a785477))
+
+### Fix
+* Listed metrics deviate between extraction functions in docs ([`4632407`](https://github.com/HLasse/TextDescriptives/commit/4632407bb5c02cb1a602e287b8e77918390214ca))
+* Handle empty strings in pos_proportions ([`762b7b2`](https://github.com/HLasse/TextDescriptives/commit/762b7b2f454eaeec214cf5c2421dab75a8ec95c4))
+
 ## v2.4.6 (2023-04-24)
 ### Fix
 * Bump version ([`b59cdd1`](https://github.com/HLasse/TextDescriptives/commit/b59cdd17379c7c8460accccbb569283a1f2c8717))

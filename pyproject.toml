@@ -1,6 +1,6 @@
 [project]
 name = "textdescriptives"
-version = "2.4.6"
+version = "2.5.0"
 description = "A library for calculating a variety of features from text using spaCy"
 authors = [{name = "Lasse Hansen", email = "lasseh0310@gmail.com"},
              {name = "Kenneth Enevoldsen"}]
