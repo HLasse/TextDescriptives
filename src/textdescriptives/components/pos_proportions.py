@@ -1,6 +1,6 @@
 """ Calculation of statistics that require a pos-tagger in the pipeline."""
 
-from typing import Callable, Counter, Union
+from typing import Callable, Counter, List, Union
 
 import numpy as np
 from spacy.language import Language
@@ -25,7 +25,9 @@ class POSProportions:
         """
         self.use_pos: bool = use_pos
         self.add_all_tags: bool = add_all_tags
-        self.model_tags = all_upos_tags if use_pos else nlp.meta["labels"]["tagger"]
+        self.model_tags: List[str] = (
+            all_upos_tags if use_pos else nlp.meta["labels"]["tagger"]
+        )
 
         if not Doc.has_extension("pos_proportions"):
             Doc.set_extension("pos_proportions", getter=self.pos_proportions)
@@ -43,6 +45,9 @@ class POSProportions:
         """
         if self.add_all_tags:
             pos_counts: Counter = Counter(self.model_tags)  # type: ignore
+            # reset all counts to 0
+            pos_counts.subtract(self.model_tags)
+
         else:
             pos_counts: Counter = Counter()  # type: ignore
 
@@ -52,8 +57,7 @@ class POSProportions:
             pos_counts.update([token.tag_ for token in text])
         len_text = len(text)
         return {
-            # subtract 1 from count to account for the instantiation of the counter
-            f"pos_prop_{tag}": (count - 1) / len(text) if len_text > 0 else np.nan
+            f"pos_prop_{tag}": count / len(text) if len_text > 0 else np.nan
             for tag, count in pos_counts.items()
         }
 
