@@ -14,7 +14,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Information Theory" href="information_theory.html" />
 
     <!-- Generated with Sphinx 6.2.1 and Furo 2023.03.27 -->
-        <title>Extractor - textdescriptives 2.4.6 documentation</title>
+        <title>Extractor - textdescriptives 2.5.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -141,7 +141,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">textdescriptives 2.4.6 documentation</div></a>
+      <a href="index.html"><div class="brand">textdescriptives 2.5.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -256,8 +256,9 @@ model is provided, will automatically download and use a spacy
 model for the language. Defaults to None.</p></li>
 <li><p><strong>metrics</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Which metrics to extract.
 One or more of [“descriptive_stats”, “readability”,
-“dependency_distance”, “pos_proportions”, “coherence”, “quality”]. If None,
-will extract all metrics from textdescriptives. Defaults to None.</p></li>
+“dependency_distance”, “pos_proportions”, “coherence”, “quality”,
+“information_theory”]. If None, will extract all metrics from
+textdescriptives. Defaults to None.</p></li>
 <li><p><strong>spacy_model_size</strong> (<em>str</em><em>, </em><em>optional</em>) – Size of the spacy model to download.</p></li>
 </ul>
 </dd>
@@ -281,7 +282,8 @@ from nlp.pipe to a Pandas DataFrame.</p>
 <li><p><strong>docs</strong> (<em>Union</em><em>[</em><em>Iterable</em><em>[</em><em>Doc</em><em>]</em><em>,  </em><em>Doc</em><em>]</em>) – An iterable of spaCy Docs or a single Doc</p></li>
 <li><p><strong>metrics</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Which metrics to extract.
 One or more of [“descriptive_stats”, “readability”,
-“dependency_distance”, “pos_proportions”]. Defaults to None in which
+“dependency_distance”, “pos_proportions”, “coherence”, “quality”,
+“information_theory”]. Defaults to None in which
 case it will extract metrics for which a pipeline compoenent has been
 set.</p></li>
 <li><p><strong>include_text</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to add a column containing the text.
@@ -308,9 +310,9 @@ list of dictionaries.</p>
 <li><p><strong>docs</strong> (<em>Union</em><em>[</em><em>Iterable</em><em>[</em><em>Doc</em><em>]</em><em>,  </em><em>Doc</em><em>]</em>) – An iterable of spaCy Docs or a single Doc</p></li>
 <li><p><strong>metrics</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – Which metrics to extract.
 One or more of [“descriptive_stats”, “readability”,
-“dependency_distance”, “pos_proportions”, “information_theory”].
-Defaults to None in which case it will extract metrics for which a
-pipeline compoenent has been set.</p></li>
+“dependency_distance”, “pos_proportions”, “coherence”, “quality”,
+“information_theory”]. Defaults to None in which case it will
+extract metrics for which a pipeline compoenent has been set.</p></li>
 <li><p><strong>include_text</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to add an entry containing the text.
 Defaults to True.</p></li>
 </ul>

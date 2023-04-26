@@ -7,14 +7,14 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="posstats.html" />
 <meta property="og:site_name" content="textdescriptives" />
-<meta property="og:description" content="The pos_proportions component adds one attribute to a Doc or Span:- Doc._.pos_proportions,- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. Does not create a key if no tokens..." />
+<meta property="og:description" content="The pos_proportions component adds one attribute to a Doc or Span:- Doc._.pos_proportions,- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. By default creates a key for each ..." />
 <meta property="og:image" content="/_images/social_previews/summary_posstats_1accbcb9.png" />
 <meta property="og:image:alt" content="The pos_proportions component adds one attribute to a Doc or Span:- Doc._.pos_proportions,- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POS..." />
-<meta name="description" content="The pos_proportions component adds one attribute to a Doc or Span:- Doc._.pos_proportions,- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. Does not create a key if no tokens..." />
+<meta name="description" content="The pos_proportions component adds one attribute to a Doc or Span:- Doc._.pos_proportions,- Dict of{pos_prop_POSTAG: proportion of all tokens tagged with POSTAG}. By default creates a key for each ..." />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Quality" href="quality.html" /><link rel="prev" title="Dependency Distance" href="dependencydistance.html" />
 
     <!-- Generated with Sphinx 6.2.1 and Furo 2023.03.27 -->
-        <title>Part-of-Speech Proportions - textdescriptives 2.4.6 documentation</title>
+        <title>Part-of-Speech Proportions - textdescriptives 2.5.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -141,7 +141,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">textdescriptives 2.4.6 documentation</div></a>
+      <a href="index.html"><div class="brand">textdescriptives 2.5.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -239,17 +239,18 @@
           <section id="part-of-speech-proportions">
 <h1>Part-of-Speech Proportions<a class="headerlink" href="#part-of-speech-proportions" title="Permalink to this heading">#</a></h1>
 <p>The <em>pos_proportions</em> component adds one attribute to a Doc or Span:</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt><code class="code docutils literal notranslate"><span class="pre">Doc._.pos_proportions</span></code></dt><dd><ul>
-<li><p>Dict of <code class="code docutils literal notranslate"><span class="pre">{pos_prop_POSTAG:</span> <span class="pre">proportion</span> <span class="pre">of</span> <span class="pre">all</span> <span class="pre">tokens</span> <span class="pre">tagged</span> <span class="pre">with</span> <span class="pre">POSTAG}</span></code>. Does not create a key if no tokens in the document fit the POSTAG.</p></li>
+<ul>
+<li><dl>
+<dt><code class="code docutils literal notranslate"><span class="pre">Doc._.pos_proportions</span></code></dt><dd><ul class="simple">
+<li><p>Dict of <code class="code docutils literal notranslate"><span class="pre">{pos_prop_POSTAG:</span> <span class="pre">proportion</span> <span class="pre">of</span> <span class="pre">all</span> <span class="pre">tokens</span> <span class="pre">tagged</span> <span class="pre">with</span> <span class="pre">POSTAG}</span></code>. By default creates a key for each possible POS tag. This behaviour can be turned off</p></li>
 </ul>
+<p>by setting <code class="code docutils literal notranslate"><span class="pre">add_all_tags=False</span></code> in the component’s initialization.</p>
 </dd>
 </dl>
 </li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">Span._.pos_proportions</span></code></p></li>
-<li><ul>
-<li><p>Dict of <code class="code docutils literal notranslate"><span class="pre">{pos_prop_POSTAG:</span> <span class="pre">proportion</span> <span class="pre">of</span> <span class="pre">all</span> <span class="pre">tokens</span> <span class="pre">tagged</span> <span class="pre">with</span> <span class="pre">POSTAG}</span></code>. Does not create a key if no tokens in the document fit the POSTAG.</p></li>
+<li><ul class="simple">
+<li><p>Dict of <code class="code docutils literal notranslate"><span class="pre">{pos_prop_POSTAG:</span> <span class="pre">proportion</span> <span class="pre">of</span> <span class="pre">all</span> <span class="pre">tokens</span> <span class="pre">tagged</span> <span class="pre">with</span> <span class="pre">POSTAG}</span></code>.</p></li>
 </ul>
 </li>
 </ul>
@@ -273,29 +274,45 @@
 <thead>
 <tr class="row-odd"><th class="head"></th>
 <th class="head"><p>text</p></th>
-<th class="head"><p>pos_prop_DET</p></th>
-<th class="head"><p>pos_prop_NOUN</p></th>
-<th class="head"><p>pos_prop_AUX</p></th>
-<th class="head"><p>pos_prop_VERB</p></th>
-<th class="head"><p>pos_prop_PUNCT</p></th>
-<th class="head"><p>pos_prop_PRON</p></th>
+<th class="head"><p>pos_prop_ADJ</p></th>
 <th class="head"><p>pos_prop_ADP</p></th>
 <th class="head"><p>pos_prop_ADV</p></th>
+<th class="head"><p>pos_prop_AUX</p></th>
+<th class="head"><p>pos_prop_CCONJ</p></th>
+<th class="head"><p>pos_prop_DET</p></th>
+<th class="head"><p>pos_prop_INTJ</p></th>
+<th class="head"><p>pos_prop_NOUN</p></th>
+<th class="head"><p>pos_prop_NUM</p></th>
+<th class="head"><p>pos_prop_PART</p></th>
+<th class="head"><p>pos_prop_PRON</p></th>
+<th class="head"><p>pos_prop_PROPN</p></th>
+<th class="head"><p>pos_prop_PUNCT</p></th>
 <th class="head"><p>pos_prop_SCONJ</p></th>
+<th class="head"><p>pos_prop_SYM</p></th>
+<th class="head"><p>pos_prop_VERB</p></th>
+<th class="head"><p>pos_prop_X</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>0</p></td>
 <td><p>The world is changed(…)</p></td>
+<td><p>0.0243902</p></td>
 <td><p>0.097561</p></td>
-<td><p>0.121951</p></td>
-<td><p>0.0731707</p></td>
-<td><p>0.170732</p></td>
-<td><p>0.146341</p></td>
-<td><p>0.195122</p></td>
-<td><p>0.0731707</p></td>
-<td><p>0.0731707</p></td>
 <td><p>0.0487805</p></td>
+<td><p>0.0731707</p></td>
+<td><p>0</p></td>
+<td><p>0.097561</p></td>
+<td><p>0</p></td>
+<td><p>0.121951</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0.195122</p></td>
+<td><p>0</p></td>
+<td><p>0.146341</p></td>
+<td><p>0.0243902</p></td>
+<td><p>0</p></td>
+<td><p>0.170732</p></td>
+<td><p>0</p></td>
 </tr>
 </tbody>
 </table>
@@ -306,7 +323,7 @@
 <h2>Component<a class="headerlink" href="#component" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="textdescriptives.components.pos_proportions.create_pos_proportions_component">
-<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.pos_proportions.</span></span><span class="sig-name descname"><span class="pre">create_pos_proportions_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/textdescriptives/components/pos_proportions.html#create_pos_proportions_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.pos_proportions.create_pos_proportions_component" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.pos_proportions.</span></span><span class="sig-name descname"><span class="pre">create_pos_proportions_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_all_tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/textdescriptives/components/pos_proportions.html#create_pos_proportions_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.pos_proportions.create_pos_proportions_component" title="Permalink to this definition">#</a></dt>
 <dd><p>Allows PosPropotions to be added to a spaCy pipe using
 nlp.add_pipe(“textdescriptives/pos_proportions”)</p>
 <dl class="simple">
