@@ -38,10 +38,10 @@ def extract_dict(
     Args:
         docs (Union[Iterable[Doc],  Doc]): An iterable of spaCy Docs or a single Doc
         metrics (Union[list[str], str, None], optional): Which metrics to extract.
-                One or more of ["descriptive_stats", "readability",
-                "dependency_distance", "pos_proportions", "information_theory"].
-                Defaults to None in which case it will extract metrics for which a
-                pipeline compoenent has been set.
+            One or more of ["descriptive_stats", "readability",
+            "dependency_distance", "pos_proportions", "coherence", "quality",
+            "information_theory"]. Defaults to None in which case it will
+            extract metrics for which a pipeline compoenent has been set.
         include_text (bool, optional): Whether to add an entry containing the text.
             Defaults to True.
 
@@ -94,10 +94,11 @@ def extract_df(
     Args:
         docs (Union[Iterable[Doc],  Doc]): An iterable of spaCy Docs or a single Doc
         metrics (Union[list[str], str], optional): Which metrics to extract.
-                One or more of ["descriptive_stats", "readability",
-                "dependency_distance", "pos_proportions"]. Defaults to None in which
-                case it will extract metrics for which a pipeline compoenent has been
-                set.
+            One or more of ["descriptive_stats", "readability",
+            "dependency_distance", "pos_proportions", "coherence", "quality",
+            "information_theory"]. Defaults to None in which
+            case it will extract metrics for which a pipeline compoenent has been
+            set.
         include_text (bool, optional): Whether to add a column containing the text.
             Defaults to True.
 
@@ -125,8 +126,9 @@ def extract_metrics(
             model for the language. Defaults to None.
         metrics (List[str]): Which metrics to extract.
             One or more of ["descriptive_stats", "readability",
-            "dependency_distance", "pos_proportions", "coherence", "quality"]. If None,
-            will extract all metrics from textdescriptives. Defaults to None.
+            "dependency_distance", "pos_proportions", "coherence", "quality",
+            "information_theory"]. If None, will extract all metrics from
+            textdescriptives. Defaults to None.
         spacy_model_size (str, optional): Size of the spacy model to download.
 
     Returns:
