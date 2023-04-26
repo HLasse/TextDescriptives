@@ -16,15 +16,31 @@ class POSProportions:
         Args:
             use_pos: If True, uses the simple POS tag. If False, uses the detailed
                 universal POS tag.
-            add_all_tags: If True, returns proportions of all possible POS tags. 
-                If False, only returns proportions for the POS tags present in the 
+            add_all_tags: If True, returns proportions of all possible POS tags.
+                If False, only returns proportions for the POS tags present in the
                 text.
         """
-        self.use_pos = use_pos
-        self.add_all_tags = add_all_tags
-        self.all_upos_tags = ["ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ",
-                              "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT",
-                              "SCONJ", "SYM", "VERB", "X"]
+        self.use_pos: bool = use_pos
+        self.add_all_tags: bool = add_all_tags
+        self.all_upos_tags = [
+            "ADJ",
+            "ADP",
+            "ADV",
+            "AUX",
+            "CCONJ",
+            "DET",
+            "INTJ",
+            "NOUN",
+            "NUM",
+            "PART",
+            "PRON",
+            "PROPN",
+            "PUNCT",
+            "SCONJ",
+            "SYM",
+            "VERB",
+            "X",
+        ]
         self.all_model_tags = nlp.meta["labels"]["tagger"]
 
         if not Doc.has_extension("pos_proportions"):
@@ -39,15 +55,15 @@ class POSProportions:
 
         Returns:
             Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with
-                POSTAG. 
+                POSTAG.
         """
         if self.add_all_tags:
             if self.use_pos:
-                pos_counts = Counter(self.all_upos_tags)
+                pos_counts: Counter = Counter(self.all_upos_tags)  # type: ignore
             else:
-                pos_counts = Counter(self.all_model_tags)
+                pos_counts: Counter = Counter(self.all_model_tags)  # type: ignore
         else:
-            pos_counts: Counter = Counter()
+            pos_counts: Counter = Counter()  # type: ignore
 
         if self.use_pos:
             pos_counts.update([token.pos_ for token in text])
@@ -55,7 +71,8 @@ class POSProportions:
             pos_counts.update([token.tag_ for token in text])
         return {
             # subtract 1 from count to account for the instantiation of the counter
-            "pos_prop_" + tag: (count - 1) / len(text) for tag, count in pos_counts.items()
+            f"pos_prop_{tag}": (count - 1) / len(text)
+            for tag, count in pos_counts.items()
         }
 
     def __call__(self, doc):
