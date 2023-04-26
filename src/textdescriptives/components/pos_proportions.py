@@ -6,6 +6,8 @@ import numpy as np
 from spacy.language import Language
 from spacy.tokens import Doc, Span
 
+from textdescriptives.components.utils import all_upos_tags
+
 
 class POSProportions:
     """spaCy v.3.0 component that adds attributes for POS statistics to `Doc`
@@ -23,26 +25,7 @@ class POSProportions:
         """
         self.use_pos: bool = use_pos
         self.add_all_tags: bool = add_all_tags
-        self.all_upos_tags = [
-            "ADJ",
-            "ADP",
-            "ADV",
-            "AUX",
-            "CCONJ",
-            "DET",
-            "INTJ",
-            "NOUN",
-            "NUM",
-            "PART",
-            "PRON",
-            "PROPN",
-            "PUNCT",
-            "SCONJ",
-            "SYM",
-            "VERB",
-            "X",
-        ]
-        self.all_model_tags = nlp.meta["labels"]["tagger"]
+        self.model_tags = all_upos_tags if use_pos else nlp.meta["labels"]["tagger"]
 
         if not Doc.has_extension("pos_proportions"):
             Doc.set_extension("pos_proportions", getter=self.pos_proportions)
@@ -59,10 +42,7 @@ class POSProportions:
                 POSTAG.
         """
         if self.add_all_tags:
-            if self.use_pos:
-                pos_counts: Counter = Counter(self.all_upos_tags)  # type: ignore
-            else:
-                pos_counts: Counter = Counter(self.all_model_tags)  # type: ignore
+            pos_counts: Counter = Counter(self.model_tags)  # type: ignore
         else:
             pos_counts: Counter = Counter()  # type: ignore
 
@@ -127,5 +107,4 @@ def create_pos_proportions_component(
             + "a spaCy model which includes a 'tagger' or an 'attribute ruler' "
             + "component.",
         )
-    return POSProportions(nlp, use_pos=use_pos, add_all_tags=add_all_tags)
     return POSProportions(nlp, use_pos=use_pos, add_all_tags=add_all_tags)
