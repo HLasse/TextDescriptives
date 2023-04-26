@@ -229,7 +229,7 @@
           <h1>Source code for textdescriptives.components.pos_proportions</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; Calculation of statistics that require a pos-tagger in the pipeline.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
@@ -254,7 +254,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_pos</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">use_pos</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_all_tags</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">add_all_tags</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">model_tags</span> <span class="o">=</span> <span class="n">all_upos_tags</span> <span class="k">if</span> <span class="n">use_pos</span> <span class="k">else</span> <span class="n">nlp</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">][</span><span class="s2">&quot;tagger&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">all_upos_tags</span> <span class="k">if</span> <span class="n">use_pos</span> <span class="k">else</span> <span class="n">nlp</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">][</span><span class="s2">&quot;tagger&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Doc</span><span class="o">.</span><span class="n">has_extension</span><span class="p">(</span><span class="s2">&quot;pos_proportions&quot;</span><span class="p">):</span>
             <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="s2">&quot;pos_proportions&quot;</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_proportions</span><span class="p">)</span>
@@ -272,6 +274,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_all_tags</span><span class="p">:</span>
             <span class="n">pos_counts</span><span class="p">:</span> <span class="n">Counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_tags</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+            <span class="c1"># reset all counts to 0</span>
+            <span class="n">pos_counts</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_tags</span><span class="p">)</span>
+
         <span class="k">else</span><span class="p">:</span>
             <span class="n">pos_counts</span><span class="p">:</span> <span class="n">Counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
 
@@ -281,8 +286,7 @@
             <span class="n">pos_counts</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">token</span><span class="o">.</span><span class="n">tag_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">text</span><span class="p">])</span>
         <span class="n">len_text</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="c1"># subtract 1 from count to account for the instantiation of the counter</span>
-            <span class="sa">f</span><span class="s2">&quot;pos_prop_</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">if</span> <span class="n">len_text</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="sa">f</span><span class="s2">&quot;pos_prop_</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">count</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">if</span> <span class="n">len_text</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
             <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">pos_counts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="p">}</span>
 
