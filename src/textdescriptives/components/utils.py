@@ -35,3 +35,24 @@ def n_syllables(doc: Doc):
         return max(1, word_hyphenated.count("-") + 1)
 
     return [count_syl(token) for token in filter_tokens(doc)]
+
+
+all_upos_tags = [
+    "ADJ",
+    "ADP",
+    "ADV",
+    "AUX",
+    "CCONJ",
+    "DET",
+    "INTJ",
+    "NOUN",
+    "NUM",
+    "PART",
+    "PRON",
+    "PROPN",
+    "PUNCT",
+    "SCONJ",
+    "SYM",
+    "VERB",
+    "X",
+]
