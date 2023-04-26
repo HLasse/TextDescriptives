@@ -10,14 +10,22 @@ class POSProportions:
     """spaCy v.3.0 component that adds attributes for POS statistics to `Doc`
     and `Span` objects."""
 
-    def __init__(self, nlp: Language, use_pos: bool):
+    def __init__(self, nlp: Language, use_pos: bool, add_all_tags: bool):
         """Initialise components.
 
         Args:
             use_pos: If True, uses the simple POS tag. If False, uses the detailed
                 universal POS tag.
+            add_all_tags: If True, returns proportions of all possible POS tags. 
+                If False, only returns proportions for the POS tags present in the 
+                text.
         """
         self.use_pos = use_pos
+        self.add_all_tags = add_all_tags
+        self.all_upos_tags = ["ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ",
+                              "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT",
+                              "SCONJ", "SYM", "VERB", "X"]
+        self.all_model_tags = nlp.meta["labels"]["tagger"]
 
         if not Doc.has_extension("pos_proportions"):
             Doc.set_extension("pos_proportions", getter=self.pos_proportions)
@@ -31,19 +39,24 @@ class POSProportions:
 
         Returns:
             Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with
-                POSTAG. Does not create a key if no tokens in the document fit the
-                POSTAG.
+                POSTAG. 
         """
-        pos_counts: Counter = Counter()
+        if self.add_all_tags:
+            if self.use_pos:
+                pos_counts = Counter(self.all_upos_tags)
+            else:
+                pos_counts = Counter(self.all_model_tags)
+        else:
+            pos_counts: Counter = Counter()
+
         if self.use_pos:
             pos_counts.update([token.pos_ for token in text])
         else:
             pos_counts.update([token.tag_ for token in text])
-        pos_proportions = {
-            "pos_prop_" + tag: count / len(text) for tag, count in pos_counts.items()
+        return {
+            # subtract 1 from count to account for the instantiation of the counter
+            "pos_prop_" + tag: (count - 1) / len(text) for tag, count in pos_counts.items()
         }
-
-        return pos_proportions
 
     def __call__(self, doc):
         """Run the pipeline component."""
@@ -53,12 +66,13 @@ class POSProportions:
 @Language.factory(
     "textdescriptives/pos_proportions",
     assigns=["doc._.pos_proportions", "span._.pos_proportions"],
-    default_config={"use_pos": True},
+    default_config={"use_pos": True, "add_all_tags": True},
 )
 def create_pos_proportions_component(
     nlp: Language,
     name: str,
     use_pos: bool,
+    add_all_tags: bool,
 ) -> Callable[[Doc], Doc]:
     """Allows PosPropotions to be added to a spaCy pipe using
     nlp.add_pipe("textdescriptives/pos_proportions")
@@ -94,4 +108,4 @@ def create_pos_proportions_component(
             + "a spaCy model which includes a 'tagger' or an 'attribute ruler' "
             + "component.",
         )
-    return POSProportions(nlp, use_pos=use_pos)
+    return POSProportions(nlp, use_pos=use_pos, add_all_tags=add_all_tags)
