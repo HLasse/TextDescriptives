@@ -71,8 +71,8 @@ tutorials = [
     "jupyter",
     "seaborn",
     "matplotlib",
-    "datasets>=2.8.0,
-    "scikit-learn">=1.1.0,
+    "datasets>=2.8.0",
+    "scikit-learn>=1.1.0",
 ]
 
 [project.readme]

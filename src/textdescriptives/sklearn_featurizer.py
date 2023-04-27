@@ -1,6 +1,5 @@
 from typing import Iterable, List, Optional
 
-import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 from wasabi import msg
@@ -106,5 +105,3 @@ class TextDescriptivesFeaturizer(TransformerMixin, BaseEstimator):
         """Get the names of the extracted features. input_features is only
         present for API compatibility with sklearn."""
         return self.feature_names
-
-
