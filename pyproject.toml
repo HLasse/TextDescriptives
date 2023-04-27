@@ -74,6 +74,9 @@ tutorials = [
     "datasets>=2.8.0",
     "scikit-learn>=1.0.1",
 ]
+sklearn = [
+    "scikit-learn>=1.0.1",
+]
 
 [project.readme]
 file = "README.md"
