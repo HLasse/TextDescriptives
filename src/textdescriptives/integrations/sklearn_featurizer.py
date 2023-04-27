@@ -9,7 +9,7 @@ except ImportError as e:
         "Failed to import sklearn. If you want to use the sklearn integration, "
         + "please install it with `pip install scikit-learn` or install "
         + "textdescriptives with the [sklearn] extra: "
-        + "pip install textdescriptives[sklearn]."
+        + "pip install textdescriptives[sklearn].",
     ) from e
 from wasabi import msg
 
