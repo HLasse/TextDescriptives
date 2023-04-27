@@ -1,7 +1,16 @@
 from typing import Iterable, List, Optional
 
 import pandas as pd
-from sklearn.base import BaseEstimator, TransformerMixin
+
+try:
+    from sklearn.base import BaseEstimator, TransformerMixin
+except ImportError as e:
+    raise ImportError(
+        "Failed to import sklearn. If you want to use the sklearn integration, "
+        + "please install it with `pip install scikit-learn` or install "
+        + "textdescriptives with the [sklearn] extra: "
+        + "pip install textdescriptives[sklearn]."
+    ) from e
 from wasabi import msg
 
 from textdescriptives import extract_metrics
@@ -104,4 +113,5 @@ class TextDescriptivesFeaturizer(TransformerMixin, BaseEstimator):
     def get_feature_names_out(self, input_features=None) -> List[str]:
         """Get the names of the extracted features. input_features is only
         present for API compatibility with sklearn."""
+        return self.feature_names
         return self.feature_names
