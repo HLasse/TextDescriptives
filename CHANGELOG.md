@@ -2,6 +2,15 @@
 
 <!--next-version-placeholder-->
 
+## v2.6.0 (2023-04-28)
+### Feature
+* Add sklearn transformer ([`be733c6`](https://github.com/HLasse/TextDescriptives/commit/be733c6161993deb6e284475224d6363c99a8962))
+
+### Documentation
+* Add sklearn to requirements in docs ([`33194c9`](https://github.com/HLasse/TextDescriptives/commit/33194c937803acdd2abb4198b97ead3981958fd1))
+* Minor docstring changes ([`375d3e0`](https://github.com/HLasse/TextDescriptives/commit/375d3e03a8792b54f5dfd6080e27ca34925628c3))
+* Add sklearn tutorial ([`4220072`](https://github.com/HLasse/TextDescriptives/commit/42200725c2c89c738a07fffdc1b8f7b6d111fc6c))
+
 ## v2.5.1 (2023-04-26)
 ### Fix
 * Don't subtract 1 from counts if `add_all_tags` is False ([`02b61a6`](https://github.com/HLasse/TextDescriptives/commit/02b61a6358764af5901891e002bc4e3771c777c6))
