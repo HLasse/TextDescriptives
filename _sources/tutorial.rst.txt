@@ -11,4 +11,5 @@ locally.
 
    tutorials/introductory_tutorial.ipynb
    tutorials/filter_corpus_using_quality.ipynb
+   tutorials/sklearn_integration.ipynb
 

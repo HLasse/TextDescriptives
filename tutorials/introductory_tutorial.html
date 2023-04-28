@@ -184,6 +184,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorial.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Introductory Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html">Filtering corpora using Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn_integration.html">Scikit-learn Integration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../news.html">News and Changelog</a></li>
@@ -389,16 +390,16 @@ Name: label, dtype: int64
       <th>lix</th>
       <th>rix</th>
       <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
       <th>syllables_per_token_std</th>
       <th>n_tokens</th>
       <th>n_unique_tokens</th>
       <th>proportion_unique_tokens</th>
       <th>n_characters</th>
       <th>n_sentences</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
@@ -415,16 +416,16 @@ Name: label, dtype: int64
       <td>15.000000</td>
       <td>0.5</td>
       <td>...</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>1.250000</td>
+      <td>1.0</td>
       <td>0.433013</td>
       <td>20</td>
       <td>20</td>
       <td>1.000000</td>
       <td>92</td>
       <td>2</td>
-      <td>2.333333</td>
-      <td>0.833333</td>
-      <td>0.388889</td>
-      <td>0.055556</td>
     </tr>
     <tr>
       <th>1</th>
@@ -439,16 +440,16 @@ Name: label, dtype: int64
       <td>3.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.166667</td>
+      <td>1.0</td>
       <td>0.372678</td>
       <td>6</td>
       <td>6</td>
       <td>1.000000</td>
       <td>24</td>
       <td>2</td>
-      <td>1.333333</td>
-      <td>0.666667</td>
-      <td>0.433333</td>
-      <td>0.233333</td>
     </tr>
     <tr>
       <th>2</th>
@@ -463,16 +464,16 @@ Name: label, dtype: int64
       <td>28.285714</td>
       <td>2.0</td>
       <td>...</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>1.178571</td>
+      <td>1.0</td>
       <td>0.382993</td>
       <td>28</td>
       <td>24</td>
       <td>0.857143</td>
       <td>128</td>
       <td>2</td>
-      <td>2.516807</td>
-      <td>0.659664</td>
-      <td>0.521008</td>
-      <td>0.050420</td>
     </tr>
     <tr>
       <th>3</th>
@@ -487,16 +488,16 @@ Name: label, dtype: int64
       <td>14.590909</td>
       <td>0.5</td>
       <td>...</td>
+      <td>5.5</td>
+      <td>0.5</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>11</td>
       <td>9</td>
       <td>0.818182</td>
       <td>39</td>
       <td>2</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
     </tr>
     <tr>
       <th>4</th>
@@ -511,16 +512,16 @@ Name: label, dtype: int64
       <td>13.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>13.0</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>13</td>
       <td>12</td>
       <td>0.923077</td>
       <td>49</td>
       <td>1</td>
-      <td>2.066667</td>
-      <td>0.000000</td>
-      <td>0.400000</td>
-      <td>0.000000</td>
     </tr>
   </tbody>
 </table>
@@ -552,7 +553,7 @@ Name: label, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f5a70e3d000&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f4bf1d9c6d0&gt;
 </pre></div>
 </div>
 </div>
@@ -612,16 +613,16 @@ Name: label, dtype: int64
       <th>lix</th>
       <th>rix</th>
       <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
       <th>syllables_per_token_std</th>
       <th>n_tokens</th>
       <th>n_unique_tokens</th>
       <th>proportion_unique_tokens</th>
       <th>n_characters</th>
       <th>n_sentences</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
@@ -638,16 +639,16 @@ Name: label, dtype: int64
       <td>15.000000</td>
       <td>0.5</td>
       <td>...</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>1.250000</td>
+      <td>1.0</td>
       <td>0.433013</td>
       <td>20</td>
       <td>20</td>
       <td>1.000000</td>
       <td>92</td>
       <td>2</td>
-      <td>2.333333</td>
-      <td>0.833333</td>
-      <td>0.388889</td>
-      <td>0.055556</td>
     </tr>
     <tr>
       <th>1</th>
@@ -662,16 +663,16 @@ Name: label, dtype: int64
       <td>3.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.166667</td>
+      <td>1.0</td>
       <td>0.372678</td>
       <td>6</td>
       <td>6</td>
       <td>1.000000</td>
       <td>24</td>
       <td>2</td>
-      <td>1.333333</td>
-      <td>0.666667</td>
-      <td>0.433333</td>
-      <td>0.233333</td>
     </tr>
     <tr>
       <th>2</th>
@@ -686,16 +687,16 @@ Name: label, dtype: int64
       <td>28.285714</td>
       <td>2.0</td>
       <td>...</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>1.178571</td>
+      <td>1.0</td>
       <td>0.382993</td>
       <td>28</td>
       <td>24</td>
       <td>0.857143</td>
       <td>128</td>
       <td>2</td>
-      <td>2.516807</td>
-      <td>0.659664</td>
-      <td>0.521008</td>
-      <td>0.050420</td>
     </tr>
     <tr>
       <th>3</th>
@@ -710,16 +711,16 @@ Name: label, dtype: int64
       <td>14.590909</td>
       <td>0.5</td>
       <td>...</td>
+      <td>5.5</td>
+      <td>0.5</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>11</td>
       <td>9</td>
       <td>0.818182</td>
       <td>39</td>
       <td>2</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
     </tr>
     <tr>
       <th>4</th>
@@ -734,16 +735,16 @@ Name: label, dtype: int64
       <td>13.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>13.0</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>13</td>
       <td>12</td>
       <td>0.923077</td>
       <td>49</td>
       <td>1</td>
-      <td>2.066667</td>
-      <td>0.000000</td>
-      <td>0.400000</td>
-      <td>0.000000</td>
     </tr>
   </tbody>
 </table>

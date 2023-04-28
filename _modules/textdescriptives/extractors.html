@@ -175,6 +175,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/filter_corpus_using_quality.html">Filtering corpora using Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/sklearn_integration.html">Scikit-learn Integration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../news.html">News and Changelog</a></li>
@@ -348,8 +349,6 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        text (Union[str, List[str]]): A text or a list of texts.</span>
-<span class="sd">        spacy_model (str, optional): The spacy model to use. If not set,</span>
-<span class="sd">            will download one based on lang. Defaults to None.</span>
 <span class="sd">        lang (str, optional): Language of the text. If lang is set and no spacy</span>
 <span class="sd">            model is provided, will automatically download and use a spacy</span>
 <span class="sd">            model for the language. Defaults to None.</span>
@@ -358,6 +357,8 @@
 <span class="sd">            &quot;dependency_distance&quot;, &quot;pos_proportions&quot;, &quot;coherence&quot;, &quot;quality&quot;,</span>
 <span class="sd">            &quot;information_theory&quot;]. If None, will extract all metrics from</span>
 <span class="sd">            textdescriptives. Defaults to None.</span>
+<span class="sd">        spacy_model (str, optional): The spacy model to use. If not set,</span>
+<span class="sd">            will download one based on lang. Defaults to None.</span>
 <span class="sd">        spacy_model_size (str, optional): Size of the spacy model to download.</span>
 
 <span class="sd">    Returns:</span>

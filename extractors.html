@@ -184,6 +184,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/filter_corpus_using_quality.html">Filtering corpora using Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/sklearn_integration.html">Scikit-learn Integration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="news.html">News and Changelog</a></li>
@@ -249,8 +250,6 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>text</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A text or a list of texts.</p></li>
-<li><p><strong>spacy_model</strong> (<em>str</em><em>, </em><em>optional</em>) – The spacy model to use. If not set,
-will download one based on lang. Defaults to None.</p></li>
 <li><p><strong>lang</strong> (<em>str</em><em>, </em><em>optional</em>) – Language of the text. If lang is set and no spacy
 model is provided, will automatically download and use a spacy
 model for the language. Defaults to None.</p></li>
@@ -259,6 +258,8 @@ One or more of [“descriptive_stats”, “readability”,
 “dependency_distance”, “pos_proportions”, “coherence”, “quality”,
 “information_theory”]. If None, will extract all metrics from
 textdescriptives. Defaults to None.</p></li>
+<li><p><strong>spacy_model</strong> (<em>str</em><em>, </em><em>optional</em>) – The spacy model to use. If not set,
+will download one based on lang. Defaults to None.</p></li>
 <li><p><strong>spacy_model_size</strong> (<em>str</em><em>, </em><em>optional</em>) – Size of the spacy model to download.</p></li>
 </ul>
 </dd>
