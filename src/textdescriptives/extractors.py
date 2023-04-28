@@ -119,8 +119,6 @@ def extract_metrics(
 
     Args:
         text (Union[str, List[str]]): A text or a list of texts.
-        spacy_model (str, optional): The spacy model to use. If not set,
-            will download one based on lang. Defaults to None.
         lang (str, optional): Language of the text. If lang is set and no spacy
             model is provided, will automatically download and use a spacy
             model for the language. Defaults to None.
@@ -129,6 +127,8 @@ def extract_metrics(
             "dependency_distance", "pos_proportions", "coherence", "quality",
             "information_theory"]. If None, will extract all metrics from
             textdescriptives. Defaults to None.
+        spacy_model (str, optional): The spacy model to use. If not set,
+            will download one based on lang. Defaults to None.
         spacy_model_size (str, optional): Size of the spacy model to download.
 
     Returns:
