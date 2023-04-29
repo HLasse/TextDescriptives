@@ -7,11 +7,10 @@
 [![spacy](https://img.shields.io/badge/built%20with-spaCy-09a3d5.svg)](https://spacy.io)
 [![github actions pytest](https://github.com/hlasse/textdescriptives/actions/workflows/tests.yml/badge.svg)](https://github.com/hlasse/textdescriptives/actions)
 [![github actions docs](https://github.com/hlasse/textdescriptives/actions/workflows/documentation.yml/badge.svg)](https://hlasse.github.io/TextDescriptives/)
-[![arXiv](https://img.shields.io/badge/arXiv-2301.02057-b31b1b.svg)](https://arxiv.org/abs/2301.02057)
 [![status](https://joss.theoj.org/papers/06447337ee61969b5a64de484199df24/status.svg)](https://joss.theoj.org/papers/06447337ee61969b5a64de484199df24)
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://huggingface.co/spaces/HLasse/textdescriptives)
 
-A Python library for calculating a large variety of metrics from text(s) using spaCy v.3 pipeline components and extensions. TextDescriptives can be used to calculate several descriptive statistics, readability metrics, and metrics related to dependency distance. 
+A Python library for calculating a large variety of metrics from text(s) using spaCy v.3 pipeline components and extensions. 
 
 # 🔧 Installation
 `pip install textdescriptives`
