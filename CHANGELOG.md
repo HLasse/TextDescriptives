@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v2.6.1 (2023-05-03)
+### Fix
+* Updated dev. dependencies to not include upper bounds ([`48bedec`](https://github.com/HLasse/TextDescriptives/commit/48bedecfb9565b23c1cb11f52b0fd414d2554d01))
+
+### Documentation
+* Removed error from notebook ([`708d9d7`](https://github.com/HLasse/TextDescriptives/commit/708d9d72ed9f90e9da2840261173c6d6609fff3e))
+* Added description of readability scores ([`16cda18`](https://github.com/HLasse/TextDescriptives/commit/16cda18ce2742fd403822387a14ac10d109d649f))
+
 ## v2.6.0 (2023-04-28)
 ### Feature
 * Add sklearn transformer ([`be733c6`](https://github.com/HLasse/TextDescriptives/commit/be733c6161993deb6e284475224d6363c99a8962))
