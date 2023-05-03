@@ -3,10 +3,9 @@
 
 The *readability* component adds the following readabiltiy metrics under the `._.readability` attribute to `Doc` objects.
 
-Here are the descriptions added for the other readability metrics:
 
 
-* **[Gunning-Fog](https://en.wikipedia.org/wiki/Gunning_fog_index)**, is a readability index for English writing. The index estimates the years of formal education needed to understand the text on a first reading. A fog index of 12 requires the reading level of a U.S. high school senior (around 18 years old). The formula for calculating the index is:
+* **[Gunning-Fog](https://en.wikipedia.org/wiki/Gunning_fog_index)**, is a readability index originally developed for English writing, but works for any language. The index estimates the years of formal education needed to understand the text on a first reading. A Gunning-Fog index of 12 requires the reading level of a U.S. high school senior (around 18 years old). The formula for calculating the index is:
 
     *Grade level = 0.4 × (ASL + PHW)*
 
@@ -31,11 +30,11 @@ Here are the descriptions added for the other readability metrics:
 
     *ARI = 4.71 × (n_chars / n_words) + 0.5 × (n_words / n_sentences) - 21.43*
 
-* **[Coleman-Liau index](https://en.wikipedia.org/wiki/Coleman%E2%80%93Liau_index)**, is a readability test that estimates the U.S. grade level needed to understand a text. It is based on the average number of letters per 100 words and the average number of sentences per 100 words. The formula is:
+* **[Coleman-Liau index](https://en.wikipedia.org/wiki/Coleman%E2%80%93Liau_index)**, is a readability test that estimates the U.S. grade level needed to understand a text. It is based on the average number of letters per 100 words and the average number of sentences per 100 words. The original formula is:
 
     *CLI = 0.0588 × L - 0.296 × S - 15.8*
 
-    Where *L* is the average number of characters per 100 words and *S* is the average number of sentences per 100 words.
+    Where *L* is the average number of characters per 100 words and *S* is the average number of sentences per 100 words. In our implementation we average over the entire text instead of just 100 words.
 
 * **[Lix](https://en.wikipedia.org/wiki/Lix_(readability_test))**, or Lesbarhetsindex, is a readability measure that calculates a readability score based on the average sentence length and the percentage of long words (more than six characters) in the text. The formula is:
 
