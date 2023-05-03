@@ -79,7 +79,7 @@ html_static_path = ["_static"]
 
 html_show_sourcelink = True
 
-source_suffix = {".rst": "restructuredtext", ".md": "markdown", ".ipynb": "myst-nb"}
+source_suffix = {".rst": "restructuredtext", ".md": "myst-nb", ".ipynb": "myst-nb"}
 
 html_context = {
     "display_github": True,  # Add 'Edit on Github' link instead of 'View page source'
