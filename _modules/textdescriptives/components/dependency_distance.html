@@ -284,7 +284,7 @@
 <span class="sd">                Proportion of adjacent dependency relations</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dep_dists</span><span class="p">,</span> <span class="n">adj_deps</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
-            <span class="o">*</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">dependency_distance</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">span</span><span class="p">]</span>
+            <span class="o">*</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">dependency_distance</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">span</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;dependency_distance_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dep_dists</span><span class="p">),</span>
@@ -315,7 +315,7 @@
                 <span class="s2">&quot;prop_adjacent_dependency_relation_std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="n">dep_dists</span><span class="p">,</span> <span class="n">adj_deps</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
-            <span class="o">*</span><span class="p">[</span><span class="n">sent</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">dependency_distance</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">]</span>
+            <span class="o">*</span><span class="p">[</span><span class="n">sent</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">dependency_distance</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;dependency_distance_mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dep_dists</span><span class="p">),</span>
