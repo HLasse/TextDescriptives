@@ -54,7 +54,7 @@ class DependencyDistance:
                 Proportion of adjacent dependency relations
         """
         dep_dists, adj_deps = zip(
-            *[token._.dependency_distance.values() for token in span]
+            *[token._.dependency_distance.values() for token in span],
         )
         return {
             "dependency_distance_mean": np.mean(dep_dists),
@@ -85,7 +85,7 @@ class DependencyDistance:
                 "prop_adjacent_dependency_relation_std": np.nan,
             }
         dep_dists, adj_deps = zip(
-            *[sent._.dependency_distance.values() for sent in doc.sents]
+            *[sent._.dependency_distance.values() for sent in doc.sents],
         )
         return {
             "dependency_distance_mean": np.mean(dep_dists),
