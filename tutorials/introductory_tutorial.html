@@ -394,16 +394,16 @@ Name: count, dtype: int64
       <th>lix</th>
       <th>rix</th>
       <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
       <th>syllables_per_token_std</th>
       <th>n_tokens</th>
       <th>n_unique_tokens</th>
       <th>proportion_unique_tokens</th>
       <th>n_characters</th>
       <th>n_sentences</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
@@ -420,16 +420,16 @@ Name: count, dtype: int64
       <td>15.000000</td>
       <td>0.5</td>
       <td>...</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>1.250000</td>
+      <td>1.0</td>
       <td>0.433013</td>
       <td>20</td>
       <td>20</td>
       <td>1.000000</td>
       <td>92</td>
       <td>2</td>
-      <td>2.333333</td>
-      <td>0.833333</td>
-      <td>0.388889</td>
-      <td>0.055556</td>
     </tr>
     <tr>
       <th>1</th>
@@ -444,16 +444,16 @@ Name: count, dtype: int64
       <td>3.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.166667</td>
+      <td>1.0</td>
       <td>0.372678</td>
       <td>6</td>
       <td>6</td>
       <td>1.000000</td>
       <td>24</td>
       <td>2</td>
-      <td>1.333333</td>
-      <td>0.666667</td>
-      <td>0.433333</td>
-      <td>0.233333</td>
     </tr>
     <tr>
       <th>2</th>
@@ -468,16 +468,16 @@ Name: count, dtype: int64
       <td>28.285714</td>
       <td>2.0</td>
       <td>...</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>1.178571</td>
+      <td>1.0</td>
       <td>0.382993</td>
       <td>28</td>
       <td>24</td>
       <td>0.857143</td>
       <td>128</td>
       <td>2</td>
-      <td>2.516807</td>
-      <td>0.659664</td>
-      <td>0.521008</td>
-      <td>0.050420</td>
     </tr>
     <tr>
       <th>3</th>
@@ -492,16 +492,16 @@ Name: count, dtype: int64
       <td>14.590909</td>
       <td>0.5</td>
       <td>...</td>
+      <td>5.5</td>
+      <td>0.5</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>11</td>
       <td>9</td>
       <td>0.818182</td>
       <td>39</td>
       <td>2</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
     </tr>
     <tr>
       <th>4</th>
@@ -516,16 +516,16 @@ Name: count, dtype: int64
       <td>13.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>13.0</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>13</td>
       <td>12</td>
       <td>0.923077</td>
       <td>49</td>
       <td>1</td>
-      <td>2.066667</td>
-      <td>0.000000</td>
-      <td>0.400000</td>
-      <td>0.000000</td>
     </tr>
   </tbody>
 </table>
@@ -557,7 +557,7 @@ Name: count, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f76c8831330&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f6d72e778b0&gt;
 </pre></div>
 </div>
 </div>
@@ -617,16 +617,16 @@ Name: count, dtype: int64
       <th>lix</th>
       <th>rix</th>
       <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
       <th>syllables_per_token_std</th>
       <th>n_tokens</th>
       <th>n_unique_tokens</th>
       <th>proportion_unique_tokens</th>
       <th>n_characters</th>
       <th>n_sentences</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
@@ -643,16 +643,16 @@ Name: count, dtype: int64
       <td>15.000000</td>
       <td>0.5</td>
       <td>...</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>1.250000</td>
+      <td>1.0</td>
       <td>0.433013</td>
       <td>20</td>
       <td>20</td>
       <td>1.000000</td>
       <td>92</td>
       <td>2</td>
-      <td>2.333333</td>
-      <td>0.833333</td>
-      <td>0.388889</td>
-      <td>0.055556</td>
     </tr>
     <tr>
       <th>1</th>
@@ -667,16 +667,16 @@ Name: count, dtype: int64
       <td>3.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.166667</td>
+      <td>1.0</td>
       <td>0.372678</td>
       <td>6</td>
       <td>6</td>
       <td>1.000000</td>
       <td>24</td>
       <td>2</td>
-      <td>1.333333</td>
-      <td>0.666667</td>
-      <td>0.433333</td>
-      <td>0.233333</td>
     </tr>
     <tr>
       <th>2</th>
@@ -691,16 +691,16 @@ Name: count, dtype: int64
       <td>28.285714</td>
       <td>2.0</td>
       <td>...</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>1.178571</td>
+      <td>1.0</td>
       <td>0.382993</td>
       <td>28</td>
       <td>24</td>
       <td>0.857143</td>
       <td>128</td>
       <td>2</td>
-      <td>2.516807</td>
-      <td>0.659664</td>
-      <td>0.521008</td>
-      <td>0.050420</td>
     </tr>
     <tr>
       <th>3</th>
@@ -715,16 +715,16 @@ Name: count, dtype: int64
       <td>14.590909</td>
       <td>0.5</td>
       <td>...</td>
+      <td>5.5</td>
+      <td>0.5</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>11</td>
       <td>9</td>
       <td>0.818182</td>
       <td>39</td>
       <td>2</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
     </tr>
     <tr>
       <th>4</th>
@@ -739,16 +739,16 @@ Name: count, dtype: int64
       <td>13.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>13.0</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>13</td>
       <td>12</td>
       <td>0.923077</td>
       <td>49</td>
       <td>1</td>
-      <td>2.066667</td>
-      <td>0.000000</td>
-      <td>0.400000</td>
-      <td>0.000000</td>
     </tr>
   </tbody>
 </table>
@@ -785,7 +785,7 @@ Name: count, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/3dad8d84f0c431ab8ba841f2d3a70dd7babdf857fc6e3ab3dfd07d36862849e1.png" src="../_images/3dad8d84f0c431ab8ba841f2d3a70dd7babdf857fc6e3ab3dfd07d36862849e1.png" />
+<img alt="../_images/43619658a6dd7c0c0a6df00f7a188379281944a382d28e0fbdf4ca2baaefea68.png" src="../_images/43619658a6dd7c0c0a6df00f7a188379281944a382d28e0fbdf4ca2baaefea68.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -830,7 +830,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3a7d83219c2b45bb43d515462aaa6c3f953e9e4564bea5f0f06e0bfbcadaed5d.png" src="../_images/3a7d83219c2b45bb43d515462aaa6c3f953e9e4564bea5f0f06e0bfbcadaed5d.png" />
+<img alt="../_images/c666c0f4a691d623a4855ab8be3624aeee7ad7e7a96c432019f9e44dd66b3994.png" src="../_images/c666c0f4a691d623a4855ab8be3624aeee7ad7e7a96c432019f9e44dd66b3994.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found the distributions of e.g. the standard deviation of token length, the number of characters, and the number of unique tokens to be distributed differently between the actual SMS’s and spam.</p>
