@@ -33,14 +33,37 @@ jobs:
           token: ${{ secrets.RELEASE }}
 
       - name: Python Semantic Release
+        id: release
         uses: relekang/python-semantic-release@v8.0.0
         with:
           github_token: ${{ secrets.RELEASE }}
-          # Remember to copy the [semantic_release] section from pyproject.toml
-          # as well
-          # To enable pypi,
-          # 1) Set upload_to_pypi to true in  pyproject.toml and
-          # 2) Set the pypi_token in the repo
-          # 3) Uncomment the two lines below
-          repository_username: __token__
-          repository_password: ${{ secrets.PYPI_API_TOKEN }}
+          # root_options: "-vv"
+
+          # repository_username: __token__
+          # repository_password: ${{ secrets.PYPI_API_TOKEN }}
+
+      # https://github.com/pypa/gh-action-pypi-publish#specifying-a-different-username
+      # This will need converting to use trusted publishing at a later date
+      # see https://docs.pypi.org/trusted-publishers/
+      - name: Publish package distributions to PyPI
+        id: pypi-publish
+
+        # NOTE: DO NOT wrap the conditional in ${{ }} as it will always evaluate to true.
+        # See https://github.com/actions/runner/issues/1173
+        if: steps.release.outputs.released == 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Publish package distributions to GitHub Releases
+        id: github-release
+
+        # NOTE: DO NOT wrap the conditional in ${{ }} as it will always evaluate to true.
+        # See https://github.com/actions/runner/issues/1173
+        if: steps.release.outputs.released == 'true'
+        uses: python-semantic-release/upload-to-gh-release@main
+        with:
+          github_token: ${{ secrets.RELEASE }}
+          tag: ${{ steps.release.outputs.tag }}
