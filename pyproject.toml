@@ -121,7 +121,7 @@ exclude_lines = [
 [tool.semantic_release]
 branch = "main"
 version_variable = [
-    "pyproject.toml:version"
+    "pyproject.toml:project.version"
 ]
 build_command = "python -m pip install build; python -m build"
 
