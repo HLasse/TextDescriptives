@@ -16,14 +16,14 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Filtering corpora using Quality" href="filter_corpus_using_quality.html" /><link rel="prev" title="Tutorials" href="../tutorial.html" />
 
-    <!-- Generated with Sphinx 7.0.1 and Furo 2023.03.27 -->
+    <!-- Generated with Sphinx 7.1.0 and Furo 2023.03.27 -->
         <title>Introductory Tutorial - textdescriptives 2.6.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -394,16 +394,16 @@ Name: count, dtype: int64
       <th>lix</th>
       <th>rix</th>
       <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
       <th>syllables_per_token_std</th>
       <th>n_tokens</th>
       <th>n_unique_tokens</th>
       <th>proportion_unique_tokens</th>
       <th>n_characters</th>
       <th>n_sentences</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
@@ -420,16 +420,16 @@ Name: count, dtype: int64
       <td>15.000000</td>
       <td>0.5</td>
       <td>...</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>1.250000</td>
+      <td>1.0</td>
       <td>0.433013</td>
       <td>20</td>
       <td>20</td>
       <td>1.000000</td>
       <td>92</td>
       <td>2</td>
-      <td>2.333333</td>
-      <td>0.833333</td>
-      <td>0.388889</td>
-      <td>0.055556</td>
     </tr>
     <tr>
       <th>1</th>
@@ -444,16 +444,16 @@ Name: count, dtype: int64
       <td>3.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.166667</td>
+      <td>1.0</td>
       <td>0.372678</td>
       <td>6</td>
       <td>6</td>
       <td>1.000000</td>
       <td>24</td>
       <td>2</td>
-      <td>1.333333</td>
-      <td>0.666667</td>
-      <td>0.433333</td>
-      <td>0.233333</td>
     </tr>
     <tr>
       <th>2</th>
@@ -468,16 +468,16 @@ Name: count, dtype: int64
       <td>28.285714</td>
       <td>2.0</td>
       <td>...</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>1.178571</td>
+      <td>1.0</td>
       <td>0.382993</td>
       <td>28</td>
       <td>24</td>
       <td>0.857143</td>
       <td>128</td>
       <td>2</td>
-      <td>2.516807</td>
-      <td>0.659664</td>
-      <td>0.521008</td>
-      <td>0.050420</td>
     </tr>
     <tr>
       <th>3</th>
@@ -492,16 +492,16 @@ Name: count, dtype: int64
       <td>14.590909</td>
       <td>0.5</td>
       <td>...</td>
+      <td>5.5</td>
+      <td>0.5</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>11</td>
       <td>9</td>
       <td>0.818182</td>
       <td>39</td>
       <td>2</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
     </tr>
     <tr>
       <th>4</th>
@@ -516,16 +516,16 @@ Name: count, dtype: int64
       <td>13.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>13.0</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>13</td>
       <td>12</td>
       <td>0.923077</td>
       <td>49</td>
       <td>1</td>
-      <td>2.066667</td>
-      <td>0.000000</td>
-      <td>0.400000</td>
-      <td>0.000000</td>
     </tr>
   </tbody>
 </table>
@@ -557,7 +557,7 @@ Name: count, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f07e4b98c40&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f92ce2ac640&gt;
 </pre></div>
 </div>
 </div>
@@ -617,16 +617,16 @@ Name: count, dtype: int64
       <th>lix</th>
       <th>rix</th>
       <th>...</th>
+      <th>sentence_length_median</th>
+      <th>sentence_length_std</th>
+      <th>syllables_per_token_mean</th>
+      <th>syllables_per_token_median</th>
       <th>syllables_per_token_std</th>
       <th>n_tokens</th>
       <th>n_unique_tokens</th>
       <th>proportion_unique_tokens</th>
       <th>n_characters</th>
       <th>n_sentences</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
@@ -643,16 +643,16 @@ Name: count, dtype: int64
       <td>15.000000</td>
       <td>0.5</td>
       <td>...</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>1.250000</td>
+      <td>1.0</td>
       <td>0.433013</td>
       <td>20</td>
       <td>20</td>
       <td>1.000000</td>
       <td>92</td>
       <td>2</td>
-      <td>2.333333</td>
-      <td>0.833333</td>
-      <td>0.388889</td>
-      <td>0.055556</td>
     </tr>
     <tr>
       <th>1</th>
@@ -667,16 +667,16 @@ Name: count, dtype: int64
       <td>3.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.166667</td>
+      <td>1.0</td>
       <td>0.372678</td>
       <td>6</td>
       <td>6</td>
       <td>1.000000</td>
       <td>24</td>
       <td>2</td>
-      <td>1.333333</td>
-      <td>0.666667</td>
-      <td>0.433333</td>
-      <td>0.233333</td>
     </tr>
     <tr>
       <th>2</th>
@@ -691,16 +691,16 @@ Name: count, dtype: int64
       <td>28.285714</td>
       <td>2.0</td>
       <td>...</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>1.178571</td>
+      <td>1.0</td>
       <td>0.382993</td>
       <td>28</td>
       <td>24</td>
       <td>0.857143</td>
       <td>128</td>
       <td>2</td>
-      <td>2.516807</td>
-      <td>0.659664</td>
-      <td>0.521008</td>
-      <td>0.050420</td>
     </tr>
     <tr>
       <th>3</th>
@@ -715,16 +715,16 @@ Name: count, dtype: int64
       <td>14.590909</td>
       <td>0.5</td>
       <td>...</td>
+      <td>5.5</td>
+      <td>0.5</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>11</td>
       <td>9</td>
       <td>0.818182</td>
       <td>39</td>
       <td>2</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
     </tr>
     <tr>
       <th>4</th>
@@ -739,16 +739,16 @@ Name: count, dtype: int64
       <td>13.000000</td>
       <td>0.0</td>
       <td>...</td>
+      <td>13.0</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>1.0</td>
       <td>0.000000</td>
       <td>13</td>
       <td>12</td>
       <td>0.923077</td>
       <td>49</td>
       <td>1</td>
-      <td>2.066667</td>
-      <td>0.000000</td>
-      <td>0.400000</td>
-      <td>0.000000</td>
     </tr>
   </tbody>
 </table>
@@ -911,12 +911,12 @@ dtype: float64
       
     </aside>
   </div>
-</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/scripts/furo.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=29a4a701"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/scripts/furo.js?v=2c7c1115"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     </body>
 </html>
