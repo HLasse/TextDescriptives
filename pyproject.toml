@@ -50,7 +50,7 @@ documentation = "https://hlasse.github.io/TextDescriptives/"
 style = [
     "black==23.7.0",
     "pre-commit==3.3.3",
-    "ruff==0.0.286",
+    "ruff==0.0.291",
     "mypy==1.5.1"
 ]
 tests = [
