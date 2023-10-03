@@ -9,7 +9,7 @@ from .utils import filter_tokens, n_sentences, n_syllables, n_tokens
 
 
 class DescriptiveStatistics:
-    """spaCy v.3.0 component that adds attributes with desriptive statistics to
+    """spaCy v.3.0 component that adds attributes with descriptive statistics to
     `Doc` and `Span` objects.
 
     The attributes relate to token and sentence length, number of syllables, and
