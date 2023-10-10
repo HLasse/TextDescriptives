@@ -7,7 +7,10 @@ from spacy.language import Language
 from spacy.tokens import Doc
 from wasabi import msg
 
-from .descriptive_stats import create_descriptive_stats_component  # noqa
+from .descriptive_stats import (  # noqa
+    create_descriptive_stats_component,
+    language_exists_in_pyphen,
+)
 from .utils import filter_tokens
 
 
@@ -20,6 +23,8 @@ class Readability:
 
     def __init__(self, nlp: Language):
         """Initialise components."""
+        self.can_calculate_syllables = language_exists_in_pyphen(lang=nlp.lang)
+
         if not Doc.has_extension("readability"):
             Doc.set_extension("readability", getter=self.readability)
 
@@ -31,6 +36,9 @@ class Readability:
 
         Higher = easier to read
         """
+        if not self.can_calculate_syllables:
+            return np.nan
+
         avg_sentence_length = doc._.sentence_length["sentence_length_mean"]
         avg_syl_per_word = doc._.syllables["syllables_per_token_mean"]
         if avg_sentence_length == 0 or avg_syl_per_word == 0:
@@ -44,6 +52,9 @@ class Readability:
 
         0.39 * (avg sent len) + 11.8 * (avg_syl_per_word) - 15.59
         """
+        if not self.can_calculate_syllables:
+            return np.nan
+
         avg_sentence_length = doc._.sentence_length["sentence_length_mean"]
         avg_syl_per_word = doc._.syllables["syllables_per_token_mean"]
         if avg_sentence_length == 0 or avg_syl_per_word == 0:
@@ -60,6 +71,9 @@ class Readability:
         Where hard words are words with 3 or more syllables.
         Preferably need 30+ sentences. Will not work with less than 4
         """
+        if not self.can_calculate_syllables:
+            return np.nan
+
         n_sentences = doc._._n_sentences
         if n_sentences >= 3:
             smog = (1.043 * (30 * (n_hard_words / n_sentences)) ** 0.5) + 3.1291
@@ -74,6 +88,9 @@ class Readability:
 
         Where hard words are word with 3 or more syllables.
         """
+        if not self.can_calculate_syllables:
+            return np.nan
+
         n_tokens = doc._._n_tokens
         if n_tokens == 0:
             return np.nan
@@ -139,7 +156,11 @@ class Readability:
 
     def readability(self, doc: Doc) -> Dict[str, float]:
         """Apply readability functions and return a dict of the results."""
-        hard_words = len([syllable for syllable in doc._._n_syllables if syllable >= 3])
+        hard_words = (
+            len([syllable for syllable in doc._._n_syllables if syllable >= 3])
+            if self.can_calculate_syllables
+            else 0
+        )
         long_words = len([t for t in filter_tokens(doc) if len(t) > 6])
 
         return {
