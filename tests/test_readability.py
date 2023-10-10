@@ -1,24 +1,27 @@
+import warnings
+
 import ftfy
 import numpy as np
 import pytest
+import spacy
 from spacy.lang.en import English
+
+from textdescriptives.utils import _remove_textdescriptives_extensions  # noqa: F401
 
 from .books import (
     flatland,
     grade_1,
-    grade_10,
-    grade_12,
-    grade_14,
     grade_2,
     grade_3,
     grade_4,
     grade_6,
     grade_8,
+    grade_10,
+    grade_12,
+    grade_14,
     oliver_twist,
     secret_garden,
 )
-import textdescriptives as td  # noqa: F401
-import warnings
 
 
 @pytest.fixture(scope="function")
@@ -208,3 +211,15 @@ def test_readability_multi_process(nlp):
     docs = nlp.pipe(texts, n_process=3)
     for doc in docs:
         assert doc._.readability
+
+
+def test_language_not_in_pyphen():
+    # need to add this to not inherit the Doc state (so much state!)
+    # without it, the test works fine if run alone, but breaks if run with other tests
+    _remove_textdescriptives_extensions()
+
+    nlp = spacy.blank("fi")
+    nlp.add_pipe("textdescriptives/readability")
+    doc = nlp("Tämä on suomenkielinen lause.")
+
+    assert np.isnan(doc._.readability["flesch_reading_ease"])
