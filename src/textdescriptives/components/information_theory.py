@@ -3,7 +3,7 @@
 from typing import Callable, Dict, Union
 
 import numpy as np
-from spacy import Language
+from spacy.language import Language
 from spacy.lookups import load_lookups
 from spacy.tokens import Doc, Span
 from spacy.vocab import Vocab
@@ -85,6 +85,7 @@ def set_entropy_and_perplexity(doc: Union[Doc, Span]) -> None:
     doc._.entropy = entropy_getter(doc)
     doc._.perplexity = perplexity_getter(doc)
     doc._.per_word_perplexity = per_word_perplexity_getter(doc)
+
 
 def set_entropy_and_perplexity_to_nan(doc: Union[Doc, Span]) -> None:
     doc._.entropy = np.nan
