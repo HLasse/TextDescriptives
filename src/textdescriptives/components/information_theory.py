@@ -81,6 +81,17 @@ def set_docspan_extension(
         Span.set_extension(prefix + extension, getter=getter)
 
 
+def set_entropy_and_perplexity(doc: Union[Doc, Span]) -> None:
+    doc._.entropy = entropy_getter(doc)
+    doc._.perplexity = perplexity_getter(doc)
+    doc._.per_word_perplexity = per_word_perplexity_getter(doc)
+
+def set_entropy_and_perplexity_to_nan(doc: Union[Doc, Span]) -> None:
+    doc._.entropy = np.nan
+    doc._.perplexity = np.nan
+    doc._.per_word_perplexity = np.nan
+
+
 class InformationTheory:
     """SpaCy component for adding information theoretic metrics such as entropy
     and perplexity."""
@@ -88,7 +99,15 @@ class InformationTheory:
     def __init__(self, nlp: Language, name: str, force: bool) -> None:
         self.name = name
         self.set_extensions(force=force)
-        set_lexeme_prob_table(nlp.vocab, verbose=False)
+        try:
+            set_lexeme_prob_table(nlp.vocab, verbose=False)
+            self.has_lexeme_prob_table = True
+        except ValueError:
+            msg.warn(
+                f"Could not load lexeme probability table for language {nlp.lang}. "
+                + "This will result in NaN values for perplexity and entropy.",
+            )
+            self.has_lexeme_prob_table = False
 
     @staticmethod
     def dict_getter(doc: Union[Doc, Span]) -> Dict[str, float]:
@@ -115,9 +134,10 @@ class InformationTheory:
             )
 
     def __call__(self, doc: Doc) -> Doc:
-        doc._.entropy = entropy_getter(doc)
-        doc._.perplexity = perplexity_getter(doc)
-        doc._.per_word_perplexity = per_word_perplexity_getter(doc)
+        if self.has_lexeme_prob_table:
+            set_entropy_and_perplexity(doc)
+        else:
+            set_entropy_and_perplexity_to_nan(doc)
         doc._.information_theory = InformationTheory.dict_getter(doc)
         return doc
 
