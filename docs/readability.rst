@@ -59,6 +59,7 @@ Usage
 ~~~~~~
 
 .. code-block:: python
+    
     import spacy
     import textdescriptives as td
     nlp = spacy.load("en_core_web_sm")
