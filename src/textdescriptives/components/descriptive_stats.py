@@ -2,10 +2,20 @@
 from typing import Callable, Dict, Union
 
 import numpy as np
+from pyphen import Pyphen
 from spacy.language import Language
 from spacy.tokens import Doc, Span
+from wasabi import msg
 
 from .utils import filter_tokens, n_sentences, n_syllables, n_tokens
+
+
+def language_exists_in_pyphen(lang: str) -> bool:
+    try:
+        _ = Pyphen(lang=lang)
+        return True
+    except KeyError:
+        return False
 
 
 class DescriptiveStatistics:
@@ -18,6 +28,15 @@ class DescriptiveStatistics:
 
     def __init__(self, nlp: Language):
         """Initialise components."""
+        self.can_calculate_syllables = language_exists_in_pyphen(lang=nlp.lang)
+        if not self.can_calculate_syllables:
+            msg.warn(
+                f"Could not load syllable counter for language {nlp.lang}. "
+                + "The following extensions will be set to np.nan: "
+                + "syllables, flesch_reading_ease, flesch_kincaid_grade, "
+                + "smog, gunning_fog.",
+            )
+
         extensions: Dict[str, Callable] = {
             "_n_sentences": n_sentences,
             "_n_tokens": n_tokens,
@@ -94,18 +113,22 @@ class DescriptiveStatistics:
             dict: syllables_per_token_mean, syllables_per_token_median,
                 syllables_per_token_std
         """
-        n_syllables = doc._._n_syllables
-        if not n_syllables:
-            return {
-                "syllables_per_token_mean": np.nan,
-                "syllables_per_token_median": np.nan,
-                "syllables_per_token_std": np.nan,
-            }
-        return {
-            "syllables_per_token_mean": np.mean(n_syllables),
-            "syllables_per_token_median": np.median(n_syllables),
-            "syllables_per_token_std": np.std(n_syllables),
+        nan_output = {
+            "syllables_per_token_mean": np.nan,
+            "syllables_per_token_median": np.nan,
+            "syllables_per_token_std": np.nan,
         }
+
+        if not self.can_calculate_syllables:
+            return nan_output
+        if n_syllables := doc._._n_syllables:
+            return {
+                "syllables_per_token_mean": np.mean(n_syllables),
+                "syllables_per_token_median": np.median(n_syllables),
+                "syllables_per_token_std": np.std(n_syllables),
+            }
+        else:
+            return nan_output
 
     def counts(self, doc: Union[Doc, Span], ignore_whitespace: bool = True) -> dict:
         """Calculate counts of tokens, unique tokens, and characters for a `Doc`
@@ -210,4 +233,5 @@ def create_descriptive_stats_component(
     sentencizers = {"sentencizer", "parser"}
     if not sentencizers.intersection(set(nlp.pipe_names)):
         nlp.add_pipe("sentencizer")  # add a sentencizer if not one in pipe
+    return DescriptiveStatistics(nlp)
     return DescriptiveStatistics(nlp)
