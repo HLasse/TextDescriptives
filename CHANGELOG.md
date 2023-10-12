@@ -2,6 +2,328 @@
 
 
 
+## v2.7.0 (2023-10-12)
+
+### Build
+
+* build: pin autodoc_pydantic version ([`5e6c3e2`](https://github.com/HLasse/TextDescriptives/commit/5e6c3e283de0c69b1f14654875042553c1c70929))
+
+### Ci
+
+* ci: fix documentation ci ([`7a2133c`](https://github.com/HLasse/TextDescriptives/commit/7a2133cc740a71bddce77922b51bf60eda1c6e5e))
+
+* ci: fix documentation ci ([`99707b5`](https://github.com/HLasse/TextDescriptives/commit/99707b5a2d8a5d835c64099a5baa201fc3059e10))
+
+### Documentation
+
+* docs: add admonitions to information theory and readability docs ([`36abc80`](https://github.com/HLasse/TextDescriptives/commit/36abc80d125d8d6fd2e01f1ba7003b40c0e368d4))
+
+* docs: fix readability docs formatting ([`6d6130a`](https://github.com/HLasse/TextDescriptives/commit/6d6130a6f5a42e0141bba6baa21276f8ff870ab8))
+
+* docs: fix minor typo in docs ([`a833ebd`](https://github.com/HLasse/TextDescriptives/commit/a833ebdd87dc45c8e491caa311cc66ca200c1835))
+
+* docs: add note on lexeme prop table to informatino theory ([`13d2b1e`](https://github.com/HLasse/TextDescriptives/commit/13d2b1e1b8edc44e2e663ecaca88ecef045f314a))
+
+* docs: update readability docs ([`11981c0`](https://github.com/HLasse/TextDescriptives/commit/11981c045694a53d1f1bef78e98257578dbf8fbb))
+
+* docs: Fixed codespell errors ([`8f7a0e3`](https://github.com/HLasse/TextDescriptives/commit/8f7a0e3995fcffab817062ca665591abe75798be))
+
+### Feature
+
+* feat: return nan for readability metrics requiring syllables if they can&#39;t be calculated ([`654ec6c`](https://github.com/HLasse/TextDescriptives/commit/654ec6c991c07289d1daf9192cd38577657c3b05))
+
+* feat: return nan in descriptive stats  syllables if cant be calculated ([`bd08eb1`](https://github.com/HLasse/TextDescriptives/commit/bd08eb1d5f07a3a44598dca350825e93dfcc6959))
+
+* feat: raise warning and set np.nan if language not supported for information theory ([`9ac2156`](https://github.com/HLasse/TextDescriptives/commit/9ac2156c14526659191d732469b836972315f2d5))
+
+### Fix
+
+* fix: add verbose flag to descriptive statistics ([`83980f3`](https://github.com/HLasse/TextDescriptives/commit/83980f3cfa219908a7c84fdede55f6c61ff7d375))
+
+### Unknown
+
+* Merge pull request #282 from HLasse/raise-warnings
+
+Raise warning and output nan for languages without lexeme prop table and hyphenation module ([`1189cbf`](https://github.com/HLasse/TextDescriptives/commit/1189cbf371f059a22bdb76bc3c7478d6fd12ebec))
+
+* misc ([`4984d50`](https://github.com/HLasse/TextDescriptives/commit/4984d501f1c49b3b7c320ae3fb4461024016765e))
+
+* tests: test lexeme prop table and readability with languages without ([`e3b0371`](https://github.com/HLasse/TextDescriptives/commit/e3b03715729765bfa9466aa01bb35ba3aeb0e140))
+
+* Merge pull request #281 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`d8122b6`](https://github.com/HLasse/TextDescriptives/commit/d8122b65d0a0eee4b5c28d2d03af838383da0c91))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/asottile/pyupgrade: v3.14.0 → v3.15.0](https://github.com/asottile/pyupgrade/compare/v3.14.0...v3.15.0) ([`7413f87`](https://github.com/HLasse/TextDescriptives/commit/7413f8703c02a92842183db6573a12772d69623e))
+
+* Merge pull request #280 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`d98fe0a`](https://github.com/HLasse/TextDescriptives/commit/d98fe0a9ab9c6338b696493997e70682693420d1))
+
+* [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+for more information, see https://pre-commit.ci ([`7da78b1`](https://github.com/HLasse/TextDescriptives/commit/7da78b1f73b567f0158bb8f057162af83ed992e9))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/codespell-project/codespell: v2.2.5 → v2.2.6](https://github.com/codespell-project/codespell/compare/v2.2.5...v2.2.6)
+- [github.com/asottile/pyupgrade: v3.13.0 → v3.14.0](https://github.com/asottile/pyupgrade/compare/v3.13.0...v3.14.0)
+- [github.com/astral-sh/ruff-pre-commit: v0.0.291 → v0.0.292](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.291...v0.0.292) ([`37e0454`](https://github.com/HLasse/TextDescriptives/commit/37e04542d674cd797521a26bc22f8b94f99d6446))
+
+* Merge pull request #278 from HLasse/dependabot/pip/black-23.9.1
+
+:arrow_up: Bump black from 23.7.0 to 23.9.1 ([`6470458`](https://github.com/HLasse/TextDescriptives/commit/64704589508f0e5b6e367ef5e6681c67e97b0f76))
+
+* :arrow_up: Bump black from 23.7.0 to 23.9.1
+
+Bumps [black](https://github.com/psf/black) from 23.7.0 to 23.9.1.
+- [Release notes](https://github.com/psf/black/releases)
+- [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+- [Commits](https://github.com/psf/black/compare/23.7.0...23.9.1)
+
+---
+updated-dependencies:
+- dependency-name: black
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`671af21`](https://github.com/HLasse/TextDescriptives/commit/671af21f29fe40a6dd1c8a81c86916904001203f))
+
+* Merge pull request #279 from HLasse/dependabot/pip/pre-commit-3.4.0
+
+:arrow_up: Bump pre-commit from 3.3.3 to 3.4.0 ([`e6f9781`](https://github.com/HLasse/TextDescriptives/commit/e6f9781511174101eb09e96f2ac293065e99bbd1))
+
+* :arrow_up: Bump pre-commit from 3.3.3 to 3.4.0
+
+Bumps [pre-commit](https://github.com/pre-commit/pre-commit) from 3.3.3 to 3.4.0.
+- [Release notes](https://github.com/pre-commit/pre-commit/releases)
+- [Changelog](https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/pre-commit/pre-commit/compare/v3.3.3...v3.4.0)
+
+---
+updated-dependencies:
+- dependency-name: pre-commit
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`309761c`](https://github.com/HLasse/TextDescriptives/commit/309761c94b62a7a07fb74dc395af8d7d93768a3e))
+
+* Merge pull request #276 from HLasse/dependabot/pip/ipython-lte-8.16.0
+
+:arrow_up: Update ipython requirement from &lt;=8.14.0 to &lt;=8.16.0 ([`8572877`](https://github.com/HLasse/TextDescriptives/commit/8572877c767a028284bd1d3b83dbd7bf26dd61a1))
+
+* Merge pull request #277 from HLasse/dependabot/pip/ruff-0.0.291
+
+:arrow_up: Bump ruff from 0.0.286 to 0.0.291 ([`9ab23ae`](https://github.com/HLasse/TextDescriptives/commit/9ab23ae69527523cc4b7aba6f1fe7a3c7734c611))
+
+* :arrow_up: Bump ruff from 0.0.286 to 0.0.291
+
+Bumps [ruff](https://github.com/astral-sh/ruff) from 0.0.286 to 0.0.291.
+- [Release notes](https://github.com/astral-sh/ruff/releases)
+- [Changelog](https://github.com/astral-sh/ruff/blob/main/BREAKING_CHANGES.md)
+- [Commits](https://github.com/astral-sh/ruff/compare/v0.0.286...v0.0.291)
+
+---
+updated-dependencies:
+- dependency-name: ruff
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`cd8abf0`](https://github.com/HLasse/TextDescriptives/commit/cd8abf0b104573833d3250dc9e95695a49ca57ac))
+
+* :arrow_up: Update ipython requirement from &lt;=8.14.0 to &lt;=8.16.0
+
+Updates the requirements on [ipython](https://github.com/ipython/ipython) to permit the latest version.
+- [Release notes](https://github.com/ipython/ipython/releases)
+- [Commits](https://github.com/ipython/ipython/compare/rel-0.8.4...8.16.0)
+
+---
+updated-dependencies:
+- dependency-name: ipython
+  dependency-type: direct:production
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`3aaf88b`](https://github.com/HLasse/TextDescriptives/commit/3aaf88b92862892fe02926d60f9ccf1e45376ef9))
+
+* Merge pull request #275 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`76f5675`](https://github.com/HLasse/TextDescriptives/commit/76f56755a40945ca6d0ca3502298d57942480f2c))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/asottile/pyupgrade: v3.11.0 → v3.13.0](https://github.com/asottile/pyupgrade/compare/v3.11.0...v3.13.0)
+- [github.com/astral-sh/ruff-pre-commit: v0.0.290 → v0.0.291](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.290...v0.0.291) ([`8e8cc82`](https://github.com/HLasse/TextDescriptives/commit/8e8cc8286acaac5bb937c84c8a0aba448370cd47))
+
+* Merge pull request #274 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`43d32e0`](https://github.com/HLasse/TextDescriptives/commit/43d32e05d068d12e7e845b66b148e1865487c3f9))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/asottile/pyupgrade: v3.10.1 → v3.11.0](https://github.com/asottile/pyupgrade/compare/v3.10.1...v3.11.0)
+- [github.com/astral-sh/ruff-pre-commit: v0.0.288 → v0.0.290](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.288...v0.0.290) ([`cdadb4e`](https://github.com/HLasse/TextDescriptives/commit/cdadb4e80ab6c4fefaa2ebd88156d2accca7e889))
+
+* Merge pull request #273 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`f4e97b9`](https://github.com/HLasse/TextDescriptives/commit/f4e97b92081e0ea262648a0a5b1365ea5b279172))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/psf/black: 23.7.0 → 23.9.1](https://github.com/psf/black/compare/23.7.0...23.9.1)
+- [github.com/astral-sh/ruff-pre-commit: v0.0.287 → v0.0.288](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.287...v0.0.288) ([`d600a6b`](https://github.com/HLasse/TextDescriptives/commit/d600a6b2121a85d9394b905b6d5427fc5162e656))
+
+* Merge pull request #272 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`c49c460`](https://github.com/HLasse/TextDescriptives/commit/c49c460d288d81e531b3f421e8e555f55071462b))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/asottile/add-trailing-comma: v3.0.1 → v3.1.0](https://github.com/asottile/add-trailing-comma/compare/v3.0.1...v3.1.0)
+- [github.com/astral-sh/ruff-pre-commit: v0.0.286 → v0.0.287](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.286...v0.0.287) ([`d18f63d`](https://github.com/HLasse/TextDescriptives/commit/d18f63d278cf81dc4207a39a7dfcf1e23d09b6b9))
+
+* Merge pull request #271 from HLasse/dependabot/pip/mypy-1.5.1
+
+:arrow_up: Bump mypy from 1.4.1 to 1.5.1 ([`02230da`](https://github.com/HLasse/TextDescriptives/commit/02230daa4db47b780b7b3bd32bc5633324d6b14b))
+
+* :arrow_up: Bump mypy from 1.4.1 to 1.5.1
+
+Bumps [mypy](https://github.com/python/mypy) from 1.4.1 to 1.5.1.
+- [Commits](https://github.com/python/mypy/compare/v1.4.1...v1.5.1)
+
+---
+updated-dependencies:
+- dependency-name: mypy
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`b0e28bd`](https://github.com/HLasse/TextDescriptives/commit/b0e28bdc7393d81402eb85711f21c7ee3edac384))
+
+* Merge pull request #270 from HLasse/dependabot/pip/ruff-0.0.286
+
+:arrow_up: Bump ruff from 0.0.281 to 0.0.286 ([`8b1daa8`](https://github.com/HLasse/TextDescriptives/commit/8b1daa84b6391e070434a84333731b87e1649b8f))
+
+* :arrow_up: Bump ruff from 0.0.281 to 0.0.286
+
+Bumps [ruff](https://github.com/astral-sh/ruff) from 0.0.281 to 0.0.286.
+- [Release notes](https://github.com/astral-sh/ruff/releases)
+- [Changelog](https://github.com/astral-sh/ruff/blob/main/BREAKING_CHANGES.md)
+- [Commits](https://github.com/astral-sh/ruff/compare/v0.0.281...v0.0.286)
+
+---
+updated-dependencies:
+- dependency-name: ruff
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`372a79c`](https://github.com/HLasse/TextDescriptives/commit/372a79c57bbf94503490fd2a92011cc0b16894ec))
+
+* Merge pull request #269 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`8db3c9e`](https://github.com/HLasse/TextDescriptives/commit/8db3c9e82dabee688a69232b6c8a28d94708990b))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.0.285 → v0.0.286](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.285...v0.0.286) ([`533afbf`](https://github.com/HLasse/TextDescriptives/commit/533afbf2c4c828a7265ccf2ae8d6a3a29077aff5))
+
+* Merge pull request #268 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`d73d25f`](https://github.com/HLasse/TextDescriptives/commit/d73d25fe181975a66584e9d4255e42fa556ffdc9))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.0.284 → v0.0.285](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.284...v0.0.285)
+- [github.com/pre-commit/mirrors-mypy: v1.5.0 → v1.5.1](https://github.com/pre-commit/mirrors-mypy/compare/v1.5.0...v1.5.1) ([`ba46eab`](https://github.com/HLasse/TextDescriptives/commit/ba46eab51a15bd42d1f93d115591858edc1a63e2))
+
+* Merge pull request #267 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`b1712f6`](https://github.com/HLasse/TextDescriptives/commit/b1712f678694fd75817a3baa3c6dbe2fe8db2fa9))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.0.282 → v0.0.284](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.282...v0.0.284)
+- [github.com/pre-commit/mirrors-mypy: v1.4.1 → v1.5.0](https://github.com/pre-commit/mirrors-mypy/compare/v1.4.1...v1.5.0) ([`c579264`](https://github.com/HLasse/TextDescriptives/commit/c57926402ae4d3cbd94da74c2527c166558d8b88))
+
+* Merge pull request #264 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`9594a26`](https://github.com/HLasse/TextDescriptives/commit/9594a268c725614aa87a05c7b32073211d6f9eef))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.0.281 → v0.0.282](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.281...v0.0.282) ([`59c9320`](https://github.com/HLasse/TextDescriptives/commit/59c9320437a52bfbdfb182f4e2cbade2f69bfb83))
+
+* Merge pull request #263 from HLasse/dependabot/pip/ruff-0.0.281
+
+:arrow_up: Bump ruff from 0.0.275 to 0.0.281 ([`b4072cc`](https://github.com/HLasse/TextDescriptives/commit/b4072cc4fb59c6ad7c3801a3e57f5130a1f37023))
+
+* :arrow_up: Bump ruff from 0.0.275 to 0.0.281
+
+Bumps [ruff](https://github.com/astral-sh/ruff) from 0.0.275 to 0.0.281.
+- [Release notes](https://github.com/astral-sh/ruff/releases)
+- [Changelog](https://github.com/astral-sh/ruff/blob/main/BREAKING_CHANGES.md)
+- [Commits](https://github.com/astral-sh/ruff/compare/v0.0.275...v0.0.281)
+
+---
+updated-dependencies:
+- dependency-name: ruff
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`676adb0`](https://github.com/HLasse/TextDescriptives/commit/676adb0be63fa82f56756010f167a204fbbc6b83))
+
+* Merge pull request #262 from HLasse/dependabot/pip/black-23.7.0
+
+:arrow_up: Bump black from 23.3.0 to 23.7.0 ([`14afb8c`](https://github.com/HLasse/TextDescriptives/commit/14afb8cfeede74ad5d09fa3295cf5d68cbacd6b1))
+
+* :arrow_up: Bump black from 23.3.0 to 23.7.0
+
+Bumps [black](https://github.com/psf/black) from 23.3.0 to 23.7.0.
+- [Release notes](https://github.com/psf/black/releases)
+- [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+- [Commits](https://github.com/psf/black/compare/23.3.0...23.7.0)
+
+---
+updated-dependencies:
+- dependency-name: black
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`f9f2e6c`](https://github.com/HLasse/TextDescriptives/commit/f9f2e6cc61e25ad27bbcf73f644664d55705d6da))
+
+* Merge pull request #261 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`6d619cb`](https://github.com/HLasse/TextDescriptives/commit/6d619cbf2ad04c108a4596a5cb9e7fe9b9345202))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/asottile/pyupgrade: v3.9.0 → v3.10.1](https://github.com/asottile/pyupgrade/compare/v3.9.0...v3.10.1)
+- [github.com/asottile/add-trailing-comma: v3.0.0 → v3.0.1](https://github.com/asottile/add-trailing-comma/compare/v3.0.0...v3.0.1)
+- [github.com/astral-sh/ruff-pre-commit: v0.0.280 → v0.0.281](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.280...v0.0.281) ([`8a51afb`](https://github.com/HLasse/TextDescriptives/commit/8a51afb4f03deb9be5cacbb2812b72ae866058e5))
+
+* Merge pull request #260 from HLasse/fix-codespell
+
+docs: Fixed codespell errors ([`2dd08f5`](https://github.com/HLasse/TextDescriptives/commit/2dd08f584a1ab3e9e517b6fc1a90a25ab77b232e))
+
+
 ## v2.6.2 (2023-07-31)
 
 ### Ci
@@ -1113,11 +1435,11 @@ feat: add out of vocabulary ratio to quality component ([`835053d`](https://gith
 
 ### Unknown
 
-* Merge pull request #166 from HLasse/entropy
+* Merge pull request #166 from HLasse/entrophy
 
 feat: Added information theoretic features ([`463b7c7`](https://github.com/HLasse/TextDescriptives/commit/463b7c72f870f5ad90e144278a1833a66bbf2681))
 
-* Merge branch &#39;entropy&#39; of https://github.com/hlasse/TextDescriptives into entropy ([`56885e5`](https://github.com/HLasse/TextDescriptives/commit/56885e52aa626270a81d32376c60a1059af8651c))
+* Merge branch &#39;entrophy&#39; of https://github.com/hlasse/TextDescriptives into entrophy ([`56885e5`](https://github.com/HLasse/TextDescriptives/commit/56885e52aa626270a81d32376c60a1059af8651c))
 
 * tests: fix spacy model req for tests ([`9c06711`](https://github.com/HLasse/TextDescriptives/commit/9c0671178f8fbdd187e909a09916591edd0e200a))
 
@@ -1187,7 +1509,7 @@ build: remove test coverage badge ([`62ea5b2`](https://github.com/HLasse/TextDes
 
 * docs: fix typo in coherence.rst
 
-separate -&gt; separate ([`be83cf3`](https://github.com/HLasse/TextDescriptives/commit/be83cf354039179ef4d7d25ce4d99e237fc644be))
+seperate -&gt; separate ([`be83cf3`](https://github.com/HLasse/TextDescriptives/commit/be83cf354039179ef4d7d25ce4d99e237fc644be))
 
 ### Feature
 
@@ -1300,7 +1622,7 @@ Fixes #135 ([`fb33e19`](https://github.com/HLasse/TextDescriptives/commit/fb33e1
 
 * fix: remove previously assigned extensions before extracting new metrics ([`1a7ca00`](https://github.com/HLasse/TextDescriptives/commit/1a7ca00559f1db0060cfcb0d0a120a1948d697c7))
 
-* fix: remove doc extension instead of pipe component. TODO double check all assigns are correct ([`bc32d47`](https://github.com/HLasse/TextDescriptives/commit/bc32d479da59bfb438bb860795ca56e02fc60196))
+* fix: remove doc extension instead of pipe component. TODO double check all assings are correct ([`bc32d47`](https://github.com/HLasse/TextDescriptives/commit/bc32d479da59bfb438bb860795ca56e02fc60196))
 
 ### Unknown
 
@@ -1528,7 +1850,7 @@ Build: Add missing dependency for tutorial ([`c48be9e`](https://github.com/HLass
 
 * build: remove package autofind for correct building ([`ea1345e`](https://github.com/HLasse/TextDescriptives/commit/ea1345eacf0003d8a1e96bc8265410e521818134))
 
-* build: bump spacy version ([`d2180d1`](https://github.com/HLasse/TextDescriptives/commit/d2180d15324cf05e33cac74065902ff6f364ba0b))
+* build: bumb spacy version ([`d2180d1`](https://github.com/HLasse/TextDescriptives/commit/d2180d15324cf05e33cac74065902ff6f364ba0b))
 
 * build: update version number ([`bee7881`](https://github.com/HLasse/TextDescriptives/commit/bee788164c53910e1566ccdac362af5cc7c75328))
 
@@ -1542,7 +1864,7 @@ Build: Add missing dependency for tutorial ([`c48be9e`](https://github.com/HLass
 
 ### Ci
 
-* ci: removed non-needed token ([`2683ac1`](https://github.com/HLasse/TextDescriptives/commit/2683ac15f0ee22ad93edc418e9c6ddc3db08b1ce))
+* ci: removed non neede token ([`2683ac1`](https://github.com/HLasse/TextDescriptives/commit/2683ac15f0ee22ad93edc418e9c6ddc3db08b1ce))
 
 * ci: removed python setup from docs workflow ([`42e1fe9`](https://github.com/HLasse/TextDescriptives/commit/42e1fe91c0d941e407eaa3d02173d4123fcc4265))
 
@@ -1550,7 +1872,7 @@ Build: Add missing dependency for tutorial ([`c48be9e`](https://github.com/HLass
 
 * ci: Fix cache path ([`6af7a3e`](https://github.com/HLasse/TextDescriptives/commit/6af7a3eed29d56c317db3bfa244e518976ff15a3))
 
-* ci: cache using pyproject.toml ([`c9ed231`](https://github.com/HLasse/TextDescriptives/commit/c9ed2315adcb8e6e13d02cce8e5ad27eb7e0c449))
+* ci: cahce using pyproject.toml ([`c9ed231`](https://github.com/HLasse/TextDescriptives/commit/c9ed2315adcb8e6e13d02cce8e5ad27eb7e0c449))
 
 * ci: re-enable cache ([`aab4439`](https://github.com/HLasse/TextDescriptives/commit/aab44394bfd663ab32c24fbf49ecd73b7def1924))
 
@@ -1606,7 +1928,7 @@ Build: Add missing dependency for tutorial ([`c48be9e`](https://github.com/HLass
 
 * docs: update readme ([`17b0133`](https://github.com/HLasse/TextDescriptives/commit/17b0133404327900d03872f407bfd7e402d90ec3))
 
-* docs: minor formatting ([`faa86f7`](https://github.com/HLasse/TextDescriptives/commit/faa86f7b10ef29fb4782fb61b6ae88defbbc176b))
+* docs: minor fomatting ([`faa86f7`](https://github.com/HLasse/TextDescriptives/commit/faa86f7b10ef29fb4782fb61b6ae88defbbc176b))
 
 * docs: add tutorial to docs ([`fbeab00`](https://github.com/HLasse/TextDescriptives/commit/fbeab0062f2b088e38ec3bbb85616ccb12acd69b))
 
@@ -1682,7 +2004,7 @@ Fixes #85 ([`2fdee32`](https://github.com/HLasse/TextDescriptives/commit/2fdee32
 
 Added missing component: coherence ([`9823160`](https://github.com/HLasse/TextDescriptives/commit/9823160ba24b5c70fcc2f1fac805af36dd7f3309))
 
-* fix: fixed bug where extract overwrote values with multiple components ([`a7210ce`](https://github.com/HLasse/TextDescriptives/commit/a7210ceecbec7ce43bd4af1e358f6795213583c6))
+* fix: fixed bug where extract overwrote values with mulitple components ([`a7210ce`](https://github.com/HLasse/TextDescriptives/commit/a7210ceecbec7ce43bd4af1e358f6795213583c6))
 
 * fix: test which occurs when running multiple tests together ([`ab3ed0e`](https://github.com/HLasse/TextDescriptives/commit/ab3ed0e4f077be1d2cc70a3ae77f1f87828f4c32))
 
@@ -1858,7 +2180,7 @@ HLasse/Make-`quality`-work-with-`n_process`-&gt;-1 ([`a50de7a`](https://github.c
 
 * tests: misc ([`c12d80a`](https://github.com/HLasse/TextDescriptives/commit/c12d80a0d43ce9875a895e7724a74a8580dea0df))
 
-* Merge pull request #92 from HLasse/HLasse/Add-word-embedding-coherence/similarly
+* Merge pull request #92 from HLasse/HLasse/Add-word-embedding-coherence/similary
 
 feat: add word embedding coherence/similarity ([`f397750`](https://github.com/HLasse/TextDescriptives/commit/f3977501a5c595eb70a6d5137f2781bd14423c4e))
 
@@ -2043,7 +2365,7 @@ add icon ([`e53e229`](https://github.com/HLasse/TextDescriptives/commit/e53e229d
 
 ### Fix
 
-* fix: Fixed errors in test due by forcing the extension to be set. ([`b47d602`](https://github.com/HLasse/TextDescriptives/commit/b47d60273e6fa6d8c29b15a7860aabd3b9da2537))
+* fix: Fixed erros in test due by forcing the extension to be set. ([`b47d602`](https://github.com/HLasse/TextDescriptives/commit/b47d60273e6fa6d8c29b15a7860aabd3b9da2537))
 
 ### Refactor
 
