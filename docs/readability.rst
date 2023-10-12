@@ -3,7 +3,9 @@ Readability
 ------------
 
 
-The *readability* component adds the following readabiltiy metrics under the :code:`._.readability` attribute to :code:`Doc` objects. Note, that not hyphenation module (Pyphen) does not support all languages. If the language is not supported, as warning will be raised and np.nan will be set as the value.
+The *readability* component adds the following readabiltiy metrics under the :code:`._.readability` attribute to :code:`Doc` objects. 
+
+.. note:: Note, that the hyphenation module (Pyphen) does not support all languages. If the language is not supported, a warning will be raised and np.nan will be set as the value for metrics requiring hyphenation.
 
 
 
