@@ -7,23 +7,23 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="readability.html" />
 <meta property="og:site_name" content="textdescriptives" />
-<meta property="og:description" content="The readability component adds the following readabiltiy metrics under the._.readability attribute to Doc objects. Gunning-Fog, is a readability index originally developed for English writing, but ..." />
+<meta property="og:description" content="The readability component adds the following readabiltiy metrics under the._.readability attribute to Doc objects.`Gunning-Fog <https://en.wikipedia.org/wiki/Gunning_fog_index>`__, is a readability..." />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
-<meta property="og:image" content="/_images/social_previews/summary_readability_8999daa8.png" />
-<meta property="og:image:alt" content="The readability component adds the following readabiltiy metrics under the._.readability attribute to Doc objects. Gunning-Fog, is a readability index origin..." />
-<meta name="description" content="The readability component adds the following readabiltiy metrics under the._.readability attribute to Doc objects. Gunning-Fog, is a readability index originally developed for English writing, but ..." />
+<meta property="og:image" content="/_images/social_previews/summary_readability_342344b3.png" />
+<meta property="og:image:alt" content="The readability component adds the following readabiltiy metrics under the._.readability attribute to Doc objects.`Gunning-Fog <https://en.wikipedia.org/wiki..." />
+<meta name="description" content="The readability component adds the following readabiltiy metrics under the._.readability attribute to Doc objects.`Gunning-Fog <https://en.wikipedia.org/wiki/Gunning_fog_index>`__, is a readability..." />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Dependency Distance" href="dependencydistance.html" /><link rel="prev" title="Descriptive Statistics" href="descriptivestats.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2023.03.27 -->
+    <!-- Generated with Sphinx 5.3.0 and Furo 2023.03.27 -->
         <title>Readability - textdescriptives 2.6.2 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -242,34 +242,58 @@
         <article role="main">
           <section id="readability">
 <h1>Readability<a class="headerlink" href="#readability" title="Permalink to this heading">#</a></h1>
-<p>The <em>readability</em> component adds the following readabiltiy metrics under the <code class="docutils literal notranslate"><span class="pre">._.readability</span></code> attribute to <code class="docutils literal notranslate"><span class="pre">Doc</span></code> objects.</p>
+<p>The <em>readability</em> component adds the following readabiltiy metrics under the <code class="code docutils literal notranslate"><span class="pre">._.readability</span></code> attribute to <code class="code docutils literal notranslate"><span class="pre">Doc</span></code> objects.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note, that the hyphenation module (Pyphen) does not support all languages. If the language is not supported, a warning will be raised and np.nan will be set as the value for metrics requiring hyphenation.</p>
+</div>
 <ul>
-<li><p><strong><a class="reference external" href="https://en.wikipedia.org/wiki/Gunning_fog_index">Gunning-Fog</a></strong>, is a readability index originally developed for English writing, but works for any language. The index estimates the years of formal education needed to understand the text on a first reading. A Gunning-Fog index of 12 requires the reading level of a U.S. high school senior (around 18 years old). The formula for calculating the index is:</p>
-<p><em>Grade level = 0.4 × (ASL + PHW)</em></p>
+<li><p><strong>`Gunning-Fog &lt;https://en.wikipedia.org/wiki/Gunning_fog_index&gt;`__</strong>, is a readability index originally developed for English writing, but works for any language. The index estimates the years of formal education needed to understand the text on a first reading. A Gunning-Fog index of 12 requires the reading level of a U.S. high school senior (around 18 years old). The formula for calculating the index is:</p>
+<blockquote>
+<div><p><em>Grade level = 0.4 × (ASL + PHW)</em></p>
 <p>Where <em>ASL</em> is the average sentence length (total words / total sentences), and <em>PHW</em> is the percentage of hard words (words with three or more syllables).</p>
+<p>Note: requires hyphenation.</p>
+</div></blockquote>
 </li>
-<li><p><strong><a class="reference external" href="https://en.wikipedia.org/wiki/SMOG">SMOG</a></strong>, or Simple Measure of Gobbledygook, is a readability formula that estimates the years of education required to understand a piece of writing. It primarily focuses on the complexity of words, using the number of polysyllabic words in the text. The formula is:</p>
-<p><em>SMOG Index = 1.043 × √(30 × (hard words / n_sentences)) + 3.1291</em></p>
+<li><p><strong>`SMOG &lt;https://en.wikipedia.org/wiki/SMOG&gt;`__</strong>, or Simple Measure of Gobbledygook, is a readability formula that estimates the years of education required to understand a piece of writing. It primarily focuses on the complexity of words, using the number of polysyllabic words in the text. The formula is:</p>
+<blockquote>
+<div><p><em>SMOG Index = 1.043 × √(30 × (hard words / n_sentences)) + 3.1291</em></p>
+<p>Note: requires hyphenation.</p>
+</div></blockquote>
 </li>
-<li><p><strong><a class="reference external" href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_reading_ease">Flesch reading ease</a></strong>, is a readability score that indicates how easy a text is to read. Higher scores indicate easier reading, while lower scores indicate more difficult reading. The score is calculated using the following formula:</p>
-<p><em>Flesch Reading Ease = 206.835 - (1.015 × ASL) - (84.6 × ASW)</em></p>
+<li><p><strong>`Flesch reading ease &lt;https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_reading_ease&gt;`__</strong>, is a readability score that indicates how easy a text is to read. Higher scores indicate easier reading, while lower scores indicate more difficult reading. The score is calculated using the following formula:</p>
+<blockquote>
+<div><p><em>Flesch Reading Ease = 206.835 - (1.015 × ASL) - (84.6 × ASW)</em></p>
 <p>Where <em>ASL</em> is the average sentence length and <em>ASW</em> is the average number of syllables per word.</p>
+<p>Note: requires hyphenation.</p>
+</div></blockquote>
 </li>
-<li><p><strong><a class="reference external" href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch%E2%80%93Kincaid_grade_level">Flesch-Kincaid grade</a></strong>, is a readability metric that estimates the grade level needed to comprehend a text. It is based on the average sentence length and average number of syllables per word. The formula is:</p>
-<p><em>Flesch-Kincaid Grade = 0.39 × (ASL) + 11.8 × (ASW) - 15.59</em></p>
+<li><p><strong>`Flesch-Kincaid grade &lt;https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch%E2%80%93Kincaid_grade_level&gt;`__</strong>, is a readability metric that estimates the grade level needed to comprehend a text. It is based on the average sentence length and average number of syllables per word. The formula is:</p>
+<blockquote>
+<div><p><em>Flesch-Kincaid Grade = 0.39 × (ASL) + 11.8 × (ASW) - 15.59</em></p>
+<p>Note: requires hyphenation.</p>
+</div></blockquote>
 </li>
-<li><p><strong><a class="reference external" href="https://en.wikipedia.org/wiki/Automated_readability_index">Automated readability index</a></strong>, is a readability test that calculates an approximate U.S. grade level needed to understand a text. It is based on the average number of characters per word and the average sentence length. The formula is:</p>
-<p><em>ARI = 4.71 × (n_chars / n_words) + 0.5 × (n_words / n_sentences) - 21.43</em></p>
+<li><p><strong>`Automated readability index &lt;https://en.wikipedia.org/wiki/Automated_readability_index&gt;`__</strong>, is a readability test that calculates an approximate U.S. grade level needed to understand a text. It is based on the average number of characters per word and the average sentence length. The formula is:</p>
+<blockquote>
+<div><p><em>ARI = 4.71 × (n_chars / n_words) + 0.5 × (n_words / n_sentences) - 21.43</em></p>
+</div></blockquote>
 </li>
-<li><p><strong><a class="reference external" href="https://en.wikipedia.org/wiki/Coleman%E2%80%93Liau_index">Coleman-Liau index</a></strong>, is a readability test that estimates the U.S. grade level needed to understand a text. It is based on the average number of letters per 100 words and the average number of sentences per 100 words. The original formula is:</p>
-<p><em>CLI = 0.0588 × L - 0.296 × S - 15.8</em></p>
+<li><p><strong>`Coleman-Liau index &lt;https://en.wikipedia.org/wiki/Coleman%E2%80%93Liau_index&gt;`___</strong>, is a readability test that estimates the U.S. grade level needed to understand a text. It is based on the average number of letters per 100 words and the average number of sentences per 100 words. The original formula is:</p>
+<blockquote>
+<div><p><em>CLI = 0.0588 × L - 0.296 × S - 15.8</em></p>
 <p>Where <em>L</em> is the average number of characters per 100 words and <em>S</em> is the average number of sentences per 100 words. In our implementation we average over the entire text instead of just 100 words.</p>
+</div></blockquote>
 </li>
-<li><p><strong><a class="reference external" href="https://en.wikipedia.org/wiki/Lix_(readability_test)">Lix</a></strong>, or Lesbarhetsindex, is a readability measure that calculates a readability score based on the average sentence length and the percentage of long words (more than six characters) in the text. The formula is:</p>
-<p><em>Lix = (n_words / n_sentences) + (n_long_words * 100) / n_words</em></p>
+<li><p><strong>`Lix &lt;https://en.wikipedia.org/wiki/Lix_(readability_test)&gt;`__</strong>, or Lesbarhetsindex, is a readability measure that calculates a readability score based on the average sentence length and the percentage of long words (more than six characters) in the text. The formula is:</p>
+<blockquote>
+<div><p><em>Lix = (n_words / n_sentences) + (n_long_words * 100) / n_words</em></p>
+</div></blockquote>
 </li>
-<li><p><strong><a class="reference external" href="https://www.jstor.org/stable/40031755">Rix</a></strong>, is a readability measure that estimates the difficulty of a text based on the proportion of long words (more than six characters) in the text. The formula is:</p>
-<p><em>Rix = (n_long_words / n_sentences)</em></p>
+<li><p><strong>`Rix &lt;https://www.jstor.org/stable/40031755&gt;`__</strong>, is a readability measure that estimates the difficulty of a text based on the proportion of long words (more than six characters) in the text. The formula is:</p>
+<blockquote>
+<div><p><em>Rix = (n_long_words / n_sentences)</em></p>
+</div></blockquote>
 </li>
 </ul>
 <section id="usage">
@@ -277,7 +301,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
 <span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
 <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
-<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span> 
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
 <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.&quot;</span><span class="p">)</span>
 
 <span class="c1"># all attributes are stored as a dict in the ._.readability attribute</span>
@@ -287,10 +311,10 @@
 <span class="n">td</span><span class="o">.</span><span class="n">extract_df</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="table-wrapper colwidths-auto docutils container">
+<div class="table-wrapper docutils container">
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head"><p></p></th>
+<tr class="row-odd"><th class="head"></th>
 <th class="head"><p>text</p></th>
 <th class="head"><p>flesch_reading_ease</p></th>
 <th class="head"><p>flesch_kincaid_grade</p></th>
@@ -300,6 +324,20 @@
 <th class="head"><p>coleman_liau_index</p></th>
 <th class="head"><p>lix</p></th>
 <th class="head"><p>rix</p></th>
+<th class="head"><p>token_length_mean</p></th>
+<th class="head"><p>token_length_median</p></th>
+<th class="head"><p>token_length_std</p></th>
+<th class="head"><p>sentence_length_mean</p></th>
+<th class="head"><p>sentence_length_median</p></th>
+<th class="head"><p>sentence_length_std</p></th>
+<th class="head"><p>syllables_per_token_mean</p></th>
+<th class="head"><p>syllables_per_token_median</p></th>
+<th class="head"><p>syllables_per_token_std</p></th>
+<th class="head"><p>n_tokens</p></th>
+<th class="head"><p>n_unique_tokens</p></th>
+<th class="head"><p>proportion_unique_tokens</p></th>
+<th class="head"><p>n_characters</p></th>
+<th class="head"><p>n_sentences</p></th>
 </tr>
 </thead>
 <tbody>
@@ -313,6 +351,20 @@
 <td><p>-0.708571</p></td>
 <td><p>12.7143</p></td>
 <td><p>0.4</p></td>
+<td><p>3.28571</p></td>
+<td><p>3</p></td>
+<td><p>1.54127</p></td>
+<td><p>7</p></td>
+<td><p>6</p></td>
+<td><p>3.09839</p></td>
+<td><p>1.08571</p></td>
+<td><p>1</p></td>
+<td><p>0.368117</p></td>
+<td><p>35</p></td>
+<td><p>23</p></td>
+<td><p>0.657143</p></td>
+<td><p>121</p></td>
+<td><p>5</p></td>
 </tr>
 </tbody>
 </table>
@@ -321,9 +373,50 @@
 <hr class="docutils" />
 <section id="component">
 <h2>Component<a class="headerlink" href="#component" title="Permalink to this heading">#</a></h2>
-<div class="highlight-eval_rst notranslate"><div class="highlight"><pre><span></span>.. autofunction:: textdescriptives.components.readability.create_readability_component
+<dl class="py function">
+<dt class="sig sig-object py" id="textdescriptives.components.readability.create_readability_component">
+<span class="sig-prename descclassname"><span class="pre">textdescriptives.components.readability.</span></span><span class="sig-name descname"><span class="pre">create_readability_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Doc</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/textdescriptives/components/readability.html#create_readability_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textdescriptives.components.readability.create_readability_component" title="Permalink to this definition">#</a></dt>
+<dd><p>Allows Readability to be added to a spaCy pipe using
+nlp.add_pipe(“textdescriptives/readability”).</p>
+<p>Readability requires attributes from DescriptiveStatistics and adds
+it to the pipe if it not already loaded.</p>
+<dl class="simple">
+<dt>Adding this component to a pipeline sets the following attributes:</dt><dd><ul class="simple">
+<li><p>doc._.readability</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nlp</strong> (<em>Language</em>) – spaCy language object, does not need to be specified in the
+nlp.add_pipe call.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – name of the component. Can be optionally specified in the
+nlp.add_pipe call, using the name argument.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – Toggle to show a message if the
+“textdescriptives/descriptive_stats” component is added to the pipeline.
+Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Readability component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable[[Doc], Doc]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/readability&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># apply the pipeline to a document</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;This is a test document.&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">readability</span>
 </pre></div>
 </div>
+</dd></dl>
+
 </section>
 </section>
 
@@ -384,7 +477,10 @@
             <ul>
 <li><a class="reference internal" href="#">Readability</a><ul>
 <li><a class="reference internal" href="#usage">Usage</a></li>
-<li><a class="reference internal" href="#component">Component</a></li>
+<li><a class="reference internal" href="#component">Component</a><ul>
+<li><a class="reference internal" href="#textdescriptives.components.readability.create_readability_component"><code class="docutils literal notranslate"><span class="pre">create_readability_component()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -396,12 +492,15 @@
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=09153dea"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
-    <script src="_static/scripts/furo.js?v=2c7c1115"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
     </body>
 </html>
