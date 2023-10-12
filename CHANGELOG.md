@@ -32,7 +32,7 @@
 
 * feat: return nan for readability metrics requiring syllables if they can&#39;t be calculated ([`654ec6c`](https://github.com/HLasse/TextDescriptives/commit/654ec6c991c07289d1daf9192cd38577657c3b05))
 
-* feat: return nan in descriptive stats  syllables if cant be calculated ([`bd08eb1`](https://github.com/HLasse/TextDescriptives/commit/bd08eb1d5f07a3a44598dca350825e93dfcc6959))
+* feat: return nan in descriptive stats  syllables if can't be calculated ([`bd08eb1`](https://github.com/HLasse/TextDescriptives/commit/bd08eb1d5f07a3a44598dca350825e93dfcc6959))
 
 * feat: raise warning and set np.nan if language not supported for information theory ([`9ac2156`](https://github.com/HLasse/TextDescriptives/commit/9ac2156c14526659191d732469b836972315f2d5))
 
@@ -1435,11 +1435,11 @@ feat: add out of vocabulary ratio to quality component ([`835053d`](https://gith
 
 ### Unknown
 
-* Merge pull request #166 from HLasse/entrophy
+* Merge pull request #166 from HLasse/entropy
 
 feat: Added information theoretic features ([`463b7c7`](https://github.com/HLasse/TextDescriptives/commit/463b7c72f870f5ad90e144278a1833a66bbf2681))
 
-* Merge branch &#39;entrophy&#39; of https://github.com/hlasse/TextDescriptives into entrophy ([`56885e5`](https://github.com/HLasse/TextDescriptives/commit/56885e52aa626270a81d32376c60a1059af8651c))
+* Merge branch &#39;entropy&#39; of https://github.com/hlasse/TextDescriptives into entropy ([`56885e5`](https://github.com/HLasse/TextDescriptives/commit/56885e52aa626270a81d32376c60a1059af8651c))
 
 * tests: fix spacy model req for tests ([`9c06711`](https://github.com/HLasse/TextDescriptives/commit/9c0671178f8fbdd187e909a09916591edd0e200a))
 
@@ -1509,7 +1509,7 @@ build: remove test coverage badge ([`62ea5b2`](https://github.com/HLasse/TextDes
 
 * docs: fix typo in coherence.rst
 
-seperate -&gt; separate ([`be83cf3`](https://github.com/HLasse/TextDescriptives/commit/be83cf354039179ef4d7d25ce4d99e237fc644be))
+separate -&gt; separate ([`be83cf3`](https://github.com/HLasse/TextDescriptives/commit/be83cf354039179ef4d7d25ce4d99e237fc644be))
 
 ### Feature
 
@@ -1622,7 +1622,7 @@ Fixes #135 ([`fb33e19`](https://github.com/HLasse/TextDescriptives/commit/fb33e1
 
 * fix: remove previously assigned extensions before extracting new metrics ([`1a7ca00`](https://github.com/HLasse/TextDescriptives/commit/1a7ca00559f1db0060cfcb0d0a120a1948d697c7))
 
-* fix: remove doc extension instead of pipe component. TODO double check all assings are correct ([`bc32d47`](https://github.com/HLasse/TextDescriptives/commit/bc32d479da59bfb438bb860795ca56e02fc60196))
+* fix: remove doc extension instead of pipe component. TODO double check all assigns are correct ([`bc32d47`](https://github.com/HLasse/TextDescriptives/commit/bc32d479da59bfb438bb860795ca56e02fc60196))
 
 ### Unknown
 
@@ -1872,7 +1872,7 @@ Build: Add missing dependency for tutorial ([`c48be9e`](https://github.com/HLass
 
 * ci: Fix cache path ([`6af7a3e`](https://github.com/HLasse/TextDescriptives/commit/6af7a3eed29d56c317db3bfa244e518976ff15a3))
 
-* ci: cahce using pyproject.toml ([`c9ed231`](https://github.com/HLasse/TextDescriptives/commit/c9ed2315adcb8e6e13d02cce8e5ad27eb7e0c449))
+* ci: cache using pyproject.toml ([`c9ed231`](https://github.com/HLasse/TextDescriptives/commit/c9ed2315adcb8e6e13d02cce8e5ad27eb7e0c449))
 
 * ci: re-enable cache ([`aab4439`](https://github.com/HLasse/TextDescriptives/commit/aab44394bfd663ab32c24fbf49ecd73b7def1924))
 
@@ -1928,7 +1928,7 @@ Build: Add missing dependency for tutorial ([`c48be9e`](https://github.com/HLass
 
 * docs: update readme ([`17b0133`](https://github.com/HLasse/TextDescriptives/commit/17b0133404327900d03872f407bfd7e402d90ec3))
 
-* docs: minor fomatting ([`faa86f7`](https://github.com/HLasse/TextDescriptives/commit/faa86f7b10ef29fb4782fb61b6ae88defbbc176b))
+* docs: minor formatting ([`faa86f7`](https://github.com/HLasse/TextDescriptives/commit/faa86f7b10ef29fb4782fb61b6ae88defbbc176b))
 
 * docs: add tutorial to docs ([`fbeab00`](https://github.com/HLasse/TextDescriptives/commit/fbeab0062f2b088e38ec3bbb85616ccb12acd69b))
 
@@ -2004,7 +2004,7 @@ Fixes #85 ([`2fdee32`](https://github.com/HLasse/TextDescriptives/commit/2fdee32
 
 Added missing component: coherence ([`9823160`](https://github.com/HLasse/TextDescriptives/commit/9823160ba24b5c70fcc2f1fac805af36dd7f3309))
 
-* fix: fixed bug where extract overwrote values with mulitple components ([`a7210ce`](https://github.com/HLasse/TextDescriptives/commit/a7210ceecbec7ce43bd4af1e358f6795213583c6))
+* fix: fixed bug where extract overwrote values with multiple components ([`a7210ce`](https://github.com/HLasse/TextDescriptives/commit/a7210ceecbec7ce43bd4af1e358f6795213583c6))
 
 * fix: test which occurs when running multiple tests together ([`ab3ed0e`](https://github.com/HLasse/TextDescriptives/commit/ab3ed0e4f077be1d2cc70a3ae77f1f87828f4c32))
 
@@ -2180,7 +2180,7 @@ HLasse/Make-`quality`-work-with-`n_process`-&gt;-1 ([`a50de7a`](https://github.c
 
 * tests: misc ([`c12d80a`](https://github.com/HLasse/TextDescriptives/commit/c12d80a0d43ce9875a895e7724a74a8580dea0df))
 
-* Merge pull request #92 from HLasse/HLasse/Add-word-embedding-coherence/similary
+* Merge pull request #92 from HLasse/HLasse/Add-word-embedding-coherence/similarly
 
 feat: add word embedding coherence/similarity ([`f397750`](https://github.com/HLasse/TextDescriptives/commit/f3977501a5c595eb70a6d5137f2781bd14423c4e))
 
@@ -2365,7 +2365,7 @@ add icon ([`e53e229`](https://github.com/HLasse/TextDescriptives/commit/e53e229d
 
 ### Fix
 
-* fix: Fixed erros in test due by forcing the extension to be set. ([`b47d602`](https://github.com/HLasse/TextDescriptives/commit/b47d60273e6fa6d8c29b15a7860aabd3b9da2537))
+* fix: Fixed errors in test due by forcing the extension to be set. ([`b47d602`](https://github.com/HLasse/TextDescriptives/commit/b47d60273e6fa6d8c29b15a7860aabd3b9da2537))
 
 ### Refactor
 

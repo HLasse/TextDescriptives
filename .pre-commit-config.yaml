@@ -11,7 +11,7 @@ repos:
         args: [
             "-w", # Write changes to files
             "--skip",
-            "*.csv,*.bib,tests/books.py,*.ipynb",
+            "*.csv,*.bib,tests/books.py,*.ipynb,CHANGELOG.md",
             # don't code output from notebooks
             "-L",
             "vise", # Ignore the Danish word 'vise'
