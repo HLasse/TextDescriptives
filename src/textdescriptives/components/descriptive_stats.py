@@ -26,10 +26,10 @@ class DescriptiveStatistics:
     counts of tokens and sentences.
     """
 
-    def __init__(self, nlp: Language):
+    def __init__(self, nlp: Language, verbose: bool):
         """Initialise components."""
         self.can_calculate_syllables = language_exists_in_pyphen(lang=nlp.lang)
-        if not self.can_calculate_syllables:
+        if not self.can_calculate_syllables and verbose:
             msg.warn(
                 f"Could not load syllable counter for language {nlp.lang}. "
                 + "The following extensions will be set to np.nan: "
@@ -188,10 +188,12 @@ class DescriptiveStatistics:
         "span._.counts",
         "span._.descriptive_stats",
     ],
+    default_config={"verbose": True},
 )
 def create_descriptive_stats_component(
     nlp: Language,
     name: str,
+    verbose: bool,
 ) -> Callable[[Doc], Doc]:
     """Allows DescriptiveStatistics to be added to a spaCy pipe using
     nlp.add_pipe("textdescriptives/descriptive_stats").
@@ -233,5 +235,4 @@ def create_descriptive_stats_component(
     sentencizers = {"sentencizer", "parser"}
     if not sentencizers.intersection(set(nlp.pipe_names)):
         nlp.add_pipe("sentencizer")  # add a sentencizer if not one in pipe
-    return DescriptiveStatistics(nlp)
-    return DescriptiveStatistics(nlp)
+    return DescriptiveStatistics(nlp, verbose=verbose)
