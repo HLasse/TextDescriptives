@@ -2,8 +2,10 @@
 name = "textdescriptives"
 version = "2.6.2"
 description = "A library for calculating a variety of features from text using spaCy"
-authors = [{name = "Lasse Hansen", email = "lasseh0310@gmail.com"},
-             {name = "Kenneth Enevoldsen"}]
+authors = [
+    { name = "Lasse Hansen", email = "lasseh0310@gmail.com" },
+    { name = "Kenneth Enevoldsen" },
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
@@ -47,16 +49,8 @@ repository = "https://github.com/HLasse/textdescriptives"
 documentation = "https://hlasse.github.io/TextDescriptives/"
 
 [project.optional-dependencies]
-style = [
-    "black==23.9.1",
-    "pre-commit==3.4.0",
-    "ruff==0.0.291",
-    "mypy==1.5.1"
-]
-tests = [
-    "pytest>=7.1.3",
-    "pytest-cov>=3.0.0",
-]
+style = ["black==23.9.1", "pre-commit==3.4.0", "ruff==0.0.291", "mypy==1.5.1"]
+tests = ["pytest>=7.1.3", "pytest-cov>=3.0.0"]
 docs = [
     "sphinx>=5.3.0",
     "furo>=2023.3.27",
@@ -64,7 +58,7 @@ docs = [
     "sphinxext-opengraph>=0.7.3",
     "myst-nb>=0.6.0",
     "sphinx_design>=0.3.0",
-    "autodoc_pydantic>=1.1.0",
+    "autodoc_pydantic==1.8.0",
 ]
 tutorials = [
     "jupyter",
@@ -74,9 +68,7 @@ tutorials = [
     "scikit-learn>=1.1.1",
     "ipython<=8.16.0",
 ]
-sklearn = [
-    "scikit-learn>=1.1.1",
-]
+sklearn = ["scikit-learn>=1.1.1"]
 
 [project.readme]
 file = "README.md"
@@ -97,11 +89,7 @@ requires = ["setuptools>=61.0.0", "wheel", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
 
 [tool.coverage.run]
-omit = [
-    "**/tests/*",
-    "**/_vendorized/*",
-    "**/about.py",
-]
+omit = ["**/tests/*", "**/_vendorized/*", "**/about.py"]
 
 
 exclude_lines = [
@@ -120,15 +108,8 @@ exclude_lines = [
 
 [tool.semantic_release]
 branch = "main"
-version_toml = [
-    "pyproject.toml:project.version"
-]
+version_toml = ["pyproject.toml:project.version"]
 build_command = "python -m pip install build; python -m build"
 
 [tool.ruff]
-exclude = [
-    ".venv",
-    ".env",
-    ".git",
-    "__pycache__",
-]
+exclude = [".venv", ".env", ".git", "__pycache__"]
