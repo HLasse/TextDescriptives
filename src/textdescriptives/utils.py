@@ -3,7 +3,7 @@ from typing import Iterable, List, Optional, Type, Union
 
 import pandas as pd
 import spacy
-from spacy import Language
+from spacy.language import Language
 from spacy.tokens import Doc, Span, Token
 from wasabi import msg
 

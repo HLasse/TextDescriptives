@@ -15,6 +15,8 @@ The higher the entropy, the more complex the text is.
 Similarly, one could imagine filtering text based on the per word perplexity given the assumption that
 highly surprising text is in fact non-coherent text pieces.
 
+.. note:: The information theory components require an available lexeme prop table from spaCy which is not available for all languages. A warning will be raised and values set to np.nan if the table cannot be found for the language.
+
 Usage
 ~~~~~~~
 

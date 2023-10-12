@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 import spacy
 
@@ -36,3 +37,11 @@ def test_extract_df(nlp):  # noqa F811
     df = td.extract_df(doc)
     for col in ["perplexity", "per_word_perplexity", "entropy"]:
         assert col in df.columns
+
+
+def test_language_no_lexeme_prob_table():
+    nlp = spacy.blank("hr")
+    nlp.add_pipe("textdescriptives/information_theory")
+    doc = nlp("Ez egy magyar mondat.")
+
+    assert np.isnan(doc._.perplexity)
