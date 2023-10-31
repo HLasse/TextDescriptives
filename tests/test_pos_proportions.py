@@ -129,3 +129,7 @@ def test_pos_proportions_span(doc):
         },
         rel=0.01,
     )
+
+
+def test_pos_proportions_correct_n_output(doc: Doc):
+    assert len(doc._.pos_proportions) == 17
