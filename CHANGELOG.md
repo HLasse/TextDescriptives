@@ -2,6 +2,60 @@
 
 
 
+## v2.7.1 (2023-10-31)
+
+### Ci
+
+* ci: codespell ignore changelog ([`ce35d57`](https://github.com/HLasse/TextDescriptives/commit/ce35d57af99652dbdd8edce731c7c33b488dc76c))
+
+### Fix
+
+* fix: ensure always consistent column output of pos_proportions ([`c12ba20`](https://github.com/HLasse/TextDescriptives/commit/c12ba20c2b2993e28f0715d072797012a04381da))
+
+### Unknown
+
+* Merge pull request #290 from HLasse/fix-consistent-pos-prop-output
+
+Fix-consistent-pos-prop-output ([`66e5525`](https://github.com/HLasse/TextDescriptives/commit/66e552549eea311ea9d32d1a2b398a7ff7050d43))
+
+* lint ([`ed49b23`](https://github.com/HLasse/TextDescriptives/commit/ed49b230a23b820924ce975997d1ba0806bac160))
+
+* tests: add test for correct number of pos tags ([`3aab19b`](https://github.com/HLasse/TextDescriptives/commit/3aab19b4c3accb55ef6a653ad12f6a6a3cc678cd))
+
+* Merge pull request #289 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`09e6993`](https://github.com/HLasse/TextDescriptives/commit/09e6993a3b22cef534a0f2924003b384b057aa41))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.1.1 → v0.1.3](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.1...v0.1.3) ([`b6de966`](https://github.com/HLasse/TextDescriptives/commit/b6de96644fc0b1b95d9ad381fcc6f7a983060cb6))
+
+* Merge pull request #287 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`42c2442`](https://github.com/HLasse/TextDescriptives/commit/42c2442ad41cb2201d26b13a8f4a6f2921be52c5))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/psf/black: 23.9.1 → 23.10.1](https://github.com/psf/black/compare/23.9.1...23.10.1)
+- [github.com/astral-sh/ruff-pre-commit: v0.0.292 → v0.1.1](https://github.com/astral-sh/ruff-pre-commit/compare/v0.0.292...v0.1.1)
+- [github.com/pre-commit/mirrors-mypy: v1.6.0 → v1.6.1](https://github.com/pre-commit/mirrors-mypy/compare/v1.6.0...v1.6.1) ([`70e9c24`](https://github.com/HLasse/TextDescriptives/commit/70e9c24de5ad51701f70ecc2f4cba4210a43f6d8))
+
+* Merge pull request #286 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`42ed7a6`](https://github.com/HLasse/TextDescriptives/commit/42ed7a640ef8ff9d65d38bbef7c685632428b0c9))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/pre-commit/mirrors-mypy: v1.5.1 → v1.6.0](https://github.com/pre-commit/mirrors-mypy/compare/v1.5.1...v1.6.0) ([`65c3bcc`](https://github.com/HLasse/TextDescriptives/commit/65c3bcc0bc8c58bf6e7908b6024d53bdefec706b))
+
+* Merge pull request #285 from HLasse/fix-codespell-changelog
+
+ci: codespell ignore changelog ([`c103ff6`](https://github.com/HLasse/TextDescriptives/commit/c103ff66b1d1534c7e183e7fdee62fe6b5be3da0))
+
+
 ## v2.7.0 (2023-10-12)
 
 ### Build
