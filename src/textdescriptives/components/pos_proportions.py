@@ -43,7 +43,7 @@ class POSProportions:
             Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with
                 POSTAG.
         """
-        pos_counts = Counter()
+        pos_counts: Counter = Counter()
         if self.add_all_tags:
             # add all tags to the counter so they are included in the output
             pos_counts.update(self.model_tags)
@@ -57,8 +57,10 @@ class POSProportions:
 
         if self.add_all_tags:
             # filter out tags that are not in self.model_tags
-            pos_counts = {
-                tag: count for tag, count in pos_counts.items() if tag in self.model_tags
+            pos_counts = {  # type: ignore
+                tag: count
+                for tag, count in pos_counts.items()
+                if tag in self.model_tags
             }
 
         len_text = len(text)
