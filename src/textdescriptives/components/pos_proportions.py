@@ -43,18 +43,24 @@ class POSProportions:
             Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with
                 POSTAG.
         """
+        pos_counts = Counter()
         if self.add_all_tags:
-            pos_counts: Counter = Counter(self.model_tags)  # type: ignore
+            # add all tags to the counter so they are included in the output
+            pos_counts.update(self.model_tags)
             # reset all counts to 0
             pos_counts.subtract(self.model_tags)
-
-        else:
-            pos_counts: Counter = Counter()  # type: ignore
 
         if self.use_pos:
             pos_counts.update([token.pos_ for token in text])
         else:
             pos_counts.update([token.tag_ for token in text])
+
+        if self.add_all_tags:
+            # filter out tags that are not in self.model_tags
+            pos_counts = {
+                tag: count for tag, count in pos_counts.items() if tag in self.model_tags
+            }
+
         len_text = len(text)
         return {
             f"pos_prop_{tag}": count / len(text) if len_text > 0 else np.nan
