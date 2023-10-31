@@ -273,18 +273,26 @@
 <span class="sd">            Dict containing {pos_prop_POSTAG: proportion of all tokens tagged with</span>
 <span class="sd">                POSTAG.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pos_counts</span><span class="p">:</span> <span class="n">Counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_all_tags</span><span class="p">:</span>
-            <span class="n">pos_counts</span><span class="p">:</span> <span class="n">Counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_tags</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+            <span class="c1"># add all tags to the counter so they are included in the output</span>
+            <span class="n">pos_counts</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_tags</span><span class="p">)</span>
             <span class="c1"># reset all counts to 0</span>
             <span class="n">pos_counts</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_tags</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">pos_counts</span><span class="p">:</span> <span class="n">Counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_pos</span><span class="p">:</span>
             <span class="n">pos_counts</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">text</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">pos_counts</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">token</span><span class="o">.</span><span class="n">tag_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">text</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_all_tags</span><span class="p">:</span>
+            <span class="c1"># filter out tags that are not in self.model_tags</span>
+            <span class="n">pos_counts</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># type: ignore</span>
+                <span class="n">tag</span><span class="p">:</span> <span class="n">count</span>
+                <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">pos_counts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">tag</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_tags</span>
+            <span class="p">}</span>
+
         <span class="n">len_text</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="sa">f</span><span class="s2">&quot;pos_prop_</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">count</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">if</span> <span class="n">len_text</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
