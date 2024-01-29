@@ -1,4 +1,5 @@
 """ Component for calculating quality metrics."""
+
 from collections import Counter, defaultdict
 from typing import Callable, Dict, List, Mapping, Optional, Tuple, Union
 

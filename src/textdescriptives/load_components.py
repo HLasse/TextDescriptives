@@ -1,4 +1,5 @@
 """ Adds all components to a spaCy pipeline."""
+
 from spacy.language import Language
 from spacy.tokens import Doc
 

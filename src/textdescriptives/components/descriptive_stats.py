@@ -1,4 +1,5 @@
 """ Calculation of descriptive statistics."""
+
 from typing import Callable, Dict, Union
 
 import numpy as np
