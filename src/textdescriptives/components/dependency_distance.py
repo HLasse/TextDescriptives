@@ -1,4 +1,5 @@
 """ Calculation of statistics related to dependency distance."""
+
 from typing import Callable
 
 import numpy as np

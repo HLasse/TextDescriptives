@@ -1,4 +1,5 @@
 """ Utility functions for calculating various text descriptives."""
+
 from typing import Union
 
 from pyphen import Pyphen
