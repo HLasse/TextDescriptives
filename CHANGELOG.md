@@ -2,6 +2,13 @@
 
 
 
+## v2.7.3 (2024-02-06)
+
+### Fix
+
+* fix: pin autodoc_pydantic version to support pydantic version &lt;2 ([`4b91006`](https://github.com/HLasse/TextDescriptives/commit/4b910069491794a1144cd8f9ccf8872879315f75))
+
+
 ## v2.7.2 (2024-02-06)
 
 ### Fix
