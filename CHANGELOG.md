@@ -2,6 +2,454 @@
 
 
 
+## v2.7.2 (2024-02-06)
+
+### Fix
+
+* fix: update furo to fix doc builidng ([`3e73e61`](https://github.com/HLasse/TextDescriptives/commit/3e73e61a4a734edf7d3cda20ba6a427de48bd8c9))
+
+### Unknown
+
+* Merge pull request #317 from HLasse/dependabot/pip/black-24.1.1
+
+:arrow_up: bump black from 23.12.1 to 24.1.1 ([`3ae9298`](https://github.com/HLasse/TextDescriptives/commit/3ae9298174943183ea989744af77a27d39335c1e))
+
+* :arrow_up: bump black from 23.12.1 to 24.1.1
+
+Bumps [black](https://github.com/psf/black) from 23.12.1 to 24.1.1.
+- [Release notes](https://github.com/psf/black/releases)
+- [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+- [Commits](https://github.com/psf/black/compare/23.12.1...24.1.1)
+
+---
+updated-dependencies:
+- dependency-name: black
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`76d368b`](https://github.com/HLasse/TextDescriptives/commit/76d368b52ab8afa6a97cf5fc521e4ac5fd99ac81))
+
+* Merge pull request #318 from HLasse/dependabot/pip/ipython-lte-8.21.0
+
+:arrow_up: update ipython requirement from &lt;=8.19.0 to &lt;=8.21.0 ([`00e7faf`](https://github.com/HLasse/TextDescriptives/commit/00e7faf056c89e4b218977b8b55a488279307f2a))
+
+* Merge pull request #319 from HLasse/dependabot/pip/ruff-0.1.15
+
+:arrow_up: bump ruff from 0.1.9 to 0.1.15 ([`bcd0fb0`](https://github.com/HLasse/TextDescriptives/commit/bcd0fb03d72597d9fb8dc6b282aac65430aad267))
+
+* :arrow_up: bump ruff from 0.1.9 to 0.1.15
+
+Bumps [ruff](https://github.com/astral-sh/ruff) from 0.1.9 to 0.1.15.
+- [Release notes](https://github.com/astral-sh/ruff/releases)
+- [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/astral-sh/ruff/compare/v0.1.9...v0.1.15)
+
+---
+updated-dependencies:
+- dependency-name: ruff
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`10eda08`](https://github.com/HLasse/TextDescriptives/commit/10eda088a58e6ed3a73e85c2204c3190b0c0f2c4))
+
+* :arrow_up: update ipython requirement from &lt;=8.19.0 to &lt;=8.21.0
+
+Updates the requirements on [ipython](https://github.com/ipython/ipython) to permit the latest version.
+- [Release notes](https://github.com/ipython/ipython/releases)
+- [Commits](https://github.com/ipython/ipython/compare/rel-0.8.4...8.21.0)
+
+---
+updated-dependencies:
+- dependency-name: ipython
+  dependency-type: direct:production
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`77de15d`](https://github.com/HLasse/TextDescriptives/commit/77de15d1d5d852dc9c101404dbd856c3b96c7208))
+
+* Merge pull request #316 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`144edd4`](https://github.com/HLasse/TextDescriptives/commit/144edd4341954541ef8428ad052d41f9797be346))
+
+* [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+for more information, see https://pre-commit.ci ([`1d06d1d`](https://github.com/HLasse/TextDescriptives/commit/1d06d1d891dabbb22e38ffa326d446e6780dca47))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/bwhmather/ssort: 0.12.2 → 0.12.3](https://github.com/bwhmather/ssort/compare/0.12.2...0.12.3)
+- [github.com/psf/black: 23.12.1 → 24.1.1](https://github.com/psf/black/compare/23.12.1...24.1.1) ([`e7f4b31`](https://github.com/HLasse/TextDescriptives/commit/e7f4b31430cda274eaf23f385e087f17e510629b))
+
+* Merge pull request #315 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`1fd6492`](https://github.com/HLasse/TextDescriptives/commit/1fd6492c300fd556e3c966da4f387e107dc69bba))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/bwhmather/ssort: v0.12.0 → 0.12.2](https://github.com/bwhmather/ssort/compare/v0.12.0...0.12.2)
+- [github.com/astral-sh/ruff-pre-commit: v0.1.13 → v0.1.14](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.13...v0.1.14) ([`3efd3b9`](https://github.com/HLasse/TextDescriptives/commit/3efd3b9bbd737cc3c00f55dfc2758f56950bf8b4))
+
+* Merge pull request #314 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`cee82c2`](https://github.com/HLasse/TextDescriptives/commit/cee82c2a4a1b33cd5f981fa26a8cf5c95b987285))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.1.11 → v0.1.13](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.11...v0.1.13) ([`98cc90d`](https://github.com/HLasse/TextDescriptives/commit/98cc90d990105d512b9775e22874ba84cefb2b0f))
+
+* Merge pull request #313 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`d97d8de`](https://github.com/HLasse/TextDescriptives/commit/d97d8de0b3e82eddb099ccbf2edfe9acc51b76af))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.1.9 → v0.1.11](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.9...v0.1.11) ([`8f33024`](https://github.com/HLasse/TextDescriptives/commit/8f330243736bc2a477450aeb6e9df721cce7171d))
+
+* Merge pull request #312 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`1d3b571`](https://github.com/HLasse/TextDescriptives/commit/1d3b5718cc61f0d82f12d2d589a5bea5f8b454cc))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/bwhmather/ssort: v0.11.6 → v0.12.0](https://github.com/bwhmather/ssort/compare/v0.11.6...v0.12.0) ([`b106cd5`](https://github.com/HLasse/TextDescriptives/commit/b106cd57038a815275aaa439a5f4757c268d85a5))
+
+* Merge pull request #307 from HLasse/dependabot/pip/ruff-0.1.9
+
+:arrow_up: Bump ruff from 0.1.6 to 0.1.9 ([`ce26c71`](https://github.com/HLasse/TextDescriptives/commit/ce26c7165fa63d7082f559e8e24b365f76a8a45f))
+
+* :arrow_up: Bump ruff from 0.1.6 to 0.1.9
+
+Bumps [ruff](https://github.com/astral-sh/ruff) from 0.1.6 to 0.1.9.
+- [Release notes](https://github.com/astral-sh/ruff/releases)
+- [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/astral-sh/ruff/compare/v0.1.6...v0.1.9)
+
+---
+updated-dependencies:
+- dependency-name: ruff
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`daa09d2`](https://github.com/HLasse/TextDescriptives/commit/daa09d2bc008d229aa48601264a23dd26e85a1c1))
+
+* Merge pull request #311 from HLasse/dependabot/pip/black-23.12.1
+
+:arrow_up: Bump black from 23.11.0 to 23.12.1 ([`25350ed`](https://github.com/HLasse/TextDescriptives/commit/25350edaec1c8c695fc6f41be888b1b523788180))
+
+* :arrow_up: Bump black from 23.11.0 to 23.12.1
+
+Bumps [black](https://github.com/psf/black) from 23.11.0 to 23.12.1.
+- [Release notes](https://github.com/psf/black/releases)
+- [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+- [Commits](https://github.com/psf/black/compare/23.11.0...23.12.1)
+
+---
+updated-dependencies:
+- dependency-name: black
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`a491fe9`](https://github.com/HLasse/TextDescriptives/commit/a491fe9f7f7cc932535f0202f62658d749944719))
+
+* Merge pull request #310 from HLasse/dependabot/pip/mypy-1.8.0
+
+:arrow_up: Bump mypy from 1.7.1 to 1.8.0 ([`8402ed9`](https://github.com/HLasse/TextDescriptives/commit/8402ed9f29381c2db5386d8e3e928690941899d0))
+
+* :arrow_up: Bump mypy from 1.7.1 to 1.8.0
+
+Bumps [mypy](https://github.com/python/mypy) from 1.7.1 to 1.8.0.
+- [Changelog](https://github.com/python/mypy/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/python/mypy/compare/v1.7.1...v1.8.0)
+
+---
+updated-dependencies:
+- dependency-name: mypy
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`5d86734`](https://github.com/HLasse/TextDescriptives/commit/5d86734b8ab82d7b48ef782426bcade930915c41))
+
+* Merge pull request #309 from HLasse/dependabot/pip/pre-commit-3.6.0
+
+:arrow_up: Bump pre-commit from 3.5.0 to 3.6.0 ([`877dea8`](https://github.com/HLasse/TextDescriptives/commit/877dea8861de9c6ecaac5dd7ecbe742336d0dd55))
+
+* Merge pull request #308 from HLasse/dependabot/pip/ipython-lte-8.19.0
+
+:arrow_up: Update ipython requirement from &lt;=8.18.1 to &lt;=8.19.0 ([`6e46b14`](https://github.com/HLasse/TextDescriptives/commit/6e46b146395c6f74beea7e1b355b46b5b65fd878))
+
+* :arrow_up: Bump pre-commit from 3.5.0 to 3.6.0
+
+Bumps [pre-commit](https://github.com/pre-commit/pre-commit) from 3.5.0 to 3.6.0.
+- [Release notes](https://github.com/pre-commit/pre-commit/releases)
+- [Changelog](https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/pre-commit/pre-commit/compare/v3.5.0...v3.6.0)
+
+---
+updated-dependencies:
+- dependency-name: pre-commit
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`38b603d`](https://github.com/HLasse/TextDescriptives/commit/38b603da6650fd2775e26e6f384159aeb7d5fd49))
+
+* :arrow_up: Update ipython requirement from &lt;=8.18.1 to &lt;=8.19.0
+
+Updates the requirements on [ipython](https://github.com/ipython/ipython) to permit the latest version.
+- [Release notes](https://github.com/ipython/ipython/releases)
+- [Commits](https://github.com/ipython/ipython/compare/rel-0.8.4...8.19.0)
+
+---
+updated-dependencies:
+- dependency-name: ipython
+  dependency-type: direct:production
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`85c8e5b`](https://github.com/HLasse/TextDescriptives/commit/85c8e5bf24532567fa3a54b783671dee836f2ef6))
+
+* Merge pull request #306 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`8c657a0`](https://github.com/HLasse/TextDescriptives/commit/8c657a087fc76e9c8b17788041788ff2c13e05b5))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/psf/black: 23.12.0 → 23.12.1](https://github.com/psf/black/compare/23.12.0...23.12.1)
+- [github.com/astral-sh/ruff-pre-commit: v0.1.8 → v0.1.9](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.8...v0.1.9)
+- [github.com/pre-commit/mirrors-mypy: v1.7.1 → v1.8.0](https://github.com/pre-commit/mirrors-mypy/compare/v1.7.1...v1.8.0) ([`7486fa8`](https://github.com/HLasse/TextDescriptives/commit/7486fa8a4c0549b994faf07228470ff78e4d93ea))
+
+* Merge pull request #305 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`80a526b`](https://github.com/HLasse/TextDescriptives/commit/80a526b7ed9319e2016e59379a588e3bc85b07ce))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/psf/black: 23.11.0 → 23.12.0](https://github.com/psf/black/compare/23.11.0...23.12.0)
+- [github.com/astral-sh/ruff-pre-commit: v0.1.7 → v0.1.8](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.7...v0.1.8) ([`b929fb7`](https://github.com/HLasse/TextDescriptives/commit/b929fb76cdb63d5bcb57067d571ff1796091f069))
+
+* Merge pull request #300 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`0d175d2`](https://github.com/HLasse/TextDescriptives/commit/0d175d21dd4841908df677ab937453cad2c6102e))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.1.6 → v0.1.7](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.6...v0.1.7)
+- [github.com/pre-commit/mirrors-mypy: v1.7.0 → v1.7.1](https://github.com/pre-commit/mirrors-mypy/compare/v1.7.0...v1.7.1) ([`a2b8cca`](https://github.com/HLasse/TextDescriptives/commit/a2b8cca111460eed919f6cf814d10e9d357631e5))
+
+* Merge pull request #304 from HLasse/dependabot/pip/black-23.11.0
+
+:arrow_up: Bump black from 23.9.1 to 23.11.0 ([`a062067`](https://github.com/HLasse/TextDescriptives/commit/a0620673da845bc32d9749fa2a1c4177363c2f36))
+
+* :arrow_up: Bump black from 23.9.1 to 23.11.0
+
+Bumps [black](https://github.com/psf/black) from 23.9.1 to 23.11.0.
+- [Release notes](https://github.com/psf/black/releases)
+- [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+- [Commits](https://github.com/psf/black/compare/23.9.1...23.11.0)
+
+---
+updated-dependencies:
+- dependency-name: black
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`c18eb32`](https://github.com/HLasse/TextDescriptives/commit/c18eb3216e074e6abf27367cd82dbd48558334c1))
+
+* Merge pull request #303 from HLasse/dependabot/pip/ruff-0.1.6
+
+:arrow_up: Bump ruff from 0.1.3 to 0.1.6 ([`6d6d110`](https://github.com/HLasse/TextDescriptives/commit/6d6d110b5863fd8aa962d6cd5e833f387e22ee0f))
+
+* :arrow_up: Bump ruff from 0.1.3 to 0.1.6
+
+Bumps [ruff](https://github.com/astral-sh/ruff) from 0.1.3 to 0.1.6.
+- [Release notes](https://github.com/astral-sh/ruff/releases)
+- [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/astral-sh/ruff/compare/v0.1.3...v0.1.6)
+
+---
+updated-dependencies:
+- dependency-name: ruff
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`ab97371`](https://github.com/HLasse/TextDescriptives/commit/ab9737139591861341fbebee2c2ac5e06ed8e007))
+
+* Merge pull request #302 from HLasse/dependabot/pip/mypy-1.7.1
+
+:arrow_up: Bump mypy from 1.6.1 to 1.7.1 ([`65c17fa`](https://github.com/HLasse/TextDescriptives/commit/65c17fafe783295d83e6ba4979901d0afa21f6c4))
+
+* Merge pull request #301 from HLasse/dependabot/pip/ipython-lte-8.18.1
+
+:arrow_up: Update ipython requirement from &lt;=8.17.2 to &lt;=8.18.1 ([`d4716f3`](https://github.com/HLasse/TextDescriptives/commit/d4716f3e85431132b0e9f331eceaee3c6d4491c2))
+
+* :arrow_up: Bump mypy from 1.6.1 to 1.7.1
+
+Bumps [mypy](https://github.com/python/mypy) from 1.6.1 to 1.7.1.
+- [Changelog](https://github.com/python/mypy/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/python/mypy/compare/v1.6.1...v1.7.1)
+
+---
+updated-dependencies:
+- dependency-name: mypy
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`289e6bb`](https://github.com/HLasse/TextDescriptives/commit/289e6bb95f75fce854229e9360b52d8ada9303ce))
+
+* :arrow_up: Update ipython requirement from &lt;=8.17.2 to &lt;=8.18.1
+
+Updates the requirements on [ipython](https://github.com/ipython/ipython) to permit the latest version.
+- [Release notes](https://github.com/ipython/ipython/releases)
+- [Commits](https://github.com/ipython/ipython/compare/rel-0.8.4...8.18.1)
+
+---
+updated-dependencies:
+- dependency-name: ipython
+  dependency-type: direct:production
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`a27a959`](https://github.com/HLasse/TextDescriptives/commit/a27a959363fb9c15a96a0c46575d500f302dfea4))
+
+* Merge pull request #299 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`b571ed0`](https://github.com/HLasse/TextDescriptives/commit/b571ed0fa3ba27d3f2958707ea03fa880c2498e6))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.1.5 → v0.1.6](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.5...v0.1.6) ([`f8c86c9`](https://github.com/HLasse/TextDescriptives/commit/f8c86c924badf97a2debcdb161af800abceaf066))
+
+* Merge pull request #298 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`523eda2`](https://github.com/HLasse/TextDescriptives/commit/523eda2f1c4f035607c21a56bf5a9bc26f1a2091))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/psf/black: 23.10.1 → 23.11.0](https://github.com/psf/black/compare/23.10.1...23.11.0)
+- [github.com/astral-sh/ruff-pre-commit: v0.1.4 → v0.1.5](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.4...v0.1.5)
+- [github.com/pre-commit/mirrors-mypy: v1.6.1 → v1.7.0](https://github.com/pre-commit/mirrors-mypy/compare/v1.6.1...v1.7.0) ([`2628507`](https://github.com/HLasse/TextDescriptives/commit/26285076ea6452f98cb5b3bce712f8133b6437b3))
+
+* Merge pull request #297 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`af149dc`](https://github.com/HLasse/TextDescriptives/commit/af149dcc09419636f4622749a2815e81c0458e77))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/astral-sh/ruff-pre-commit: v0.1.3 → v0.1.4](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.3...v0.1.4) ([`19260dd`](https://github.com/HLasse/TextDescriptives/commit/19260ddc0ed51d3131711f349e2acc24a220af83))
+
+* Merge pull request #293 from HLasse/dependabot/pip/mypy-1.6.1
+
+:arrow_up: Bump mypy from 1.5.1 to 1.6.1 ([`f907745`](https://github.com/HLasse/TextDescriptives/commit/f907745f7e72e5ce01d3406e624489f3e731afed))
+
+* :arrow_up: Bump mypy from 1.5.1 to 1.6.1
+
+Bumps [mypy](https://github.com/python/mypy) from 1.5.1 to 1.6.1.
+- [Changelog](https://github.com/python/mypy/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/python/mypy/compare/v1.5.1...v1.6.1)
+
+---
+updated-dependencies:
+- dependency-name: mypy
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`6511732`](https://github.com/HLasse/TextDescriptives/commit/6511732a0687c5fa9658467e8f991b721570339c))
+
+* Merge pull request #295 from HLasse/dependabot/pip/ruff-0.1.3
+
+:arrow_up: Bump ruff from 0.0.291 to 0.1.3 ([`e1bbd5b`](https://github.com/HLasse/TextDescriptives/commit/e1bbd5b49a801093f28bc6c1f15b89976e9559e6))
+
+* Merge pull request #294 from HLasse/dependabot/pip/autodoc-pydantic-2.0.1
+
+:arrow_up: Bump autodoc-pydantic from 1.8.0 to 2.0.1 ([`e82e18a`](https://github.com/HLasse/TextDescriptives/commit/e82e18a1b4033bec38b7cfd35bcf9971a145159e))
+
+* :arrow_up: Bump ruff from 0.0.291 to 0.1.3
+
+Bumps [ruff](https://github.com/astral-sh/ruff) from 0.0.291 to 0.1.3.
+- [Release notes](https://github.com/astral-sh/ruff/releases)
+- [Changelog](https://github.com/astral-sh/ruff/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/astral-sh/ruff/compare/v0.0.291...v0.1.3)
+
+---
+updated-dependencies:
+- dependency-name: ruff
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`2b655d6`](https://github.com/HLasse/TextDescriptives/commit/2b655d68be50b1634628c398e067e4973c89c0c6))
+
+* Merge pull request #292 from HLasse/dependabot/pip/pre-commit-3.5.0
+
+:arrow_up: Bump pre-commit from 3.4.0 to 3.5.0 ([`c013c1b`](https://github.com/HLasse/TextDescriptives/commit/c013c1bcdbbaef1151e98234d72cf480fe81c228))
+
+* Merge pull request #291 from HLasse/dependabot/pip/ipython-lte-8.17.2
+
+:arrow_up: Update ipython requirement from &lt;=8.16.0 to &lt;=8.17.2 ([`619c584`](https://github.com/HLasse/TextDescriptives/commit/619c584c30b31978f839d7dbff182fd76254c707))
+
+* :arrow_up: Bump autodoc-pydantic from 1.8.0 to 2.0.1
+
+Bumps [autodoc-pydantic](https://github.com/mansenfranzen/autodoc_pydantic) from 1.8.0 to 2.0.1.
+- [Changelog](https://github.com/mansenfranzen/autodoc_pydantic/blob/main/changelog.rst)
+- [Commits](https://github.com/mansenfranzen/autodoc_pydantic/compare/v1.8.0...v2.0.1)
+
+---
+updated-dependencies:
+- dependency-name: autodoc-pydantic
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`234461a`](https://github.com/HLasse/TextDescriptives/commit/234461a0a58dc5fa345af461542aad94595aa6ad))
+
+* :arrow_up: Bump pre-commit from 3.4.0 to 3.5.0
+
+Bumps [pre-commit](https://github.com/pre-commit/pre-commit) from 3.4.0 to 3.5.0.
+- [Release notes](https://github.com/pre-commit/pre-commit/releases)
+- [Changelog](https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/pre-commit/pre-commit/compare/v3.4.0...v3.5.0)
+
+---
+updated-dependencies:
+- dependency-name: pre-commit
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`3baa198`](https://github.com/HLasse/TextDescriptives/commit/3baa198f8259ec953a4e3d1c9ec101fd01e10648))
+
+* :arrow_up: Update ipython requirement from &lt;=8.16.0 to &lt;=8.17.2
+
+Updates the requirements on [ipython](https://github.com/ipython/ipython) to permit the latest version.
+- [Release notes](https://github.com/ipython/ipython/releases)
+- [Commits](https://github.com/ipython/ipython/compare/rel-0.8.4...8.17.2)
+
+---
+updated-dependencies:
+- dependency-name: ipython
+  dependency-type: direct:production
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`8330b85`](https://github.com/HLasse/TextDescriptives/commit/8330b85b38ac7c6b1b06def0f9a9f2a9a336200d))
+
+
 ## v2.7.1 (2023-10-31)
 
 ### Ci
