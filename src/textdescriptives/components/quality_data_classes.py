@@ -20,6 +20,7 @@ class ThresholdsOutput(BaseModel):
         >>> t_out.passed
         True
     """
+
     model_config = ConfigDict(extra="forbid")
 
     threshold: Union[Interval, bool, None]
@@ -58,6 +59,7 @@ class ThresholdsOutput(BaseModel):
 
 class QualityThresholds(BaseModel):
     """Thresholds for quality metrics."""
+
     model_config = ConfigDict(extra="forbid")
 
     n_stop_words: Interval = Field(
@@ -159,6 +161,7 @@ class QualityThresholds(BaseModel):
 
 class QualityOutput(BaseModel):
     """The output of the quality function."""
+
     model_config = ConfigDict(extra="forbid")
 
     n_stop_words: ThresholdsOutput = Field(
