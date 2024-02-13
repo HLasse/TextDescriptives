@@ -4,7 +4,6 @@ from typing import List, Tuple
 
 import pytest
 import spacy
-
 import textdescriptives as td
 from textdescriptives.components.quality import (
     alpha_ratio,
@@ -208,7 +207,7 @@ def test_quality_component_with_config(nlp: spacy.Language):
         proportion_bullet_points=(None, 0.8),
         duplicate_line_chr_fraction=(None, 0.2),
         duplicate_paragraph_chr_fraction=(None, 0.2),
-        top_ngram_chr_fraction={2: (None, 0.6), 3: (None, 0.6)},
+        top_ngram_chr_fraction={"2": (None, 0.6), "3": (None, 0.6)},
         duplicate_ngram_chr_fraction={},
         contains={"lorem ipsum": False},
         oov_ratio=(None, 0.3),

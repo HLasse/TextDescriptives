@@ -2,7 +2,7 @@
 
 from typing import Any, Dict, Optional, Tuple, Union
 
-from pydantic import BaseModel, Extra, Field
+from pydantic import ConfigDict, BaseModel, Field
 
 Interval = Tuple[Optional[float], Optional[float]]
 
@@ -21,8 +21,7 @@ class ThresholdsOutput(BaseModel):
         True
     """
 
-    class Config:
-        extra = Extra.forbid
+    model_config = ConfigDict(extra="forbid")
 
     threshold: Union[Interval, bool, None]
     value: Union[float, None]
@@ -61,8 +60,7 @@ class ThresholdsOutput(BaseModel):
 class QualityThresholds(BaseModel):
     """Thresholds for quality metrics."""
 
-    class Config:
-        extra = Extra.forbid
+    model_config = ConfigDict(extra="forbid")
 
     n_stop_words: Interval = Field(
         (2, None),
@@ -164,8 +162,7 @@ class QualityThresholds(BaseModel):
 class QualityOutput(BaseModel):
     """The output of the quality function."""
 
-    class Config:
-        extra = Extra.forbid
+    model_config = ConfigDict(extra="forbid")
 
     n_stop_words: ThresholdsOutput = Field(
         ...,
