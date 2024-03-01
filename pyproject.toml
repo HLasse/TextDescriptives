@@ -39,7 +39,7 @@ dependencies = [
     "pandas>=1.0.0",
     "pyphen>=0.11.0,<0.15.0",
     "ftfy>=6.0.3,<6.1.0",
-    "pydantic<2.0.0",
+    "pydantic<3.0.0",
 ]
 
 requires-python = ">=3.8"
