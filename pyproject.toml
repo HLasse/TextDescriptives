@@ -67,7 +67,7 @@ tutorials = [
     "matplotlib",
     "datasets>=2.8.0",
     "scikit-learn>=1.1.1",
-    "ipython<=8.21.0",
+    "ipython<=8.22.1",
 ]
 sklearn = ["scikit-learn>=1.1.1"]
 
