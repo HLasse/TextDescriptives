@@ -173,7 +173,8 @@ def create_information_theory_component(nlp: Language, name: str) -> Information
 
     Example:
         >>> import spacy
-        >>> nlp = spacy.blank('en_core_web_lg')
+        >>> import textdescriptives as td
+        >>> nlp = spacy.blank('en')
         >>> nlp.add_pipe('textdescriptives/information_theory')
         >>> doc = nlp('This is a sentence.')
         >>> doc._.information_theory

@@ -652,7 +652,7 @@ def create_quality_component(
     Example:
         >>> import spacy
         >>> from spacy_quality import Quality
-        >>> nlp = spacy.blank(("en_core_web_sm")
+        >>> nlp = spacy.blank("en")
         >>> nlp.add_pipe("quality")
         >>> doc = nlp("This is a test")
         >>> # extract quality metrics

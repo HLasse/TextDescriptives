@@ -224,6 +224,7 @@ def create_descriptive_stats_component(
 
     Example:
         >>> import spacy
+        >>> import textdescriptives as td
         >>> nlp = spacy.blank("en")
         >>> # add sentencizer
         >>> nlp.add_pipe("sentencizer")

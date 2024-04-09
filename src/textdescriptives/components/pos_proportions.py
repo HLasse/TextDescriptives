@@ -105,6 +105,7 @@ def create_pos_proportions_component(
 
     Example:
         >>> import spacy
+        >>> import textdescriptives as td
         >>> nlp = spacy.load("en_core_web_sm")
         >>> nlp.add_pipe("textdescriptives/pos_proportions")
         >>> # apply the component to a document

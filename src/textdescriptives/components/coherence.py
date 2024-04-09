@@ -138,6 +138,7 @@ def create_coherence_component(nlp: Language, name: str) -> Callable[[Doc], Doc]
 
     Examples:
         >>> import spacy
+        >>> import textdescriptives as td
         >>> nlp = spacy.load("en_core_web_md")
         >>> nlp.add_pipe("textdescriptives/coherence")
         >>> # apply the pipeline to a text
