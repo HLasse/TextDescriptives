@@ -514,7 +514,7 @@ class Quality:
         # to allow the variable to json serializable we convert it to json
         # it is then converted back into a quality output object in the getter
 
-        doc._._quality = self.quality_setter(doc).dict()
+        doc._._quality = self.quality_setter(doc).model_dump()
         doc._.passed_quality_check = self.passed_quality_thresholds(doc)
 
     def passed_quality_thresholds(self, span: Union[Span, Doc]) -> bool:
