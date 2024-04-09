@@ -132,6 +132,7 @@ def create_dependency_distance_component(
 
     Example:
         >>> import spacy
+        >>> import textdescriptives as td
         >>> nlp = spacy.load("en_core_web_sm")
         >>> nlp.add_pipe("textdescriptives/dependency_distance")
         >>> # apply the pipeline to a text
