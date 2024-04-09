@@ -2,6 +2,74 @@
 
 
 
+## v2.8.0 (2024-04-09)
+
+### Build
+
+* build: update autodoc_pydantic to support pydantic 2 ([`e236d0d`](https://github.com/HLasse/TextDescriptives/commit/e236d0da869a71d331ac3ce19bf5c4e0045520a5))
+
+* build: require pydantic &lt;2.0.0 ([`e18a6aa`](https://github.com/HLasse/TextDescriptives/commit/e18a6aa613fed976bb86ad7010312eccd9c90fb3))
+
+### Ci
+
+* ci: update semrelease version for pydantic support ([`3baa06d`](https://github.com/HLasse/TextDescriptives/commit/3baa06d183733caeb4185f36b80f4438516adb70))
+
+### Documentation
+
+* docs: bin pydantic version in docs building ([`8631fc8`](https://github.com/HLasse/TextDescriptives/commit/8631fc8fe84b29962bc4ecd378c7c32f108b30c7))
+
+### Feature
+
+* feat: bump pydantic version to 2.0 ([`ce91e56`](https://github.com/HLasse/TextDescriptives/commit/ce91e568fe0926593de4b43fde8108f8b7b1da15))
+
+### Fix
+
+* fix: misc ([`844c240`](https://github.com/HLasse/TextDescriptives/commit/844c2403f34c7dcea9f83cfaf764176aac7e674b))
+
+### Unknown
+
+* Merge pull request #326 from HLasse/pydantic-2
+
+feat: bump pydantic version to 2.0 and spacy version to &gt;=3.6 ([`d900c46`](https://github.com/HLasse/TextDescriptives/commit/d900c4656d958b77efc0caaff01038c92836f766))
+
+* tests: update spacy model version for tests to 3.6 ([`4e2029f`](https://github.com/HLasse/TextDescriptives/commit/4e2029f9d0e0cf12ec36d8c8f0ce67bd5f01f24b))
+
+* CI: update sem ver version ([`7b24af8`](https://github.com/HLasse/TextDescriptives/commit/7b24af8fe2bbf549643bedd431f59e340a3e970c))
+
+* deps: update min spacy version to 3.6 ([`d7d5a30`](https://github.com/HLasse/TextDescriptives/commit/d7d5a30ea19a399e3800e94e220264bbd2bb45c8))
+
+* Merge pull request #320 from HLasse/pre-commit-ci-update-config
+
+[pre-commit.ci] pre-commit autoupdate ([`5c7015a`](https://github.com/HLasse/TextDescriptives/commit/5c7015a541c717bd1001637585b65d25ac8ee70d))
+
+* [pre-commit.ci] pre-commit autoupdate
+
+updates:
+- [github.com/bwhmather/ssort: 0.12.3 → 0.12.4](https://github.com/bwhmather/ssort/compare/0.12.3...0.12.4)
+- [github.com/psf/black: 24.1.1 → 24.2.0](https://github.com/psf/black/compare/24.1.1...24.2.0)
+- [github.com/astral-sh/ruff-pre-commit: v0.1.14 → v0.2.1](https://github.com/astral-sh/ruff-pre-commit/compare/v0.1.14...v0.2.1) ([`b6ba478`](https://github.com/HLasse/TextDescriptives/commit/b6ba47829f2b86a0858998570f34e5102fcd5436))
+
+* lint ([`2ec4aa9`](https://github.com/HLasse/TextDescriptives/commit/2ec4aa90e122a65ddc23712afa6cfccd160e4d41))
+
+* Merge branch &#39;pydantic-2&#39; of https://github.com/HLasse/TextDescriptives into pydantic-2
+something? ([`8a5f03e`](https://github.com/HLasse/TextDescriptives/commit/8a5f03e7154904bab75d132d6474e35540936eca))
+
+* tests: fix type ([`7854c8d`](https://github.com/HLasse/TextDescriptives/commit/7854c8da6a6f02db4156e61ed3f17977f20dfd20))
+
+* Merge branch &#39;main&#39; into pydantic-2 ([`8682679`](https://github.com/HLasse/TextDescriptives/commit/8682679b756329054b3c4dffbbb67fbece6c5232))
+
+* Merge pull request #325 from HLasse/HLasse-patch-1
+
+build: require pydantic &lt;2.0.0 ([`8589099`](https://github.com/HLasse/TextDescriptives/commit/8589099fd2a31a138559f0049ea77e7a34cb1aff))
+
+* Merge pull request #322 from HLasse/HLasse/tutorials-quality-tutorial-failing-due-to-DAGW-not-being-available-at-the-moment
+
+tutorials: quality tutorial failing due to DAGW not being available at the moment ([`b23beb2`](https://github.com/HLasse/TextDescriptives/commit/b23beb2adb98c0d0651981e685a63d28509c3428))
+
+* tutorials: quality tutorial failing due to DAGW not being available at the moment
+Fixes #321 ([`fbaa00d`](https://github.com/HLasse/TextDescriptives/commit/fbaa00d0d7ec1a78a0620977a18f54aa17898131))
+
+
 ## v2.7.3 (2024-02-06)
 
 ### Fix
