@@ -403,7 +403,8 @@
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; import spacy</span>
-<span class="sd">        &gt;&gt;&gt; nlp = spacy.blank(&#39;en_core_web_lg&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; import textdescriptives as td</span>
+<span class="sd">        &gt;&gt;&gt; nlp = spacy.blank(&#39;en&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; nlp.add_pipe(&#39;textdescriptives/information_theory&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; doc = nlp(&#39;This is a sentence.&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; doc._.information_theory</span>
