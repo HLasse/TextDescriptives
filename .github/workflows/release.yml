@@ -34,7 +34,7 @@ jobs:
 
       - name: Python Semantic Release
         id: release
-        uses: python-semantic-release/python-semantic-release@v8.0.4
+        uses: python-semantic-release/python-semantic-release@v9.4.1
         with:
           github_token: ${{ secrets.RELEASE }}
           root_options: "-vv"
