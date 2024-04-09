@@ -385,6 +385,17 @@ Name: count, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
+      <th>token_length_mean</th>
+      <th>token_length_median</th>
+      <th>token_length_std</th>
+      <th>sentence_length_mean</th>
+      <th>...</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
@@ -393,17 +404,6 @@ Name: count, dtype: int64
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
-      <th>...</th>
-      <th>syllables_per_token_std</th>
-      <th>n_tokens</th>
-      <th>n_unique_tokens</th>
-      <th>proportion_unique_tokens</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
@@ -411,120 +411,120 @@ Name: count, dtype: int64
       <th>0</th>
       <td>ham</td>
       <td>Go until jurong point, crazy.. Available only ...</td>
-      <td>90.935000</td>
-      <td>3.060000</td>
-      <td>NaN</td>
-      <td>4.0</td>
-      <td>3.116500</td>
-      <td>5.642000</td>
-      <td>15.000000</td>
-      <td>0.5</td>
+      <td>2.344156</td>
+      <td>0.598413</td>
+      <td>0.327561</td>
+      <td>0.032072</td>
+      <td>4.150000</td>
+      <td>5.0</td>
+      <td>1.904600</td>
+      <td>6.666667</td>
       <td>...</td>
-      <td>0.433013</td>
-      <td>20</td>
-      <td>20</td>
-      <td>1.000000</td>
       <td>92</td>
-      <td>2</td>
-      <td>2.333333</td>
-      <td>0.833333</td>
-      <td>0.388889</td>
-      <td>0.055556</td>
+      <td>3</td>
+      <td>94.318333</td>
+      <td>1.760000</td>
+      <td>3.1291</td>
+      <td>2.666667</td>
+      <td>1.449833</td>
+      <td>4.162000</td>
+      <td>11.666667</td>
+      <td>0.333333</td>
     </tr>
     <tr>
       <th>1</th>
       <td>ham</td>
       <td>Ok lar... Joking wif u oni...</td>
-      <td>105.090000</td>
-      <td>-0.653333</td>
-      <td>NaN</td>
-      <td>1.2</td>
-      <td>-5.800000</td>
-      <td>-8.026667</td>
-      <td>3.000000</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.372678</td>
-      <td>6</td>
-      <td>6</td>
-      <td>1.000000</td>
-      <td>24</td>
-      <td>2</td>
       <td>1.333333</td>
       <td>0.666667</td>
       <td>0.433333</td>
       <td>0.233333</td>
+      <td>3.000000</td>
+      <td>3.0</td>
+      <td>1.527525</td>
+      <td>3.000000</td>
+      <td>...</td>
+      <td>24</td>
+      <td>2</td>
+      <td>105.090000</td>
+      <td>-0.653333</td>
+      <td>NaN</td>
+      <td>1.200000</td>
+      <td>-5.800000</td>
+      <td>-8.026667</td>
+      <td>3.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>2</th>
       <td>spam</td>
       <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
-      <td>92.917857</td>
-      <td>3.777143</td>
-      <td>NaN</td>
-      <td>5.6</td>
-      <td>6.260357</td>
-      <td>7.915714</td>
-      <td>28.285714</td>
-      <td>2.0</td>
+      <td>1.833333</td>
+      <td>0.670905</td>
+      <td>0.468254</td>
+      <td>0.099760</td>
+      <td>4.392857</td>
+      <td>4.0</td>
+      <td>3.298693</td>
+      <td>9.333333</td>
       <td>...</td>
-      <td>0.382993</td>
-      <td>28</td>
-      <td>24</td>
-      <td>0.857143</td>
       <td>128</td>
-      <td>2</td>
-      <td>2.516807</td>
-      <td>0.659664</td>
-      <td>0.521008</td>
-      <td>0.050420</td>
+      <td>3</td>
+      <td>97.654524</td>
+      <td>1.957143</td>
+      <td>3.1291</td>
+      <td>3.733333</td>
+      <td>3.927024</td>
+      <td>6.858571</td>
+      <td>23.619048</td>
+      <td>1.333333</td>
     </tr>
     <tr>
       <th>3</th>
       <td>ham</td>
       <td>U dun say so early hor... U c already then say...</td>
+      <td>1.702381</td>
+      <td>0.130952</td>
+      <td>0.452381</td>
+      <td>0.119048</td>
+      <td>3.000000</td>
+      <td>3.0</td>
+      <td>1.758098</td>
+      <td>5.500000</td>
+      <td>...</td>
+      <td>39</td>
+      <td>2</td>
       <td>116.652500</td>
       <td>-1.645000</td>
       <td>NaN</td>
-      <td>2.2</td>
+      <td>2.200000</td>
       <td>-4.550000</td>
       <td>-3.541818</td>
       <td>14.590909</td>
-      <td>0.5</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>11</td>
-      <td>9</td>
-      <td>0.818182</td>
-      <td>39</td>
-      <td>2</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
+      <td>0.500000</td>
     </tr>
     <tr>
       <th>4</th>
       <td>ham</td>
       <td>Nah I don't think he goes to usf, he lives aro...</td>
-      <td>109.040000</td>
-      <td>1.280000</td>
-      <td>NaN</td>
-      <td>5.2</td>
-      <td>1.373846</td>
-      <td>2.276923</td>
-      <td>13.000000</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>13</td>
-      <td>12</td>
-      <td>0.923077</td>
-      <td>49</td>
-      <td>1</td>
       <td>2.066667</td>
       <td>0.000000</td>
       <td>0.400000</td>
+      <td>0.000000</td>
+      <td>3.461538</td>
+      <td>3.0</td>
+      <td>1.598816</td>
+      <td>13.000000</td>
+      <td>...</td>
+      <td>49</td>
+      <td>1</td>
+      <td>109.040000</td>
+      <td>1.280000</td>
+      <td>NaN</td>
+      <td>5.200000</td>
+      <td>1.373846</td>
+      <td>2.276923</td>
+      <td>13.000000</td>
       <td>0.000000</td>
     </tr>
   </tbody>
@@ -557,7 +557,7 @@ Name: count, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7f96e4ea2470&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;textdescriptives.components.dependency_distance.DependencyDistance at 0x7fa2b59dfb80&gt;
 </pre></div>
 </div>
 </div>
@@ -608,6 +608,17 @@ Name: count, dtype: int64
       <th></th>
       <th>label</th>
       <th>message</th>
+      <th>dependency_distance_mean</th>
+      <th>dependency_distance_std</th>
+      <th>prop_adjacent_dependency_relation_mean</th>
+      <th>prop_adjacent_dependency_relation_std</th>
+      <th>token_length_mean</th>
+      <th>token_length_median</th>
+      <th>token_length_std</th>
+      <th>sentence_length_mean</th>
+      <th>...</th>
+      <th>n_characters</th>
+      <th>n_sentences</th>
       <th>flesch_reading_ease</th>
       <th>flesch_kincaid_grade</th>
       <th>smog</th>
@@ -616,17 +627,6 @@ Name: count, dtype: int64
       <th>coleman_liau_index</th>
       <th>lix</th>
       <th>rix</th>
-      <th>...</th>
-      <th>syllables_per_token_std</th>
-      <th>n_tokens</th>
-      <th>n_unique_tokens</th>
-      <th>proportion_unique_tokens</th>
-      <th>n_characters</th>
-      <th>n_sentences</th>
-      <th>dependency_distance_mean</th>
-      <th>dependency_distance_std</th>
-      <th>prop_adjacent_dependency_relation_mean</th>
-      <th>prop_adjacent_dependency_relation_std</th>
     </tr>
   </thead>
   <tbody>
@@ -634,120 +634,120 @@ Name: count, dtype: int64
       <th>0</th>
       <td>ham</td>
       <td>Go until jurong point, crazy.. Available only ...</td>
-      <td>90.935000</td>
-      <td>3.060000</td>
-      <td>NaN</td>
-      <td>4.0</td>
-      <td>3.116500</td>
-      <td>5.642000</td>
-      <td>15.000000</td>
-      <td>0.5</td>
+      <td>2.344156</td>
+      <td>0.598413</td>
+      <td>0.327561</td>
+      <td>0.032072</td>
+      <td>4.150000</td>
+      <td>5.0</td>
+      <td>1.904600</td>
+      <td>6.666667</td>
       <td>...</td>
-      <td>0.433013</td>
-      <td>20</td>
-      <td>20</td>
-      <td>1.000000</td>
       <td>92</td>
-      <td>2</td>
-      <td>2.333333</td>
-      <td>0.833333</td>
-      <td>0.388889</td>
-      <td>0.055556</td>
+      <td>3</td>
+      <td>94.318333</td>
+      <td>1.760000</td>
+      <td>3.1291</td>
+      <td>2.666667</td>
+      <td>1.449833</td>
+      <td>4.162000</td>
+      <td>11.666667</td>
+      <td>0.333333</td>
     </tr>
     <tr>
       <th>1</th>
       <td>ham</td>
       <td>Ok lar... Joking wif u oni...</td>
-      <td>105.090000</td>
-      <td>-0.653333</td>
-      <td>NaN</td>
-      <td>1.2</td>
-      <td>-5.800000</td>
-      <td>-8.026667</td>
-      <td>3.000000</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.372678</td>
-      <td>6</td>
-      <td>6</td>
-      <td>1.000000</td>
-      <td>24</td>
-      <td>2</td>
       <td>1.333333</td>
       <td>0.666667</td>
       <td>0.433333</td>
       <td>0.233333</td>
+      <td>3.000000</td>
+      <td>3.0</td>
+      <td>1.527525</td>
+      <td>3.000000</td>
+      <td>...</td>
+      <td>24</td>
+      <td>2</td>
+      <td>105.090000</td>
+      <td>-0.653333</td>
+      <td>NaN</td>
+      <td>1.200000</td>
+      <td>-5.800000</td>
+      <td>-8.026667</td>
+      <td>3.000000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>2</th>
       <td>spam</td>
       <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
-      <td>92.917857</td>
-      <td>3.777143</td>
-      <td>NaN</td>
-      <td>5.6</td>
-      <td>6.260357</td>
-      <td>7.915714</td>
-      <td>28.285714</td>
-      <td>2.0</td>
+      <td>1.833333</td>
+      <td>0.670905</td>
+      <td>0.468254</td>
+      <td>0.099760</td>
+      <td>4.392857</td>
+      <td>4.0</td>
+      <td>3.298693</td>
+      <td>9.333333</td>
       <td>...</td>
-      <td>0.382993</td>
-      <td>28</td>
-      <td>24</td>
-      <td>0.857143</td>
       <td>128</td>
-      <td>2</td>
-      <td>2.516807</td>
-      <td>0.659664</td>
-      <td>0.521008</td>
-      <td>0.050420</td>
+      <td>3</td>
+      <td>97.654524</td>
+      <td>1.957143</td>
+      <td>3.1291</td>
+      <td>3.733333</td>
+      <td>3.927024</td>
+      <td>6.858571</td>
+      <td>23.619048</td>
+      <td>1.333333</td>
     </tr>
     <tr>
       <th>3</th>
       <td>ham</td>
       <td>U dun say so early hor... U c already then say...</td>
+      <td>1.702381</td>
+      <td>0.130952</td>
+      <td>0.452381</td>
+      <td>0.119048</td>
+      <td>3.000000</td>
+      <td>3.0</td>
+      <td>1.758098</td>
+      <td>5.500000</td>
+      <td>...</td>
+      <td>39</td>
+      <td>2</td>
       <td>116.652500</td>
       <td>-1.645000</td>
       <td>NaN</td>
-      <td>2.2</td>
+      <td>2.200000</td>
       <td>-4.550000</td>
       <td>-3.541818</td>
       <td>14.590909</td>
-      <td>0.5</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>11</td>
-      <td>9</td>
-      <td>0.818182</td>
-      <td>39</td>
-      <td>2</td>
-      <td>1.452381</td>
-      <td>0.119048</td>
-      <td>0.535714</td>
-      <td>0.035714</td>
+      <td>0.500000</td>
     </tr>
     <tr>
       <th>4</th>
       <td>ham</td>
       <td>Nah I don't think he goes to usf, he lives aro...</td>
-      <td>109.040000</td>
-      <td>1.280000</td>
-      <td>NaN</td>
-      <td>5.2</td>
-      <td>1.373846</td>
-      <td>2.276923</td>
-      <td>13.000000</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>13</td>
-      <td>12</td>
-      <td>0.923077</td>
-      <td>49</td>
-      <td>1</td>
       <td>2.066667</td>
       <td>0.000000</td>
       <td>0.400000</td>
+      <td>0.000000</td>
+      <td>3.461538</td>
+      <td>3.0</td>
+      <td>1.598816</td>
+      <td>13.000000</td>
+      <td>...</td>
+      <td>49</td>
+      <td>1</td>
+      <td>109.040000</td>
+      <td>1.280000</td>
+      <td>NaN</td>
+      <td>5.200000</td>
+      <td>1.373846</td>
+      <td>2.276923</td>
+      <td>13.000000</td>
       <td>0.000000</td>
     </tr>
   </tbody>
@@ -785,7 +785,7 @@ Name: count, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;label&#39;, ylabel=&#39;lix&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/50fb19e36733c22be93a237dae5558299fc75afa845c8c0a830341cf8ebd1f28.png" src="../_images/50fb19e36733c22be93a237dae5558299fc75afa845c8c0a830341cf8ebd1f28.png" />
+<img alt="../_images/448e2178cb4bdb23b199628a567b0cc3c1caa9e74ff6070951e0626624fc43b2.png" src="../_images/448e2178cb4bdb23b199628a567b0cc3c1caa9e74ff6070951e0626624fc43b2.png" />
 </div>
 </div>
 <p>Let’s run a quick test to see if any of our metrics correlate strongly with the label</p>
@@ -805,13 +805,13 @@ Name: count, dtype: int64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>token_length_std              -0.409000
 n_characters                  -0.408325
 n_unique_tokens               -0.363069
-coleman_liau_index            -0.322233
-automated_readability_index   -0.322176
-rix                           -0.303665
+coleman_liau_index            -0.325169
+automated_readability_index   -0.322269
+rix                           -0.304089
 n_tokens                      -0.298789
-dependency_distance_std       -0.296832
 token_length_mean             -0.294734
-sentence_length_std           -0.294251
+sentence_length_std           -0.290166
+dependency_distance_std       -0.285822
 dtype: float64
 </pre></div>
 </div>
@@ -830,7 +830,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b36c1c344448821f7c3a357a584b59a02b7d3e999199aa8465b15f8ccdeb6e2c.png" src="../_images/b36c1c344448821f7c3a357a584b59a02b7d3e999199aa8465b15f8ccdeb6e2c.png" />
+<img alt="../_images/153b630ffce324b2189aed242a32bf4cc4e2f5ecef773f0e73573f7956304cc0.png" src="../_images/153b630ffce324b2189aed242a32bf4cc4e2f5ecef773f0e73573f7956304cc0.png" />
 </div>
 </div>
 <p>Cool! We’ve now done a quick analysis of the SMS dataset and found the distributions of e.g. the standard deviation of token length, the number of characters, and the number of unique tokens to be distributed differently between the actual SMS’s and spam.</p>
