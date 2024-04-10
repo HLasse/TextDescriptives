@@ -18,7 +18,7 @@ A Python library for calculating a large variety of metrics from text(s) using s
 # 📰 News
 
 * We now have a TextDescriptives-powered web-app so you can extract and downloads metrics without a single line of code! Check it out [here](https://huggingface.co/spaces/HLasse/textdescriptives)
-* Version 2.0 out with a new API, a new component, updated documentation, and tutorials! Components are now called by "`textdescriptives/{metric_name}`. New `coherence` component for calculating the semantic coherence between sentences. See the [documentation](https://github.com/HLasse/TextDescriptives) for tutorials and more information!  
+* Version 2.0 out with a new API, a new component, updated documentation, and tutorials! Components are now called by "`textdescriptives/{metric_name}`. New `coherence` component for calculating the semantic coherence between sentences. See the [documentation](https://hlasse.github.io/TextDescriptives/) for tutorials and more information!  
 
 
 
