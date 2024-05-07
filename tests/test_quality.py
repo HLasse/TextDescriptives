@@ -216,7 +216,6 @@ def test_quality_component_with_config(nlp: spacy.Language):
     quality_pipe = nlp.add_pipe(
         "textdescriptives/quality",
         config={
-            "symbols": ["."],
             "force": True,
         },
     )
