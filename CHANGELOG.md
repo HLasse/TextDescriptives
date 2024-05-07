@@ -2,6 +2,41 @@
 
 
 
+## v2.8.1 (2024-05-07)
+
+### Documentation
+
+* docs: fix link to document in readme ([`096a6b8`](https://github.com/HLasse/TextDescriptives/commit/096a6b8f92b4b2ccf03ec70e5caf320830ce113b))
+
+### Fix
+
+* fix: correctly set `symbols` and `contains` in `Quality` with custom values ([`a4dab94`](https://github.com/HLasse/TextDescriptives/commit/a4dab94c371fed1ca4c9cdb3ad9cd2dc7a0b8e8b))
+
+### Style
+
+* style: lint ([`76fa958`](https://github.com/HLasse/TextDescriptives/commit/76fa9583211af16b7ef1c60abff4b13ed3e61461))
+
+### Unknown
+
+* Merge pull request #353 from HLasse/fix-quality-threshold-not-set
+
+fix: `contains` and `symbols` not updated in `Quality` ([`cfe9b87`](https://github.com/HLasse/TextDescriptives/commit/cfe9b876885e052d8b3e62a24d7c559e0e064718))
+
+* tests: update test ([`7915eeb`](https://github.com/HLasse/TextDescriptives/commit/7915eeba0768c699dedb99f0ea6c3419e2f9104d))
+
+* Merge pull request #344 from HLasse/HLasse-patch-1
+
+docs: fix link to document in readme ([`e470db7`](https://github.com/HLasse/TextDescriptives/commit/e470db7cc759309e318aa1eaba675f755fae7ae9))
+
+* Merge pull request #342 from HLasse/update-docs
+
+Update docs ([`93b1d59`](https://github.com/HLasse/TextDescriptives/commit/93b1d59278dc86cd4e8df80247e8a1a5afda2f59))
+
+* Merge pull request #340 from sondalex/update_documentation
+
+Fix docstrings example module import error &amp; Add doctrings missing imports ([`7064c3b`](https://github.com/HLasse/TextDescriptives/commit/7064c3b5a748df7e4fdf09d4199a5cdaa7307444))
+
+
 ## v2.8.0 (2024-04-09)
 
 ### Build
@@ -37,6 +72,8 @@ feat: bump pydantic version to 2.0 and spacy version to &gt;=3.6 ([`d900c46`](ht
 * CI: update sem ver version ([`7b24af8`](https://github.com/HLasse/TextDescriptives/commit/7b24af8fe2bbf549643bedd431f59e340a3e970c))
 
 * deps: update min spacy version to 3.6 ([`d7d5a30`](https://github.com/HLasse/TextDescriptives/commit/d7d5a30ea19a399e3800e94e220264bbd2bb45c8))
+
+* Fix docstrings example module import error &amp; Add doctring missing import ([`f33a28d`](https://github.com/HLasse/TextDescriptives/commit/f33a28d70404c69c0ef745cd7adef8f32b657858))
 
 * Merge pull request #320 from HLasse/pre-commit-ci-update-config
 
