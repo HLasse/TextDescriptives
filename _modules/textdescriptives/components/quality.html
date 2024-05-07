@@ -597,8 +597,6 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">symbols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-        <span class="n">contains</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">top_ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
         <span class="n">top_ngram_min_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">duplicate_n_gram_fraction_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
@@ -609,14 +607,14 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialise components.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="o">=</span> <span class="n">force</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span> <span class="o">=</span> <span class="n">symbols</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">contains</span> <span class="o">=</span> <span class="n">contains</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">top_ngram_range</span> <span class="o">=</span> <span class="n">top_ngram_range</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">top_ngram_min_count</span> <span class="o">=</span> <span class="n">top_ngram_min_count</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_n_gram_fraction_range</span> <span class="o">=</span> <span class="n">duplicate_n_gram_fraction_range</span>
+
         <span class="k">if</span> <span class="n">quality_thresholds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">quality_thresholds</span> <span class="o">=</span> <span class="n">QualityThresholds</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span> <span class="o">=</span> <span class="n">quality_thresholds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_quality_thresholds</span><span class="p">(</span><span class="n">quality_thresholds</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">vocab</span> <span class="o">=</span> <span class="n">vocab</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_extensions</span><span class="p">()</span>
@@ -790,6 +788,8 @@
 <span class="sd">            thresholds (QualityThresholds): The desired quality thresholds.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span> <span class="o">=</span> <span class="n">thresholds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contains</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span><span class="o">.</span><span class="n">contains</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span><span class="o">.</span><span class="n">symbol_to_word_ratio</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
@@ -806,8 +806,6 @@
         <span class="s2">&quot;span._.passed_quality_check&quot;</span><span class="p">,</span>
     <span class="p">],</span>
     <span class="n">default_config</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;symbols&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;#&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;contains&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;lorem ipsum&quot;</span><span class="p">],</span>
         <span class="s2">&quot;top_ngram_range&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
         <span class="s2">&quot;top_ngram_min_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
         <span class="s2">&quot;duplicate_n_gram_fraction_range&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
@@ -818,8 +816,6 @@
 <span class="k">def</span> <span class="nf">create_quality_component</span><span class="p">(</span>
     <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">symbols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-    <span class="n">contains</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="n">top_ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
     <span class="n">top_ngram_min_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">duplicate_n_gram_fraction_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
@@ -858,10 +854,6 @@
 <span class="sd">            nlp.add_pipe call.</span>
 <span class="sd">        name (str): name of the component. Can be optionally specified in the</span>
 <span class="sd">            nlp.add_pipe call, using the name argument.</span>
-<span class="sd">        symbols (List[str]): list of symbols for which to calculate the</span>
-<span class="sd">            proportion the ratio of symbols to words. Defaults to [&quot;#&quot;].</span>
-<span class="sd">        contains (List[str]): list of strings for which to check whether the</span>
-<span class="sd">            document contains them. Defaults to [&quot;lorem ipsum&quot;].</span>
 <span class="sd">        top_ngram_range (Tuple[int]): range of n-grams to calculate the</span>
 <span class="sd">            proportion of the top n-gram. Defaults to [2, 4].</span>
 <span class="sd">        top_ngram_min_count (int): minimum number of times a n-gram must occur to</span>
@@ -893,8 +885,6 @@
     <span class="k">return</span> <span class="n">Quality</span><span class="p">(</span>
         <span class="n">nlp</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-        <span class="n">symbols</span><span class="o">=</span><span class="n">symbols</span><span class="p">,</span>
-        <span class="n">contains</span><span class="o">=</span><span class="n">contains</span><span class="p">,</span>
         <span class="n">top_ngram_range</span><span class="o">=</span><span class="n">top_ngram_range</span><span class="p">,</span>
         <span class="n">top_ngram_min_count</span><span class="o">=</span><span class="n">top_ngram_min_count</span><span class="p">,</span>
         <span class="n">duplicate_n_gram_fraction_range</span><span class="o">=</span><span class="n">duplicate_n_gram_fraction_range</span><span class="p">,</span>
