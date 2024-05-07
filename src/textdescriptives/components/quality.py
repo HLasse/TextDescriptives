@@ -380,11 +380,11 @@ class Quality:
         self.top_ngram_range = top_ngram_range
         self.top_ngram_min_count = top_ngram_min_count
         self.duplicate_n_gram_fraction_range = duplicate_n_gram_fraction_range
-        
+
         if quality_thresholds is None:
             quality_thresholds = QualityThresholds()
         self.set_quality_thresholds(quality_thresholds)
-        
+
         self.vocab = vocab
 
         self.set_extensions()
@@ -560,7 +560,6 @@ class Quality:
         self.quality_thresholds = thresholds
         self.contains = list(self.quality_thresholds.contains.keys())
         self.symbols = list(self.quality_thresholds.symbol_to_word_ratio.keys())
-
 
     def __call__(self, doc: Doc):
         """Run the pipeline component."""
