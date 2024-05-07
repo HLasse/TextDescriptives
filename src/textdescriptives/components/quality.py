@@ -367,8 +367,6 @@ class Quality:
         self,
         nlp: Language,
         name: str,
-        symbols: List[str],
-        contains: List[str],
         top_ngram_range: Tuple[int, int],
         top_ngram_min_count: int,
         duplicate_n_gram_fraction_range: Tuple[int, int],
@@ -379,14 +377,14 @@ class Quality:
         """Initialise components."""
         self.name = name
         self.force = force
-        self.symbols = symbols
-        self.contains = contains
         self.top_ngram_range = top_ngram_range
         self.top_ngram_min_count = top_ngram_min_count
         self.duplicate_n_gram_fraction_range = duplicate_n_gram_fraction_range
+        
         if quality_thresholds is None:
             quality_thresholds = QualityThresholds()
-        self.quality_thresholds = quality_thresholds
+        self.set_quality_thresholds(quality_thresholds)
+        
         self.vocab = vocab
 
         self.set_extensions()
@@ -560,6 +558,9 @@ class Quality:
             thresholds (QualityThresholds): The desired quality thresholds.
         """
         self.quality_thresholds = thresholds
+        self.contains = list(self.quality_thresholds.contains.keys())
+        self.symbols = list(self.quality_thresholds.symbol_to_word_ratio.keys())
+
 
     def __call__(self, doc: Doc):
         """Run the pipeline component."""
@@ -576,8 +577,6 @@ class Quality:
         "span._.passed_quality_check",
     ],
     default_config={
-        "symbols": ["#"],
-        "contains": ["lorem ipsum"],
         "top_ngram_range": [2, 4],
         "top_ngram_min_count": 3,
         "duplicate_n_gram_fraction_range": [5, 10],
@@ -588,8 +587,6 @@ class Quality:
 def create_quality_component(
     nlp: Language,
     name: str,
-    symbols: List[str],
-    contains: List[str],
     top_ngram_range: Tuple[int, int],
     top_ngram_min_count: int,
     duplicate_n_gram_fraction_range: Tuple[int, int],
@@ -628,10 +625,6 @@ def create_quality_component(
             nlp.add_pipe call.
         name (str): name of the component. Can be optionally specified in the
             nlp.add_pipe call, using the name argument.
-        symbols (List[str]): list of symbols for which to calculate the
-            proportion the ratio of symbols to words. Defaults to ["#"].
-        contains (List[str]): list of strings for which to check whether the
-            document contains them. Defaults to ["lorem ipsum"].
         top_ngram_range (Tuple[int]): range of n-grams to calculate the
             proportion of the top n-gram. Defaults to [2, 4].
         top_ngram_min_count (int): minimum number of times a n-gram must occur to
@@ -663,8 +656,6 @@ def create_quality_component(
     return Quality(
         nlp,
         name=name,
-        symbols=symbols,
-        contains=contains,
         top_ngram_range=top_ngram_range,
         top_ngram_min_count=top_ngram_min_count,
         duplicate_n_gram_fraction_range=duplicate_n_gram_fraction_range,
