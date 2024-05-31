@@ -37,8 +37,8 @@ dependencies = [
     "spacy[lookups]>=3.6.0",
     "numpy>=1.20.0",
     "pandas>=1.0.0",
-    "pyphen>=0.11.0,<0.15.0",
-    "ftfy>=6.0.3,<7",
+    "pyphen>=0.11.0",
+    "ftfy>=6.0.3",
     "pydantic>=2.0",
 ]
 
