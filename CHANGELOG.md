@@ -2,6 +2,29 @@
 
 
 
+## v2.8.2 (2024-05-31)
+
+### Ci
+
+* ci: remove dependabot ([`1dcfd7a`](https://github.com/HLasse/TextDescriptives/commit/1dcfd7acf57f0bea0feec76845c3d3fe6d513780))
+
+### Fix
+
+* fix: don&#39;t cap core dependency versions ([`0d29c69`](https://github.com/HLasse/TextDescriptives/commit/0d29c69f76b9bed146518786b8612fb8324d6e7a))
+
+### Unknown
+
+* Merge pull request #354 from HLasse/dont-cap-versions
+
+Remove upper bound of core dependencies and remove dependabot ([`53a4e03`](https://github.com/HLasse/TextDescriptives/commit/53a4e039e8b13d8a9f48a552eb0220b5873bc4c4))
+
+* Merge branch &#39;main&#39; into dont-cap-versions ([`889afef`](https://github.com/HLasse/TextDescriptives/commit/889afefa5f029a7e5e68fa71dac858cff2d99ded))
+
+* Merge pull request #352 from Rested/main
+
+:arrow_up: be more lenient with ftfy dependency ([`d2e22f3`](https://github.com/HLasse/TextDescriptives/commit/d2e22f39ffa7487d5a5d2cb39760b80d40cbc3f6))
+
+
 ## v2.8.1 (2024-05-07)
 
 ### Documentation
@@ -23,6 +46,8 @@
 fix: `contains` and `symbols` not updated in `Quality` ([`cfe9b87`](https://github.com/HLasse/TextDescriptives/commit/cfe9b876885e052d8b3e62a24d7c559e0e064718))
 
 * tests: update test ([`7915eeb`](https://github.com/HLasse/TextDescriptives/commit/7915eeba0768c699dedb99f0ea6c3419e2f9104d))
+
+* :arrow_up: be more lenient with ftfy dependency ([`067eb99`](https://github.com/HLasse/TextDescriptives/commit/067eb99019f3cf84c4f9647085026a2795443775))
 
 * Merge pull request #344 from HLasse/HLasse-patch-1
 
