@@ -31,7 +31,7 @@ jobs:
           fi
 
       - name: Build and Commit
-        uses: sphinx-notes/pages@2.1
+        uses: sphinx-notes/pages@3.1
         with:
           documentation_path: docs
           sphinx_version: "5.3.0"
