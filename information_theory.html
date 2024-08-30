@@ -261,14 +261,14 @@ from the text. These include:</p>
 <ul class="simple">
 <li><p><cite>{doc/span}._.entropy</cite>: the Shannon entropy of the text using the <cite>token.prob</cite> as the probability
 of each token. Entropy is defined as <span class="math notranslate nohighlight">\(H(X) = -\sum_{i=1}^n p(x_i) \log_e p(x_i)\)</span>. Where <span class="math notranslate nohighlight">\(p(x_i)\)</span> is the probability of the token <span class="math notranslate nohighlight">\(x_i\)</span>.</p></li>
-<li><p><cite>{doc/span}._.perplexity</cite>: the perplexity of the text. perplexity is a measurement of how well a
+<li><p><cite>{doc/span}._.perplexity</cite>: the perplexity of the text. Perplexity is a measurement of how well a
 probability distribution or probability model predicts a sample. Perplexity is defined as <span class="math notranslate nohighlight">\(PPL(X) = e^{-H(X)}\)</span>, where <span class="math notranslate nohighlight">\(H(X)\)</span> is the entropy of the text.</p></li>
-<li><p><cite>{doc/span}._.per_word_perplexity</cite>: The perplexity of the text, divided by the number of words. Can se considered the length normalized perplexity.</p></li>
+<li><p><cite>{doc/span}._.per_word_perplexity</cite>: The perplexity of the text, divided by the number of words. Can be considered the length-normalized perplexity.</p></li>
 </ul>
-<p>These information theoretic measures is for example often used to describe the complexity of a text.
+<p>These information theoretic measures are for example often used to describe the complexity of a text.
 The higher the entropy, the more complex the text is.
-Similarly, one could imagine filtering text based on the per word perplexity given the assumption that
-highly surprising text is in fact non-coherent text pieces.</p>
+Similarly, one could imagine filtering text based on the per-word perplexity given the assumption that
+highly surprising text are in fact non-coherent text pieces.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The information theory components require an available lexeme prop table from spaCy which is not available for all languages. A warning will be raised and values set to np.nan if the table cannot be found for the language.</p>
