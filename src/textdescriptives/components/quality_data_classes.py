@@ -83,7 +83,7 @@ class QualityThresholds(BaseModel):
     doc_length: Interval = Field(
         (10, 100_000),
         description="A Range for the document length. Default: (10, 100_000), i.e."
-        + " between 10 and 100_000 characters.",
+        + " between 10 and 100_000 words (spacy tokens).",
     )
     symbol_to_word_ratio: Dict[str, Interval] = Field(
         {"#": (None, 0.1)},
