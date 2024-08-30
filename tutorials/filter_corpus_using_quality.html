@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -187,6 +187,20 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorial.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introductory_tutorial.html">Introductory Tutorial</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Filtering corpora using Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#note-that-this-can-take-a-little-while">note that this can take a little while</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#all-of-the-dataset-is-available-in-the-train-split">All of the dataset is available in the train split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#we-can-take-a-look-at-one-of-the-examples">We can take a look at one of the examples:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#we-can-filter-out-these-three-datasets-based-on-the-source">we can filter out these three datasets based on the “source”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics">1. Crease a blank spaCy model with a sentencizer as that’s the only component required for the quality metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents">however it might be worth filtering out these documents beforehand for very very long documents.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-the-textdescriptives-pipeline">2. Add the textdescriptives pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#apply-the-pipeline-to-the-legal-documents">3. Apply the pipeline to the legal documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filter-out-the-documents-that-do-not-pass-the-quality">4. Filter out the documents that do not pass the quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#first-we-apply-the-pipeline-to-the-other-domains">first we apply the pipeline to the other domains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extract-alpha-ratio">extract alpha ratio:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#histogram">histogram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-labels">add labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examine-the-first-100-tokens-in-the-first-document">examine the first 100 tokens in the first document</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sklearn_integration.html">Scikit-learn Integration</a></li>
 </ul>
 </li>
@@ -277,7 +291,7 @@ your text corpora.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
 
 <span class="c1"># stream in the dataset</span>
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;mc4&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="n">streaming</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;mc4&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="n">streaming</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">trust_remote_code</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># download the first 1 000</span>
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
@@ -288,13 +302,7 @@ your text corpora.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.local/lib/python3.10/site-packages/datasets/load.py:1486: FutureWarning: The repository for mc4 contains custom code which must be executed to correctly load the dataset. You can inspect the repository content at https://hf.co/datasets/mc4
-You can avoid this message in future by passing the argument `trust_remote_code=True`.
-Passing `trust_remote_code=True` will be mandatory to load this dataset from the next major release of `datasets`.
-  warnings.warn(
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "52413917ed1c43edaa7e371d7549654a"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "80103681b4b443b0924d25908a2b8689"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.cache/huggingface/modules/datasets_modules/datasets/mc4/78f7a2b7e2524fa44ee464ef429d011c365f5fe129283869e7fd76856aacb83a/mc4.py:284: FutureWarning: Dataset &#39;mc4&#39; is deprecated and will be deleted. Use &#39;allenai/c4&#39; instead.
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "85f81d56e23a4466aa958ceb61742f45"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "9fe0bf6649044309a88a37614c426d01"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.cache/huggingface/modules/datasets_modules/datasets/mc4/78f7a2b7e2524fa44ee464ef429d011c365f5fe129283869e7fd76856aacb83a/mc4.py:284: FutureWarning: Dataset &#39;mc4&#39; is deprecated and will be deleted. Use &#39;allenai/c4&#39; instead.
   warnings.warn(
 </pre></div>
 </div>
@@ -509,257 +517,128 @@ All the <code class="docutils literal notranslate"><span class="pre">passed</spa
 <p>We can download the dataset using the following command:</p>
 <section id="note-the-dagw-dataset-is-currently-unavailable-due-to-a-copyright-dispute-the-remainder-of-the-tutorial-has-been-disabled-for-now-converted-to-markdown-and-will-be-re-enabled-once-the-dispute-settles">
 <h4>NOTE: The DAGW dataset is currently unavailable due to a copyright dispute. The remainder of the tutorial has been disabled for now (converted to markdown), and will be re-enabled once the dispute settles.<a class="headerlink" href="#note-the-dagw-dataset-is-currently-unavailable-due-to-a-copyright-dispute-the-remainder-of-the-tutorial-has-been-disabled-for-now-converted-to-markdown-and-will-be-re-enabled-once-the-dispute-settles" title="Permalink to this heading">#</a></h4>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-from datasets import load_dataset
-
-# note that this can take a little while
-dataset = load_dataset(&quot;DDSC/partial-danish-gigaword-small-test-sample&quot;)
-
-# All of the dataset is available in the train split
-dataset = dataset[&quot;train&quot;]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-# We can take a look at one of the examples:
-ten_samples = dataset.select(range(10))
-ten_samples.to_pandas()
-</pre></div>
-</div>
-</div>
-</div>
+<p>from datasets import load_dataset</p>
+</section>
+</section>
+</section>
+</section>
+<section id="note-that-this-can-take-a-little-while">
+<h1>note that this can take a little while<a class="headerlink" href="#note-that-this-can-take-a-little-while" title="Permalink to this heading">#</a></h1>
+<p>dataset = load_dataset(“DDSC/partial-danish-gigaword-small-test-sample”)</p>
+</section>
+<section id="all-of-the-dataset-is-available-in-the-train-split">
+<h1>All of the dataset is available in the train split<a class="headerlink" href="#all-of-the-dataset-is-available-in-the-train-split" title="Permalink to this heading">#</a></h1>
+<p>dataset = dataset[“train”]</p>
+</section>
+<section id="we-can-take-a-look-at-one-of-the-examples">
+<h1>We can take a look at one of the examples:<a class="headerlink" href="#we-can-take-a-look-at-one-of-the-examples" title="Permalink to this heading">#</a></h1>
+<p>ten_samples = dataset.select(range(10))
+ten_samples.to_pandas()</p>
 <p>As previously mentioned, the Danish Gigaword corpus consist of multiple domains. For this tutorial, we will look at three of these domains. <code class="docutils literal notranslate"><span class="pre">retsinformationdk</span></code> which consists of legal documents, <code class="docutils literal notranslate"><span class="pre">hest</span></code> which contains post from a Danish debate forum (<a class="reference external" href="https://www.heste-nettet.dk/">heste-nettet.dk</a>) and <code class="docutils literal notranslate"><span class="pre">spont</span></code> which contains texts transcribed from spontaneous speech.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-# we can filter out these three datasets based on the &quot;source&quot;
-legal = dataset.filter(lambda x: x[&quot;source&quot;] == &quot;retsinformationdk&quot;, num_proc=1)
-news = dataset.filter(lambda x: x[&quot;source&quot;] == &quot;tv2r&quot;, num_proc=1)
-speech = dataset.filter(lambda x: x[&quot;source&quot;] == &quot;spont&quot;, num_proc=1)
-</pre></div>
-</div>
-</div>
-</div>
+</section>
+<section id="we-can-filter-out-these-three-datasets-based-on-the-source">
+<h1>we can filter out these three datasets based on the “source”<a class="headerlink" href="#we-can-filter-out-these-three-datasets-based-on-the-source" title="Permalink to this heading">#</a></h1>
+<p>legal = dataset.filter(lambda x: x[“source”] == “retsinformationdk”, num_proc=1)
+news = dataset.filter(lambda x: x[“source”] == “tv2r”, num_proc=1)
+speech = dataset.filter(lambda x: x[“source”] == “spont”, num_proc=1)</p>
 <p>We can now examine these datasets a bit more:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-print(f&quot;Legal contains {len(legal)} examples&quot;)
-print(f&quot;News contains {len(news)} examples&quot;)
-print(f&quot;Speech contains {len(speech)} examples&quot;)
-</pre></div>
-</div>
-</div>
-</div>
+<p>print(f”Legal contains {len(legal)} examples”)
+print(f”News contains {len(news)} examples”)
+print(f”Speech contains {len(speech)} examples”)</p>
 <p>We can for example see that the speech dataset contains notably fewer samples than the others.</p>
-</section>
-</section>
 <section id="quality-filtering">
-<h3>Quality Filtering<a class="headerlink" href="#quality-filtering" title="Permalink to this heading">#</a></h3>
+<h2>Quality Filtering<a class="headerlink" href="#quality-filtering" title="Permalink to this heading">#</a></h2>
 <p>After we have prepared our datasets we can now start with the quality filtering. Using TextDescriptives, this is extremely simple. We need to do 3 things:</p>
 <ol class="arabic simple">
 <li><p>Create a pipeline</p></li>
 <li><p>Add the quality component to it</p></li>
 <li><p>Apply the pipeline to the dataset</p></li>
 </ol>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-# 1. Crease a blank spaCy model with a sentencizer as that&#39;s the only component required for the quality metrics
-nlp = spacy.blank(&quot;da&quot;)
-nlp.add_pipe(&quot;sentencizer&quot;)
+</section>
+</section>
+<section id="crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics">
+<h1>1. Crease a blank spaCy model with a sentencizer as that’s the only component required for the quality metrics<a class="headerlink" href="#crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics" title="Permalink to this heading">#</a></h1>
+<p>nlp = spacy.blank(“da”)
+nlp.add_pipe(“sentencizer”)
 nlp.max_length = (
-    2000000  # as some of the documents are quite long we can increase the max length
-)
-# however it might be worth filtering out these documents beforehand for very very long documents.
-
-# 2. Add the textdescriptives pipeline
-quality_pipe = nlp.add_pipe(&quot;textdescriptives/quality&quot;)
-
-# 3. Apply the pipeline to the legal documents
-legal_docs = nlp.pipe(legal[&quot;text&quot;])
-</pre></div>
-</div>
-</div>
-</div>
+2000000  # as some of the documents are quite long we can increase the max length
+)</p>
+</section>
+<section id="however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents">
+<h1>however it might be worth filtering out these documents beforehand for very very long documents.<a class="headerlink" href="#however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents" title="Permalink to this heading">#</a></h1>
+</section>
+<section id="add-the-textdescriptives-pipeline">
+<h1>2. Add the textdescriptives pipeline<a class="headerlink" href="#add-the-textdescriptives-pipeline" title="Permalink to this heading">#</a></h1>
+<p>quality_pipe = nlp.add_pipe(“textdescriptives/quality”)</p>
+</section>
+<section id="apply-the-pipeline-to-the-legal-documents">
+<h1>3. Apply the pipeline to the legal documents<a class="headerlink" href="#apply-the-pipeline-to-the-legal-documents" title="Permalink to this heading">#</a></h1>
+<p>legal_docs = nlp.pipe(legal[“text”])</p>
 <p>If we check now we can see that legal_docs is a generator. This can be a quite efficient format, but for now we just want to process all the text so we simply need to convert it to a list:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-legal_docs
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-legal_docs = list(legal_docs)
-</pre></div>
-</div>
-</div>
-</div>
+<p>legal_docs</p>
+<p>legal_docs = list(legal_docs)</p>
 <p>We can now inspect the output here:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-legal_doc = legal_docs[0]
-
-print(legal_doc[:100])  # print the first 100 tokens
-print(&quot;----&quot;)
-print(&quot;This passed the quality filter:&quot;)
-legal_doc._.passed_quality_check
-</pre></div>
-</div>
-</div>
-</div>
+<p>legal_doc = legal_docs[0]</p>
+<p>print(legal_doc[:100])  # print the first 100 tokens
+print(”—-“)
+print(“This passed the quality filter:”)
+legal_doc._.passed_quality_check</p>
 <p>Here we see that the text did not pass the quality filter. We can now examine why that using the following code:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-legal_doc._.quality
-</pre></div>
-</div>
-</div>
-</div>
+<p>legal_doc._.quality</p>
 <p>Here we see that fraction of characters which is a part of a duplicate 10 gram is &gt;50%. This is a reason why the sample was filtered out. This is not uncommon for legal documents which contain a lot of standard phrases. However you might wish to change the threshold for this filter. We showed you have to do this in the previous section. We also see that the <code class="docutils literal notranslate"><span class="pre">alpha_ratio</span></code> is close 0.8. This means that the text is mostly made up of alphabetic characters. This is good, but as we will see later, this is not common for legal texts.</p>
-</section>
 <section id="filtering-out-the-text">
-<h3>Filtering out the text<a class="headerlink" href="#filtering-out-the-text" title="Permalink to this heading">#</a></h3>
+<h2>Filtering out the text<a class="headerlink" href="#filtering-out-the-text" title="Permalink to this heading">#</a></h2>
 <p>Assuming we don’t want to change the filters we can now use it to filter out the texts that we want to keep:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-# 4. Filter out the documents that do not pass the quality
-legal_docs_filtered = [doc for doc in legal_docs if doc._.passed_quality_check]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-print(
-    f&quot;We had a total of {len(legal[&#39;text&#39;])} which we filtered down to {len(legal_docs_filtered)}.&quot;
-)
-</pre></div>
-</div>
-</div>
-</div>
-<p>That seems like a lot, we should probably check why that is. We can do this by looking at the distribution of the scores of e.g. duplicate 10-gram fraction:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-import seaborn as sns
-
-
-def get_duplicate_10_gram_fraction(doc):
-    quality = doc._.quality
-    duplicate_10_gram_fraction = quality.duplicate_ngram_chr_fraction[&quot;10&quot;]
-    return duplicate_10_gram_fraction.value
-
-
-duplicate_10_gram_fraction = [get_duplicate_10_gram_fraction(doc) for doc in legal_docs]
-sns.histplot(duplicate_10_gram_fraction)
-</pre></div>
-</div>
-</div>
-</div>
-<p>This seems like it explains a lot of the texts which were filtered out, but does not explain everything. Let us take a look at the <code class="docutils literal notranslate"><span class="pre">alpha_ratio</span></code> (the proportion of words which contains at least one alphabetic character) as well:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-alpha_ratio = [doc._.quality.alpha_ratio.value for doc in legal_docs]
-sns.histplot(alpha_ratio)
-</pre></div>
-</div>
-</div>
-</div>
-<p>We see that most of the text do not pass the <code class="docutils literal notranslate"><span class="pre">alpha_ratio</span></code> threshold of 0.7 or higher. This is not uncommon for legal documents as e.g. the paragraph sign <code class="docutils literal notranslate"><span class="pre">§</span></code> is not an alphabetic character. It might be relevant to change the threshold to 0.7 or lower.</p>
 </section>
+</section>
+<section id="filter-out-the-documents-that-do-not-pass-the-quality">
+<h1>4. Filter out the documents that do not pass the quality<a class="headerlink" href="#filter-out-the-documents-that-do-not-pass-the-quality" title="Permalink to this heading">#</a></h1>
+<p>legal_docs_filtered = [doc for doc in legal_docs if doc._.passed_quality_check]</p>
+<p>print(
+f”We had a total of {len(legal[‘text’])} which we filtered down to {len(legal_docs_filtered)}.”
+)</p>
+<p>That seems like a lot, we should probably check why that is. We can do this by looking at the distribution of the scores of e.g. duplicate 10-gram fraction:</p>
+<p>import seaborn as sns</p>
+<p>def get_duplicate_10_gram_fraction(doc):
+quality = doc._.quality
+duplicate_10_gram_fraction = quality.duplicate_ngram_chr_fraction[“10”]
+return duplicate_10_gram_fraction.value</p>
+<p>duplicate_10_gram_fraction = [get_duplicate_10_gram_fraction(doc) for doc in legal_docs]
+sns.histplot(duplicate_10_gram_fraction)</p>
+<p>This seems like it explains a lot of the texts which were filtered out, but does not explain everything. Let us take a look at the <code class="docutils literal notranslate"><span class="pre">alpha_ratio</span></code> (the proportion of words which contains at least one alphabetic character) as well:</p>
+<p>alpha_ratio = [doc._.quality.alpha_ratio.value for doc in legal_docs]
+sns.histplot(alpha_ratio)</p>
+<p>We see that most of the text do not pass the <code class="docutils literal notranslate"><span class="pre">alpha_ratio</span></code> threshold of 0.7 or higher. This is not uncommon for legal documents as e.g. the paragraph sign <code class="docutils literal notranslate"><span class="pre">§</span></code> is not an alphabetic character. It might be relevant to change the threshold to 0.7 or lower.</p>
 <section id="comparing-across-domains">
-<h3>Comparing across domains<a class="headerlink" href="#comparing-across-domains" title="Permalink to this heading">#</a></h3>
+<h2>Comparing across domains<a class="headerlink" href="#comparing-across-domains" title="Permalink to this heading">#</a></h2>
 <p>We see that legal documents have quite a few perculiarities let us examine how the <code class="docutils literal notranslate"><span class="pre">alpha_ratio</span></code> behaves across different domains:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-# first we apply the pipeline to the other domains
-news_docs = nlp.pipe(news[&quot;text&quot;])
+</section>
+</section>
+<section id="first-we-apply-the-pipeline-to-the-other-domains">
+<h1>first we apply the pipeline to the other domains<a class="headerlink" href="#first-we-apply-the-pipeline-to-the-other-domains" title="Permalink to this heading">#</a></h1>
+<p>news_docs = nlp.pipe(news[“text”])
 news_docs = list(news_docs)
-speech_docs = nlp.pipe(speech[&quot;text&quot;])
-speech_docs = list(speech_docs)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-# extract alpha ratio:
-news_alpha_ratio = [doc._.quality.alpha_ratio.value for doc in news_docs]
-speech_alpha_ratio = [doc._.quality.alpha_ratio.value for doc in speech_docs]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Future exception was never retrieved
-future: &lt;Future finished exception=BrokenPipeError(32, &#39;Broken pipe&#39;)&gt;
-Traceback (most recent call last):
-  File &quot;/usr/lib/python3.10/asyncio/unix_events.py&quot;, line 676, in write
-    n = os.write(self._fileno, data)
-BrokenPipeError: [Errno 32] Broken pipe
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Future exception was never retrieved
-future: &lt;Future finished exception=BrokenPipeError(32, &#39;Broken pipe&#39;)&gt;
-Traceback (most recent call last):
-  File &quot;/usr/lib/python3.10/asyncio/unix_events.py&quot;, line 676, in write
-    n = os.write(self._fileno, data)
-BrokenPipeError: [Errno 32] Broken pipe
-</pre></div>
-</div>
-</div>
-</div>
+speech_docs = nlp.pipe(speech[“text”])
+speech_docs = list(speech_docs)</p>
+</section>
+<section id="extract-alpha-ratio">
+<h1>extract alpha ratio:<a class="headerlink" href="#extract-alpha-ratio" title="Permalink to this heading">#</a></h1>
+<p>news_alpha_ratio = [doc.<em>.quality.alpha_ratio.value for doc in news_docs]
+speech_alpha_ratio = [doc.</em>.quality.alpha_ratio.value for doc in speech_docs]</p>
 <p>Now that we have the metrics we can plot a histogram comparing the metrics:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-import matplotlib.pyplot as plt
-
-# histogram
-sns.histplot(news_alpha_ratio, label=&quot;News&quot;, alpha=0.5, binwidth=0.05)
-sns.histplot(alpha_ratio, label=&quot;Legal&quot;, alpha=0.5, binwidth=0.05)
-sns.histplot(speech_alpha_ratio, label=&quot;Speech&quot;, alpha=0.5, binwidth=0.05)
-
-# add labels
-plt.xlabel(&quot;Alpha ratio&quot;)
-plt.ylabel(&quot;Count&quot;)
-plt.legend()
-</pre></div>
-</div>
-</div>
-</div>
+<p>import matplotlib.pyplot as plt</p>
+</section>
+<section id="histogram">
+<h1>histogram<a class="headerlink" href="#histogram" title="Permalink to this heading">#</a></h1>
+<p>sns.histplot(news_alpha_ratio, label=”News”, alpha=0.5, binwidth=0.05)
+sns.histplot(alpha_ratio, label=”Legal”, alpha=0.5, binwidth=0.05)
+sns.histplot(speech_alpha_ratio, label=”Speech”, alpha=0.5, binwidth=0.05)</p>
+</section>
+<section id="add-labels">
+<h1>add labels<a class="headerlink" href="#add-labels" title="Permalink to this heading">#</a></h1>
+<p>plt.xlabel(“Alpha ratio”)
+plt.ylabel(“Count”)
+plt.legend()</p>
 <p>Here we see a couple of things:</p>
 <ul class="simple">
 <li><p>A fair amount of legal documents have an alpha ratio above 0.6.</p></li>
@@ -767,21 +646,13 @@ plt.legend()
 <li><p>The alpha ratio for the Speech corpus is suspicously low</p></li>
 </ul>
 <p>Let us examine one of the speech samples a bit more in-depth:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> false --no-raise-error
-
-doc = speech_docs[0]
-# examine the first 100 tokens in the first document
-print(doc[:100])
-</pre></div>
-</div>
-</div>
-</div>
+<p>doc = speech_docs[0]</p>
+</section>
+<section id="examine-the-first-100-tokens-in-the-first-document">
+<h1>examine the first 100 tokens in the first document<a class="headerlink" href="#examine-the-first-100-tokens-in-the-first-document" title="Permalink to this heading">#</a></h1>
+<p>print(doc[:100])</p>
 <p>From this we can see that a high proportion of the tokens in the speech dataset dentoes the speaker such and tokens such as <code class="docutils literal notranslate"><span class="pre">:</span></code> then lower the alpa ratio. This might or might not be problematic for the task at hand.</p>
 <p><strong>Therefore it is important to note that while these filters are useful for filtering large amount of texts it is also important to know that they should be adjusted to the target domain.</strong></p>
-</section>
-</section>
 </section>
 
         </article>
@@ -853,13 +724,33 @@ print(doc[:100])
 <li><a class="reference internal" href="#note-the-dagw-dataset-is-currently-unavailable-due-to-a-copyright-dispute-the-remainder-of-the-tutorial-has-been-disabled-for-now-converted-to-markdown-and-will-be-re-enabled-once-the-dispute-settles">NOTE: The DAGW dataset is currently unavailable due to a copyright dispute. The remainder of the tutorial has been disabled for now (converted to markdown), and will be re-enabled once the dispute settles.</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#note-that-this-can-take-a-little-while">note that this can take a little while</a></li>
+<li><a class="reference internal" href="#all-of-the-dataset-is-available-in-the-train-split">All of the dataset is available in the train split</a></li>
+<li><a class="reference internal" href="#we-can-take-a-look-at-one-of-the-examples">We can take a look at one of the examples:</a></li>
+<li><a class="reference internal" href="#we-can-filter-out-these-three-datasets-based-on-the-source">we can filter out these three datasets based on the “source”</a><ul>
 <li><a class="reference internal" href="#quality-filtering">Quality Filtering</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics">1. Crease a blank spaCy model with a sentencizer as that’s the only component required for the quality metrics</a></li>
+<li><a class="reference internal" href="#however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents">however it might be worth filtering out these documents beforehand for very very long documents.</a></li>
+<li><a class="reference internal" href="#add-the-textdescriptives-pipeline">2. Add the textdescriptives pipeline</a></li>
+<li><a class="reference internal" href="#apply-the-pipeline-to-the-legal-documents">3. Apply the pipeline to the legal documents</a><ul>
 <li><a class="reference internal" href="#filtering-out-the-text">Filtering out the text</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#filter-out-the-documents-that-do-not-pass-the-quality">4. Filter out the documents that do not pass the quality</a><ul>
 <li><a class="reference internal" href="#comparing-across-domains">Comparing across domains</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li><a class="reference internal" href="#first-we-apply-the-pipeline-to-the-other-domains">first we apply the pipeline to the other domains</a></li>
+<li><a class="reference internal" href="#extract-alpha-ratio">extract alpha ratio:</a></li>
+<li><a class="reference internal" href="#histogram">histogram</a></li>
+<li><a class="reference internal" href="#add-labels">add labels</a></li>
+<li><a class="reference internal" href="#examine-the-first-100-tokens-in-the-first-document">examine the first 100 tokens in the first document</a></li>
 </ul>
 
           </div>
@@ -879,7 +770,7 @@ print(doc[:100])
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/design-tabs.js"></script>
-    <script type="application/vnd.jupyter.widget-state+json">{"state": {"00317a3fa6ae4528b34eaa49bb427446": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "eab130e539e049208a293603b97754f4": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "21cddd9c296a43e492b6438536588e96": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_00317a3fa6ae4528b34eaa49bb427446", "max": 9675.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_eab130e539e049208a293603b97754f4", "tabbable": null, "tooltip": null, "value": 9675.0}}, "45a742b204714c458bcd0c4b4fbb3fb5": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "993c01129bfa492ab9f5fb47b5608bda": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "a4951746f8f746b881085b05fb568fe9": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_45a742b204714c458bcd0c4b4fbb3fb5", "placeholder": "\u200b", "style": "IPY_MODEL_993c01129bfa492ab9f5fb47b5608bda", "tabbable": null, "tooltip": null, "value": "Downloading\u2007builder\u2007script:\u2007100%"}}, "ff4624bf22fb4fb3a023dfe4bf0a8b47": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "1d2980f1c1a84cc6847f86de698fba65": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "0419ad757def499c8f1fab7963e78091": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_ff4624bf22fb4fb3a023dfe4bf0a8b47", "placeholder": "\u200b", "style": "IPY_MODEL_1d2980f1c1a84cc6847f86de698fba65", "tabbable": null, "tooltip": null, "value": "\u20079.68k/9.68k\u2007[00:00&lt;00:00,\u2007867kB/s]"}}, "2a9fc0e9d0334d548cb6299cf3b3050a": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "52413917ed1c43edaa7e371d7549654a": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_a4951746f8f746b881085b05fb568fe9", "IPY_MODEL_21cddd9c296a43e492b6438536588e96", "IPY_MODEL_0419ad757def499c8f1fab7963e78091"], "layout": "IPY_MODEL_2a9fc0e9d0334d548cb6299cf3b3050a", "tabbable": null, "tooltip": null}}, "3398b6fff85649278739359f99e799db": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "4d6c4af2939d44e8b378db4c8aa156b6": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "f6d7dd41034a40df96a03119b11b425f": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_3398b6fff85649278739359f99e799db", "max": 16026.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_4d6c4af2939d44e8b378db4c8aa156b6", "tabbable": null, "tooltip": null, "value": 16026.0}}, "2b64fa896e234f179d3ce89391e8fb83": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9b9d839e176343b7938c222ae11e9685": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "5ce0cdcb8e7f40c4a5e0dc15544c11ed": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_2b64fa896e234f179d3ce89391e8fb83", "placeholder": "\u200b", "style": "IPY_MODEL_9b9d839e176343b7938c222ae11e9685", "tabbable": null, "tooltip": null, "value": "Downloading\u2007readme:\u2007100%"}}, "d403344e8c6a4125b6c33b6ac64b7465": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "0736d527a80e43b3a89ffe84aee51316": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "f5c06378ac01479b84751ebcb6374383": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_d403344e8c6a4125b6c33b6ac64b7465", "placeholder": "\u200b", "style": "IPY_MODEL_0736d527a80e43b3a89ffe84aee51316", "tabbable": null, "tooltip": null, "value": "\u200716.0k/16.0k\u2007[00:00&lt;00:00,\u20072.42MB/s]"}}, "8543fc4356cb4ea886ec491b9c0a79e1": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "80103681b4b443b0924d25908a2b8689": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_5ce0cdcb8e7f40c4a5e0dc15544c11ed", "IPY_MODEL_f6d7dd41034a40df96a03119b11b425f", "IPY_MODEL_f5c06378ac01479b84751ebcb6374383"], "layout": "IPY_MODEL_8543fc4356cb4ea886ec491b9c0a79e1", "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}</script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"a2e9c27e70934abebffbd27d214e70bc": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "d83e92a2bd8e4d5ab6b21a13819f3668": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "96d1ea0d3a1f41b9baf21e1a05590387": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_a2e9c27e70934abebffbd27d214e70bc", "max": 9675.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_d83e92a2bd8e4d5ab6b21a13819f3668", "tabbable": null, "tooltip": null, "value": 9675.0}}, "289bf1fac71447d787ac3cc535031f75": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "47880ccaef1f405b947194946a985291": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "491b9ec5149648e8830f4e83acfda237": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_289bf1fac71447d787ac3cc535031f75", "placeholder": "\u200b", "style": "IPY_MODEL_47880ccaef1f405b947194946a985291", "tabbable": null, "tooltip": null, "value": "Downloading\u2007builder\u2007script:\u2007100%"}}, "a0fedf8ccf07409b8d2172143c236694": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "5618fee610c94ad0b3b259ffe6691026": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "c2a5265b870a46dda8de0466d04dfefd": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_a0fedf8ccf07409b8d2172143c236694", "placeholder": "\u200b", "style": "IPY_MODEL_5618fee610c94ad0b3b259ffe6691026", "tabbable": null, "tooltip": null, "value": "\u20079.68k/9.68k\u2007[00:00&lt;00:00,\u200757.4kB/s]"}}, "fb0d54f8ce2d4567a77b40d5281e80d8": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "85f81d56e23a4466aa958ceb61742f45": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_491b9ec5149648e8830f4e83acfda237", "IPY_MODEL_96d1ea0d3a1f41b9baf21e1a05590387", "IPY_MODEL_c2a5265b870a46dda8de0466d04dfefd"], "layout": "IPY_MODEL_fb0d54f8ce2d4567a77b40d5281e80d8", "tabbable": null, "tooltip": null}}, "600b200c28bd460ca6b6b8bad3c7b8c7": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "8a8cbfa751424089a0be0496668e78ca": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "2c725b1cbe094e68aa0cfaa4e54c2509": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_600b200c28bd460ca6b6b8bad3c7b8c7", "max": 16026.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_8a8cbfa751424089a0be0496668e78ca", "tabbable": null, "tooltip": null, "value": 16026.0}}, "64e95b5b496a429e8f17eebfff1b80a6": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "f8e0c1691d7a44b4b961fc2fb7e9a92e": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "4e5d2d6b655546b99c7df55e20c0b041": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_64e95b5b496a429e8f17eebfff1b80a6", "placeholder": "\u200b", "style": "IPY_MODEL_f8e0c1691d7a44b4b961fc2fb7e9a92e", "tabbable": null, "tooltip": null, "value": "Downloading\u2007readme:\u2007100%"}}, "d9a1dd631d2f4d538393cb486fcd91f9": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "ee2a0cf9b6eb4ed3943cfd5250a3b15b": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "a435b813da134685b8939d172f2d1078": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_d9a1dd631d2f4d538393cb486fcd91f9", "placeholder": "\u200b", "style": "IPY_MODEL_ee2a0cf9b6eb4ed3943cfd5250a3b15b", "tabbable": null, "tooltip": null, "value": "\u200716.0k/16.0k\u2007[00:00&lt;00:00,\u200799.1kB/s]"}}, "1a97de4ef742419a9aad42f4b9ac0985": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9fe0bf6649044309a88a37614c426d01": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_4e5d2d6b655546b99c7df55e20c0b041", "IPY_MODEL_2c725b1cbe094e68aa0cfaa4e54c2509", "IPY_MODEL_a435b813da134685b8939d172f2d1078"], "layout": "IPY_MODEL_1a97de4ef742419a9aad42f4b9ac0985", "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}</script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
     </body>

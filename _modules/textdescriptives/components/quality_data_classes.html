@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -175,6 +175,20 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html">Filtering corpora using Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#note-that-this-can-take-a-little-while">note that this can take a little while</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#all-of-the-dataset-is-available-in-the-train-split">All of the dataset is available in the train split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#we-can-take-a-look-at-one-of-the-examples">We can take a look at one of the examples:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#we-can-filter-out-these-three-datasets-based-on-the-source">we can filter out these three datasets based on the “source”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics">1. Crease a blank spaCy model with a sentencizer as that’s the only component required for the quality metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents">however it might be worth filtering out these documents beforehand for very very long documents.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#add-the-textdescriptives-pipeline">2. Add the textdescriptives pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#apply-the-pipeline-to-the-legal-documents">3. Apply the pipeline to the legal documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#filter-out-the-documents-that-do-not-pass-the-quality">4. Filter out the documents that do not pass the quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#first-we-apply-the-pipeline-to-the-other-domains">first we apply the pipeline to the other domains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#extract-alpha-ratio">extract alpha ratio:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#histogram">histogram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#add-labels">add labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#examine-the-first-100-tokens-in-the-first-document">examine the first 100 tokens in the first document</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/sklearn_integration.html">Scikit-learn Integration</a></li>
 </ul>
 </li>
@@ -313,7 +327,7 @@
     <span class="n">doc_length</span><span class="p">:</span> <span class="n">Interval</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100_000</span><span class="p">),</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A Range for the document length. Default: (10, 100_000), i.e.&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot; between 10 and 100_000 characters.&quot;</span><span class="p">,</span>
+        <span class="o">+</span> <span class="s2">&quot; between 10 and 100_000 words (spacy tokens).&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">symbol_to_word_ratio</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Interval</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="p">{</span><span class="s2">&quot;#&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)},</span>

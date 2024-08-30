@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -187,6 +187,20 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorial.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introductory_tutorial.html">Introductory Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html">Filtering corpora using Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#note-that-this-can-take-a-little-while">note that this can take a little while</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#all-of-the-dataset-is-available-in-the-train-split">All of the dataset is available in the train split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#we-can-take-a-look-at-one-of-the-examples">We can take a look at one of the examples:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#we-can-filter-out-these-three-datasets-based-on-the-source">we can filter out these three datasets based on the “source”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics">1. Crease a blank spaCy model with a sentencizer as that’s the only component required for the quality metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents">however it might be worth filtering out these documents beforehand for very very long documents.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#add-the-textdescriptives-pipeline">2. Add the textdescriptives pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#apply-the-pipeline-to-the-legal-documents">3. Apply the pipeline to the legal documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#filter-out-the-documents-that-do-not-pass-the-quality">4. Filter out the documents that do not pass the quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#first-we-apply-the-pipeline-to-the-other-domains">first we apply the pipeline to the other domains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#extract-alpha-ratio">extract alpha ratio:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#histogram">histogram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#add-labels">add labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#examine-the-first-100-tokens-in-the-first-document">examine the first 100 tokens in the first document</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Scikit-learn Integration</a></li>
 </ul>
 </li>
@@ -387,7 +401,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test accuracy: 0.9461883408071748
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test accuracy: 0.9426008968609866
 </pre></div>
 </div>
 </div>
@@ -443,72 +457,72 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
     <tr>
       <th>12</th>
       <td>n_characters</td>
-      <td>0.162963</td>
+      <td>0.178126</td>
     </tr>
     <tr>
       <th>0</th>
       <td>token_length_mean</td>
-      <td>0.144870</td>
+      <td>0.148738</td>
     </tr>
     <tr>
       <th>2</th>
       <td>token_length_std</td>
-      <td>0.130561</td>
+      <td>0.116918</td>
     </tr>
     <tr>
       <th>10</th>
       <td>n_unique_tokens</td>
-      <td>0.113146</td>
+      <td>0.103904</td>
     </tr>
     <tr>
       <th>9</th>
       <td>n_tokens</td>
-      <td>0.089080</td>
+      <td>0.103113</td>
     </tr>
     <tr>
       <th>5</th>
       <td>sentence_length_std</td>
-      <td>0.057218</td>
+      <td>0.060148</td>
     </tr>
     <tr>
       <th>6</th>
       <td>syllables_per_token_mean</td>
-      <td>0.056194</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>proportion_unique_tokens</td>
-      <td>0.053408</td>
+      <td>0.056815</td>
     </tr>
     <tr>
       <th>8</th>
       <td>syllables_per_token_std</td>
-      <td>0.050891</td>
+      <td>0.051417</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>proportion_unique_tokens</td>
+      <td>0.050745</td>
     </tr>
     <tr>
       <th>3</th>
       <td>sentence_length_mean</td>
-      <td>0.037835</td>
+      <td>0.037902</td>
     </tr>
     <tr>
       <th>4</th>
       <td>sentence_length_median</td>
-      <td>0.037155</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>n_sentences</td>
-      <td>0.034976</td>
+      <td>0.032214</td>
     </tr>
     <tr>
       <th>1</th>
       <td>token_length_median</td>
-      <td>0.029716</td>
+      <td>0.031275</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>n_sentences</td>
+      <td>0.026759</td>
     </tr>
     <tr>
       <th>7</th>
       <td>syllables_per_token_median</td>
-      <td>0.001989</td>
+      <td>0.001925</td>
     </tr>
   </tbody>
 </table>
