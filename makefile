@@ -17,7 +17,7 @@ lint-check:
 test:
 	@echo "--- 🧪 Running tests ---"
 	make install
-	pytest tests/
+	pytest tests/ -n auto
 
 build-docs:
 	@echo "--- 📚 Building docs ---"

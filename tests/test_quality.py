@@ -1,6 +1,5 @@
 """ Tests for the quality module."""
-
-from typing import List, Tuple
+from __future__ import annotations
 
 import pytest
 import spacy
