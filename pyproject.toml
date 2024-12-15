@@ -17,7 +17,6 @@ classifiers = [
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
 ]
 
@@ -35,14 +34,14 @@ keywords = [
 
 dependencies = [
     "spacy[lookups]>=3.6.0",
-    "numpy>=1.20.0",
+    "numpy>=1.20.0,<2.0.0",  # due to https://stackoverflow.com/questions/78634235/numpy-dtype-size-changed-may-indicate-binary-incompatibility-expected-96-from
     "pandas>=1.0.0",
     "pyphen>=0.11.0",
     "ftfy>=6.0.3",
     "pydantic>=2.0",
 ]
 
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 
 [project.urls]
 homepage = "https://hlasse.github.io/TextDescriptives/"
@@ -64,10 +63,11 @@ docs = [
 ]
 tutorials = [
     "jupyter",
-    "seaborn",
+    "seaborn==0.13.2",
     "matplotlib",
     "datasets>=2.8.0",
     "scikit-learn>=1.1.1",
+    "scipy>=1.13.1",       # to avoid https://github.com/HLasse/TextDescriptives/actions/runs/12336321785/job/34428711200?pr=370
     "ipython<=8.21.0",
 ]
 sklearn = ["scikit-learn>=1.1.1"]

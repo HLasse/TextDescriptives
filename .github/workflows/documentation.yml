@@ -17,6 +17,13 @@ jobs:
           fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
           token: ${{ secrets.SPHINX_DOCUMENTATION}}
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: "**/pyproject.toml"
+
       - name: Install dependencies
         shell: bash
         run: |
