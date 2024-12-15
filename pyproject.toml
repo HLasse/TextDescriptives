@@ -63,11 +63,11 @@ docs = [
 ]
 tutorials = [
     "jupyter",
-    "seaborn",
+    "seaborn==0.13.2",
     "matplotlib",
     "datasets>=2.8.0",
     "scikit-learn>=1.1.1",
-    "scipy<1.11.0",        # to avoid https://github.com/HLasse/TextDescriptives/actions/runs/12336321785/job/34428711200?pr=370
+    "scipy==1.14.1",        # to avoid https://github.com/HLasse/TextDescriptives/actions/runs/12336321785/job/34428711200?pr=370
     "ipython<=8.21.0",
 ]
 sklearn = ["scikit-learn>=1.1.1"]
