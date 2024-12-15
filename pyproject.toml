@@ -67,7 +67,7 @@ tutorials = [
     "matplotlib",
     "datasets>=2.8.0",
     "scikit-learn>=1.1.1",
-    "scipy==1.14.1",        # to avoid https://github.com/HLasse/TextDescriptives/actions/runs/12336321785/job/34428711200?pr=370
+    "scipy>=1.13.1",       # to avoid https://github.com/HLasse/TextDescriptives/actions/runs/12336321785/job/34428711200?pr=370
     "ipython<=8.21.0",
 ]
 sklearn = ["scikit-learn>=1.1.1"]
