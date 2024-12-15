@@ -49,7 +49,7 @@ repository = "https://github.com/HLasse/textdescriptives"
 documentation = "https://hlasse.github.io/TextDescriptives/"
 
 [project.optional-dependencies]
-style = ["black==24.1.1", "pre-commit==3.6.0", "ruff==0.1.15", "mypy==1.8.0"]
+style = ["ruff==0.1.15"]
 tests = ["pytest>=7.1.3", "pytest-cov>=3.0.0", "pytest-xdist"]
 docs = [
     "pydantic==2.1",
@@ -117,7 +117,7 @@ build_command = "python -m pip install build; python -m build"
 exclude = [".venv", ".env", ".git", "__pycache__"]
 
 [tool.ruff.lint]
-select = ["UP", "I", "COM"]
+select = ["UP", "I"]
 
 [tool.ruff.lint.isort]
 required-imports = ["from __future__ import annotations"]
