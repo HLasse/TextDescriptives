@@ -5,6 +5,7 @@ import warnings
 import ftfy
 import pytest
 from spacy.lang.en import English
+
 from textdescriptives.components import DescriptiveStatistics  # noqa: F401
 
 from .books import flatland, oliver_twist, secret_garden

@@ -7,6 +7,7 @@ import numpy as np
 import pytest
 import spacy
 from spacy.lang.en import English
+
 from textdescriptives.utils import _remove_textdescriptives_extensions  # noqa: F401
 
 from .books import (

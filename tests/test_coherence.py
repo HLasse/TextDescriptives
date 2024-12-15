@@ -5,6 +5,7 @@ import warnings
 import numpy as np
 import pytest
 import spacy
+
 import textdescriptives as td  # noqa: F401
 
 

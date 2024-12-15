@@ -1,5 +1,6 @@
-""" These books and several tests are borrowed from
+"""These books and several tests are borrowed from
 https://github.com/mholtzscher/spacy_readability."""
+
 from __future__ import annotations
 
 oliver_twist = """Among other public buildings in a certain town, which for many reasons

@@ -1,4 +1,4 @@
-""" Calculate the entropy and perplexity of a corpus."""
+"""Calculate the entropy and perplexity of a corpus."""
 
 from typing import Callable, Dict, Union
 

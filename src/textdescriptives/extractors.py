@@ -1,4 +1,4 @@
-""" Extract metrics as Pandas DataFrame."""
+"""Extract metrics as Pandas DataFrame."""
 
 from typing import Any, Dict, Iterable, List, Optional, Union
 

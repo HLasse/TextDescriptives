@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 import spacy
+
 import textdescriptives as td
 from textdescriptives.components.information_theory import (
     entropy_getter,

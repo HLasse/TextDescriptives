@@ -34,7 +34,7 @@ keywords = [
 
 dependencies = [
     "spacy[lookups]>=3.6.0",
-    "numpy>=1.20.0,<2.0.0",  # due to https://stackoverflow.com/questions/78634235/numpy-dtype-size-changed-may-indicate-binary-incompatibility-expected-96-from
+    "numpy>=1.20.0,<2.0.0", # due to https://stackoverflow.com/questions/78634235/numpy-dtype-size-changed-may-indicate-binary-incompatibility-expected-96-from
     "pandas>=1.0.0",
     "pyphen>=0.11.0",
     "ftfy>=6.0.3",
@@ -49,7 +49,7 @@ repository = "https://github.com/HLasse/textdescriptives"
 documentation = "https://hlasse.github.io/TextDescriptives/"
 
 [project.optional-dependencies]
-style = ["ruff==0.1.15"]
+style = ["ruff==0.8.3"]
 tests = ["pytest>=7.1.3", "pytest-cov>=3.0.0", "pytest-xdist"]
 docs = [
     "pydantic==2.1",

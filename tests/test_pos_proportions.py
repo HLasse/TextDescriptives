@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import pytest
 import spacy
-import textdescriptives as td  # noqa: F401
 from spacy.tokens import Doc
+
+import textdescriptives as td  # noqa: F401
 
 
 @pytest.fixture(scope="function")

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pytest
 import spacy
+
 import textdescriptives as td
 from textdescriptives.utils import _create_spacy_pipeline, _download_spacy_model
 

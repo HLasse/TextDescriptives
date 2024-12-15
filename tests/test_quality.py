@@ -1,8 +1,10 @@
-""" Tests for the quality module."""
+"""Tests for the quality module."""
+
 from __future__ import annotations
 
 import pytest
 import spacy
+
 import textdescriptives as td
 from textdescriptives.components.quality import (
     alpha_ratio,
