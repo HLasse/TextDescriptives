@@ -64,7 +64,10 @@ def per_word_perplexity_getter(doc: Union[Doc, Span]) -> float:
     else:
         perplexity = perplexity_getter(doc)
 
-    return perplexity / len(doc)
+    len_doc = len(doc)
+    if len_doc:
+        return perplexity / len(doc)
+    return np.nan
 
 
 def set_docspan_extension(
