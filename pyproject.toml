@@ -117,7 +117,7 @@ build_command = "python -m pip install build; python -m build"
 exclude = [".venv", ".env", ".git", "__pycache__"]
 
 [tool.ruff.lint]
-select = ["UP"]
+select = ["UP", "I", "COM"]
 
 [tool.ruff.lint.isort]
 required-imports = ["from __future__ import annotations"]

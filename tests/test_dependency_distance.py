@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 import ftfy
 import numpy as np
 import pytest
 import spacy
 import textdescriptives as td  # noqa: F401
-
 
 from .books import flatland, oliver_twist, secret_garden
 
