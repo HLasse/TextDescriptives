@@ -2,6 +2,69 @@
 
 
 
+## v2.8.3 (2024-12-15)
+
+### Ci
+
+* ci: revert sphinx-notes version ([`051070f`](https://github.com/HLasse/TextDescriptives/commit/051070f0860f0fd7756744b2432cc235a8246204))
+
+* ci: update sphinx-notes/pages ([`d8d9a46`](https://github.com/HLasse/TextDescriptives/commit/d8d9a46892498b710c8c4f40ebb199028b468f5d))
+
+### Documentation
+
+* docs: fix grammar in information theory docs ([`d3ae92c`](https://github.com/HLasse/TextDescriptives/commit/d3ae92c5c8bb606f9892d4d8fcbed17ca8e338f5))
+
+### Fix
+
+* fix: drop official 3.8 support ([`fcac879`](https://github.com/HLasse/TextDescriptives/commit/fcac879bd76ec54b3f072d896d6ddf9a4a311d1f))
+
+### Unknown
+
+* Merge pull request #370 from HLasse/drop-py38
+
+feat: drop official 3.8 support ([`68b4e8f`](https://github.com/HLasse/TextDescriptives/commit/68b4e8fbafc05350a8fe47570a1da6c25b9f7733))
+
+* add back upper bound on numpy ([`e2b6dbb`](https://github.com/HLasse/TextDescriptives/commit/e2b6dbbb5289997a41f2bdf94efe51c7c797994e))
+
+* try without upper bound on numpy ([`ceba40a`](https://github.com/HLasse/TextDescriptives/commit/ceba40a2591b5ffa2507f8b82a7218e680ce06ee))
+
+* lower bound on scipy ([`ebfc531`](https://github.com/HLasse/TextDescriptives/commit/ebfc5315230ed15144dc585beb887174b30d8ef6))
+
+* trying with versions that previously worked ([`2f4b052`](https://github.com/HLasse/TextDescriptives/commit/2f4b05233835528fa95228d01b2136c4bc373ff1))
+
+* fix ([`9bcbad1`](https://github.com/HLasse/TextDescriptives/commit/9bcbad1a39b85ef0b6a8e16408d3c2c0afa0acfd))
+
+* lock python version for docs ci ([`883d129`](https://github.com/HLasse/TextDescriptives/commit/883d1293a0cfe604dc984cca612c8ffe996b4e3d))
+
+* Added upper bound of scipy for tutorials ([`e14251e`](https://github.com/HLasse/TextDescriptives/commit/e14251ecc77fcfd6ab2382a833111e9f346eea9c))
+
+* removed draft pdf ci ([`801245b`](https://github.com/HLasse/TextDescriptives/commit/801245bda1c78e202450c4ea846017700d6b4e69))
+
+* Added requirements for docs ([`bd38afd`](https://github.com/HLasse/TextDescriptives/commit/bd38afd0a8d4f7c6eb9a09ec5622c390552ad965))
+
+* setting upper bound of numpy ([`620a53b`](https://github.com/HLasse/TextDescriptives/commit/620a53b54c0c1267d6ead2bb1e36402a7cdc5cc2))
+
+* Merge pull request #364 from HLasse/HLasse-patch-1
+
+Remove pre-commit ci ([`eb2a66a`](https://github.com/HLasse/TextDescriptives/commit/eb2a66a8e3dfbacb6d70ee618fce78ad642595dd))
+
+* Update .pre-commit-config.yaml ([`1e89f25`](https://github.com/HLasse/TextDescriptives/commit/1e89f255aeca11b92adf297727ebe590a9635e22))
+
+* Merge pull request #361 from HLasse/docs-information-theory
+
+docs: fix grammar in information theory docs ([`88a922a`](https://github.com/HLasse/TextDescriptives/commit/88a922a26dde76c18600cbf8ea26323edce0f291))
+
+* Merge pull request #358 from HLasse/KennethEnevoldsen-patch-1
+
+Update quality_data_classes.py ([`15b7670`](https://github.com/HLasse/TextDescriptives/commit/15b767032afffa54c8535017ab5761138efca32c))
+
+* tests: fix loading of mc4 ([`3d172a8`](https://github.com/HLasse/TextDescriptives/commit/3d172a89e042b3a712876193e78645794483e471))
+
+* tutorials: convert DAGW to markdown ([`1ea3525`](https://github.com/HLasse/TextDescriptives/commit/1ea3525d0e527fd80d4e9c5f4a57292fd0fbd4f2))
+
+* Update quality_data_classes.py ([`703a12f`](https://github.com/HLasse/TextDescriptives/commit/703a12fb1d85aed5097b778532d0fd16f8e4977a))
+
+
 ## v2.8.2 (2024-05-31)
 
 ### Ci
