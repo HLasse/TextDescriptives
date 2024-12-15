@@ -34,7 +34,7 @@ keywords = [
 
 dependencies = [
     "spacy[lookups]>=3.6.0",
-    "numpy>=1.20.0,<2.0.0", # due to https://stackoverflow.com/questions/78634235/numpy-dtype-size-changed-may-indicate-binary-incompatibility-expected-96-from
+    "numpy>=1.20.0,<2.0.0",  # due to https://stackoverflow.com/questions/78634235/numpy-dtype-size-changed-may-indicate-binary-incompatibility-expected-96-from
     "pandas>=1.0.0",
     "pyphen>=0.11.0",
     "ftfy>=6.0.3",
@@ -67,6 +67,7 @@ tutorials = [
     "matplotlib",
     "datasets>=2.8.0",
     "scikit-learn>=1.1.1",
+    "scipy<1.11.0",        # to avoid https://github.com/HLasse/TextDescriptives/actions/runs/12336321785/job/34428711200?pr=370
     "ipython<=8.21.0",
 ]
 sklearn = ["scikit-learn>=1.1.1"]
