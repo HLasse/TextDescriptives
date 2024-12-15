@@ -18,6 +18,10 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 
 keywords = [
@@ -34,7 +38,7 @@ keywords = [
 
 dependencies = [
     "spacy[lookups]>=3.6.0",
-    "numpy>=1.20.0,<2.0.0", # due to https://stackoverflow.com/questions/78634235/numpy-dtype-size-changed-may-indicate-binary-incompatibility-expected-96-from
+    "numpy>=1.20.0,<2.0.0",  # due to https://stackoverflow.com/questions/78634235/numpy-dtype-size-changed-may-indicate-binary-incompatibility-expected-96-from
     "pandas>=1.0.0",
     "pyphen>=0.11.0",
     "ftfy>=6.0.3",
