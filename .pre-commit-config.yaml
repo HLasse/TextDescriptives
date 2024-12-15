@@ -14,10 +14,6 @@ repos:
             "vise", # Ignore the Danish word 'vise'
           ]
 
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.0
-    hooks:
-      - id: pyupgrade
 
   - repo: https://github.com/bwhmather/ssort
     rev: 0.12.4

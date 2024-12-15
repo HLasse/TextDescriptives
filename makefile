@@ -1,6 +1,8 @@
 install:
 	@echo "--- 🚀 Installing project ---"
-	uv sync --extra docs --extra tests --extra style --extra style
+	uv sync --extra docs --extra tests --extra style
+	uv pip install pip
+	uv pip install -r tests/requirements.txt
 
 lint:
 	@echo "--- 🧹 Running linters ---"

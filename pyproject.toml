@@ -115,3 +115,12 @@ build_command = "python -m pip install build; python -m build"
 
 [tool.ruff]
 exclude = [".venv", ".env", ".git", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["UP"]
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

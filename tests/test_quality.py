@@ -138,8 +138,8 @@ def test_symbol_to_word_ratio(text: str, symbol_to_word: float, nlp: spacy.Langu
 )
 def test_duplicate_ngram_chr_fraction(
     text: str,
-    duplicate_ngram: List[float],
-    ngram_range: Tuple[int, int],
+    duplicate_ngram: list[float],
+    ngram_range: tuple[int, int],
     nlp: spacy.Language,
 ):
     """Test the duplicate_ngram_fraction function."""
@@ -166,8 +166,8 @@ def test_duplicate_ngram_chr_fraction(
 )
 def test_top_ngram_chr_fraction(
     text: str,
-    top_ngram_chr_frac: List[float],
-    ngram_range: Tuple[int, int],
+    top_ngram_chr_frac: list[float],
+    ngram_range: tuple[int, int],
     nlp: spacy.Language,
 ):
     """Test the top_ngram_chr_fraction function."""
