@@ -34,26 +34,20 @@ jobs:
           python -m pip install --upgrade pip
           # Assumes the package have the tests extra
           pip install ".[tests]"
-          # if there is a ./tests/requirements.txt file then install it
-          if [ -f ./tests/requirements.txt ]; then
-            pip install -r ./tests/requirements.txt
-          fi
+          pip install -r ./tests/requirements.txt
 
       - name: Run and write pytest
         shell: bash
         run: |
           set -o pipefail
-          pytest --cov=textdescriptives --cov-report term-missing | tee pytest-coverage.txt
+          pytest
 
       - name: Install dependencies for notebooks
         shell: bash
         run: |
           # Assumes the package have the tutorials extra
           pip install ".[tutorials]"
-          # if there is a tutorials requirements.txt file then install it
-          if [ -f ./tests/requirements.txt ]; then
-            pip install -r ./docs/tutorials/requirements.txt
-          fi
+          pip install -r ./docs/tutorials/requirements.txt
 
 
       - name: Convert and run notebooks
@@ -61,12 +55,3 @@ jobs:
         run: |
           jupyter nbconvert --to python ./docs/tutorials/*.ipynb
           for f in docs/tutorials/*.py; do ipython "$f"; done
-
-      - name: Check the output coverage
-        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
-        shell: bash
-        run: |
-          echo "Coverage Report - ${{ steps.coverage-comment.outputs.coverage }}"
-          echo "Coverage Color - ${{ steps.coverage-comment.outputs.color }}"
-
-
