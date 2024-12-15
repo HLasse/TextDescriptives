@@ -11,9 +11,9 @@ import textdescriptives as td  # noqa: F401
 
 @pytest.fixture(scope="function")
 def nlp():
-    nlp = spacy.load("en_core_web_sm")
-    nlp.add_pipe("textdescriptives/coherence")
-    return nlp
+    nlp_en = spacy.load("en_core_web_sm")
+    nlp_en.add_pipe("textdescriptives/coherence")
+    return nlp_en
 
 
 def test_coherence_integration(nlp):
