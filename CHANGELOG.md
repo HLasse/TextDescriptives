@@ -2,6 +2,43 @@
 
 
 
+## v2.8.4 (2024-12-16)
+
+### Ci
+
+* ci: updated ruf ([`4c59bde`](https://github.com/HLasse/TextDescriptives/commit/4c59bde00b8dc327bfbb7ab2c2fae9fcac83dc3b))
+
+* ci: removed pre-commit to only use ruff ([`24e391c`](https://github.com/HLasse/TextDescriptives/commit/24e391cda5669e26dc87115fd4c62052b2c4da7a))
+
+* ci: simplified CI ([`cdeb144`](https://github.com/HLasse/TextDescriptives/commit/cdeb144022c43ba0ef050445ed9d7e4954e1f660))
+
+### Fix
+
+* fix: minor fixes ([`24938bb`](https://github.com/HLasse/TextDescriptives/commit/24938bb7906deb62df962bf2efdbb4be4b9f9b87))
+
+* fix: removed warning when dividing by 0 ([`9530103`](https://github.com/HLasse/TextDescriptives/commit/9530103618c40d4f5cf1db4a6c0b9d9daccf1062))
+
+### Style
+
+* style: format ([`e17a9a6`](https://github.com/HLasse/TextDescriptives/commit/e17a9a61b7dc710d8e42b03c9e50fe69eec19f1a))
+
+### Unknown
+
+* Merge pull request #372 from HLasse/added-pyupgrade
+
+ci: Added pyupgrade to ruff ([`a44ec46`](https://github.com/HLasse/TextDescriptives/commit/a44ec46364f46f23fc8bd95c5cbd6064de3b43ea))
+
+* cI: update lint ci to use uv ([`0019df2`](https://github.com/HLasse/TextDescriptives/commit/0019df210cc937173c6a0befa6d510132a0ead1d))
+
+* Added isort ([`cf596fa`](https://github.com/HLasse/TextDescriptives/commit/cf596faaf8f7b54e6d526b54e89b42ee17146637))
+
+* Added pyupgrade to ruff ([`221e074`](https://github.com/HLasse/TextDescriptives/commit/221e0743ee31c72df1d4e162ee2ec3c3cb4b61eb))
+
+* Merge pull request #371 from HLasse/simplify-ci
+
+ci: simplified CI ([`bb07e1b`](https://github.com/HLasse/TextDescriptives/commit/bb07e1bab00f7eda84be825af85abc84d41e8af4))
+
+
 ## v2.8.3 (2024-12-15)
 
 ### Ci
