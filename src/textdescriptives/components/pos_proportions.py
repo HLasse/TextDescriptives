@@ -1,4 +1,4 @@
-""" Calculation of statistics that require a pos-tagger in the pipeline."""
+"""Calculation of statistics that require a pos-tagger in the pipeline."""
 
 from typing import Callable, Counter, List, Union
 

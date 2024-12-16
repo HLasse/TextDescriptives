@@ -1,4 +1,4 @@
-""" Calculation of various readability metrics."""
+"""Calculation of various readability metrics."""
 
 from typing import Callable, Dict
 

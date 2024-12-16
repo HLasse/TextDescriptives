@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import pytest
 import spacy
+
 import textdescriptives as td  # noqa: F401
 
 

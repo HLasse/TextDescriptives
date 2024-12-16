@@ -1,4 +1,4 @@
-""" Calculation of descriptive statistics."""
+"""Calculation of descriptive statistics."""
 
 from typing import Callable, Dict, Union
 

@@ -1,4 +1,4 @@
-""" Utility functions for calculating various text descriptives."""
+"""Utility functions for calculating various text descriptives."""
 
 from typing import Union
 

@@ -1,4 +1,4 @@
-""" Calculation of statistics related to dependency distance."""
+"""Calculation of statistics related to dependency distance."""
 
 from typing import Callable
 

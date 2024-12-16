@@ -1,21 +1,23 @@
 install:
 	@echo "--- 🚀 Installing project ---"
-	uv sync --extra docs --extra tests --extra style --extra style
+	uv sync --extra docs --extra tests --extra style
+	uv pip install pip
+	uv pip install -r tests/requirements.txt
 
 lint:
 	@echo "--- 🧹 Running linters ---"
-	ruff format . 						            # running ruff formatting
-	ruff check **/*.py --fix						# running ruff linting
+	uv run ruff format . 						            # running ruff formatting
+	uv run ruff check **/*.py --fix						# running ruff linting
 
 lint-check:
 	@echo "--- 🧹 Check is project is linted ---"
-	ruff format . --check						    # running ruff formatting
-	ruff check **/*.py 						        # running ruff linting
+	uv run ruff format . --check						    # running ruff formatting
+	uv run ruff check **/*.py 						        # running ruff linting
 
 test:
 	@echo "--- 🧪 Running tests ---"
 	make install
-	pytest tests/
+	pytest tests/ -n auto
 
 build-docs:
 	@echo "--- 📚 Building docs ---"

@@ -1,16 +1,19 @@
+from __future__ import annotations
+
+import warnings
+
 import numpy as np
 import pytest
 import spacy
 
 import textdescriptives as td  # noqa: F401
-import warnings
 
 
 @pytest.fixture(scope="function")
 def nlp():
-    nlp = spacy.load("en_core_web_sm")
-    nlp.add_pipe("textdescriptives/coherence")
-    return nlp
+    nlp_en = spacy.load("en_core_web_sm")
+    nlp_en.add_pipe("textdescriptives/coherence")
+    return nlp_en
 
 
 def test_coherence_integration(nlp):

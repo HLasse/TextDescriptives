@@ -1,0 +1,31 @@
+# GitHub action to run linting
+
+name: run-linting
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.9
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Lint
+        id: lint
+        run: |
+          make lint-check
+      
