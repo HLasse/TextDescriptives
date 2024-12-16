@@ -282,6 +282,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">textdescriptives.utils</span> <span class="kn">import</span> <span class="n">load_sms_data</span>
+
 <span class="n">df</span> <span class="o">=</span> <span class="n">load_sms_data</span><span class="p">()</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -349,7 +350,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <span class="c1"># to textdescriptives.extract_metrics</span>
 <span class="n">descriptive_stats_extractor</span> <span class="o">=</span> <span class="n">TextDescriptivesFeaturizer</span><span class="p">(</span>
     <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;descriptive_stats&quot;</span><span class="p">]</span>
-    <span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -362,7 +363,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span> 
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">set_config</span>
 
@@ -375,10 +376,9 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
         <span class="p">(</span>
             <span class="s2">&quot;featurizer&quot;</span><span class="p">,</span>
             <span class="n">ColumnTransformer</span><span class="p">(</span>
-                <span class="p">[(</span><span class="s2">&quot;text_processing&quot;</span><span class="p">,</span> <span class="n">descriptive_stats_extractor</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">)]</span>
-            <span class="p">,</span>
-            <span class="c1"># removes the `text_processing__` prefix from feature names</span>
-            <span class="n">verbose_feature_names_out</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+                <span class="p">[(</span><span class="s2">&quot;text_processing&quot;</span><span class="p">,</span> <span class="n">descriptive_stats_extractor</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">)],</span>
+                <span class="c1"># removes the `text_processing__` prefix from feature names</span>
+                <span class="n">verbose_feature_names_out</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">),</span>
         <span class="p">),</span>
         <span class="p">(</span><span class="s2">&quot;imputer&quot;</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;median&quot;</span><span class="p">)),</span>
@@ -401,7 +401,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test accuracy: 0.9426008968609866
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test accuracy: 0.9408071748878923
 </pre></div>
 </div>
 </div>
@@ -410,6 +410,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
 <span class="c1"># extract feature importances</span>
 <span class="n">feature_importance_mapping</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
     <span class="nb">zip</span><span class="p">(</span>
@@ -457,72 +458,72 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
     <tr>
       <th>12</th>
       <td>n_characters</td>
-      <td>0.176060</td>
+      <td>0.173907</td>
     </tr>
     <tr>
       <th>0</th>
       <td>token_length_mean</td>
-      <td>0.146750</td>
+      <td>0.132763</td>
     </tr>
     <tr>
       <th>2</th>
       <td>token_length_std</td>
-      <td>0.130331</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>n_unique_tokens</td>
-      <td>0.101623</td>
+      <td>0.130310</td>
     </tr>
     <tr>
       <th>9</th>
       <td>n_tokens</td>
-      <td>0.084936</td>
+      <td>0.107496</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>sentence_length_std</td>
-      <td>0.059890</td>
+      <th>10</th>
+      <td>n_unique_tokens</td>
+      <td>0.097753</td>
     </tr>
     <tr>
       <th>6</th>
       <td>syllables_per_token_mean</td>
-      <td>0.055473</td>
+      <td>0.056064</td>
     </tr>
     <tr>
       <th>11</th>
       <td>proportion_unique_tokens</td>
-      <td>0.053773</td>
+      <td>0.055359</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>sentence_length_std</td>
+      <td>0.055084</td>
     </tr>
     <tr>
       <th>8</th>
       <td>syllables_per_token_std</td>
-      <td>0.051350</td>
+      <td>0.048417</td>
     </tr>
     <tr>
       <th>3</th>
       <td>sentence_length_mean</td>
-      <td>0.038845</td>
+      <td>0.038307</td>
     </tr>
     <tr>
       <th>4</th>
       <td>sentence_length_median</td>
-      <td>0.034577</td>
+      <td>0.036645</td>
     </tr>
     <tr>
       <th>1</th>
       <td>token_length_median</td>
-      <td>0.032878</td>
+      <td>0.035153</td>
     </tr>
     <tr>
       <th>13</th>
       <td>n_sentences</td>
-      <td>0.031956</td>
+      <td>0.031492</td>
     </tr>
     <tr>
       <th>7</th>
       <td>syllables_per_token_median</td>
-      <td>0.001560</td>
+      <td>0.001250</td>
     </tr>
   </tbody>
 </table>
