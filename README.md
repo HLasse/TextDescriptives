@@ -8,7 +8,6 @@
 [![github actions pytest](https://github.com/hlasse/textdescriptives/actions/workflows/tests.yml/badge.svg)](https://github.com/hlasse/textdescriptives/actions)
 [![github actions docs](https://github.com/hlasse/textdescriptives/actions/workflows/documentation.yml/badge.svg)](https://hlasse.github.io/TextDescriptives/)
 [![status](https://joss.theoj.org/papers/06447337ee61969b5a64de484199df24/status.svg)](https://joss.theoj.org/papers/06447337ee61969b5a64de484199df24)
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://huggingface.co/spaces/HLasse/textdescriptives)
 
 A Python library for calculating a large variety of metrics from text(s) using spaCy v.3 pipeline components and extensions. 
 
@@ -87,7 +86,6 @@ All the tutorials are located in the `docs/tutorials` folder and can also be fou
 | Documentation              |                                                                                    |
 | -------------------------- | ---------------------------------------------------------------------------------- |
 | 📚 **[Getting started]**    | Guides and instructions on how to use TextDescriptives and its features.           |
-| 👩‍💻 **[Demo]**               | A live demo of TextDescriptives.                                                   |
 | 😎 **[Tutorials]**          | Detailed tutorials on how to make the most of TextDescriptives                     |
 | 📰 **[News and changelog]** | New additions, changes and version history.                                        |
 | 🎛 **[API References]**     | The detailed reference for TextDescriptive's API. Including function documentation |
