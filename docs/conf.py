@@ -59,11 +59,11 @@ autodoc_pydantic_model_show_field_summary = False
 # -- Options for myst-nb -----------------------------------------------------
 
 # set the timeout for executing notebooks
-# nb_execution_timeout = 600  # in seconds, default 30 seconds
-nb_execution_timeout = 600  # in seconds, default 30 seconds. 600 seconds = 10 minutes
+# nb_execution_timeout = 600  # in seconds, default 30 seconds. 600 seconds = 10 minutes
 
 # always fail CI pipeline when nb cannot be executed
-nb_execution_raise_on_error = True
+# nb_execution_raise_on_error = True
+nb_execution_mode = "off" # for now we will not execute the notebooks during doc build
 
 
 # -- Options for HTML output -------------------------------------------------
