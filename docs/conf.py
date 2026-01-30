@@ -63,7 +63,7 @@ autodoc_pydantic_model_show_field_summary = False
 
 # always fail CI pipeline when nb cannot be executed
 # nb_execution_raise_on_error = True
-nb_execution_mode = "off" # for now we will not execute the notebooks during doc build
+nb_execution_mode = "off"  # for now we will not execute the notebooks during doc build
 
 
 # -- Options for HTML output -------------------------------------------------
