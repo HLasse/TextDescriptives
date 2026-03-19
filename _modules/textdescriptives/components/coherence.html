@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -175,25 +175,9 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html">Filtering corpora using Quality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#note-that-this-can-take-a-little-while">note that this can take a little while</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#all-of-the-dataset-is-available-in-the-train-split">All of the dataset is available in the train split</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#we-can-take-a-look-at-one-of-the-examples">We can take a look at one of the examples:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#we-can-filter-out-these-three-datasets-based-on-the-source">we can filter out these three datasets based on the “source”</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics">1. Crease a blank spaCy model with a sentencizer as that’s the only component required for the quality metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents">however it might be worth filtering out these documents beforehand for very very long documents.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#add-the-textdescriptives-pipeline">2. Add the textdescriptives pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#apply-the-pipeline-to-the-legal-documents">3. Apply the pipeline to the legal documents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#filter-out-the-documents-that-do-not-pass-the-quality">4. Filter out the documents that do not pass the quality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#first-we-apply-the-pipeline-to-the-other-domains">first we apply the pipeline to the other domains</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#extract-alpha-ratio">extract alpha ratio:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#histogram">histogram</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#add-labels">add labels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#examine-the-first-100-tokens-in-the-first-document">examine the first 100 tokens in the first document</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/sklearn_integration.html">Scikit-learn Integration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../news.html">News and Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Components</span></p>
 <ul>
@@ -242,14 +226,14 @@
         </div>
         <article role="main">
           <h1>Source code for textdescriptives.components.coherence</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
-<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Doc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.language</span><span class="w"> </span><span class="kn">import</span> <span class="n">Language</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.tokens</span><span class="w"> </span><span class="kn">import</span> <span class="n">Doc</span>
 
 
-<span class="k">def</span> <span class="nf">n_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">n_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate coherence for a `Doc` for a given order.</span>
 
 <span class="sd">    Args:</span>
@@ -289,11 +273,11 @@
     <span class="k">return</span> <span class="n">similarities</span>
 
 
-<span class="k">class</span> <span class="nc">Coherence</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Coherence</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Spacy v.3.0 component that adds attributes with coherence to `Doc` and</span>
 <span class="sd">    `Span` objects.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialise component.&quot;&quot;&quot;</span>
         <span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">&quot;first_order_coherence_values&quot;</span><span class="p">,</span>
@@ -305,18 +289,18 @@
                 <span class="n">Doc</span><span class="o">.</span><span class="n">set_extension</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_first_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_first_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate first order coherence for a `Doc`, i.e. the semantic</span>
 <span class="sd">        similarity between consecutive sentences.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">n_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_second_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_second_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate second order coherence for a `Doc`, i.e. the semantic</span>
 <span class="sd">        similarity between sentences that are two sentences apart.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">n_order_coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">coherence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">coherence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate mean semantic coherence for a `Doc` and set the coherence</span>
 <span class="sd">        attribute.</span>
 
@@ -348,7 +332,7 @@
             <span class="p">},</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Doc</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the pipeline component.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coherence</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">doc</span>
@@ -362,7 +346,7 @@
         <span class="s2">&quot;doc._.coherence&quot;</span><span class="p">,</span>
     <span class="p">],</span>
 <span class="p">)</span>
-<span class="k">def</span> <span class="nf">create_coherence_component</span><span class="p">(</span><span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_coherence_component</span><span class="p">(</span><span class="n">nlp</span><span class="p">:</span> <span class="n">Language</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Doc</span><span class="p">],</span> <span class="n">Doc</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Allows Coherence to be added to a spaCy pipe using</span>
 <span class="sd">    nlp.add_pipe(&quot;textdescriptives/coherence&quot;).</span>
 

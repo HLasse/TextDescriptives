@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -175,25 +175,9 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorial.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/introductory_tutorial.html">Introductory Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html">Filtering corpora using Quality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#note-that-this-can-take-a-little-while">note that this can take a little while</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#all-of-the-dataset-is-available-in-the-train-split">All of the dataset is available in the train split</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#we-can-take-a-look-at-one-of-the-examples">We can take a look at one of the examples:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#we-can-filter-out-these-three-datasets-based-on-the-source">we can filter out these three datasets based on the “source”</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics">1. Crease a blank spaCy model with a sentencizer as that’s the only component required for the quality metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents">however it might be worth filtering out these documents beforehand for very very long documents.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#add-the-textdescriptives-pipeline">2. Add the textdescriptives pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#apply-the-pipeline-to-the-legal-documents">3. Apply the pipeline to the legal documents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#filter-out-the-documents-that-do-not-pass-the-quality">4. Filter out the documents that do not pass the quality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#first-we-apply-the-pipeline-to-the-other-domains">first we apply the pipeline to the other domains</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#extract-alpha-ratio">extract alpha ratio:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#histogram">histogram</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#add-labels">add labels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/filter_corpus_using_quality.html#examine-the-first-100-tokens-in-the-first-document">examine the first 100 tokens in the first document</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/sklearn_integration.html">Scikit-learn Integration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../news.html">News and Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Components</span></p>
 <ul>
@@ -244,14 +228,14 @@
           <h1>Source code for textdescriptives.components.quality_data_classes</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Data classes used for the quality component.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">ConfigDict</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigDict</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
 
 <span class="n">Interval</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>
 
 
-<div class="viewcode-block" id="ThresholdsOutput"><a class="viewcode-back" href="../../../quality.html#textdescriptives.components.quality_data_classes.ThresholdsOutput">[docs]</a><span class="k">class</span> <span class="nc">ThresholdsOutput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<div class="viewcode-block" id="ThresholdsOutput"><a class="viewcode-back" href="../../../quality.html#textdescriptives.components.quality_data_classes.ThresholdsOutput">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ThresholdsOutput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An output which contains an three items. 1) a thresholds which is either</span>
 <span class="sd">    an interval or a accepted boolean value. 2) a value which is the value of</span>
 <span class="sd">    the metric. 3) a boolean which is True if the value is within the</span>
@@ -271,7 +255,7 @@
     <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">passed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">passed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return True if the value is within the thresholds.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -284,7 +268,7 @@
             <span class="n">upper</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="n">upper</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__repr_str__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">join_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__repr_str__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">join_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
         <span class="k">return</span> <span class="n">join_str</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span>
@@ -295,13 +279,13 @@
             <span class="p">]</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ThresholdsOutput</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">threshold</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">other</span></div>
 
 
-<div class="viewcode-block" id="QualityThresholds"><a class="viewcode-back" href="../../../quality.html#textdescriptives.components.quality_data_classes.QualityThresholds">[docs]</a><span class="k">class</span> <span class="nc">QualityThresholds</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<div class="viewcode-block" id="QualityThresholds"><a class="viewcode-back" href="../../../quality.html#textdescriptives.components.quality_data_classes.QualityThresholds">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">QualityThresholds</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Thresholds for quality metrics.&quot;&quot;&quot;</span>
 
     <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">extra</span><span class="o">=</span><span class="s2">&quot;forbid&quot;</span><span class="p">)</span>
@@ -403,7 +387,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="QualityOutput"><a class="viewcode-back" href="../../../quality.html#textdescriptives.components.quality_data_classes.QualityOutput">[docs]</a><span class="k">class</span> <span class="nc">QualityOutput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<div class="viewcode-block" id="QualityOutput"><a class="viewcode-back" href="../../../quality.html#textdescriptives.components.quality_data_classes.QualityOutput">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">QualityOutput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The output of the quality function.&quot;&quot;&quot;</span>
 
     <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">extra</span><span class="o">=</span><span class="s2">&quot;forbid&quot;</span><span class="p">)</span>
@@ -466,7 +450,7 @@
     <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">passed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">passed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: Whether all thresholds have been passed.</span>
@@ -489,7 +473,7 @@
 
         <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">i</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">passed_or_none</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__repr_str__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">join_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__repr_str__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">join_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">join_str</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\t</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span>
             <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span>
@@ -498,7 +482,7 @@
             <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__repr_args__</span><span class="p">())</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="QualityOutput.to_flat_value_dict"><a class="viewcode-back" href="../../../quality.html#textdescriptives.components.quality_data_classes.QualityOutput.to_flat_value_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_flat_value_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="QualityOutput.to_flat_value_dict"><a class="viewcode-back" href="../../../quality.html#textdescriptives.components.quality_data_classes.QualityOutput.to_flat_value_dict">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_flat_value_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a flat dictionary representation of the object to allow for</span>
 <span class="sd">        easy easy conversion to a pandas DataFrame.&quot;&quot;&quot;</span>
         <span class="n">flat_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;passed_quality_check&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">passed</span><span class="p">}</span>

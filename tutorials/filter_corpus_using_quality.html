@@ -10,8 +10,8 @@
 <meta property="og:description" content="In many cases if you want to analyse tweets, train a model on text scraped from the web or similar, it is important to filter out low-quality texts. TextDescriptives implements a series of heuristi..." />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
-<meta property="og:image" content="/_images/social_previews/summary_tutorials_filter_corpus_using_quality_faefa34e.png" />
-<meta property="og:image:alt" content="In many cases if you want to analyse tweets, train a model on text scraped from the web or similar, it is important to filter out low-quality texts. TextDesc..." />
+<meta property="og:image" content="_images/social_previews/summary_tutorials_filter_corpus_using_quality_faefa34e.png" />
+<meta property="og:image:alt" content="In many cases if you want to analyse tweets, train a model on text scraped from the web or similar, it is important to filter out low-quality texts. TextDescriptives implements a series of heuristi..." />
 <meta name="description" content="In many cases if you want to analyse tweets, train a model on text scraped from the web or similar, it is important to filter out low-quality texts. TextDescriptives implements a series of heuristi..." />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Scikit-learn Integration" href="sklearn_integration.html" /><link rel="prev" title="Introductory Tutorial" href="introductory_tutorial.html" />
@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -187,25 +187,9 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorial.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introductory_tutorial.html">Introductory Tutorial</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Filtering corpora using Quality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#note-that-this-can-take-a-little-while">note that this can take a little while</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#all-of-the-dataset-is-available-in-the-train-split">All of the dataset is available in the train split</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#we-can-take-a-look-at-one-of-the-examples">We can take a look at one of the examples:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#we-can-filter-out-these-three-datasets-based-on-the-source">we can filter out these three datasets based on the “source”</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics">1. Crease a blank spaCy model with a sentencizer as that’s the only component required for the quality metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents">however it might be worth filtering out these documents beforehand for very very long documents.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#add-the-textdescriptives-pipeline">2. Add the textdescriptives pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#apply-the-pipeline-to-the-legal-documents">3. Apply the pipeline to the legal documents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#filter-out-the-documents-that-do-not-pass-the-quality">4. Filter out the documents that do not pass the quality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#first-we-apply-the-pipeline-to-the-other-domains">first we apply the pipeline to the other domains</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#extract-alpha-ratio">extract alpha ratio:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#histogram">histogram</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#add-labels">add labels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#examine-the-first-100-tokens-in-the-first-document">examine the first 100 tokens in the first document</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sklearn_integration.html">Scikit-learn Integration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../news.html">News and Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Components</span></p>
 <ul>
@@ -272,10 +256,10 @@ your text corpora.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">textdescriptives</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">td</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;textdescriptives[tutorials]&quot;</span>
-    <span class="kn">import</span> <span class="nn">textdescriptives</span> <span class="k">as</span> <span class="nn">td</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">textdescriptives</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">td</span>
 </pre></div>
 </div>
 </div>
@@ -288,7 +272,7 @@ your text corpora.</p>
 <p>For our first example we will filter web content. For this we will use the <a class="reference external" href="https://huggingface.co/datasets/mc4">mC4 dataset</a>. It would take ages to download the whole data so instead we will stream down 1000 samples from the dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dataset</span>
 
 <span class="c1"># stream in the dataset</span>
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span>
@@ -304,7 +288,7 @@ your text corpora.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "a6ccf99d2ba3463791904d1deaddb4e4"}</script><script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "409b6d2c7a674af58671ad012296a362"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/.cache/huggingface/modules/datasets_modules/datasets/mc4/78f7a2b7e2524fa44ee464ef429d011c365f5fe129283869e7fd76856aacb83a/mc4.py:284: FutureWarning: Dataset &#39;mc4&#39; is deprecated and will be deleted. Use &#39;allenai/c4&#39; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/au561649/.cache/huggingface/modules/datasets_modules/datasets/mc4/78f7a2b7e2524fa44ee464ef429d011c365f5fe129283869e7fd76856aacb83a/mc4.py:284: FutureWarning: Dataset &#39;mc4&#39; is deprecated and will be deleted. Use &#39;allenai/c4&#39; instead.
   warnings.warn(
 </pre></div>
 </div>
@@ -330,7 +314,7 @@ Okay so to those of you that were very helpful this is not to you but for those 
 <p>To filter texts using <code class="docutils literal notranslate"><span class="pre">textdescriptives</span></code> we need to first set up the pipeline:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spacy</span>
 
 <span class="c1"># create the spacy nlp pipeline</span>
 <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
@@ -356,9 +340,7 @@ Okay so to those of you that were very helpful this is not to you but for those 
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>docs is type &lt;class &#39;generator&#39;&gt;
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>docs is type &lt;class &#39;list&#39;&gt;
+docs is type &lt;class &#39;list&#39;&gt;
 </pre></div>
 </div>
 </div>
@@ -517,130 +499,266 @@ All the <code class="docutils literal notranslate"><span class="pre">passed</spa
 <h3>Data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h3>
 <p>For this we will use the <a class="reference external" href="https://sprogteknologi.dk/dataset/danish-gigaword">Danish Gigaword</a> available on <a class="reference internal" href="#DDSC/partial-danish-gigaword-no-twitter"><span class="xref myst">Huggingface Datasets</span></a>. For the purpose of this tutorial we will just use a small test version of it containing around 2500 examples, but you could easily change it to use the whole dataset. Danish Gigaword is a large collection of Danish texts collected from a variety of domains.</p>
 <p>We can download the dataset using the following command:</p>
-<section id="note-the-dagw-dataset-is-currently-unavailable-due-to-a-copyright-dispute-the-remainder-of-the-tutorial-has-been-disabled-for-now-converted-to-markdown-and-will-be-re-enabled-once-the-dispute-settles">
-<h4>NOTE: The DAGW dataset is currently unavailable due to a copyright dispute. The remainder of the tutorial has been disabled for now (converted to markdown), and will be re-enabled once the dispute settles.<a class="headerlink" href="#note-the-dagw-dataset-is-currently-unavailable-due-to-a-copyright-dispute-the-remainder-of-the-tutorial-has-been-disabled-for-now-converted-to-markdown-and-will-be-re-enabled-once-the-dispute-settles" title="Permalink to this heading">#</a></h4>
-<p>from datasets import load_dataset</p>
-</section>
-</section>
-</section>
-</section>
-<section id="note-that-this-can-take-a-little-while">
-<h1>note that this can take a little while<a class="headerlink" href="#note-that-this-can-take-a-little-while" title="Permalink to this heading">#</a></h1>
-<p>dataset = load_dataset(“DDSC/partial-danish-gigaword-small-test-sample”)</p>
-</section>
-<section id="all-of-the-dataset-is-available-in-the-train-split">
-<h1>All of the dataset is available in the train split<a class="headerlink" href="#all-of-the-dataset-is-available-in-the-train-split" title="Permalink to this heading">#</a></h1>
-<p>dataset = dataset[“train”]</p>
-</section>
-<section id="we-can-take-a-look-at-one-of-the-examples">
-<h1>We can take a look at one of the examples:<a class="headerlink" href="#we-can-take-a-look-at-one-of-the-examples" title="Permalink to this heading">#</a></h1>
-<p>ten_samples = dataset.select(range(10))
-ten_samples.to_pandas()</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dataset</span>
+
+<span class="c1"># note that this can take a little while</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;DDSC/partial-danish-gigaword-small-test-sample&quot;</span><span class="p">)</span>
+
+<span class="c1"># All of the dataset is available in the train split</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>As previously mentioned, the Danish Gigaword corpus consist of multiple domains. For this tutorial, we will look at three of these domains. <code class="docutils literal notranslate"><span class="pre">retsinformationdk</span></code> which consists of legal documents, <code class="docutils literal notranslate"><span class="pre">hest</span></code> which contains post from a Danish debate forum (<a class="reference external" href="https://www.heste-nettet.dk/">heste-nettet.dk</a>) and <code class="docutils literal notranslate"><span class="pre">spont</span></code> which contains texts transcribed from spontaneous speech.</p>
-</section>
-<section id="we-can-filter-out-these-three-datasets-based-on-the-source">
-<h1>we can filter out these three datasets based on the “source”<a class="headerlink" href="#we-can-filter-out-these-three-datasets-based-on-the-source" title="Permalink to this heading">#</a></h1>
-<p>legal = dataset.filter(lambda x: x[“source”] == “retsinformationdk”, num_proc=1)
-news = dataset.filter(lambda x: x[“source”] == “tv2r”, num_proc=1)
-speech = dataset.filter(lambda x: x[“source”] == “spont”, num_proc=1)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we can filter out these three datasets based on the &quot;source&quot;</span>
+<span class="n">legal</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;retsinformationdk&quot;</span><span class="p">,</span> <span class="n">num_proc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">news</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;tv2r&quot;</span><span class="p">,</span> <span class="n">num_proc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">speech</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;spont&quot;</span><span class="p">,</span> <span class="n">num_proc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>We can now examine these datasets a bit more:</p>
-<p>print(f”Legal contains {len(legal)} examples”)
-print(f”News contains {len(news)} examples”)
-print(f”Speech contains {len(speech)} examples”)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Legal contains </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">legal</span><span class="p">)</span><span class="si">}</span><span class="s2"> examples&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;News contains </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">news</span><span class="p">)</span><span class="si">}</span><span class="s2"> examples&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Speech contains </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">speech</span><span class="p">)</span><span class="si">}</span><span class="s2"> examples&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Legal contains 1000 examples
+News contains 1000 examples
+Speech contains 411 examples
+</pre></div>
+</div>
+</div>
+</div>
 <p>We can for example see that the speech dataset contains notably fewer samples than the others.</p>
+</section>
 <section id="quality-filtering">
-<h2>Quality Filtering<a class="headerlink" href="#quality-filtering" title="Permalink to this heading">#</a></h2>
+<h3>Quality Filtering<a class="headerlink" href="#quality-filtering" title="Permalink to this heading">#</a></h3>
 <p>After we have prepared our datasets we can now start with the quality filtering. Using TextDescriptives, this is extremely simple. We need to do 3 things:</p>
 <ol class="arabic simple">
 <li><p>Create a pipeline</p></li>
 <li><p>Add the quality component to it</p></li>
 <li><p>Apply the pipeline to the dataset</p></li>
 </ol>
-</section>
-</section>
-<section id="crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics">
-<h1>1. Crease a blank spaCy model with a sentencizer as that’s the only component required for the quality metrics<a class="headerlink" href="#crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics" title="Permalink to this heading">#</a></h1>
-<p>nlp = spacy.blank(“da”)
-nlp.add_pipe(“sentencizer”)
-nlp.max_length = (
-2000000  # as some of the documents are quite long we can increase the max length
-)</p>
-</section>
-<section id="however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents">
-<h1>however it might be worth filtering out these documents beforehand for very very long documents.<a class="headerlink" href="#however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents" title="Permalink to this heading">#</a></h1>
-</section>
-<section id="add-the-textdescriptives-pipeline">
-<h1>2. Add the textdescriptives pipeline<a class="headerlink" href="#add-the-textdescriptives-pipeline" title="Permalink to this heading">#</a></h1>
-<p>quality_pipe = nlp.add_pipe(“textdescriptives/quality”)</p>
-</section>
-<section id="apply-the-pipeline-to-the-legal-documents">
-<h1>3. Apply the pipeline to the legal documents<a class="headerlink" href="#apply-the-pipeline-to-the-legal-documents" title="Permalink to this heading">#</a></h1>
-<p>legal_docs = nlp.pipe(legal[“text”])</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Crease a blank spaCy model with a sentencizer as that&#39;s the only component required for the quality metrics</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;da&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;sentencizer&quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">max_length</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="mi">2000000</span>  <span class="c1"># as some of the documents are quite long we can increase the max length</span>
+<span class="p">)</span>
+<span class="c1"># however it might be worth filtering out these documents beforehand for very very long documents.</span>
+
+<span class="c1"># 2. Add the textdescriptives pipeline</span>
+<span class="n">quality_pipe</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;textdescriptives/quality&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Apply the pipeline to the legal documents</span>
+<span class="n">legal_docs</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">legal</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>If we check now we can see that legal_docs is a generator. This can be a quite efficient format, but for now we just want to process all the text so we simply need to convert it to a list:</p>
-<p>legal_docs</p>
-<p>legal_docs = list(legal_docs)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">legal_docs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;generator object Language.pipe at 0x1389e1740&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">legal_docs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">legal_docs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>We can now inspect the output here:</p>
-<p>legal_doc = legal_docs[0]</p>
-<p>print(legal_doc[:100])  # print the first 100 tokens
-print(”—-“)
-print(“This passed the quality filter:”)
-legal_doc._.passed_quality_check</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">legal_doc</span> <span class="o">=</span> <span class="n">legal_docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">legal_doc</span><span class="p">[:</span><span class="mi">100</span><span class="p">])</span>  <span class="c1"># print the first 100 tokens</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This passed the quality filter:&quot;</span><span class="p">)</span>
+<span class="n">legal_doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">passed_quality_check</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Den fulde tekst Pressenævnets kendelse i sag nr. 15-70-00822
+Resumé
+Foreningen for Skånsomt Kystfiskeri har ikke retlig interesse
+DR bragte et radioindslag om Natur- og Erhvervsstyrelsens fiskeriinspektorats fangst af ulovlige ålefælder. Foreningen for Skånsomt Kystfiskeri klagede blandt andet med den begrundelse, at betegnelsen ” ålefælder ” er forkert, idet ålene selv kan svømme ind og ud. Pressenævnet afviser at behandle klagen, da foreningen ikke er omtalt i udsendelsen og derfor ikke har retlig interesse.
+Pressenævnets formand udtaler:
+Det er en betingelse for at klage til Pressenævnet, at
+----
+This passed the quality filter:
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
 <p>Here we see that the text did not pass the quality filter. We can now examine why that using the following code:</p>
-<p>legal_doc._.quality</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">legal_doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">quality</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>QualityOutput(
+	passed=False, 
+	n_stop_words=ThresholdsOutput(value=192.0, passed=True, threshold=(2.0, None)), 
+	alpha_ratio=ThresholdsOutput(value=0.8, passed=True, threshold=(0.7, None)), 
+	mean_word_length=ThresholdsOutput(value=4.55, passed=True, threshold=(3.0, 10.0)), 
+	doc_length=ThresholdsOutput(value=500.0, passed=True, threshold=(10.0, 100000.0)), 
+	symbol_to_word_ratio={&#39;#&#39;: ThresholdsOutput(value=0.0, passed=True, threshold=(None, 0.1))}, 
+	proportion_ellipsis=ThresholdsOutput(value=0.0, passed=True, threshold=(None, 0.3)), 
+	proportion_bullet_points=ThresholdsOutput(value=0.0, passed=True, threshold=(None, 0.8)), 
+	contains={&#39;lorem ipsum&#39;: ThresholdsOutput(value=0.0, passed=True, threshold=False)}, 
+	duplicate_line_chr_fraction=ThresholdsOutput(value=0.26, passed=False, threshold=(None, 0.2)), 
+	duplicate_paragraph_chr_fraction=ThresholdsOutput(value=0.0, passed=True, threshold=(None, 0.2)), 
+	duplicate_ngram_chr_fraction={&#39;5&#39;: ThresholdsOutput(value=0.54, passed=False, threshold=(None, 0.15)), &#39;6&#39;: ThresholdsOutput(value=0.52, passed=False, threshold=(None, 0.14)), &#39;7&#39;: ThresholdsOutput(value=0.52, passed=False, threshold=(None, 0.13)), &#39;8&#39;: ThresholdsOutput(value=0.52, passed=False, threshold=(None, 0.12)), &#39;9&#39;: ThresholdsOutput(value=0.52, passed=False, threshold=(None, 0.11)), &#39;10&#39;: ThresholdsOutput(value=0.52, passed=False, threshold=(None, 0.1))}, 
+	top_ngram_chr_fraction={&#39;2&#39;: ThresholdsOutput(value=0.02, passed=True, threshold=(None, 0.2)), &#39;3&#39;: ThresholdsOutput(value=0.04, passed=True, threshold=(None, 0.18)), &#39;4&#39;: ThresholdsOutput(value=0.07, passed=True, threshold=(None, 0.16))}, 
+	oov_ratio=ThresholdsOutput(value=None, passed=None, threshold=(None, None)))
+</pre></div>
+</div>
+</div>
+</div>
 <p>Here we see that fraction of characters which is a part of a duplicate 10 gram is &gt;50%. This is a reason why the sample was filtered out. This is not uncommon for legal documents which contain a lot of standard phrases. However you might wish to change the threshold for this filter. We showed you have to do this in the previous section. We also see that the <code class="docutils literal notranslate"><span class="pre">alpha_ratio</span></code> is close 0.8. This means that the text is mostly made up of alphabetic characters. This is good, but as we will see later, this is not common for legal texts.</p>
+</section>
 <section id="filtering-out-the-text">
-<h2>Filtering out the text<a class="headerlink" href="#filtering-out-the-text" title="Permalink to this heading">#</a></h2>
+<h3>Filtering out the text<a class="headerlink" href="#filtering-out-the-text" title="Permalink to this heading">#</a></h3>
 <p>Assuming we don’t want to change the filters we can now use it to filter out the texts that we want to keep:</p>
-</section>
-</section>
-<section id="filter-out-the-documents-that-do-not-pass-the-quality">
-<h1>4. Filter out the documents that do not pass the quality<a class="headerlink" href="#filter-out-the-documents-that-do-not-pass-the-quality" title="Permalink to this heading">#</a></h1>
-<p>legal_docs_filtered = [doc for doc in legal_docs if doc._.passed_quality_check]</p>
-<p>print(
-f”We had a total of {len(legal[‘text’])} which we filtered down to {len(legal_docs_filtered)}.”
-)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 4. Filter out the documents that do not pass the quality</span>
+<span class="n">legal_docs_filtered</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">legal_docs</span> <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">passed_quality_check</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;We had a total of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">legal</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> which we filtered down to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">legal_docs_filtered</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>We had a total of 1000 which we filtered down to 264.
+</pre></div>
+</div>
+</div>
+</div>
 <p>That seems like a lot, we should probably check why that is. We can do this by looking at the distribution of the scores of e.g. duplicate 10-gram fraction:</p>
-<p>import seaborn as sns</p>
-<p>def get_duplicate_10_gram_fraction(doc):
-quality = doc._.quality
-duplicate_10_gram_fraction = quality.duplicate_ngram_chr_fraction[“10”]
-return duplicate_10_gram_fraction.value</p>
-<p>duplicate_10_gram_fraction = [get_duplicate_10_gram_fraction(doc) for doc in legal_docs]
-sns.histplot(duplicate_10_gram_fraction)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_duplicate_10_gram_fraction</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+    <span class="n">quality</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">quality</span>
+    <span class="n">duplicate_10_gram_fraction</span> <span class="o">=</span> <span class="n">quality</span><span class="o">.</span><span class="n">duplicate_ngram_chr_fraction</span><span class="p">[</span><span class="s2">&quot;10&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">duplicate_10_gram_fraction</span><span class="o">.</span><span class="n">value</span>
+
+
+<span class="n">duplicate_10_gram_fraction</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_duplicate_10_gram_fraction</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">legal_docs</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">duplicate_10_gram_fraction</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;Count&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/246b851908a5cc9992333518b942d83c46165b9d88901a014db8f76d4c686c55.png" src="../_images/246b851908a5cc9992333518b942d83c46165b9d88901a014db8f76d4c686c55.png" />
+</div>
+</div>
 <p>This seems like it explains a lot of the texts which were filtered out, but does not explain everything. Let us take a look at the <code class="docutils literal notranslate"><span class="pre">alpha_ratio</span></code> (the proportion of words which contains at least one alphabetic character) as well:</p>
-<p>alpha_ratio = [doc._.quality.alpha_ratio.value for doc in legal_docs]
-sns.histplot(alpha_ratio)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alpha_ratio</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">alpha_ratio</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">legal_docs</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">alpha_ratio</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;Count&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/3594780da17ae6e18d9c8febd57e0441a38c22275442eeb7769e1b8c314b0cef.png" src="../_images/3594780da17ae6e18d9c8febd57e0441a38c22275442eeb7769e1b8c314b0cef.png" />
+</div>
+</div>
 <p>We see that most of the text do not pass the <code class="docutils literal notranslate"><span class="pre">alpha_ratio</span></code> threshold of 0.7 or higher. This is not uncommon for legal documents as e.g. the paragraph sign <code class="docutils literal notranslate"><span class="pre">§</span></code> is not an alphabetic character. It might be relevant to change the threshold to 0.7 or lower.</p>
+</section>
 <section id="comparing-across-domains">
-<h2>Comparing across domains<a class="headerlink" href="#comparing-across-domains" title="Permalink to this heading">#</a></h2>
+<h3>Comparing across domains<a class="headerlink" href="#comparing-across-domains" title="Permalink to this heading">#</a></h3>
 <p>We see that legal documents have quite a few perculiarities let us examine how the <code class="docutils literal notranslate"><span class="pre">alpha_ratio</span></code> behaves across different domains:</p>
-</section>
-</section>
-<section id="first-we-apply-the-pipeline-to-the-other-domains">
-<h1>first we apply the pipeline to the other domains<a class="headerlink" href="#first-we-apply-the-pipeline-to-the-other-domains" title="Permalink to this heading">#</a></h1>
-<p>news_docs = nlp.pipe(news[“text”])
-news_docs = list(news_docs)
-speech_docs = nlp.pipe(speech[“text”])
-speech_docs = list(speech_docs)</p>
-</section>
-<section id="extract-alpha-ratio">
-<h1>extract alpha ratio:<a class="headerlink" href="#extract-alpha-ratio" title="Permalink to this heading">#</a></h1>
-<p>news_alpha_ratio = [doc.<em>.quality.alpha_ratio.value for doc in news_docs]
-speech_alpha_ratio = [doc.</em>.quality.alpha_ratio.value for doc in speech_docs]</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first we apply the pipeline to the other domains</span>
+<span class="n">news_docs</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">news</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+<span class="n">news_docs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">news_docs</span><span class="p">)</span>
+<span class="n">speech_docs</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">speech</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+<span class="n">speech_docs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">speech_docs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># extract alpha ratio:</span>
+<span class="n">news_alpha_ratio</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">alpha_ratio</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">news_docs</span><span class="p">]</span>
+<span class="n">speech_alpha_ratio</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">alpha_ratio</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">speech_docs</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>Now that we have the metrics we can plot a histogram comparing the metrics:</p>
-<p>import matplotlib.pyplot as plt</p>
-</section>
-<section id="histogram">
-<h1>histogram<a class="headerlink" href="#histogram" title="Permalink to this heading">#</a></h1>
-<p>sns.histplot(news_alpha_ratio, label=”News”, alpha=0.5, binwidth=0.05)
-sns.histplot(alpha_ratio, label=”Legal”, alpha=0.5, binwidth=0.05)
-sns.histplot(speech_alpha_ratio, label=”Speech”, alpha=0.5, binwidth=0.05)</p>
-</section>
-<section id="add-labels">
-<h1>add labels<a class="headerlink" href="#add-labels" title="Permalink to this heading">#</a></h1>
-<p>plt.xlabel(“Alpha ratio”)
-plt.ylabel(“Count”)
-plt.legend()</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># histogram</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">news_alpha_ratio</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;News&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">binwidth</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">alpha_ratio</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Legal&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">binwidth</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">speech_alpha_ratio</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Speech&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">binwidth</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+
+<span class="c1"># add labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Alpha ratio&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x144545710&gt;
+</pre></div>
+</div>
+<img alt="../_images/34a6aabb1842a66906d37a690fdac2465fdb4578b36dea92ce5a25ff3e252875.png" src="../_images/34a6aabb1842a66906d37a690fdac2465fdb4578b36dea92ce5a25ff3e252875.png" />
+</div>
+</div>
 <p>Here we see a couple of things:</p>
 <ul class="simple">
 <li><p>A fair amount of legal documents have an alpha ratio above 0.6.</p></li>
@@ -648,13 +766,36 @@ plt.legend()</p>
 <li><p>The alpha ratio for the Speech corpus is suspicously low</p></li>
 </ul>
 <p>Let us examine one of the speech samples a bit more in-depth:</p>
-<p>doc = speech_docs[0]</p>
-</section>
-<section id="examine-the-first-100-tokens-in-the-first-document">
-<h1>examine the first 100 tokens in the first document<a class="headerlink" href="#examine-the-first-100-tokens-in-the-first-document" title="Permalink to this heading">#</a></h1>
-<p>print(doc[:100])</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">speech_docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># examine the first 100 tokens in the first document</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">doc</span><span class="p">[:</span><span class="mi">100</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Taler 6: mm
+Taler 7: er du klar?
+Taler 6: ja
+Taler 7: så er spørgsmålet om vi skal- om det er sådan her ja det kunne man godt okay
+Taler 7: okay så det er ignore tab kill og kill tab
+Taler 6: NA
+Taler 6: kill
+Taler 6: kill tab
+Taler 7: super
+Taler 7: okay det er det hun lige har sagt
+Taler 6: ja
+Taler 6: ja
+Taler 6: NA
+</pre></div>
+</div>
+</div>
+</div>
 <p>From this we can see that a high proportion of the tokens in the speech dataset dentoes the speaker such and tokens such as <code class="docutils literal notranslate"><span class="pre">:</span></code> then lower the alpa ratio. This might or might not be problematic for the task at hand.</p>
 <p><strong>Therefore it is important to note that while these filters are useful for filtering large amount of texts it is also important to know that they should be adjusted to the target domain.</strong></p>
+</section>
+</section>
 </section>
 
         </article>
@@ -722,37 +863,14 @@ plt.legend()</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#comparing-domains">Comparing Domains</a><ul>
-<li><a class="reference internal" href="#data">Data</a><ul>
-<li><a class="reference internal" href="#note-the-dagw-dataset-is-currently-unavailable-due-to-a-copyright-dispute-the-remainder-of-the-tutorial-has-been-disabled-for-now-converted-to-markdown-and-will-be-re-enabled-once-the-dispute-settles">NOTE: The DAGW dataset is currently unavailable due to a copyright dispute. The remainder of the tutorial has been disabled for now (converted to markdown), and will be re-enabled once the dispute settles.</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#note-that-this-can-take-a-little-while">note that this can take a little while</a></li>
-<li><a class="reference internal" href="#all-of-the-dataset-is-available-in-the-train-split">All of the dataset is available in the train split</a></li>
-<li><a class="reference internal" href="#we-can-take-a-look-at-one-of-the-examples">We can take a look at one of the examples:</a></li>
-<li><a class="reference internal" href="#we-can-filter-out-these-three-datasets-based-on-the-source">we can filter out these three datasets based on the “source”</a><ul>
+<li><a class="reference internal" href="#data">Data</a></li>
 <li><a class="reference internal" href="#quality-filtering">Quality Filtering</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics">1. Crease a blank spaCy model with a sentencizer as that’s the only component required for the quality metrics</a></li>
-<li><a class="reference internal" href="#however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents">however it might be worth filtering out these documents beforehand for very very long documents.</a></li>
-<li><a class="reference internal" href="#add-the-textdescriptives-pipeline">2. Add the textdescriptives pipeline</a></li>
-<li><a class="reference internal" href="#apply-the-pipeline-to-the-legal-documents">3. Apply the pipeline to the legal documents</a><ul>
 <li><a class="reference internal" href="#filtering-out-the-text">Filtering out the text</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#filter-out-the-documents-that-do-not-pass-the-quality">4. Filter out the documents that do not pass the quality</a><ul>
 <li><a class="reference internal" href="#comparing-across-domains">Comparing across domains</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#first-we-apply-the-pipeline-to-the-other-domains">first we apply the pipeline to the other domains</a></li>
-<li><a class="reference internal" href="#extract-alpha-ratio">extract alpha ratio:</a></li>
-<li><a class="reference internal" href="#histogram">histogram</a></li>
-<li><a class="reference internal" href="#add-labels">add labels</a></li>
-<li><a class="reference internal" href="#examine-the-first-100-tokens-in-the-first-document">examine the first 100 tokens in the first document</a></li>
+</ul>
+</li>
 </ul>
 
           </div>
@@ -772,8 +890,5 @@ plt.legend()</p>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/design-tabs.js"></script>
-    <script type="application/vnd.jupyter.widget-state+json">{"state": {"570754e7423f402bbf62821dd9021e1a": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "4f8f25cfb6f4480d9c3ccd4d74b0f8ae": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "f199508c3d004954ab527e3406b20fdd": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_570754e7423f402bbf62821dd9021e1a", "max": 16026.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_4f8f25cfb6f4480d9c3ccd4d74b0f8ae", "tabbable": null, "tooltip": null, "value": 16026.0}}, "fb4d962328104beba2010341af4d9e0f": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "49b95f3bf54644b09a01a9d80982d139": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "fa711d101aee419b9a5298d66930465c": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_fb4d962328104beba2010341af4d9e0f", "placeholder": "\u200b", "style": "IPY_MODEL_49b95f3bf54644b09a01a9d80982d139", "tabbable": null, "tooltip": null, "value": "README.md:\u2007100%"}}, "3d6dbbb82c8546ab98c638d825ab6357": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "595baf9f1764482cbc51ba81bcbd0e73": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "12819b72b09c408c890331fa6762c61a": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_3d6dbbb82c8546ab98c638d825ab6357", "placeholder": "\u200b", "style": "IPY_MODEL_595baf9f1764482cbc51ba81bcbd0e73", "tabbable": null, "tooltip": null, "value": "\u200716.0k/16.0k\u2007[00:00&lt;00:00,\u20072.13MB/s]"}}, "81d5ba243b6c48e8b68fab4a8055e6d9": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "a6ccf99d2ba3463791904d1deaddb4e4": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_fa711d101aee419b9a5298d66930465c", "IPY_MODEL_f199508c3d004954ab527e3406b20fdd", "IPY_MODEL_12819b72b09c408c890331fa6762c61a"], "layout": "IPY_MODEL_81d5ba243b6c48e8b68fab4a8055e6d9", "tabbable": null, "tooltip": null}}, "76527779e3464d6999c98bc54992a906": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "19366e64b26b4ad49520fa9999c63c65": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "44fb8210cd374a82970718f74022f93c": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_76527779e3464d6999c98bc54992a906", "max": 9675.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_19366e64b26b4ad49520fa9999c63c65", "tabbable": null, "tooltip": null, "value": 9675.0}}, "cb547bda37454babb550a1bfd86672a2": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "6b6bf0cfa2c7486a823c468da475b582": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "be9db3f337494245bd277a6f69e0cd2a": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_cb547bda37454babb550a1bfd86672a2", "placeholder": "\u200b", "style": "IPY_MODEL_6b6bf0cfa2c7486a823c468da475b582", "tabbable": null, "tooltip": null, "value": "mc4.py:\u2007100%"}}, "b9e168f75d2245028a793efef4b520af": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "fd5f2c9ce1b441ad99f9f0d3666e25ba": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "e7bbb88676924fa68f4a2eb93b60c908": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_b9e168f75d2245028a793efef4b520af", "placeholder": "\u200b", "style": "IPY_MODEL_fd5f2c9ce1b441ad99f9f0d3666e25ba", "tabbable": null, "tooltip": null, "value": "\u20079.68k/9.68k\u2007[00:00&lt;00:00,\u20071.66MB/s]"}}, "1416e2056b954fa68753c273e42bed9f": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "409b6d2c7a674af58671ad012296a362": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_be9db3f337494245bd277a6f69e0cd2a", "IPY_MODEL_44fb8210cd374a82970718f74022f93c", "IPY_MODEL_e7bbb88676924fa68f4a2eb93b60c908"], "layout": "IPY_MODEL_1416e2056b954fa68753c273e42bed9f", "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}</script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
     </body>
 </html>

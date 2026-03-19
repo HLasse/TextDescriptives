@@ -10,11 +10,11 @@
 <meta property="og:description" content="In the introductory tutorial tutorial you learned how to use the components and extractors of TextDescriptives and saw how to use them for exploratory data analysis. In this tutorial we will walk t..." />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
-<meta property="og:image" content="/_images/social_previews/summary_tutorials_sklearn_integration_e689bb5e.png" />
-<meta property="og:image:alt" content="In the introductory tutorial tutorial you learned how to use the components and extractors of TextDescriptives and saw how to use them for exploratory data a..." />
+<meta property="og:image" content="_images/social_previews/summary_tutorials_sklearn_integration_e689bb5e.png" />
+<meta property="og:image:alt" content="In the introductory tutorial tutorial you learned how to use the components and extractors of TextDescriptives and saw how to use them for exploratory data analysis. In this tutorial we will walk t..." />
 <meta name="description" content="In the introductory tutorial tutorial you learned how to use the components and extractors of TextDescriptives and saw how to use them for exploratory data analysis. In this tutorial we will walk t..." />
 <meta name="twitter:card" content="summary_large_image" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="News and Changelog" href="../news.html" /><link rel="prev" title="Filtering corpora using Quality" href="filter_corpus_using_quality.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Descriptive Statistics" href="../descriptivestats.html" /><link rel="prev" title="Filtering corpora using Quality" href="filter_corpus_using_quality.html" />
 
     <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
         <title>Scikit-learn Integration - textdescriptives 2.8.4 documentation</title>
@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -187,25 +187,9 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorial.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introductory_tutorial.html">Introductory Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html">Filtering corpora using Quality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#note-that-this-can-take-a-little-while">note that this can take a little while</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#all-of-the-dataset-is-available-in-the-train-split">All of the dataset is available in the train split</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#we-can-take-a-look-at-one-of-the-examples">We can take a look at one of the examples:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#we-can-filter-out-these-three-datasets-based-on-the-source">we can filter out these three datasets based on the “source”</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#crease-a-blank-spacy-model-with-a-sentencizer-as-that-s-the-only-component-required-for-the-quality-metrics">1. Crease a blank spaCy model with a sentencizer as that’s the only component required for the quality metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#however-it-might-be-worth-filtering-out-these-documents-beforehand-for-very-very-long-documents">however it might be worth filtering out these documents beforehand for very very long documents.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#add-the-textdescriptives-pipeline">2. Add the textdescriptives pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#apply-the-pipeline-to-the-legal-documents">3. Apply the pipeline to the legal documents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#filter-out-the-documents-that-do-not-pass-the-quality">4. Filter out the documents that do not pass the quality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#first-we-apply-the-pipeline-to-the-other-domains">first we apply the pipeline to the other domains</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#extract-alpha-ratio">extract alpha ratio:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#histogram">histogram</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#add-labels">add labels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter_corpus_using_quality.html#examine-the-first-100-tokens-in-the-first-document">examine the first 100 tokens in the first document</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Scikit-learn Integration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../news.html">News and Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Components</span></p>
 <ul>
@@ -269,8 +253,8 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">textdescriptives</span>
-    <span class="kn">import</span> <span class="nn">sklearn</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">textdescriptives</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sklearn</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;textdescriptives[tutorials]&quot;</span>
 </pre></div>
@@ -281,7 +265,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <p>Let’s try training a classifier on the SMS data using the <code class="docutils literal notranslate"><span class="pre">descriptive_stats</span></code> feature set as an example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">textdescriptives.utils</span> <span class="kn">import</span> <span class="n">load_sms_data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">textdescriptives.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_sms_data</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">load_sms_data</span><span class="p">()</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -344,7 +328,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <p>Alright, the “message” column contains the text we want to extract metrics from, and the “label” column contains the label. Now, let’s instantiate the featurizer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">textdescriptives.integrations.sklearn_featurizer</span> <span class="kn">import</span> <span class="n">TextDescriptivesFeaturizer</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">textdescriptives.integrations.sklearn_featurizer</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextDescriptivesFeaturizer</span>
 
 <span class="c1"># instantiate the featurizer with the same options as you would pass</span>
 <span class="c1"># to textdescriptives.extract_metrics</span>
@@ -360,12 +344,12 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <p>In the end, we use a RandomForestClassifier as the classifier, divide the data into a training and a test split and train and evaluate the model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">set_config</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.compose</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.impute</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_config</span>
 
 <span class="c1"># This tells sklearn to use pandas dataframes as output which means</span>
 <span class="c1"># it&#39;s easier to access the feature names</span>
@@ -401,7 +385,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test accuracy: 0.9452914798206278
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test accuracy: 0.9417040358744395
 </pre></div>
 </div>
 </div>
@@ -409,7 +393,7 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
 <p>Nice! TextDescriptivesFeaturizer implements the <code class="docutils literal notranslate"><span class="pre">get_features_out</span></code> method, which means the feature names are passed on in the pipeline and allows us to get informative names for e.g. feature importance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># extract feature importances</span>
 <span class="n">feature_importance_mapping</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
@@ -458,72 +442,72 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
     <tr>
       <th>12</th>
       <td>n_characters</td>
-      <td>0.184745</td>
+      <td>0.164520</td>
     </tr>
     <tr>
       <th>0</th>
       <td>token_length_mean</td>
-      <td>0.149782</td>
+      <td>0.147599</td>
     </tr>
     <tr>
       <th>2</th>
       <td>token_length_std</td>
-      <td>0.119453</td>
+      <td>0.129877</td>
     </tr>
     <tr>
       <th>10</th>
       <td>n_unique_tokens</td>
-      <td>0.099166</td>
+      <td>0.119566</td>
     </tr>
     <tr>
       <th>9</th>
       <td>n_tokens</td>
-      <td>0.095011</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>sentence_length_std</td>
-      <td>0.058420</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>proportion_unique_tokens</td>
-      <td>0.051912</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>syllables_per_token_mean</td>
-      <td>0.050768</td>
+      <td>0.085706</td>
     </tr>
     <tr>
       <th>8</th>
       <td>syllables_per_token_std</td>
-      <td>0.047507</td>
+      <td>0.051739</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>sentence_length_median</td>
-      <td>0.038493</td>
+      <th>5</th>
+      <td>sentence_length_std</td>
+      <td>0.051531</td>
     </tr>
     <tr>
-      <th>13</th>
-      <td>n_sentences</td>
-      <td>0.037130</td>
+      <th>11</th>
+      <td>proportion_unique_tokens</td>
+      <td>0.050172</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>syllables_per_token_mean</td>
+      <td>0.050141</td>
     </tr>
     <tr>
       <th>3</th>
       <td>sentence_length_mean</td>
-      <td>0.036220</td>
+      <td>0.040784</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>sentence_length_median</td>
+      <td>0.038514</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>n_sentences</td>
+      <td>0.036295</td>
     </tr>
     <tr>
       <th>1</th>
       <td>token_length_median</td>
-      <td>0.028888</td>
+      <td>0.031954</td>
     </tr>
     <tr>
       <th>7</th>
       <td>syllables_per_token_median</td>
-      <td>0.002505</td>
+      <td>0.001601</td>
     </tr>
   </tbody>
 </table>
@@ -537,12 +521,12 @@ The dataset contains 5572 SMS messages categorized as ham or spam.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../news.html">
+          <a class="next-page" href="../descriptivestats.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">News and Changelog</div>
+                <div class="title">Descriptive Statistics</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
