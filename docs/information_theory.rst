@@ -4,11 +4,12 @@ Information Theory
 The `information_theory` component calculates information theoretic measures derived 
 from the text. These include:
 
-- `{doc/span}._.entropy`: the Shannon entropy of the text using the `token.prob` as the probability
+
+- :code:`{doc/span}._.entropy`: the Shannon entropy of the text using the `token.prob` as the probability
   of each token. Entropy is defined as :math:`H(X) = -\sum_{i=1}^n p(x_i) \log_e p(x_i)`. Where :math:`p(x_i)` is the probability of the token :math:`x_i`.
-- `{doc/span}._.perplexity`: the perplexity of the text. Perplexity is a measurement of how well a
+- :code:`{doc/span}._.perplexity`: the perplexity of the text. Perplexity is a measurement of how well a
   probability distribution or probability model predicts a sample. Perplexity is defined as :math:`PPL(X) = e^{-H(X)}`, where :math:`H(X)` is the entropy of the text.
-- `{doc/span}._.per_word_perplexity`: The perplexity of the text, divided by the number of words. Can be considered the length-normalized perplexity.
+- :code:`{doc/span}._.per_word_perplexity`: The perplexity of the text, divided by the number of words. Can be considered the length-normalized perplexity.
 
 These information theoretic measures are for example often used to describe the complexity of a text. 
 The higher the entropy, the more complex the text is.

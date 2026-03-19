@@ -17,7 +17,6 @@ classifiers = [
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -57,7 +56,7 @@ style = ["ruff==0.8.3"]
 tests = ["pytest>=7.1.3", "pytest-cov>=3.0.0", "pytest-xdist"]
 docs = [
     "pydantic==2.1",
-    "sphinx>=5.3.0",
+    "sphinx==6.2.1",
     "furo==2022.12.7",
     "sphinx-copybutton>=0.5.1",
     "sphinxext-opengraph>=0.7.3",
@@ -69,7 +68,7 @@ tutorials = [
     "jupyter",
     "seaborn==0.13.2",
     "matplotlib",
-    "datasets>=2.8.0",
+    "datasets>=2.8.0,<3.6.0", # to allow downloading 
     "scikit-learn>=1.1.1",
     "scipy>=1.13.1",       # to avoid https://github.com/HLasse/TextDescriptives/actions/runs/12336321785/job/34428711200?pr=370
     "ipython<=8.21.0",

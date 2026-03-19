@@ -1,6 +1,6 @@
 install:
 	@echo "--- 🚀 Installing project ---"
-	uv sync --extra docs --extra tests --extra style
+	uv sync --extra docs --extra tests --extra style --extra tutorials
 	uv pip install pip
 	uv pip install -r tests/requirements.txt
 
@@ -26,5 +26,5 @@ build-docs:
 
 view-docs:
 	@echo "--- 👀 Viewing docs ---"
-	@echo You might need to rebuild the docs first"
+	@echo "You might need to rebuild the docs first"
 	open docs/_build/html/index.html
