@@ -269,7 +269,7 @@
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch%E2%80%93Kincaid_grade_level">Flesch-Kincaid grade</a>, is a readability metric that estimates the grade level needed to comprehend a text. It is based on the average sentence length and average number of syllables per word. The formula is:</p>
 <blockquote>
 <div><p><em>Flesch-Kincaid Grade = 0.39 × (ASL) + 11.8 × (ASW) - 15.59</em></p>
-<p>Note: requires hyphenation.</p>
+<p>Note: requires hyphenation. Also note that some other tools include punctuations as a word in the Flesch-Kincaid grade calculation which leads to different scores. We believe this is not the intended behavior and only include tokens that are not punctuation in the calculation. Be sure to use the same tool if comparing scores.</p>
 </div></blockquote>
 </li>
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Automated_readability_index">Automated readability index</a>, is a readability test that calculates an approximate U.S. grade level needed to understand a text. It is based on the average number of characters per word and the average sentence length. The formula is:</p>
