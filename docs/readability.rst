@@ -35,7 +35,7 @@ The *readability* component adds the following readabiltiy metrics under the :co
 
     *Flesch-Kincaid Grade = 0.39 × (ASL) + 11.8 × (ASW) - 15.59*
 
-    Note: requires hyphenation. Also note that other tools include punctuations in the Flesch-Kincaid grade calculation which lead to different scores. We believe this is not the intended behavior and only include tokens that are not punctuation in the calculation. 
+    Note: requires hyphenation. Also note that some other tools include punctuations as a word in the Flesch-Kincaid grade calculation which leads to different scores. We believe this is not the intended behavior and only include tokens that are not punctuation in the calculation. Be sure to use the same tool if comparing scores.
 
 * `Automated readability index <https://en.wikipedia.org/wiki/Automated_readability_index>`__, is a readability test that calculates an approximate U.S. grade level needed to understand a text. It is based on the average number of characters per word and the average sentence length. The formula is:
 
